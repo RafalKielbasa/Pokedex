@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Navmenu from './components/Global/Navmenu';
+import { ThemeProvider, createTheme, createMuiTheme} from '@mui/material'
+import MainPage from './components/MainPage/MainPage'
+import { BrowserRouter, createBrowserRouter, createRoutesFromElements, Route, RouterProvider, Routes } from 'react-router-dom';
+import RootLayout from './components/layouts/RootLayout'
+import { ThemeContext } from './components/Global/ThemeContext';
+import LogIn from './components/AccountPages/LogIn';
+import UserPage from './components/AccountPages/UserPage';
+import LoginWrapper from './components/AccountPages/LoginWrapper';
 
-function App() {
-  const [count, setCount] = useState(0)
+const theme = createTheme({
+palette: {
+  primary: {
+    main: '#FECA1E',
+    second: '#272D34'
+  }
+}
+})
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={ <RootLayout />}>
+    <Route index element={ <MainPage />} />
+    <Route path="/account" element={<LoginWrapper />} />
+    {/* <Route path="/user" element={<UserPage/>} /> */}
+    {/* <Route path="/docs" element={<MainDashboard />} loader={pokemonDataLoader} /> */}
+    </Route>
   )
+)
+function App() {
+  return (
+
+
+<ThemeProvider theme={theme}>
+<ThemeContext.Provider value={theme}>
+<RouterProvider router={router} />
+</ThemeContext.Provider>
+</ThemeProvider>
+
+  );
 }
 
-export default App
+export default App;
