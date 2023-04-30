@@ -1,5 +1,6 @@
 import { SnackbarProvider } from "notistack";
 import { NavigationBar, NavigationContainer } from "./Navigation";
+import { Searcher } from "./Pages/components";
 function App() {
   return (
     <SnackbarProvider>
@@ -8,7 +9,7 @@ function App() {
           <NavigationBar />
         </NavigationContainer>
         <div className="HomePage">
-          <input></input>
+          <Searcher />
           <div className="RowForcards">
             <span className="card">CARD 1</span>
             <span className="card">CARD 2</span>
