@@ -57,7 +57,9 @@ function ResponsiveAppBar() {
                   color: "yellow",
                 }}
               >
-                <h1>POKEDEX</h1>
+                <Link to={"/Home"}>
+                  <p>POKEDEX</p>
+                </Link>
               </Typography>
             </Box>
             <Box
@@ -75,7 +77,7 @@ function ResponsiveAppBar() {
                 onClick={handleOpenNavMenu}
                 color="inherit"
               >
-                <MenuIcon />
+                <MenuIcon fontSize="large" />
               </IconButton>
               <Menu
                 id="menu-appbar"
