@@ -12,6 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
 import { Link } from "react-router-dom";
+import { Padding } from "@mui/icons-material";
 
 const pages = ["Ulubione", "Arena", "Logowanie", "Rejestracja"];
 const settings = ["Edycja", "Wyloguj"];
@@ -98,7 +99,11 @@ function ResponsiveAppBar() {
                 }}
               >
                 {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <MenuItem
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{ backgroundColor: "blue" }}
+                  >
                     <Link to={`/${page}`}>
                       <h2>{page}</h2>
                     </Link>
@@ -177,7 +182,11 @@ function ResponsiveAppBar() {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <MenuItem
+                    key={setting}
+                    onClick={handleCloseUserMenu}
+                    sx={{ backgroundColor: "blue" }}
+                  >
                     <Typography textAlign="center">
                       <Link to={`/${setting}`}>
                         <p>{setting}</p>
