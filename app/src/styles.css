@@ -1,0 +1,22 @@
+@font-face {
+  font-family: "MyFont";
+  src: url("/public/Pokemon\ Hollow.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: "MyFont", sans-serif;
+  text-decoration: none;
+  color: white;
+}
+
+p {
+  font-size: 30px;
+  color: yellow;
+}
+
+h1,
+h2 {
+  color: yellow;
+}
