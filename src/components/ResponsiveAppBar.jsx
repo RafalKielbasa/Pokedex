@@ -58,7 +58,7 @@ function ResponsiveAppBar() {
                   color: "yellow",
                 }}
               >
-                <Link to={"/Home"}>
+                <Link to={"/"}>
                   <p>POKEDEX</p>
                 </Link>
               </Typography>
@@ -127,7 +127,7 @@ function ResponsiveAppBar() {
                 textDecoration: "none",
               }}
             >
-              <Link to={"/Home"}>
+              <Link to={"/"}>
                 <p>POKEDEX</p>
               </Link>
             </Typography>
