@@ -1,38 +1,135 @@
 import * as React from "react";
+import styled from "styled-components";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+const HoverCard = styled.span`
+  :hover {
+    transform: translate3D(0, -1px, 0) scale(1.03);
+  }
+`;
 
-const PokemonCard = () => {
+const PokemonCard = ({ url, title, height, baseExperience, weight, ability }) => {
   return (
-    <Card
-      sx={{
-        display: "inline-block",
-        width: 345,
-      }}
-    >
-      <CardMedia
-        sx={{ height: 140 }}
-        image="/static/images/cards/contemplative-reptile.jpg"
-        title="green iguana"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Lizard
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-          across all continents except Antarctica
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
+    <HoverCard>
+      <Card
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          width: 220,
+          background: "lightgrey",
+        }}
+      >
+        <CardMedia
+          sx={{
+            width: 200,
+            height: 200,
+          }}
+          image={url}
+          title={title}
+        />
+        <CardContent
+          sx={{
+            padding: "0px",
+          }}
+        >
+          <Typography
+            gutterBottom
+            variant="h6"
+            component="div"
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontWeight: "bold",
+            }}
+          >
+            {title}
+          </Typography>
+          <Typography
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "30px",
+            }}
+          >
+            <Typography
+              variant="h7"
+              color="text.primary"
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="body2" color="text.secondary" sx={{ fontSize: "11px" }}>
+                {height}
+              </Typography>
+              <Typography
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: "12px",
+                  marginBottom: "10px",
+                }}
+              >
+                Height
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ fontSize: "11px" }}>
+                {weight}
+              </Typography>
+              <Typography
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: "12px",
+                }}
+              >
+                Weight
+              </Typography>
+            </Typography>
+            <Typography
+              variant="h7"
+              color="text.primary"
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                fontWeight: "bold",
+                fontSize: "12px",
+              }}
+            >
+              <Typography variant="body2" color="text.secondary" sx={{ fontSize: "11px" }}>
+                {baseExperience}
+              </Typography>
+              <Typography
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: "12px",
+                  marginBottom: "10px",
+                }}
+              >
+                Base Experience
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ fontSize: "11px" }}>
+                {ability}
+              </Typography>
+              <Typography
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: "12px",
+                }}
+              >
+                Ability
+              </Typography>
+            </Typography>
+          </Typography>
+        </CardContent>
+      </Card>
+    </HoverCard>
   );
 };
 
