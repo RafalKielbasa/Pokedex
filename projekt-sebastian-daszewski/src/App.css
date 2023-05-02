@@ -1,0 +1,12 @@
+.buttons {
+  display: flex;
+  flex-direction: wrap;
+justify-content: end;
+  margin-right: 100px;
+}
+
+.search {
+  display: flex;
+justify-content: center;
+align-items: center;
+}
