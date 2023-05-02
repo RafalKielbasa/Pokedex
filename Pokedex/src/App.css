@@ -1,42 +1,102 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.MuiLinearProgress-bar-custom {
+  background-color: red;
+}
+[class*="water"] {
+  background-color: #609FB5;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+[class*="rock"] {
+  background-color: #a6aab6;
 }
 
-.card {
-  padding: 2em;
+[class*="grass"] {
+  background-color: #48D0B0;
+}
+[class*="fire"] {
+  background-color: #FB6C6C;
+}
+[class*="shadow"] {
+  background-color: #29292c;
+}
+[class*="fairy"] {
+  background-color: #d31c81;
+}
+[class*="electric"] {
+  background-color: #FFD86F;
+}
+[class*="dragon"] {
+  background-color: #F9BE00;
+}
+[class*="bug"] {
+  background-color: #6e1a00;
+}
+[class*="flying"] {
+  background-color: #5d4e75;
+}
+[class*="normal"] {
+  background-color: #753845;
+}
+[class*="poison"] {
+  background-color: #7C538C;
+}
+[class*="fighting"] {
+  background-color: #634136;
+}
+[class*="psychic"] {
+  background-color: #c90086;
+}
+[class*="ground"] {
+  background-color: #B1736C;
+}
+[class*="flying"] {
+  background-color: #5d4e75;
+}
+[class*="ghost"] {
+  background-color: #4d5b64;
 }
 
-.read-the-docs {
-  color: #888;
+
+
+
+
+
+[class*="inner"] {
+  position: relative;
+
+  transform-style: preserve-3d;
+  transition: 0.6s cubic-bezier(0.38, 0.02, 0.09, 1.66) all;
+  transform: rotateY(180deg);
+}
+
+/* .pokemon-card .front,
+.pokemon-card .back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+} */
+
+[class*="front"] {
+  background: #fff;
+  transform: rotateY(180deg);
 }

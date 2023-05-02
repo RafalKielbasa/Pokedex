@@ -7,6 +7,7 @@ import { ThemeContext } from './components/Global/ThemeContext';
 import LogIn from './components/AccountPages/LogIn';
 import UserPage from './components/AccountPages/UserPage';
 import LoginWrapper from './components/AccountPages/LoginWrapper';
+import { FavoriteProvider } from "./components/Global/ThemeContext";
 
 const theme = createTheme({
 palette: {
@@ -33,7 +34,9 @@ function App() {
 
 <ThemeProvider theme={theme}>
 <ThemeContext.Provider value={theme}>
+<FavoriteProvider> 
 <RouterProvider router={router} />
+</FavoriteProvider>
 </ThemeContext.Provider>
 </ThemeProvider>
 
