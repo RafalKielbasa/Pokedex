@@ -4,3 +4,9 @@
   align-items: center;
   min-height: 100vh;
 }
+
+.loader {
+  display: flex;
+  justify-content: center;
+  margin-top: 150px;
+}

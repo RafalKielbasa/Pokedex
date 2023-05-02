@@ -65,7 +65,14 @@ export const MainPage = () => {
     }
   );
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="loader">
+        <div class="ui active inverted dimmer">
+          <div class="ui large text loader">Loading</div>
+        </div>
+      </div>
+    );
   if (error) return <div>error !</div>;
 
   return (

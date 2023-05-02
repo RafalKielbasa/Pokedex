@@ -2,16 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Dropdown } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
+import pokeLogo from "../images/poke.png";
 
 export const Navbar = () => {
   return (
     <div>
-      <div
-        class="ui huge menu"
-        style={{
-          backgroundColor: "papayawhip",
-        }}
-      >
+      <div class="ui huge menu">
+        <img
+          src={pokeLogo}
+          alt="poke"
+          style={{ width: "50px", height: "50px" }}
+        />
         <Link to="/" class="active item">
           Home
         </Link>
@@ -28,6 +29,15 @@ export const Navbar = () => {
             </div>
           </div>
           <div class="item">
+            <a
+              href="https://github.com/mr-fox93"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="github icon" /> mr-fox93
+            </a>
+          </div>
+          <div class="item">
             <div class="ui primary button">Sign Up</div>
           </div>
         </div>
@@ -37,3 +47,4 @@ export const Navbar = () => {
 };
 
 //<Link to="/favorites">Go to favorites</Link>;
+//<i class="github icon">mr-fox93</i>
