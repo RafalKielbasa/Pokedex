@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Box, Button, ButtonGroup, IconButton } from "@mui/material";
+import { Box, Button, ButtonGroup } from "@mui/material";
 import PokedexLogo from "../images/PokedexLogo.png";
 
 export default function NavBar({ loginState }) {
@@ -12,16 +12,64 @@ export default function NavBar({ loginState }) {
         flexWrap: "wrap",
       }}
     >
-      <Button onClick={navigate("/")}>
-        <img src={PokedexLogo} height="60px" width="120px" />
+      <Button
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        <img src={PokedexLogo} alt="pokedex-logo" height="60px" width="120px" />
       </Button>
       <ButtonGroup variant="text">
-        <Button>Ulubione</Button>
-        <Button>Arena</Button>
-        {!loginState && <Button>Logowanie</Button>}
-        {!loginState && <Button>Rejestracja</Button>}
-        {loginState && <Button>Edycja</Button>}
-        {loginState && <Button>Wyloguj</Button>}
+        <Button
+          onClick={() => {
+            navigate("/favorites");
+          }}
+        >
+          Ulubione
+        </Button>
+        <Button
+          onClick={() => {
+            navigate("/arena");
+          }}
+        >
+          Arena
+        </Button>
+        {!loginState && (
+          <Button
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            Logowanie
+          </Button>
+        )}
+        {!loginState && (
+          <Button
+            onClick={() => {
+              navigate("/register");
+            }}
+          >
+            Rejestracja
+          </Button>
+        )}
+        {loginState && (
+          <Button
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Edycja
+          </Button>
+        )}
+        {loginState && (
+          <Button
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Wyloguj
+          </Button>
+        )}
       </ButtonGroup>
       <Box
         sx={{

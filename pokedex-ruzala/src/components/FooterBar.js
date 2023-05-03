@@ -5,12 +5,13 @@ export default function FooterBar() {
     <Box
       sx={{
         display: "flex",
-        backgroundColor: "primary.light",
+        flexDirection: "column",
         textAlign: "center",
         width: "100%",
+        height: "5%",
       }}
     >
-      Footer
+      <Box sx={{ height: "5%", backgroundColor: "primary.light" }} />
     </Box>
   );
 }

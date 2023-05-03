@@ -16,7 +16,18 @@ export default function MainLayout() {
       }}
     >
       <NavBar loginState={loginState} />
-      <Outlet />
+      <Box
+        id="middle_section"
+        sx={{
+          display: "flex",
+          height: "100%",
+          width: "90%",
+          backgroundColor: "primary.light",
+          alignSelf: "center",
+        }}
+      >
+        <Outlet />
+      </Box>
       <FooterBar />
     </Box>
   );
