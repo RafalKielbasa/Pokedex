@@ -8,10 +8,10 @@ const Container = styled.div`
   margin-bottom: 30px;
 `;
 
-const Searcher = () => {
+const Searcher = ({ handleSearcherChange }) => {
   return (
     <Container>
-      <TextField id="Searcher" placeholder="Search" />
+      <TextField id="Searcher" placeholder="Search" type="text" onChange={handleSearcherChange} />
     </Container>
   );
 };

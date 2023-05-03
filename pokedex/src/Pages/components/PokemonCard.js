@@ -50,6 +50,7 @@ const PokemonCard = ({ url, title, height, baseExperience, weight, ability }) =>
             {title}
           </Typography>
           <Typography
+            component="div"
             sx={{
               display: "flex",
               flexDirection: "row",
