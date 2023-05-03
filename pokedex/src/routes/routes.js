@@ -1,7 +1,15 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import MainPage from "src/MainPage";
-import { HomePage, ArenaPage, LogInPage, RegisterPage, EditPage, DetailedPage } from "src/Pages";
+import {
+  HomePage,
+  ArenaPage,
+  LogInPage,
+  RegisterPage,
+  EditPage,
+  DetailedPage,
+  FavouritesPage,
+} from "src/Pages";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +25,10 @@ export const router = createBrowserRouter([
             element: <DetailedPage />,
           },
         ],
+      },
+      {
+        path: "favourites",
+        element: <FavouritesPage />,
       },
       {
         path: "arena",

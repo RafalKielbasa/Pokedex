@@ -9,6 +9,7 @@ const NavBarRow = styled.div`
 const NavigationBar = () => {
   return (
     <NavBarRow>
+      <Link to="favourites"> Ulubione</Link>
       <Link to="arena"> Arena</Link>
       <Link to="logIn"> Logowanie</Link>
       <Link to="register"> Rejestracja</Link>
