@@ -31,28 +31,32 @@ const Favorites = () => {
           margin: "10px",
         }}
       >
-        {favorites.map((item, index) => (
-          <Main key={index} type={item?.types[0].type.name}>
-            <img
-              style={{ width: "150px", height: "150px" }}
-              src={item?.sprites.other.dream_world.front_default}
-              alt="pokemon"
-            />
-            <p
-              style={{
-                fontSize: "20px",
-              }}
-            >
-              #{item?.id}
-            </p>
-            <p>Name: {item?.name.toUpperCase()}</p>
-            <p>Type: {item?.types[0].type.name}</p>
-            <p>
-              {" "}
-              <Icon name="heart icon" />: {item?.stats[0].base_stat}
-            </p>
-          </Main>
-        ))}
+        {favorites.length === 0 ? (
+          <div>No Favorites here</div>
+        ) : (
+          favorites.map((item, index) => (
+            <Main key={index} type={item?.types[0].type.name}>
+              <img
+                style={{ width: "150px", height: "150px" }}
+                src={item?.sprites.other.dream_world.front_default}
+                alt="pokemon"
+              />
+              <p
+                style={{
+                  fontSize: "20px",
+                }}
+              >
+                #{item?.id}
+              </p>
+              <p>Name: {item?.name.toUpperCase()}</p>
+              <p>Type: {item?.types[0].type.name}</p>
+              <p>
+                {" "}
+                <Icon name="heart icon" />: {item?.stats[0].base_stat}
+              </p>
+            </Main>
+          ))
+        )}
       </span>
     </>
   );

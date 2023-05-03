@@ -3,7 +3,8 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 import { Icon } from "semantic-ui-react";
 import { useFavorites } from "../FavoritesContext";
-import { Link } from "react-router-dom";
+import { ThemeContext } from "./ThemeContext";
+import { useContext } from "react";
 import "./MainPage.css";
 
 export const typeColor = (type) => {
@@ -49,6 +50,8 @@ export const MainPage = () => {
 
   const { addFavorite } = useFavorites();
 
+  const { theme } = useContext(ThemeContext);
+
   const handleClick = () => {
     const number = Math.floor(Math.random() * 100);
     setNumber(number);
@@ -76,7 +79,12 @@ export const MainPage = () => {
   if (error) return <div>error !</div>;
 
   return (
-    <div className="container">
+    <div
+      className="container"
+      style={{
+        backgroundColor: theme ? "grey" : "white",
+      }}
+    >
       <Main type={data?.types[0].type.name}>
         <img
           style={{ width: "150px", height: "150px" }}

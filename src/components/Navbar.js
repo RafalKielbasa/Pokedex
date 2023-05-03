@@ -1,18 +1,38 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Dropdown } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
-import pokeLogo from "../images/poke.png";
+import pokeLogo from "../images/pokepoke.png";
+import { ThemeContext } from "./ThemeContext";
+import { ThemeToggleButton } from "./ThemeToggleButton";
 
 export const Navbar = () => {
+  const { theme, setTheme } = useContext(ThemeContext);
+
+  const toggleTheme = () => {
+    setTheme(!theme);
+  };
+
   return (
     <div>
-      <div class="ui huge menu">
+      <div
+        class="ui standard menu"
+        style={{
+          backgroundColor: theme ? "grey" : "white",
+          borderRadius: "0px",
+        }}
+      >
         <img
           src={pokeLogo}
           alt="poke"
-          style={{ width: "50px", height: "50px" }}
+          className="custom-logo"
+          style={{
+            width: "150px",
+            height: "100px",
+            marginRight: "10px",
+            backgroundColor: theme ? "grey" : "white",
+          }}
         />
+
         <Link to="/" class="active item">
           Home
         </Link>
@@ -29,7 +49,11 @@ export const Navbar = () => {
             </div>
           </div>
           <div class="item">
+            <div class="item">
+              <ThemeToggleButton onChange={toggleTheme} checked={theme} />
+            </div>
             <a
+              style={{ fontWeight: "bold" }}
               href="https://github.com/mr-fox93"
               target="_blank"
               rel="noopener noreferrer"
@@ -45,6 +69,3 @@ export const Navbar = () => {
     </div>
   );
 };
-
-//<Link to="/favorites">Go to favorites</Link>;
-//<i class="github icon">mr-fox93</i>
