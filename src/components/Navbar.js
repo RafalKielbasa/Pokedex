@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
-import pokeLogo from "../images/pokepoke.png";
+import pokeLogo from "../images/poke.png";
 import { ThemeContext } from "./ThemeContext";
 import { ThemeToggleButton } from "./ThemeToggleButton";
 
@@ -17,7 +17,8 @@ export const Navbar = () => {
       <div
         class="ui standard menu"
         style={{
-          backgroundColor: theme ? "grey" : "white",
+          backgroundColor: theme ? "black" : "white",
+          color: theme ? "white" : "black",
           borderRadius: "0px",
         }}
       >
@@ -26,34 +27,35 @@ export const Navbar = () => {
           alt="poke"
           className="custom-logo"
           style={{
-            width: "150px",
+            width: "100px",
             height: "100px",
             marginRight: "10px",
-            backgroundColor: theme ? "grey" : "white",
+            backgroundColor: theme ? "black" : "white",
           }}
         />
 
-        <Link to="/" class="active item">
+        <Link
+          style={{ color: theme ? "white" : "black" }}
+          to="/"
+          class="active item"
+        >
           Home
         </Link>
-        <Link to="/favorites" class="item">
+        <Link
+          style={{ color: theme ? "white" : "black" }}
+          to="/favorites"
+          class="item"
+        >
           Favorites
         </Link>
+
         <div class="right menu">
-          <div class="ui dropdown item">
-            Language <i class="dropdown icon"></i>
-            <div class="menu">
-              <a class="item">English</a>
-              <a class="item">Russian</a>
-              <a class="item">Spanish</a>
-            </div>
-          </div>
           <div class="item">
             <div class="item">
               <ThemeToggleButton onChange={toggleTheme} checked={theme} />
             </div>
             <a
-              style={{ fontWeight: "bold" }}
+              style={{ fontWeight: "bold", fontSize: "20px" }}
               href="https://github.com/mr-fox93"
               target="_blank"
               rel="noopener noreferrer"
@@ -62,7 +64,9 @@ export const Navbar = () => {
             </a>
           </div>
           <div class="item">
-            <div class="ui primary button">Sign Up</div>
+            <Link to="/login" class="ui primary button">
+              Sign Up
+            </Link>
           </div>
         </div>
       </div>

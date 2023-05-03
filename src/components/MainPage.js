@@ -82,7 +82,7 @@ export const MainPage = () => {
     <div
       className="container"
       style={{
-        backgroundColor: theme ? "grey" : "white",
+        backgroundColor: theme ? "black" : "white",
       }}
     >
       <Main type={data?.types[0].type.name}>
