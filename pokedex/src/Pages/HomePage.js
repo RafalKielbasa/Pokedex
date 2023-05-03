@@ -4,7 +4,7 @@ import { useQuery, useQueries } from "@tanstack/react-query";
 import { fetchData, fetchPokemonData, fetchDataToFilter } from "src/api";
 import { MyPagination, PokemonCard, PokemonCardContainer, Searcher } from "./components";
 
-const MainPage = () => {
+const HomePage = () => {
   const [page, setPage] = useState(1);
   const [searchedValue, setSearchedValue] = useState("");
   const [CreateComponentData, setCreateComponentData] = useState(null);
@@ -79,4 +79,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default HomePage;

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 const NavBarRow = styled.div`
   display: flex;
@@ -8,11 +9,11 @@ const NavBarRow = styled.div`
 const NavigationBar = () => {
   return (
     <NavBarRow>
-      <span> ARENA</span>
-      <span> LOGOWANIE</span>
-      <span> REJESTRACJA</span>
-      <span> EDYCJA - Tylko dla zalogowanych</span>
-      <span> WYLOGUJ - Tylko dla zalogowanych</span>
+      <Link to="arena"> Arena</Link>
+      <Link to="logIn"> Logowanie</Link>
+      <Link to="register"> Rejestracja</Link>
+      <Link to="edit"> Edytowanie - tylko dla zalogowanych</Link>
+      <Link to="/"> Wyloguj - tylko dla zalogowanych</Link>
     </NavBarRow>
   );
 };
