@@ -45,7 +45,7 @@ export const router = createBrowserRouter([
         element: <h1>BAD URL</h1>,
       },
       {
-        path: "pokemon",
+        path: "pokemon/:id",
         element: <DetailedPage />,
       },
     ],

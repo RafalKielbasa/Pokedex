@@ -10,7 +10,7 @@ const HoverCard = styled.span`
   }
 `;
 
-const PokemonCard = ({ url, title, height, baseExperience, weight, ability }) => {
+const PokemonCard = ({ url, title, height, baseExperience, weight, ability, onClickNavigate }) => {
   return (
     <HoverCard>
       <Card
@@ -22,6 +22,7 @@ const PokemonCard = ({ url, title, height, baseExperience, weight, ability }) =>
           width: 220,
           background: "lightgrey",
         }}
+        onClick={onClickNavigate}
       >
         <CardMedia
           sx={{

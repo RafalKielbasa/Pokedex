@@ -3,12 +3,13 @@ import { useQuery, useQueries } from "@tanstack/react-query";
 
 import { fetchData, fetchPokemonData, fetchDataToFilter } from "src/api";
 import { MyPagination, PokemonCard, PokemonCardContainer, Searcher } from "./components";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const [page, setPage] = useState(1);
   const [searchedValue, setSearchedValue] = useState("");
   const [CreateComponentData, setCreateComponentData] = useState(null);
+  const navigate = useNavigate();
   const { data: pokemons, isSuccess } = useQuery({
     queryKey: ["pokemons", page],
     queryFn: () => fetchData((page - 1) * 15),
@@ -51,22 +52,17 @@ const HomePage = () => {
           pokemonQueries?.map(
             (value) =>
               value?.status === "success" && (
-                <Link
+                <PokemonCard
                   key={value?.data?.data?.id}
-                  style={{ color: "inherit", textDecoration: "inherit" }}
-                  to="pokemon"
-                >
-                  <PokemonCard
-                    key={value?.data?.data?.id}
-                    id={value?.data?.data?.id}
-                    url={value?.data?.data?.sprites?.front_default}
-                    title={value?.data?.data?.name}
-                    height={value?.data?.data?.height}
-                    baseExperience={value?.data?.data?.base_experience}
-                    weight={value?.data?.data?.weight}
-                    ability={value?.data?.data?.abilities[0].ability.name}
-                  />
-                </Link>
+                  id={value?.data?.data?.id}
+                  url={value?.data?.data?.sprites?.front_default}
+                  title={value?.data?.data?.name}
+                  height={value?.data?.data?.height}
+                  baseExperience={value?.data?.data?.base_experience}
+                  weight={value?.data?.data?.weight}
+                  ability={value?.data?.data?.abilities[0].ability.name}
+                  onClickNavigate={() => navigate(`pokemon/${value?.data?.data?.id}`)}
+                />
               )
           )
         ) : (
