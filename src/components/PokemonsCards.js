@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "react-query";
+import { Input } from "semantic-ui-react";
 import PokemonCard from "./PokemonCard";
 
 const PokemonsCards = () => {
@@ -29,7 +30,20 @@ const PokemonsCards = () => {
     //setLoading(data.next);
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div
+        className="loader"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <div class="ui active inverted dimmer">
+          <div class="ui large text loader">Loading</div>
+        </div>
+      </div>
+    );
   if (error) return <div>Error!</div>;
 
   const filtredPokemon = pokemon.filter((p) => {
@@ -38,11 +52,27 @@ const PokemonsCards = () => {
 
   return (
     <>
-      <input
-        type="text"
-        placeholder="put put"
-        onChange={(e) => setValue(e.target.value)}
-      />
+      <div
+        className="input"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "15px",
+          marginBottom: "15px",
+        }}
+      >
+        <Input>
+          <div class="ui icon input">
+            <input
+              type="text"
+              placeholder="Search..."
+              onChange={(e) => setValue(e.target.value)}
+            />
+            <i class="search icon"></i>
+          </div>
+        </Input>
+      </div>
       <div
         style={{
           display: "flex",

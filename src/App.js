@@ -13,10 +13,10 @@ function App() {
       <ThemeProvider>
         <Navbar />
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/" element={<PokemonsCards />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/poke" element={<PokemonsCards />} />
+          {/*<Route path="/poke" element={<PokemonsCards />} />*/}
         </Routes>
       </ThemeProvider>
     </>
