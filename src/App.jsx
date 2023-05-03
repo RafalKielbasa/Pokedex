@@ -7,6 +7,8 @@ import Logowanie from "./pages/Logowanie";
 import Rejestracja from "./pages/Rejestracja";
 import Ulubione from "./pages/Ulubione";
 import Wyloguj from "./pages/Wyloguj";
+import Details from "./pages/Details";
+
 import Home from "./pages/Home";
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
           <Route path="/Rejestracja" element={<Rejestracja />} />
           <Route path="/Ulubione" element={<Ulubione />} />
           <Route path="/Wyloguj" element={<Wyloguj />} />
+          <Route path="/Details" element={<Details />} />
         </Routes>
       </div>
     </>

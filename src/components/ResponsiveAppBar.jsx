@@ -49,7 +49,6 @@ function ResponsiveAppBar() {
             <Box>
               <Typography
                 noWrap
-                component="a"
                 href="/"
                 sx={{
                   mr: 2,
@@ -59,7 +58,7 @@ function ResponsiveAppBar() {
                 }}
               >
                 <Link to={"/"}>
-                  <p>POKEDEX</p>
+                  <span className="title">POKEDEX</span>
                 </Link>
               </Typography>
             </Box>
@@ -115,7 +114,6 @@ function ResponsiveAppBar() {
             <Typography
               variant="h3"
               noWrap
-              component="a"
               sx={{
                 mr: 2,
                 display: { xs: "flex", md: "none" },
@@ -147,9 +145,7 @@ function ResponsiveAppBar() {
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "secondary", display: "block" }}
                 >
-                  <Link to={`/${page}`}>
-                    <h2>{page}</h2>
-                  </Link>
+                  <Link to={`/${page}`}>{page}</Link>
                 </Button>
               ))}
             </Box>
@@ -188,9 +184,7 @@ function ResponsiveAppBar() {
                     sx={{ backgroundColor: "blue" }}
                   >
                     <Typography textAlign="center">
-                      <Link to={`/${setting}`}>
-                        <p>{setting}</p>
-                      </Link>
+                      <Link to={`/${setting}`}>{setting}</Link>
                     </Typography>
                   </MenuItem>
                 ))}
