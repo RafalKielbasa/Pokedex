@@ -1,17 +1,22 @@
 import styled from "styled-components";
-import Avatar from "@mui/material/Avatar";
+// import Avatar from "@mui/material/Avatar";
 
 const NavContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px;
 `;
 
 const NavigationWrapper = ({ children, src, alt }) => {
   return (
     <NavContainer>
-      <Avatar src={src} alt={alt} sx={{ width: 300, height: 300 }} />
+      <img
+        src={src}
+        alt={alt}
+        width={"580px"}
+        height={"210px"}
+        variant="square"
+      />
       <div>{children}</div>
     </NavContainer>
   );

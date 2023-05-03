@@ -1,11 +1,12 @@
 import "./App.css";
-import Navigation from "./Navigation/Navigation";
+import Navigation from "src/Navigation/Navigation";
+import MainPage from "src/Pages/MainPage";
 
 function App() {
   return (
     <>
       <Navigation />
-      <div>App</div>
+      <MainPage />
     </>
   );
 }
