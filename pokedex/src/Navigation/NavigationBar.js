@@ -15,6 +15,7 @@ const NavigationBar = () => {
       <Link to="register"> Rejestracja</Link>
       <Link to="edit"> Edytowanie - tylko dla zalogowanych</Link>
       <Link to="/"> Wyloguj - tylko dla zalogowanych</Link>
+      <Link to="/1"> Test</Link>
     </NavBarRow>
   );
 };

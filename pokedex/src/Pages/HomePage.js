@@ -3,6 +3,7 @@ import { useQuery, useQueries } from "@tanstack/react-query";
 
 import { fetchData, fetchPokemonData, fetchDataToFilter } from "src/api";
 import { MyPagination, PokemonCard, PokemonCardContainer, Searcher } from "./components";
+import { Outlet } from "react-router-dom";
 
 const HomePage = () => {
   const [page, setPage] = useState(1);
@@ -75,6 +76,7 @@ const HomePage = () => {
       {searchedValue === "" && (
         <MyPagination count={11} pageNumber={page} paginationHanldeClick={(e, p) => setPage(p)} />
       )}
+      <Outlet />
     </>
   );
 };
