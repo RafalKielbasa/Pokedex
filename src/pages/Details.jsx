@@ -15,20 +15,16 @@ export default function pokemonData({ favorites, setFavorites }) {
 
   const handleHeartClick = () => {
     if (isToggled === false) {
-      setFavorites((prevValues) => ({
-        ...prevValues,
-        [pokemonData.name]: pokemonData,
-      }));
+      setFavorites([...favorites, pokemonData.name]);
       setIsToggled(!isToggled);
-      console.log("event", favorites);
     } else {
-      setIsToggled(!isToggled);
       const filteredFavorites = favorites.filter((item) => {
-        console.log(item);
-        return item !== pokemonData.name;
+        console.log(item.name);
+        return item.name !== pokemonData.name;
       });
+      setIsToggled(!isToggled);
       setFavorites(filteredFavorites);
-      console.log("event", favorites);
+      console.log("zostaly", favorites);
     }
   };
   return (
@@ -69,8 +65,11 @@ export default function pokemonData({ favorites, setFavorites }) {
           <Box>
             <span className="title">{pokemonData?.name}</span>
             <FavoriteRoundedIcon
-              color="error"
-              sx={{ marginLeft: "5px" }}
+              sx={{
+                marginLeft: "5px",
+                color: isToggled ? "red" : "white",
+                cursor: "pointer",
+              }}
               onClick={handleHeartClick}
             />
             <SportsMmaRoundedIcon sx={{ marginLeft: "5px" }} />

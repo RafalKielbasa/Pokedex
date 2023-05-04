@@ -112,22 +112,20 @@ function ResponsiveAppBar() {
             </Box>
 
             <Typography
-              variant="h3"
+              variant="h4"
               noWrap
               sx={{
-                mr: 2,
+                mr: 1,
                 display: { xs: "flex", md: "none" },
                 flexGrow: 1,
                 fontFamily: "monospace",
-                fontWeight: 700,
+                fontWeight: 100,
                 letterSpacing: ".3rem",
                 color: "inherit",
                 textDecoration: "none",
               }}
             >
-              <Link to={"/"}>
-                <p>POKEDEX</p>
-              </Link>
+              <Link to={"/"}>POKEDEX</Link>
             </Typography>
             <Box
               sx={{

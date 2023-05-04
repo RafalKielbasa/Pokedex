@@ -27,6 +27,7 @@ export default function Home() {
         search
           ? setPokedex(searchFilter(data, search))
           : setPokedex(response.data.results);
+        console.log("dex", data);
       } catch (error) {
         setError(error);
       }
@@ -69,7 +70,7 @@ export default function Home() {
         }}
       >
         {pokedex?.map((item) => {
-          return <Card key={item.name} url={item.url} />;
+          return <Card key={item.name} url={item.url} gate={false} />;
         })}
       </Box>
 

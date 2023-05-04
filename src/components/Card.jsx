@@ -6,14 +6,13 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Card({ url }) {
   const [pokemonData, setPokemonData] = useState(null);
-  const [favorites, setFavorites] = useState([null]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(url);
       setPokemonData(response.data);
-      setFavorites(response.data);
+      console.log(response.data);
     };
     fetchData();
   }, [url]);

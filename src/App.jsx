@@ -14,6 +14,7 @@ import { useState, useEffect, useContext } from "react";
 import Home from "./pages/Home";
 function App() {
   const [favorites, setFavorites] = useState([]);
+  console.log("w apce", favorites);
   return (
     <>
       <ResponsiveAppBar />
@@ -25,7 +26,12 @@ function App() {
             <Route path="/Edycja" element={<Edycja />} />
             <Route path="/Logowanie" element={<Logowanie />} />
             <Route path="/Rejestracja" element={<Rejestracja />} />
-            <Route path="/Ulubione" element={<Ulubione />} />
+            <Route
+              path="/Ulubione"
+              element={
+                <Ulubione setFavorites={setFavorites} favorites={favorites} />
+              }
+            />
             <Route path="/Wyloguj" element={<Wyloguj />} />
             <Route
               path="/Details/:id/"
