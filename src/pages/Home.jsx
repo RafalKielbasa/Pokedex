@@ -9,12 +9,11 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   const [url, setUrl] = useState(
-    "https://pokeapi.co/api/v2/pokemon/?limit=15&offset=0"
+    `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=15`
   );
   const [pokedex, setPokedex] = useState([]);
   const [search, setSearch] = useState();
-  const [nextUrl, setNextUrl] = useState();
-  const [prevUrl, setPrevUrl] = useState();
+
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -24,9 +23,7 @@ export default function Home() {
           search ? "https://pokeapi.co/api/v2/pokemon/?limit=150&offset=0" : url
         );
         const data = response.data.results;
-        console.log("lista", response);
-        setNextUrl(response.data.next);
-        setPrevUrl(response.data.previous);
+
         search
           ? setPokedex(searchFilter(data, search))
           : setPokedex(response.data.results);
@@ -46,9 +43,20 @@ export default function Home() {
     return filtered;
   };
 
+  const handlePaginationChange = (event, value) => {
+    setUrl(
+      `https://pokeapi.co/api/v2/pokemon/?offset=${(value - 1) * 15}&limit=15`
+    );
+  };
+
   return (
     <Box
-      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        backgroundColor: "lightgray",
+      }}
     >
       <Textfield setSearch={setSearch} setUrl={setUrl} />
       <Box
@@ -65,7 +73,12 @@ export default function Home() {
         })}
       </Box>
 
-      <Pagination count={10} color="primary" variant="outlined" />
+      <Pagination
+        count={10}
+        color="primary"
+        variant="outlined"
+        onChange={handlePaginationChange}
+      />
     </Box>
   );
 }
