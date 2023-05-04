@@ -8,6 +8,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const MainPageWrapper = styled.div`
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
 `;
 
@@ -17,8 +18,8 @@ const MainPage = () => {
   const [response, setResponse] = useState([]);
   const [pokemonData, setPokemonData] = useState([]);
 
-  console.log(`next`, next);
-  console.log(`prev`, prev);
+  // console.log(`next`, next);
+  // console.log(`prev`, prev);
   console.log(`pokemonData`, pokemonData);
 
   useEffect(() => {
@@ -47,11 +48,15 @@ const MainPage = () => {
   return (
     <MainPageWrapper>
       {pokemonData.map((item) => (
-        <>
-          <div>{item.name}</div>
-          <img src={item.sprites.front_default}></img>
-          <PokemonCard />
-        </>
+        <PokemonCard
+          id={item.id}
+          pic={item.sprites.front_default}
+          name={item.name}
+          height={item.height}
+          baseexp={item.base_experience}
+          weight={item.weight}
+          abilitie={item.abilities[0].ability.name}
+        />
       ))}
     </MainPageWrapper>
   );

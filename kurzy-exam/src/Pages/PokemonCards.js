@@ -1,45 +1,143 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
+import styled from "styled-components";
+import Checkbox from "@mui/material/Checkbox";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import Favorite from "@mui/icons-material/Favorite";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { Hidden } from "@mui/material";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+const CardsWrapper = styled.div`
+  margin: 10px;
+`;
 
-export default function PokemonCard() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
+export default function PokemonCard({
+  id,
+  pic,
+  name,
+  height,
+  baseexp,
+  weight,
+  abilitie,
+}) {
+  // console.log(`id`, id);
   return (
-    <div>
-      {/* <Button onClick={handleOpen}>Open modal</Button> */}
-      <Modal
-        transparent
-        open={open}
-        // onClose={handleClose}
-        aria-labelledby="contained-modal-title-vcenter"
-        aria-describedby="modal-modal-description"
+    <CardsWrapper>
+      <Card
+        // onMouseOver={() => {
+        //   transform: `scale(1.2)`;
+        // }}
+        sx={{
+          width: 350,
+          // overflow: "hidden",
+          // Card: "hover",
+          // transform: "scale(1.2)",
+          // zindex: 0,
+        }}
       >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
-      </Modal>
-    </div>
+        <CardMedia style={{ textAlign: "center" }}>
+          <img src={pic} alt={"picture"} key={id} />
+        </CardMedia>
+
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          style={{ textAlign: "center" }}
+        >
+          {name}
+        </Typography>
+
+        <CardContent
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "flex-start",
+          }}
+        >
+          <CardContent
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="body2" color="text.secondary">
+              {height}
+            </Typography>
+            <Typography
+              sx={{ fontWeight: "bold", paddingBottom: "20px" }}
+              variant="body2"
+              color="text.secondary"
+            >
+              Height
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {baseexp}
+            </Typography>
+            <Typography
+              sx={{ fontWeight: "bold" }}
+              variant="body2"
+              color="text.secondary"
+            >
+              Base experience
+            </Typography>
+          </CardContent>
+
+          <CardContent
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="body2" color="text.secondary">
+              {weight}
+            </Typography>
+            <Typography
+              sx={{ fontWeight: "bold", paddingBottom: "20px" }}
+              variant="body2"
+              color="text.secondary"
+            >
+              Weight
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {abilitie}
+            </Typography>
+            <Typography
+              sx={{ fontWeight: "bold" }}
+              variant="body2"
+              color="text.secondary"
+            >
+              Abilitie
+            </Typography>
+          </CardContent>
+        </CardContent>
+
+        <CardActions
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Checkbox
+            {...label}
+            icon={<FavoriteBorder />}
+            checkedIcon={<Favorite sx={{ color: "#d50000" }} />}
+          />
+        </CardActions>
+      </Card>
+    </CardsWrapper>
   );
 }
