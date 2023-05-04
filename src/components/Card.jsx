@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 function Card({ url }) {
   const [pokemonData, setPokemonData] = useState(null);
@@ -11,24 +11,19 @@ function Card({ url }) {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(url);
-
       setPokemonData(response.data);
     };
     fetchData();
   }, [url]);
 
-  const handleBoxClick = () => {};
   const detailPath = {
     pathname: "/Details",
-    props: { myProp: "Hello World" },
+    newdata: { pokemonData },
   };
 
   return (
-    <Link to="/Details">
+    <Link to={detailPath}>
       <Box
-        onClick={() => {
-          handleBoxClick();
-        }}
         sx={{
           width: 300,
           height: 400,
@@ -37,7 +32,7 @@ function Card({ url }) {
           "&:hover": {
             backgroundColor: "primary.main",
             opacity: [0.9, 0.8, 0.7],
-            transform: "scale(1.1)", // dodaj transformację scale()
+            transform: "scale(1.1)",
           },
           pointer: "coursor",
           display: "flex",
@@ -47,7 +42,7 @@ function Card({ url }) {
         }}
       >
         <Box>
-          <img src={pokemonData?.sprites.other?.dream_world?.front_default} />
+          <img src={pokemonData?.sprites.other.dream_world.front_default} />
         </Box>
         <Box>
           <span className="title">{pokemonData?.name}</span>
