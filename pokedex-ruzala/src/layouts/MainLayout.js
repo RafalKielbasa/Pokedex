@@ -6,6 +6,7 @@ import { Box } from "@mui/material";
 
 export default function MainLayout() {
   const [loginState, setLoginState] = useState(false);
+  const [favoritesArray, setFavoritesArray] = useState([]);
   return (
     <Box
       sx={{

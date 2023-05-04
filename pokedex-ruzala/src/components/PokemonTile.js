@@ -1,6 +1,10 @@
 import { Box, Typography, Button } from "@mui/material";
+import { Favorite } from "@mui/icons-material";
+import FavoritesButton from "./FavoritesButton";
+import { useNavigate } from "react-router-dom";
 
 export default function PokemonTile({ pokemon }) {
+  const navigate = useNavigate();
   const dataBoxStyle = {
     display: "flex",
     alignItems: "center",
@@ -21,7 +25,7 @@ export default function PokemonTile({ pokemon }) {
     border: "5px solid lightblue",
     borderRadius: "10px",
     background: `${backgroundColorChecker(pokemon.types[0].type.name)}`,
-    "&:hover": { transform: "scale(1.07)", boxShadow: "1px 1px 5px black" },
+    "&:hover": { boxShadow: "1px 1px 5px black" },
   };
 
   const dualTypePokemonTile = {
@@ -41,13 +45,27 @@ export default function PokemonTile({ pokemon }) {
       `linear-gradient(to right, ${backgroundColorChecker(
         pokemon.types[1].type.name
       )} 40%,${backgroundColorChecker(pokemon.types[0].type.name)} 55%)`,
-    "&:hover": { transform: "scale(1.07)", boxShadow: "1px 1px 5px black" },
+    "&:hover": { boxShadow: "1px 1px 5px black" },
   };
 
   const scaling = 0.5;
   return (
-    <Button>
-      <Box sx={pokemon.types[1] ? dualTypePokemonTile : singleTypePokemonTile}>
+    <Box
+      sx={{
+        position: "relative",
+        "&:hover": { transform: "scale(1.07)" },
+      }}
+      id="box"
+    >
+      <FavoritesButton pokemon={pokemon} />
+
+      <Box
+        sx={pokemon.types[1] ? dualTypePokemonTile : singleTypePokemonTile}
+        onClick={() => {
+          navigate("/favorites");
+        }}
+        id="tile"
+      >
         <Box
           sx={{
             display: "flex",
@@ -92,7 +110,7 @@ export default function PokemonTile({ pokemon }) {
           </Box>
         </Box>
       </Box>
-    </Button>
+    </Box>
   );
 }
 

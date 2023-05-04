@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { Box, Button, ButtonGroup } from "@mui/material";
 import PokedexLogo from "../images/PokedexLogo.png";
+import { GlobalContext } from "../App";
+import { useContext } from "react";
 
-export default function NavBar({ loginState }) {
+export default function NavBar() {
   const navigate = useNavigate();
+  const { loginState } = useContext(GlobalContext);
   return (
     <Box
       sx={{

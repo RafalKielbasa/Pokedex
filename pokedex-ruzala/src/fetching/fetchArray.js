@@ -4,7 +4,7 @@ export default async function fetchArray(array) {
   const arrayofRecords = [];
   for (const element of array) {
     try {
-      const response = await axios.get(element.url);
+      const response = await axios.get(element);
       const data = response.data;
       arrayofRecords.push(data);
     } catch (error) {
