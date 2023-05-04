@@ -11,6 +11,7 @@ import {
     CardContent,
     Pagination,
     Button,
+    TextField,
   } from '@mui/material'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
@@ -33,6 +34,7 @@ let [filteredData, setFilteredData] = useState([]);
 const [showCardDetails, setshowCardDetails] = useState(false);
 const [page, setPage] = useState(1);
 const [cardsPerPage, setCardsPerPage] = useState(9);
+const [searchValue, setSearchValue] = useState();
 
 const types = ["ALL", "FIRE", "WATER", "BUG", "NORMAL", "POISON", "ELECTRIC", "GROUND", "GRASS", "FIGHTING", "ROCK", "GHOST", "DRAGON", "PSYCHIC"];
 
@@ -72,8 +74,13 @@ const filterClickHandle = (e) => {
     setshowCardDetails(true);
     
   }
-  const cardClickHandle = (id) => {
-    
+  const searchFieldHandle = (event) => {
+    console.log(event)
+  const searchValue = event.target.value.toLowerCase();
+  const filteredData = fetchedData.filter(item => item.name.includes(searchValue));
+  setFilteredData(filteredData);
+  console.log(filteredData)
+  setPage(1);
     
   }
 
@@ -87,7 +94,10 @@ const filterClickHandle = (e) => {
       {types.map((v) => {
         return <Button key={v} variant="outlined" onClick={filterClickHandle}  sx={{borderRadius: "10px", border: 2, m: "5px", fontWeight: 700, color: "#272D34"}}>{v}</Button>
       })}
- 
+    <Box> </Box>
+      <Box>
+      <TextField size="small" sx={{boxSizing: "border-box", color: "#272D34", border: 2, borderRadius: "10px", m: "5px"}} label="search" value={searchValue} onChange={searchFieldHandle}/>
+      </Box>
   
     </Box>
 

@@ -6,20 +6,24 @@ import PokemonDetails from "./PokemonDetails";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { FavoriteContext } from "../Global/ThemeContext";
-
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepartmentOutlined';
+import { useSnackbar } from 'notistack';
 
 const PokemonCard = ({ item, onArrowClick }) => {
   const { favorites, toggleFavorite } = useContext(FavoriteContext);
   const [showCardDetails, setShowCardDetails] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [addedToArena, setaddedToArena] = useState(false)
+  const { enqueueSnackbar } = useSnackbar();
+
 
   useEffect(() => {
     const localStorageFavorites = localStorage.getItem("favorites");
     if (localStorageFavorites) {
       toggleFavorite(JSON.parse(localStorageFavorites));
       const isFavoriteNow = localStorageFavorites.includes(item.id);
-      console.log("TEST",isFavoriteNow)
       setIsFavorite(isFavoriteNow);
 
     }
@@ -27,14 +31,30 @@ const PokemonCard = ({ item, onArrowClick }) => {
 
   }, []);
 
-
-  // const isFavorite = (favorites.flat()).includes(item.id)
-  // console.log(isFavorite)
+  
 
  
-  const handleCardClick = () => {
+  const handleCardClick = (itemID,event) => {
     setShowCardDetails(true);
-  }
+    console.log(event.target.tagName)
+    if (!(["BUTTON", "path", "svg"].includes(event.target.tagName)))
+      {
+        const addedPokemonIds = JSON.parse(localStorage.getItem("arenaPokemons")) || [];
+        if (addedPokemonIds.includes(itemID)) {
+          const updatedIds = addedPokemonIds.filter((id) => id !== itemID);
+          localStorage.setItem("arenaPokemons", JSON.stringify(updatedIds));
+          setaddedToArena(false);
+          enqueueSnackbar("Usunięto pokemona z areny", { variant: "warning" });
+        } else if (addedPokemonIds.length < 2) {
+          const updatedIds = [...addedPokemonIds, itemID];
+          localStorage.setItem("arenaPokemons", JSON.stringify(updatedIds));
+          setaddedToArena(true);
+          enqueueSnackbar("Dodano pokemona do areny", { variant: "success" });
+        } else {
+          enqueueSnackbar("Można dodać tylko maksymalnie 2 pokemony do areny", { variant: "error" });
+        }
+
+  }}
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -64,10 +84,9 @@ const PokemonCard = ({ item, onArrowClick }) => {
 
   return (
     <>
-  {console.log("f",favorites)}
- {console.log(item.id)}
+
 <Card
-   onClick={() => handleCardClick(item.id)}
+   onClick={() => handleCardClick(item.id, event)}
    onMouseEnter={handleMouseEnter}
    onMouseLeave={handleMouseLeave}
    sx={{
@@ -77,6 +96,7 @@ const PokemonCard = ({ item, onArrowClick }) => {
      boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;',
      transform: isHovered ? 'scale(1.07)' : 'scale(1)',
      transition: 'transform 0.3s ease',
+     border: `${addedToArena ? "2px solid #1976d2" : "0px"}`
    }}
 >
 
@@ -97,11 +117,13 @@ const PokemonCard = ({ item, onArrowClick }) => {
  <CardContent sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
   <Box sx={{display: "flex"}}> 
   <Typography  variant="h6" sx={{display: "flex", alignContent: "space-between", fontWeight: "700", width: "90%"}}>
-       {`${item.species.name.charAt(0).toUpperCase()}${item.species.name.slice(1)}`}
+       {`${item.species.name.charAt(0).toUpperCase()}${item.species.name.slice(1)}`} 
   </Typography>
+  
  
   <IconButton onClick={handleFavoriteClick} sx={{justifyContent: "flex-end", color: isFavorite? '#C70039' : 'grey'}}>
   {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+
   </IconButton>
   </Box>
 

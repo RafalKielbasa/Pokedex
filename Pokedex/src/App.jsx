@@ -8,6 +8,9 @@ import LogIn from './components/AccountPages/LogIn';
 import UserPage from './components/AccountPages/UserPage';
 import LoginWrapper from './components/AccountPages/LoginWrapper';
 import { FavoriteProvider } from "./components/Global/ThemeContext";
+import Favourite from './components/FavouritePage/Favourite';
+import { SnackbarProvider } from 'notistack';
+import Arena from './components/ArenaPage/Arena';
 
 const theme = createTheme({
 palette: {
@@ -23,6 +26,8 @@ const router = createBrowserRouter(
     <Route path="/" element={ <RootLayout />}>
     <Route index element={ <MainPage />} />
     <Route path="/account" element={<LoginWrapper />} />
+    <Route path="/favourites" element={<Favourite />} />
+    <Route path="/arena" element={<Arena />} />
     {/* <Route path="/user" element={<UserPage/>} /> */}
     {/* <Route path="/docs" element={<MainDashboard />} loader={pokemonDataLoader} /> */}
     </Route>
@@ -34,9 +39,11 @@ function App() {
 
 <ThemeProvider theme={theme}>
 <ThemeContext.Provider value={theme}>
+<SnackbarProvider>
 <FavoriteProvider> 
 <RouterProvider router={router} />
 </FavoriteProvider>
+</SnackbarProvider>
 </ThemeContext.Provider>
 </ThemeProvider>
 

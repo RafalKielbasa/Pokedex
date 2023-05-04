@@ -16,14 +16,16 @@ function PokemonDetails(props) {
 const [showCardDetails, setshowCardDetails] = useState(props.showCardDetails);
 const [fetchedDatabyID, setDatabyID] = useState([]);
 const [loading, setLoading] = useState(true); 
+const [classofPokemon, setclassofPokemon] = useState("");
 
+const arenaPokemon = props.arena;
 useEffect(() => {
     const fetchDatabyID = async () => {
-        const response = await fetch(`${BASE_URL}pokemon/${props.cardID}`);
-         data = await response.json();
+    const response = await fetch(`${BASE_URL}pokemon/${props.cardID}`);
+    data = await response.json();
         
-      
-    
+      setclassofPokemon(data.types[0].type.name)
+     
         setDatabyID(data);
         setLoading(false);
      
@@ -43,11 +45,11 @@ useEffect(() => {
   
 
   return (
+  
+<Box sx={{ position: `${arenaPokemon ? "block" : "absolute"}`, top: 0, left: 0, display: 'flex', justifyContent: `${arenaPokemon ? "space-between" : "center"}`, alignItems: 'center', width: '100vw', height: '100vh'}}> <Container sx={{ display: "flex", justifyContent: "center"}}> 
 
-<Box sx={{ position: 'absolute', top: 0, left: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: '100vh'}}> <Container sx={{ display: "flex", justifyContent: "center"}}> 
-
-  <Box className={props.class} sx={{
- position: 'fixed',
+  <Box className={classofPokemon} sx={{
+ position: `${arenaPokemon ? "block" : "absolute"}`,
  top: '50%',
  left: '50%',
  transform: 'translate(-50%, -50%)',
@@ -93,7 +95,7 @@ useEffect(() => {
          </Box>
       </Box>
 
-      <Box sx={{width: '100%', bgcolor: 'white', boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;', borderRadius: '10px', boxSizing: "border-box", p:5,}}>
+      <Box sx={{width: '100%', bgcolor: 'white', boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;', borderRadius: '10px', boxSizing: "border-box", p:5, height: `calc(100% - 225px)`}}>
       <Typography variant='h5' sx={{fontWeight: 700}}>Stats</Typography>
       {fetchedDatabyID.stats.map((stat) => (
   <Box
@@ -137,6 +139,9 @@ useEffect(() => {
         </Container>
 
     </Box>
+  
+
+  
   )
 }
 
