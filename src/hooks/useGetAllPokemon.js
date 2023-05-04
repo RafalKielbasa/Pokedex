@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getAllPokemon } from '../services/api';
+import { getAllPokemon, getPokemonData } from '../services/api';
 
 export const useGetAllPokemonQuery = () => {
   return useQuery({
