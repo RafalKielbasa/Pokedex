@@ -14,7 +14,7 @@ import { useState, useEffect, useContext } from "react";
 import Home from "./pages/Home";
 function App() {
   const [favorites, setFavorites] = useState([]);
-  console.log("w apce", favorites);
+
   return (
     <>
       <ResponsiveAppBar />

@@ -12,7 +12,6 @@ function Card({ url }) {
     const fetchData = async () => {
       const response = await axios.get(url);
       setPokemonData(response.data);
-      console.log(response.data);
     };
     fetchData();
   }, [url]);

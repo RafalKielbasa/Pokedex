@@ -13,18 +13,37 @@ export default function pokemonData({ favorites, setFavorites }) {
   const location = useLocation();
   const pokemonData = location.state?.pokemonData;
 
+  useEffect(() => {
+    const storedData = localStorage.getItem(`isToggled-${pokemonData.id}`);
+    if (storedData) {
+      setIsToggled(JSON.parse(storedData));
+    }
+  }, [isToggled]);
+
   const handleHeartClick = () => {
-    if (isToggled === false) {
+    if (isToggled === false && favorites.includes(pokemonData.name) === false) {
       setFavorites([...favorites, pokemonData.name]);
       setIsToggled(!isToggled);
+      localStorage.setItem(
+        `favorites`,
+        JSON.stringify([...favorites, pokemonData.name])
+      );
+      localStorage.setItem(
+        `isToggled-${pokemonData.id}`,
+        JSON.stringify(!isToggled)
+      );
     } else {
-      const filteredFavorites = favorites.filter((item) => {
-        console.log(item.name);
-        return item.name !== pokemonData.name;
-      });
       setIsToggled(!isToggled);
+      const filteredFavorites = favorites.filter((item) => {
+        return item !== pokemonData.name;
+      });
+      localStorage.setItem(`favorites`, JSON.stringify(filteredFavorites));
       setFavorites(filteredFavorites);
-      console.log("zostaly", favorites);
+
+      localStorage.setItem(
+        `isToggled-${pokemonData.id}`,
+        JSON.stringify(!isToggled)
+      );
     }
   };
   return (
