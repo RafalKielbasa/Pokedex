@@ -11,17 +11,11 @@
   font-family: "MyFont", sans-serif;
   text-decoration: none;
   font-weight: bold;
-  color: white;
 }
 
 p {
   font-size: 30px;
   color: white;
-}
-
-h1,
-h2 {
-  color: black;
 }
 
 img {
@@ -53,4 +47,10 @@ img {
   font-size: 16px;
   font-family: "Courier New", Courier, monospace;
   font-weight: bold;
+}
+
+span,
+p,
+a {
+  color: white;
 }
