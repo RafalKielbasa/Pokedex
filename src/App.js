@@ -11,7 +11,9 @@ function App() {
   return (
     <>
       <ThemeProvider>
-        <Navbar />
+        <header style={{ position: "sticky", top: 0, zIndex: 1000 }}>
+          <Navbar />
+        </header>
         <Routes>
           <Route path="/" element={<PokemonsCards />} />
           <Route path="/favorites" element={<Favorites />} />

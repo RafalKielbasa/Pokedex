@@ -4,6 +4,7 @@ import "semantic-ui-css/semantic.min.css";
 import pokeLogo from "../images/poke.png";
 import { ThemeContext } from "./ThemeContext";
 import { ThemeToggleButton } from "./ThemeToggleButton";
+import { Input } from "./PokemonsCards";
 
 export const Navbar = () => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -15,7 +16,7 @@ export const Navbar = () => {
   return (
     <div>
       <div
-        class="ui standard menu"
+        className="ui standard menu"
         style={{
           backgroundColor: theme ? "black" : "white",
           color: theme ? "white" : "black",
