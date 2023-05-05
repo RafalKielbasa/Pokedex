@@ -7,12 +7,13 @@ import Textfield from "../components/Textfield";
 import Pagination from "@mui/material/Pagination";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { ThemeContext } from "../context/ThemeContext";
+import { useTheme } from "@mui/material";
 
 const StyledBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: lightgray;
 `;
 
 export default function Home() {
@@ -21,8 +22,9 @@ export default function Home() {
   );
   const [pokedex, setPokedex] = useState([]);
   const [search, setSearch] = useState();
-
   const [error, setError] = useState(null);
+  const theme = useTheme();
+  const colorMode = useContext(ThemeContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,7 +37,6 @@ export default function Home() {
         search
           ? setPokedex(searchFilter(data, search))
           : setPokedex(response.data.results);
-        console.log("dex", data);
       } catch (error) {
         setError(error);
       }
@@ -59,7 +60,7 @@ export default function Home() {
   };
 
   return (
-    <StyledBox>
+    <StyledBox style={{ backgroundColor: theme.palette.background.contrast }}>
       <Textfield setSearch={setSearch} setUrl={setUrl} />
       <Box
         sx={{

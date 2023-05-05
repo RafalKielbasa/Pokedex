@@ -8,6 +8,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
+import { ThemeContext } from "../context/ThemeContext";
+import { useTheme } from "@mui/material";
 
 const Container = styled.div`
   display: flex;
@@ -19,7 +21,7 @@ const PokemonCard = styled.div`
   max-width: 80vw;
   min-height: 30vh;
   margin: 2rem;
-  background-color: blue;
+
   &:hover {
     transform: scale(1.01);
   }
@@ -72,6 +74,7 @@ const HeartIcon = styled(FavoriteRoundedIcon)`
 `;
 
 const SportsIcon = styled(SportsMmaRoundedIcon)`
+  color: white;
   margin-left: 5px;
 `;
 
@@ -120,6 +123,9 @@ export default function pokemonData({ favorites, setFavorites }) {
   const location = useLocation();
   const pokemonData = location.state?.pokemonData;
 
+  const theme = useTheme();
+  const colorMode = useContext(ThemeContext);
+
   useEffect(() => {
     const storedData = localStorage.getItem(`isToggled-${pokemonData.id}`);
     if (storedData) {
@@ -154,8 +160,15 @@ export default function pokemonData({ favorites, setFavorites }) {
     }
   };
   return (
-    <Container>
-      <PokemonCard>
+    <Container
+      style={{
+        backgroundColor: theme.palette.background.contrast,
+        height: "100vh",
+      }}
+    >
+      <PokemonCard
+        style={{ backgroundColor: theme.palette.background.default }}
+      >
         <ImageContainer>
           <Image src={pokemonData?.sprites.other.dream_world.front_default} />
         </ImageContainer>

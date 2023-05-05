@@ -14,6 +14,11 @@ import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
 import { Link } from "react-router-dom";
 import { Padding } from "@mui/icons-material";
 import styled from "styled-components";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import { useTheme } from "@mui/material";
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 
 const StyledTitle = styled.span`
   font-size: 30px;
@@ -24,6 +29,9 @@ const settings = ["Edycja", "Wyloguj"];
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const theme = useTheme();
+  const colorMode = useContext(ThemeContext);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -41,7 +49,10 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar
+      position="static"
+      style={{ backgroundColor: theme.palette.background.default }}
+    >
       <Container maxWidth="x">
         <Toolbar disableGutters>
           <Box
@@ -51,7 +62,7 @@ function ResponsiveAppBar() {
               alignItems: "center",
             }}
           >
-            <Box>
+            <Box display="flex">
               <Typography
                 noWrap
                 href="/"
@@ -66,6 +77,13 @@ function ResponsiveAppBar() {
                   <StyledTitle>POKEDEX</StyledTitle>
                 </Link>
               </Typography>
+              <IconButton onClick={colorMode.toggleColorMode}>
+                {theme.palette.mode === "dark" ? (
+                  <DarkModeOutlinedIcon style={{ color: "white" }} />
+                ) : (
+                  <LightModeOutlinedIcon style={{ color: "white" }} />
+                )}
+              </IconButton>
             </Box>
             <Box
               sx={{
@@ -106,7 +124,9 @@ function ResponsiveAppBar() {
                   <MenuItem
                     key={page}
                     onClick={handleCloseNavMenu}
-                    sx={{ backgroundColor: "blue" }}
+                    style={{
+                      backgroundColor: theme.palette.background.default,
+                    }}
                   >
                     <Link to={`/${page}`}>
                       <h2>{page}</h2>
@@ -161,7 +181,10 @@ function ResponsiveAppBar() {
             >
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <CatchingPokemonIcon color="string" fontSize="large" />
+                  <CatchingPokemonIcon
+                    style={{ color: "white" }}
+                    fontSize="large"
+                  />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -184,7 +207,9 @@ function ResponsiveAppBar() {
                   <MenuItem
                     key={setting}
                     onClick={handleCloseUserMenu}
-                    sx={{ backgroundColor: "blue" }}
+                    style={{
+                      backgroundColor: theme.palette.background.default,
+                    }}
                   >
                     <Typography textAlign="center">
                       <Link to={`/${setting}`}>{setting}</Link>

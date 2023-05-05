@@ -3,12 +3,14 @@ import { useState, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
+import { ThemeContext } from "../context/ThemeContext";
+import { useTheme } from "@mui/material";
 
 const StyledBox = styled.div`
   width: 300px;
   height: 400px;
   margin: 2rem;
-  background-color: blue;
+
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -72,6 +74,8 @@ const StyledBigTitle = styled.span`
 function Card({ url }) {
   const [pokemonData, setPokemonData] = useState(null);
   const navigate = useNavigate();
+  const theme = useTheme();
+  const colorMode = useContext(ThemeContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -87,12 +91,15 @@ function Card({ url }) {
     });
   };
   return (
-    <StyledBox onClick={handleClick}>
+    <StyledBox
+      onClick={handleClick}
+      style={{ backgroundColor: theme.palette.background.default }}
+    >
       <StyledImgBox>
         <Image src={pokemonData?.sprites.other.dream_world.front_default} />
       </StyledImgBox>
       <StyledTitleBox>
-        <StyledTitle>{pokemonData?.name}</StyledTitle>
+        <StyledTitle className="title">{pokemonData?.name}</StyledTitle>
       </StyledTitleBox>
 
       <StyledDetailsBox>
