@@ -4,10 +4,12 @@ import "semantic-ui-css/semantic.min.css";
 import pokeLogo from "../images/poke.png";
 import { ThemeContext } from "./ThemeContext";
 import { ThemeToggleButton } from "./ThemeToggleButton";
-import { Input } from "./PokemonsCards";
+import { SearchContext } from "./SearchContext";
+import { Input } from "semantic-ui-react";
 
 export const Navbar = () => {
   const { theme, setTheme } = useContext(ThemeContext);
+  const { search, setSearch } = useContext(SearchContext);
 
   const toggleTheme = () => {
     setTheme(!theme);
@@ -16,7 +18,7 @@ export const Navbar = () => {
   return (
     <div>
       <div
-        className="ui standard menu"
+        className="ui tiny menu"
         style={{
           backgroundColor: theme ? "black" : "white",
           color: theme ? "white" : "black",
@@ -28,8 +30,8 @@ export const Navbar = () => {
           alt="poke"
           className="custom-logo"
           style={{
-            width: "100px",
-            height: "100px",
+            width: "70px",
+            height: "70px",
             marginRight: "10px",
             backgroundColor: theme ? "black" : "white",
           }}
@@ -50,13 +52,31 @@ export const Navbar = () => {
           Favorites
         </Link>
 
-        <div class="right menu">
+        <div
+          class="right menu"
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <Input
+            icon="search icon"
+            class="ui icon input"
+            style={{
+              backgroundColor: theme ? "black" : "white",
+              color: theme ? "white" : "black",
+              height: "40px",
+              marginRight: "15px",
+            }}
+            type="text"
+            placeholder="Search..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+
           <div class="item">
             <div class="item">
               <ThemeToggleButton onChange={toggleTheme} checked={theme} />
             </div>
             <a
-              style={{ fontWeight: "bold", fontSize: "20px" }}
+              style={{ fontWeight: "bold" }}
               href="https://github.com/mr-fox93"
               target="_blank"
               rel="noopener noreferrer"

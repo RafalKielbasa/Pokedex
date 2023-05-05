@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "react-query";
-import { Input } from "semantic-ui-react";
+import { useContext } from "react";
+
 import PokemonCard from "./PokemonCard";
+import { SearchContext } from "./SearchContext";
 
 const PokemonsCards = () => {
   const [pokemon, setPokemon] = useState([]);
-  const [value, setValue] = useState("");
+  // const [value, setValue] = useState("");
+  const { search } = useContext(SearchContext);
   {
     /* const [loading, setLoading] = useState(
     `https://pokeapi.co/api/v2/pokemon?limit=1118`
@@ -47,7 +50,7 @@ const PokemonsCards = () => {
   if (error) return <div>Error!</div>;
 
   const filtredPokemon = pokemon.filter((p) => {
-    return p.name.toLowerCase().includes(value.toLowerCase());
+    return p.name.toLowerCase().includes(search.toLowerCase());
   });
 
   return (
@@ -61,18 +64,7 @@ const PokemonsCards = () => {
           marginTop: "15px",
           marginBottom: "15px",
         }}
-      >
-        <Input>
-          <div class="ui icon input">
-            <input
-              type="text"
-              placeholder="Search..."
-              onChange={(e) => setValue(e.target.value)}
-            />
-            <i class="search icon"></i>
-          </div>
-        </Input>
-      </div>
+      ></div>
       <div
         style={{
           display: "flex",
