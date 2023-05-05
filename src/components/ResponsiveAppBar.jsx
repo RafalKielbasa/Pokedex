@@ -77,13 +77,15 @@ function ResponsiveAppBar() {
                   <StyledTitle>POKEDEX</StyledTitle>
                 </Link>
               </Typography>
-              <IconButton onClick={colorMode.toggleColorMode}>
-                {theme.palette.mode === "dark" ? (
-                  <DarkModeOutlinedIcon style={{ color: "white" }} />
-                ) : (
-                  <LightModeOutlinedIcon style={{ color: "white" }} />
-                )}
-              </IconButton>
+              <Tooltip title="Color mode change">
+                <IconButton onClick={colorMode.toggleColorMode}>
+                  {theme.palette.mode === "dark" ? (
+                    <DarkModeOutlinedIcon style={{ color: "white" }} />
+                  ) : (
+                    <LightModeOutlinedIcon style={{ color: "white" }} />
+                  )}
+                </IconButton>
+              </Tooltip>
             </Box>
             <Box
               sx={{

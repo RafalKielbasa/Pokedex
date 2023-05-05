@@ -11,6 +11,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import { useTheme } from "@mui/material";
 
 const StyledBox = styled.div`
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

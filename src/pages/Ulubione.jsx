@@ -27,7 +27,7 @@ export default function Ulubione({ favorites, setFavorites }) {
         flexWrap: "wrap",
         alignItems: "top",
         justifyContent: "center",
-        height: "100vh",
+        height: "100%",
       }}
       style={{
         backgroundColor: theme.palette.background.contrast,

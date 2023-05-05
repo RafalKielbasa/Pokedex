@@ -16,8 +16,9 @@ import { ThemeProvider } from "@mui/material";
 import Home from "./pages/Home";
 function App() {
   const [favorites, setFavorites] = useState([]);
+  const [battle, setBattle] = useState([]);
   const [theme, colorMode] = useMode();
-
+  console.log("w app", battle);
   const toggleTheme = () => {
     setTheme((current) => (current === "light" ? "dark" : "light"));
   };
@@ -29,7 +30,10 @@ function App() {
           <div className="container" id={theme}>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/Arena" element={<Arena />} />
+              <Route
+                path="/Arena"
+                element={<Arena battle={battle} setBattle={setBattle} />}
+              />
               <Route path="/Edycja" element={<Edycja />} />
               <Route path="/Logowanie" element={<Logowanie />} />
               <Route path="/Rejestracja" element={<Rejestracja />} />
@@ -43,7 +47,12 @@ function App() {
               <Route
                 path="/Details/:id/"
                 element={
-                  <Details setFavorites={setFavorites} favorites={favorites} />
+                  <Details
+                    setFavorites={setFavorites}
+                    favorites={favorites}
+                    battle={battle}
+                    setBattle={setBattle}
+                  />
                 }
               />
             </Routes>

@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
-
+import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -19,33 +19,39 @@ const Container = styled.div`
 
 const PokemonCard = styled.div`
   max-width: 80vw;
-  min-height: 30vh;
+  min-height: 50vh;
   margin: 2rem;
 
   &:hover {
     transform: scale(1.01);
   }
-  cursor: pointer;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 
 const ImageContainer = styled.div`
-  margin-left: 50px;
-  max-width: 100%;
-  height: auto;
-  aspect-ratio: 4/3;
-
-  @media screen and (min-width: 600px) {
-    aspect-ratio: 1/1;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  @media screen and (max-width: 600px) {
+    width: 100px;
+    height: 100px;
   }
 `;
 
 const Image = styled.img`
-  width: auto;
-  max-width: 180px;
+  width: 200px;
+  height: 200px;
+  @media screen and (max-width: 600px) {
+    width: 100px;
+    height: 100px;
+  }
 `;
 
 const ContentContainer = styled.div`
@@ -61,7 +67,7 @@ const TitleContainer = styled.div`
 `;
 
 const Title = styled.span`
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: bold;
   text-align: center;
   margin: 0 auto;
@@ -70,11 +76,13 @@ const Title = styled.span`
 const HeartIcon = styled(FavoriteRoundedIcon)`
   margin-left: 5px;
   color: ${({ isToggled }) => (isToggled ? "red" : "white")};
+
   cursor: pointer;
 `;
 
 const SportsIcon = styled(SportsMmaRoundedIcon)`
   color: white;
+  color: ${({ isToggledBattle }) => (isToggledBattle ? "red" : "white")};
   margin-left: 5px;
 `;
 
@@ -86,6 +94,15 @@ const InfoContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  @media screen and (max-width: 600px) {
+    margin: 0px;
+    padding: 0px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
 `;
 
 const InfoBox = styled.div`
@@ -96,30 +113,51 @@ const InfoBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 600px) {
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const MiniTitle = styled.span`
   font-size: 15px;
   font-family: cursive;
   font-weight: lighter;
+  @media screen and (max-width: 600px) {
+    font-size: 12px;
+  }
 `;
 
 const BigTitle = styled.span`
   font-size: 20px;
   font-family: "Courier New", Courier, monospace;
   font-weight: bold;
+  @media screen and (max-width: 600px) {
+    font-size: 15px;
+  }
 `;
 
 const BackButton = styled(Link)`
   border: 1px solid red;
-  max-width: 80vw;
+  width: 40vw;
   text-align: center;
   color: red;
   margin: 1rem auto;
 `;
 
-export default function pokemonData({ favorites, setFavorites }) {
+export default function Details({
+  favorites,
+  setFavorites,
+  battle,
+  setBattle,
+}) {
   const [isToggled, setIsToggled] = useState(false);
+  const [isToggledBattle, setIsToggledBattle] = useState(false);
   const location = useLocation();
   const pokemonData = location.state?.pokemonData;
 
@@ -159,6 +197,24 @@ export default function pokemonData({ favorites, setFavorites }) {
       );
     }
   };
+
+  const handleBattleClick = () => {
+    if (battle.length >= 2) {
+      console.log("za duzo graczy ");
+    } else if (
+      isToggledBattle === false &&
+      battle.includes(pokemonData.name) === false
+    ) {
+      setBattle([...battle, pokemonData.name]);
+      setIsToggledBattle(!isToggledBattle);
+    } else {
+      setIsToggledBattle(!isToggledBattle);
+      const filteredBattle = battle.filter((item) => {
+        return item !== pokemonData.name;
+      });
+    }
+  };
+
   return (
     <Container
       style={{
@@ -175,8 +231,19 @@ export default function pokemonData({ favorites, setFavorites }) {
         <ContentContainer>
           <TitleContainer>
             <Title>{pokemonData?.name}</Title>
-            <HeartIcon isToggled={isToggled} onClick={handleHeartClick} />
-            <SportsIcon />
+            <Tooltip
+              title={isToggled ? "Remove from favorites" : "Add to favorites"}
+            >
+              <HeartIcon isToggled={isToggled} onClick={handleHeartClick} />
+            </Tooltip>
+            <Tooltip
+              title={isToggledBattle ? "Add to battle" : "Remove from battle"}
+            >
+              <SportsIcon
+                isToggledBattle={isToggledBattle}
+                onClick={handleBattleClick}
+              />
+            </Tooltip>
           </TitleContainer>
 
           <InfoContainer>

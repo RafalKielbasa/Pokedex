@@ -24,11 +24,18 @@ const StyledBox = styled.div`
   }
 `;
 
-const StyledImgBox = styled.div``;
+const StyledImgBox = styled.div`
+  width: 100%;
+  height: 200px;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+`;
 
 const Image = styled.img`
-  width: auto;
-  max-width: 120px;
+  width: 200px;
+  height: 200px;
 `;
 
 const StyledTitleBox = styled.div`
@@ -71,7 +78,7 @@ const StyledBigTitle = styled.span`
   font-weight: bold;
 `;
 
-function Card({ url }) {
+function Card({ url, force }) {
   const [pokemonData, setPokemonData] = useState(null);
   const navigate = useNavigate();
   const theme = useTheme();
@@ -81,6 +88,9 @@ function Card({ url }) {
     const fetchData = async () => {
       const response = await axios.get(url);
       setPokemonData(response.data);
+      force
+        ? force(response.data.base_experience * response.data.weight)
+        : null;
     };
     fetchData();
   }, [url]);
