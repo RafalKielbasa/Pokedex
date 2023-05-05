@@ -1,7 +1,8 @@
 import React from "react";
+import { DetailedPokemonCard } from "./components";
 
 const DetailedPage = () => {
-  return <h1>DetailedPage</h1>;
+  return <DetailedPokemonCard />;
 };
 
 export default DetailedPage;
