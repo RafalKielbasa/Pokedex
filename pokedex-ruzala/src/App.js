@@ -7,31 +7,21 @@ import {
 } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import { Box } from "@mui/material";
-import { HomePage, Arena, Favorites, Login, Register } from "./pages";
-import { useQuery } from "@tanstack/react-query";
-import fetchData from "./fetching/fetchData";
+import { Pokemons, Arena, Favorites, Login, Register } from "./pages";
 import { useState } from "react";
 import FavoritesButton from "./components/FavoritesButton";
 import React from "react";
 import PokemonPreview from "./pages/PokemonPreview";
-
-const baseURL = process.env.REACT_APP_BASE_URL;
 export const GlobalContext = React.createContext();
 
 function App() {
   const [loginState, setLoginState] = useState(false);
   const [favoritesArray, setFavoritesArray] = useState([]);
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["collection"],
-    queryFn: () => fetchData(baseURL),
-    staleTime: 1000000,
-  });
-
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
-        {data && <Route index element={<HomePage collection={data} />} />}
+        <Route path="pokemons/:id" element={<Pokemons />} />
         <Route path="pokemon/:id" element={<PokemonPreview />} />
         <Route path="arena" element={<Arena />} />
         <Route path="favorites" element={<Favorites />} />

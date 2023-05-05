@@ -1,5 +1,4 @@
-import { Box, Typography, Button } from "@mui/material";
-import { Favorite, Lightbulb } from "@mui/icons-material";
+import { Box, Typography } from "@mui/material";
 import FavoritesButton from "./FavoritesButton";
 import { useNavigate } from "react-router-dom";
 
@@ -100,7 +99,9 @@ export default function PokemonTile({ pokemon }) {
         >
           <Box sx={dataBoxStyle}>
             <Typography sx={{ fontSize: "10px" }}>NAME</Typography>
-            <Typography sx={{ fontSize: "15px" }}>
+            <Typography
+              sx={{ fontSize: pokemon.name.length < 15 ? "15px" : "10px" }}
+            >
               {pokemon.name.toUpperCase()}
             </Typography>
           </Box>

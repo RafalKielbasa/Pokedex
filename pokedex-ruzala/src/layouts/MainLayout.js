@@ -12,7 +12,6 @@ export default function MainLayout() {
       sx={{
         display: "flex",
         flexDirection: "column",
-        height: "100%",
         justifyContent: "space-between",
       }}
     >
