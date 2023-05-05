@@ -14,7 +14,7 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { Hidden } from "@mui/material";
 
 const CardsWrapper = styled.div`
-  margin: 10px;
+  margin: 20px;
 `;
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
@@ -32,15 +32,11 @@ export default function PokemonCard({
   return (
     <CardsWrapper>
       <Card
-        // onMouseOver={() => {
-        //   transform: `scale(1.2)`;
-        // }}
         sx={{
-          width: 350,
-          // overflow: "hidden",
-          // Card: "hover",
-          // transform: "scale(1.2)",
-          // zindex: 0,
+          width: 320,
+          "&:hover": {
+            transform: "scale(1.15)",
+          },
         }}
       >
         <CardMedia style={{ textAlign: "center" }}>

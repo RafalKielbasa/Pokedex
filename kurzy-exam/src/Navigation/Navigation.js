@@ -6,7 +6,7 @@ import Stack from "@mui/material/Stack";
 import styled from "styled-components";
 
 const NavigationContainer = styled.div`
-  padding: 50px 40px 70px 40px;
+  padding: 50px 40px 50px 40px;
 `;
 
 const Navigation = () => {
