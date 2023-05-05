@@ -1,5 +1,5 @@
 import useLogic from "src/Pages/useMainPage";
-import { pokelogo } from "src/images";
+import { pokelogo } from "src/Images";
 import NavigationWrapper from "src/Navigation/NavigationWrapper";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";

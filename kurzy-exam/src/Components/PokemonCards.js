@@ -28,7 +28,6 @@ export default function PokemonCard({
   weight,
   abilitie,
 }) {
-  // console.log(`id`, id);
   return (
     <CardsWrapper>
       <Card

@@ -4,7 +4,7 @@ import axios from "axios";
 import styled from "styled-components";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import PokemonCard from "./PokemonCards";
+import PokemonCard from "../Components/PokemonCards";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -51,11 +51,11 @@ const MainPage = () => {
         });
       });
     }
+    setPokemonData([]);
     getPokemonData();
   }, [response]);
 
   const handleChange = (event, value) => {
-    setPokemonData([]);
     setPage(value);
     setOffset((value - 1) * 15);
   };
