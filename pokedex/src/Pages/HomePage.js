@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useQuery, useQueries } from "@tanstack/react-query";
 
 import { fetchData, fetchPokemonData, fetchDataToFilter } from "src/api";
-import { MyPagination, PokemonCard, PokemonCardContainer, Searcher } from "./components";
+import {
+  MyPagination,
+  PokemonCard,
+  PokemonCardContainer,
+  Searcher,
+} from "./components";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
@@ -14,6 +19,7 @@ const HomePage = () => {
     queryKey: ["pokemons", page],
     queryFn: () => fetchData((page - 1) * 15),
     enabled: searchedValue === "",
+    onSuccess: setCreateComponentData(pokemons?.data?.results),
   });
   const { data: pokemonsToFilter } = useQuery({
     queryKey: ["pokemonsToFilter"],
@@ -21,11 +27,6 @@ const HomePage = () => {
     enabled: searchedValue !== "",
   });
 
-  useEffect(() => {
-    if (isSuccess) {
-      setCreateComponentData(pokemons?.data?.results);
-    }
-  }, [isSuccess, pokemons]);
   useEffect(() => {
     if (pokemonsToFilter && searchedValue !== "") {
       const filteredData = pokemonsToFilter.data?.results?.filter(({ name }) =>
@@ -46,7 +47,9 @@ const HomePage = () => {
   });
   return (
     <>
-      <Searcher handleSearcherChange={(e) => setSearchedValue(e.target.value)} />
+      <Searcher
+        handleSearcherChange={(e) => setSearchedValue(e.target.value)}
+      />
       <PokemonCardContainer>
         {pokemonQueries.length !== 0 ? (
           pokemonQueries?.map(
@@ -61,7 +64,9 @@ const HomePage = () => {
                   baseExperience={value?.data?.data?.base_experience}
                   weight={value?.data?.data?.weight}
                   ability={value?.data?.data?.abilities[0].ability.name}
-                  onClickNavigate={() => navigate(`pokemon/${value?.data?.data?.id}`)}
+                  onClickNavigate={() =>
+                    navigate(`pokemon/${value?.data?.data?.id}`)
+                  }
                 />
               )
           )
@@ -70,7 +75,11 @@ const HomePage = () => {
         )}
       </PokemonCardContainer>
       {searchedValue === "" && (
-        <MyPagination count={11} pageNumber={page} paginationHanldeClick={(e, p) => setPage(p)} />
+        <MyPagination
+          count={11}
+          pageNumber={page}
+          paginationHanldeClick={(e, p) => setPage(p)}
+        />
       )}
     </>
   );
