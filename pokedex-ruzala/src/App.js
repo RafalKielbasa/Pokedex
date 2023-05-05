@@ -13,6 +13,7 @@ import fetchData from "./fetching/fetchData";
 import { useState } from "react";
 import FavoritesButton from "./components/FavoritesButton";
 import React from "react";
+import PokemonPreview from "./pages/PokemonPreview";
 
 const baseURL = process.env.REACT_APP_BASE_URL;
 export const GlobalContext = React.createContext();
@@ -31,6 +32,7 @@ function App() {
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
         {data && <Route index element={<HomePage collection={data} />} />}
+        <Route path="pokemon/:id" element={<PokemonPreview />} />
         <Route path="arena" element={<Arena />} />
         <Route path="favorites" element={<Favorites />} />
         <Route path="login" element={<Login />} />

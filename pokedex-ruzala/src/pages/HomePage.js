@@ -7,11 +7,11 @@ import PokemonTile from "../components/PokemonTile";
 export default function HomePage({ collection }) {
   const pokemonLinks = useQuery({
     queryKey: ["pokemonLinks"],
-    queryFn: () => fetchPokeLinks(collection.pokemon),
+    queryFn: () => fetchPokeLinks(`${collection.pokemon}?limit=15`),
     staleTime: 1000000,
   });
   const pokemons = useQuery({
-    queryKey: ["pokemons", 1],
+    queryKey: ["pokemons"],
     queryFn: () => fetchArray(pokemonLinks.data),
     staleTime: 1000000,
     enabled: pokemonLinks.data ? true : false,

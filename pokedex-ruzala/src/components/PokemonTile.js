@@ -1,5 +1,5 @@
 import { Box, Typography, Button } from "@mui/material";
-import { Favorite } from "@mui/icons-material";
+import { Favorite, Lightbulb } from "@mui/icons-material";
 import FavoritesButton from "./FavoritesButton";
 import { useNavigate } from "react-router-dom";
 
@@ -8,9 +8,12 @@ export default function PokemonTile({ pokemon }) {
   const dataBoxStyle = {
     display: "flex",
     alignItems: "center",
-    width: "50%",
+    width: "40%",
     flexDirection: "column",
-    marginBottom: 2,
+    margin: "0px 10px 20px 10px",
+    background: "rgba(0, 0, 0, 0.2)",
+    border: "3px solid lightblue",
+    borderRadius: "10px",
   };
 
   const singleTypePokemonTile = {
@@ -58,11 +61,13 @@ export default function PokemonTile({ pokemon }) {
       id="box"
     >
       <FavoritesButton pokemon={pokemon} />
-
+      <Box
+        sx={{ position: "absolute", top: "30px", left: "30px" }}
+      >{`#${pokemon.id}`}</Box>
       <Box
         sx={pokemon.types[1] ? dualTypePokemonTile : singleTypePokemonTile}
         onClick={() => {
-          navigate("/favorites");
+          navigate(`/pokemon/${pokemon.id}`);
         }}
         id="tile"
       >
@@ -70,12 +75,16 @@ export default function PokemonTile({ pokemon }) {
           sx={{
             display: "flex",
             justifyContent: "center",
-            width: "100%",
+            width: "60%",
+            alignSelf: "center",
+            borderRadius: "100px",
+            border: "3px solid lightblue",
             margin: 1,
+            background: "rgba(0, 0, 0, 0.3)",
           }}
         >
           <img
-            src={pokemon.sprites.other.dream_world.front_default}
+            src={pokemon.sprites.other["official-artwork"].front_default}
             height={`${226 * scaling}px`}
             alt="pokemonSprite"
           />
@@ -83,6 +92,7 @@ export default function PokemonTile({ pokemon }) {
         <Box
           sx={{
             display: "flex",
+            justifyContent: "space-between",
             flexWrap: "wrap",
             width: "100%",
             marginTop: 2,

@@ -5,6 +5,7 @@ export default async function fetchPokeLinks(URL) {
   const arrayOfLinks = [];
   try {
     const response = await axios.get(URL);
+    console.log(response);
     const data = response.data;
     rawData = data;
   } catch (error) {

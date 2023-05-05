@@ -9,14 +9,8 @@ const baseURL = process.env.REACT_APP_BASE_URL;
 export default function FavoritesButton({ pokemon }) {
   const { favoritesArray, setFavoritesArray } = useContext(GlobalContext);
   const [isActive, setIsActive] = useState(false);
-  console.log(favoritesArray);
 
   useEffect(() => {
-    console.log(
-      pokemon.name,
-      favoritesArray.includes(`${baseURL}pokemon/${pokemon.id}`)
-    );
-    console.log(isActive);
     if (favoritesArray.includes(`${baseURL}pokemon/${pokemon.id}`)) {
       setIsActive(true);
     } else {
