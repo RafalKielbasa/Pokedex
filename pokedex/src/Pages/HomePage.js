@@ -9,34 +9,34 @@ import {
   Searcher,
 } from "./components";
 import { useNavigate } from "react-router-dom";
+import { filterFnc } from "src/helpers/filterFnc";
 
 const HomePage = () => {
   const [page, setPage] = useState(1);
   const [searchedValue, setSearchedValue] = useState("");
-  const [CreateComponentData, setCreateComponentData] = useState(null);
+  const [createComponentData, setCreateComponentData] = useState(null);
   const navigate = useNavigate();
-  const { data: pokemons, isSuccess } = useQuery({
+  const { data: pokemons, status } = useQuery({
     queryKey: ["pokemons", page],
     queryFn: () => fetchData((page - 1) * 15),
     enabled: searchedValue === "",
-    onSuccess: setCreateComponentData(pokemons?.data?.results),
   });
   const { data: pokemonsToFilter } = useQuery({
     queryKey: ["pokemonsToFilter"],
     queryFn: () => fetchDataToFilter(),
     enabled: searchedValue !== "",
   });
-
   useEffect(() => {
-    if (pokemonsToFilter && searchedValue !== "") {
-      const filteredData = pokemonsToFilter.data?.results?.filter(({ name }) =>
-        name?.includes(searchedValue.toLowerCase())
+    pokemons &&
+      searchedValue === "" &&
+      setCreateComponentData(pokemons?.data?.results);
+    pokemonsToFilter &&
+      searchedValue !== "" &&
+      setCreateComponentData(
+        filterFnc(pokemonsToFilter?.data?.results, searchedValue)
       );
-      setCreateComponentData(filteredData);
-    }
-  }, [searchedValue, pokemonsToFilter, CreateComponentData]);
-
-  const resultList = CreateComponentData ? CreateComponentData : [];
+  }, [pokemons, pokemonsToFilter, searchedValue]);
+  const resultList = createComponentData ? createComponentData : [];
   const pokemonQueries = useQueries({
     queries: resultList?.map((pokemon) => {
       return {
@@ -45,41 +45,46 @@ const HomePage = () => {
       };
     }),
   });
+
   return (
     <>
-      <Searcher
-        handleSearcherChange={(e) => setSearchedValue(e.target.value)}
-      />
-      <PokemonCardContainer>
-        {pokemonQueries.length !== 0 ? (
-          pokemonQueries?.map(
-            (value) =>
-              value?.status === "success" && (
-                <PokemonCard
-                  key={value?.data?.data?.id}
-                  id={value?.data?.data?.id}
-                  url={value?.data?.data?.sprites?.front_default}
-                  title={value?.data?.data?.name}
-                  height={value?.data?.data?.height}
-                  baseExperience={value?.data?.data?.base_experience}
-                  weight={value?.data?.data?.weight}
-                  ability={value?.data?.data?.abilities[0].ability.name}
-                  onClickNavigate={() =>
-                    navigate(`pokemon/${value?.data?.data?.id}`)
-                  }
-                />
+      {status === "success" && (
+        <>
+          <Searcher
+            handleSearcherChange={(e) => setSearchedValue(e.target.value)}
+          />
+          <PokemonCardContainer>
+            {pokemonQueries.length !== 0 ? (
+              pokemonQueries?.map(
+                (value) =>
+                  value?.status === "success" && (
+                    <PokemonCard
+                      key={value?.data?.data?.id}
+                      id={value?.data?.data?.id}
+                      url={value?.data?.data?.sprites?.front_default}
+                      title={value?.data?.data?.name}
+                      height={value?.data?.data?.height}
+                      baseExperience={value?.data?.data?.base_experience}
+                      weight={value?.data?.data?.weight}
+                      ability={value?.data?.data?.abilities[0].ability.name}
+                      onClickNavigate={() =>
+                        navigate(`pokemon/${value?.data?.data?.id}`)
+                      }
+                    />
+                  )
               )
-          )
-        ) : (
-          <h1> BRAK DOPASOWAŃ</h1>
-        )}
-      </PokemonCardContainer>
-      {searchedValue === "" && (
-        <MyPagination
-          count={11}
-          pageNumber={page}
-          paginationHanldeClick={(e, p) => setPage(p)}
-        />
+            ) : (
+              <h1> BRAK DOPASOWAŃ</h1>
+            )}
+          </PokemonCardContainer>
+          {searchedValue === "" && (
+            <MyPagination
+              count={11}
+              pageNumber={page}
+              paginationHanldeClick={(e, p) => setPage(p)}
+            />
+          )}
+        </>
       )}
     </>
   );
