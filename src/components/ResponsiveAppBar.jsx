@@ -13,6 +13,11 @@ import MenuItem from "@mui/material/MenuItem";
 import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
 import { Link } from "react-router-dom";
 import { Padding } from "@mui/icons-material";
+import styled from "styled-components";
+
+const StyledTitle = styled.span`
+  font-size: 30px;
+`;
 
 const pages = ["Ulubione", "Arena", "Logowanie", "Rejestracja"];
 const settings = ["Edycja", "Wyloguj"];
@@ -58,7 +63,7 @@ function ResponsiveAppBar() {
                 }}
               >
                 <Link to={"/"}>
-                  <span className="title">POKEDEX</span>
+                  <StyledTitle>POKEDEX</StyledTitle>
                 </Link>
               </Typography>
             </Box>

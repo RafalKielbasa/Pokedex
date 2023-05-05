@@ -18,37 +18,6 @@ p {
   color: white;
 }
 
-img {
-  width: auto;
-  max-width: 120px;
-}
-
-.asd {
-  margin: 0;
-  padding: 0;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.title {
-  font-size: 30px;
-}
-
-.mini-title {
-  font-size: 11px;
-  font-family: cursive;
-  font-weight: lighter;
-}
-
-.big-title {
-  font-size: 16px;
-  font-family: "Courier New", Courier, monospace;
-  font-weight: bold;
-}
-
 span,
 p,
 a {

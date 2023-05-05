@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import Card from "../components/Card";
+
 export default function Ulubione({ favorites, setFavorites }) {
   useEffect(() => {
     const storedData = localStorage.getItem(`favorites`);

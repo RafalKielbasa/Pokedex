@@ -6,6 +6,14 @@ import Box from "@mui/material/Box";
 import Textfield from "../components/Textfield";
 import Pagination from "@mui/material/Pagination";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const StyledBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: lightgray;
+`;
 
 export default function Home() {
   const [url, setUrl] = useState(
@@ -51,14 +59,7 @@ export default function Home() {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        backgroundColor: "lightgray",
-      }}
-    >
+    <StyledBox>
       <Textfield setSearch={setSearch} setUrl={setUrl} />
       <Box
         sx={{
@@ -80,6 +81,6 @@ export default function Home() {
         variant="outlined"
         onChange={handlePaginationChange}
       />
-    </Box>
+    </StyledBox>
   );
 }

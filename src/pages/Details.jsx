@@ -2,11 +2,118 @@ import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
+
 import Box from "@mui/material/Box";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const PokemonCard = styled.div`
+  max-width: 80vw;
+  min-height: 30vh;
+  margin: 2rem;
+  background-color: blue;
+  &:hover {
+    transform: scale(1.01);
+  }
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ImageContainer = styled.div`
+  margin-left: 50px;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 4/3;
+
+  @media screen and (min-width: 600px) {
+    aspect-ratio: 1/1;
+  }
+`;
+
+const Image = styled.img`
+  width: auto;
+  max-width: 180px;
+`;
+
+const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Title = styled.span`
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 auto;
+`;
+
+const HeartIcon = styled(FavoriteRoundedIcon)`
+  margin-left: 5px;
+  color: ${({ isToggled }) => (isToggled ? "red" : "white")};
+  cursor: pointer;
+`;
+
+const SportsIcon = styled(SportsMmaRoundedIcon)`
+  margin-left: 5px;
+`;
+
+const InfoContainer = styled.div`
+  width: 100%;
+  height: 35%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+`;
+
+const InfoBox = styled.div`
+  margin: 0;
+  padding: 0.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const MiniTitle = styled.span`
+  font-size: 15px;
+  font-family: cursive;
+  font-weight: lighter;
+`;
+
+const BigTitle = styled.span`
+  font-size: 20px;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+`;
+
+const BackButton = styled(Link)`
+  border: 1px solid red;
+  max-width: 80vw;
+  text-align: center;
+  color: red;
+  margin: 1rem auto;
+`;
 
 export default function pokemonData({ favorites, setFavorites }) {
   const [isToggled, setIsToggled] = useState(false);
@@ -47,101 +154,41 @@ export default function pokemonData({ favorites, setFavorites }) {
     }
   };
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Box
-        sx={{
-          width: "80vw",
-          height: "30vh",
-          m: "2rem",
-          backgroundColor: "primary.dark",
-          "&:hover": {
-            transform: "scale(1.01)",
-          },
-          pointer: "coursor",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Box>
-          <img src={pokemonData?.sprites.other.dream_world.front_default} />
-        </Box>
+    <Container>
+      <PokemonCard>
+        <ImageContainer>
+          <Image src={pokemonData?.sprites.other.dream_world.front_default} />
+        </ImageContainer>
+        <ContentContainer>
+          <TitleContainer>
+            <Title>{pokemonData?.name}</Title>
+            <HeartIcon isToggled={isToggled} onClick={handleHeartClick} />
+            <SportsIcon />
+          </TitleContainer>
 
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Box>
-            <span className="title">{pokemonData?.name}</span>
-            <FavoriteRoundedIcon
-              sx={{
-                marginLeft: "5px",
-                color: isToggled ? "red" : "white",
-                cursor: "pointer",
-              }}
-              onClick={handleHeartClick}
-            />
-            <SportsMmaRoundedIcon sx={{ marginLeft: "5px" }} />
-          </Box>
-
-          <Box
-            sx={{
-              width: "100%",
-              height: "35%",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              flexWrap: "wrap",
-            }}
-          >
-            <Box className="asd">
-              <span className="mini-title">{pokemonData?.weight}</span>
-              <span className="big-title">weight</span>
-            </Box>
-
-            <Box className="asd">
-              <span className="mini-title">
+          <InfoContainer>
+            <InfoBox>
+              <MiniTitle>{pokemonData?.weight}</MiniTitle>
+              <BigTitle>weight</BigTitle>
+            </InfoBox>
+            <InfoBox>
+              <MiniTitle>
                 {pokemonData?.abilities?.[0]?.ability?.name}
-              </span>
-              <span className="big-title">abilitie</span>
-            </Box>
-
-            <Box className="asd">
-              <span className="mini-title"> {pokemonData?.height}</span>
-              <span className="big-title">height</span>
-            </Box>
-
-            <Box className="asd">
-              <span className="mini-title">{pokemonData?.base_experience}</span>
-              <span className="big-title">base experience</span>
-            </Box>
-          </Box>
-        </Box>
-      </Box>
-
-      <Link to={"/"}>
-        <Box
-          sx={{
-            border: "1px solid red",
-            width: "80vw",
-            textAlign: "center",
-            color: "red",
-          }}
-        >
-          do strony glownej
-        </Box>
-      </Link>
-    </Box>
+              </MiniTitle>
+              <BigTitle>abilitie</BigTitle>
+            </InfoBox>
+            <InfoBox>
+              <MiniTitle>{pokemonData?.height}</MiniTitle>
+              <BigTitle>height</BigTitle>
+            </InfoBox>
+            <InfoBox>
+              <MiniTitle>{pokemonData?.base_experience}</MiniTitle>
+              <BigTitle>base experience</BigTitle>
+            </InfoBox>
+          </InfoContainer>
+        </ContentContainer>
+      </PokemonCard>
+      <BackButton to={"/"}>do strony glownej</BackButton>
+    </Container>
   );
 }
