@@ -5,8 +5,6 @@ import { useState } from "react";
 import { Box } from "@mui/material";
 
 export default function MainLayout() {
-  const [loginState, setLoginState] = useState(false);
-  const [favoritesArray, setFavoritesArray] = useState([]);
   return (
     <Box
       sx={{
@@ -15,12 +13,12 @@ export default function MainLayout() {
         justifyContent: "space-between",
       }}
     >
-      <NavBar loginState={loginState} />
+      <NavBar />
       <Box
         id="middle_section"
         sx={{
           display: "flex",
-          height: "100%",
+          minHeight: "100vh",
           width: "90%",
           backgroundColor: "primary.light",
           alignSelf: "center",

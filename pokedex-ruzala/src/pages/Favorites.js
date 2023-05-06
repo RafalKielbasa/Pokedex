@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import PokemonTile from "../components/PokemonTile";
 import fetchArray from "../fetching/fetchArray";
 import { useQuery } from "@tanstack/react-query";
@@ -8,7 +8,6 @@ import { GlobalContext } from "../App";
 export default function Favorites() {
   const { favoritesArray } = useContext(GlobalContext);
   console.log(favoritesArray);
-  const [arrayOfFavorites, setArrayOfFavorites] = useState([]);
   const arrayOfFavPokemon = useQuery({
     queryKey: ["favorites"],
     queryFn: () => fetchArray(favoritesArray),
