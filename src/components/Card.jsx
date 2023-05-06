@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../context/ThemeContext";
 import { useTheme } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 const StyledBox = styled.div`
   width: 300px;
@@ -78,7 +79,7 @@ const StyledBigTitle = styled.span`
   font-weight: bold;
 `;
 
-function Card({ url, force }) {
+function Card({ url, force, closebutton, removeFighter }) {
   const [pokemonData, setPokemonData] = useState(null);
   const navigate = useNavigate();
   const theme = useTheme();
@@ -87,9 +88,13 @@ function Card({ url, force }) {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(url);
+      console.log("url", url);
       setPokemonData(response.data);
       force
-        ? force(response.data.base_experience * response.data.weight)
+        ? force([
+            response.data.base_experience * response.data.weight,
+            response.data.name,
+          ])
         : null;
     };
     fetchData();
@@ -97,14 +102,21 @@ function Card({ url, force }) {
 
   const handleClick = () => {
     navigate(`/Details/${pokemonData?.id}`, {
-      state: { pokemonData, otherState: "asdas" },
+      state: { pokemonData },
     });
   };
+
   return (
     <StyledBox
-      onClick={handleClick}
+      onClick={closebutton ? null : handleClick}
       style={{ backgroundColor: theme.palette.background.default }}
     >
+      {closebutton === true ? (
+        <CloseIcon
+          style={{ color: "white", position: "relative", left: "-135" }}
+          onClick={removeFighter}
+        />
+      ) : null}
       <StyledImgBox>
         <Image src={pokemonData?.sprites.other.dream_world.front_default} />
       </StyledImgBox>

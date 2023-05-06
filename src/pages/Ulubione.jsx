@@ -10,13 +10,13 @@ import { useTheme } from "@mui/material";
 export default function Ulubione({ favorites, setFavorites }) {
   const theme = useTheme();
   const colorMode = useContext(ThemeContext);
+  console.log("fav", favorites);
+
   useEffect(() => {
-    const storedData = localStorage.getItem(`favorites`);
-    console.log("storagedata", storedData);
-    if (storedData) {
-      return setFavorites(JSON.parse(storedData));
-    }
-    return;
+    axios
+      .get("http://localhost:3001/favorites")
+      .then((response) => setFavorites(response?.data?.map((item) => item.id)))
+      .catch((error) => console.log("ulub", error));
   }, []);
 
   return (
@@ -27,21 +27,25 @@ export default function Ulubione({ favorites, setFavorites }) {
         flexWrap: "wrap",
         alignItems: "top",
         justifyContent: "center",
-        height: "100%",
+        height: "100vh",
       }}
       style={{
         backgroundColor: theme.palette.background.contrast,
       }}
     >
-      {favorites?.map((item) => {
-        return (
-          <Card
-            key={item}
-            url={`https://pokeapi.co/api/v2/pokemon/${item}`}
-            gate={true}
-          />
-        );
-      })}
+      {favorites.length >= 1 ? (
+        favorites.map((item) => {
+          return (
+            <Card
+              key={item}
+              url={`https://pokeapi.co/api/v2/pokemon/${item}`}
+              gate={true}
+            />
+          );
+        })
+      ) : (
+        <h1 color="black">brak ulubionych pokemonow</h1>
+      )}
     </Box>
   );
 }

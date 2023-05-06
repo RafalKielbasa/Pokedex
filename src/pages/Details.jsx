@@ -164,54 +164,72 @@ export default function Details({
   const theme = useTheme();
   const colorMode = useContext(ThemeContext);
 
+  function fetchData(setFavorites, setBattle) {
+    setFavorites
+      ? axios
+          .get("http://localhost:3001/favorites")
+          .then((response) =>
+            setFavorites(response?.data?.map((item) => item.name))
+          )
+          .catch((error) => console.log(error))
+      : null;
+
+    setBattle
+      ? axios
+          .get("http://localhost:3001/battle")
+          .then((response) => setBattle(response.data?.map((item) => item.id)))
+          .catch((error) => console.log(error))
+      : null;
+  }
+
   useEffect(() => {
-    const storedData = localStorage.getItem(`isToggled-${pokemonData.id}`);
-    if (storedData) {
-      setIsToggled(JSON.parse(storedData));
-    }
-  }, [isToggled]);
+    fetchData(setFavorites, setBattle);
+  }, []);
+
+  useEffect(() => {
+    setIsToggled(favorites?.includes(pokemonData?.name));
+    setIsToggledBattle(battle?.includes(pokemonData?.id));
+  }, [favorites, battle]);
 
   const handleHeartClick = () => {
     if (isToggled === false && favorites.includes(pokemonData.name) === false) {
-      setFavorites([...favorites, pokemonData.name]);
-      setIsToggled(!isToggled);
-      localStorage.setItem(
-        `favorites`,
-        JSON.stringify([...favorites, pokemonData.name])
-      );
-      localStorage.setItem(
-        `isToggled-${pokemonData.id}`,
-        JSON.stringify(!isToggled)
-      );
-    } else {
-      setIsToggled(!isToggled);
-      const filteredFavorites = favorites.filter((item) => {
-        return item !== pokemonData.name;
+      axios.post("http://localhost:3001/favorites", {
+        id: pokemonData.id,
+        sprite: pokemonData.sprites.other.dream_world.front_default,
+        name: pokemonData.name,
+        weight: pokemonData.weight,
+        ability: pokemonData.abilities[0].ability.name,
+        height: pokemonData.height,
+        baseExperience: pokemonData.base_experience,
       });
-      localStorage.setItem(`favorites`, JSON.stringify(filteredFavorites));
-      setFavorites(filteredFavorites);
-
-      localStorage.setItem(
-        `isToggled-${pokemonData.id}`,
-        JSON.stringify(!isToggled)
-      );
+      setIsToggled(!isToggled);
+    } else {
+      axios.delete(`http://localhost:3001/favorites/${pokemonData.id}`);
+      setIsToggled(!isToggled);
     }
   };
 
   const handleBattleClick = () => {
-    if (battle.length >= 2) {
-      console.log("za duzo graczy ");
+    if (battle.length === 2 && battle.includes(pokemonData.id) === false) {
+      console.log("za duzo na arenie");
     } else if (
       isToggledBattle === false &&
       battle.includes(pokemonData.name) === false
     ) {
-      setBattle([...battle, pokemonData.name]);
+      axios.post("http://localhost:3001/battle", {
+        id: pokemonData.id,
+        sprite: pokemonData.sprites.other.dream_world.front_default,
+        name: pokemonData.name,
+        weight: pokemonData.weight,
+        ability: pokemonData.abilities[0].ability.name,
+        height: pokemonData.height,
+        baseExperience: pokemonData.base_experience,
+      });
       setIsToggledBattle(!isToggledBattle);
     } else {
+      console.log("usuniecie", pokemonData.id);
+      axios.delete(`http://localhost:3001/battle/${pokemonData.id}`);
       setIsToggledBattle(!isToggledBattle);
-      const filteredBattle = battle.filter((item) => {
-        return item !== pokemonData.name;
-      });
     }
   };
 
@@ -237,7 +255,7 @@ export default function Details({
               <HeartIcon isToggled={isToggled} onClick={handleHeartClick} />
             </Tooltip>
             <Tooltip
-              title={isToggledBattle ? "Add to battle" : "Remove from battle"}
+              title={isToggledBattle ? "Remove from battle" : "Add to battle"}
             >
               <SportsIcon
                 isToggledBattle={isToggledBattle}

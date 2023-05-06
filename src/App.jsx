@@ -18,7 +18,7 @@ function App() {
   const [favorites, setFavorites] = useState([]);
   const [battle, setBattle] = useState([]);
   const [theme, colorMode] = useMode();
-  console.log("w app", battle);
+
   const toggleTheme = () => {
     setTheme((current) => (current === "light" ? "dark" : "light"));
   };
