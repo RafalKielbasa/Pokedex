@@ -1,5 +1,6 @@
-import { Navigation } from '../components/layouts/Navigation/Navigation';
-import { useGetAllPokemonQuery } from '../hooks/useGetAllPokemon';
+import { Navigation } from "../components/layouts/Navigation/Navigation";
+import { useGetAllPokemonQuery } from "../hooks/useGetAllPokemon";
+import { PokemonCard } from "../components/PokemonCard/PokemonCard";
 
 export const HomePage = () => {
   useGetAllPokemonQuery();
@@ -7,6 +8,7 @@ export const HomePage = () => {
   return (
     <>
       <Navigation />
+      <PokemonCard />
     </>
   );
 };
