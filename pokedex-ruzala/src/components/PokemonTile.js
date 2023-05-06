@@ -108,7 +108,11 @@ export default function PokemonTile({ pokemon }) {
           <Box sx={dataBoxStyle}>
             <Typography sx={{ fontSize: "10px" }}>Type(s)</Typography>
             {pokemon.types.map((element) => {
-              return <Typography>{element.type.name.toUpperCase()}</Typography>;
+              return (
+                <Typography key={`type ${element.type.name} ${pokemon.name}`}>
+                  {element.type.name.toUpperCase()}
+                </Typography>
+              );
             })}
           </Box>
           <Box sx={dataBoxStyle}>

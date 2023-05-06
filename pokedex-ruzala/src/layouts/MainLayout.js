@@ -18,7 +18,7 @@ export default function MainLayout() {
         id="middle_section"
         sx={{
           display: "flex",
-          minHeight: "100vh",
+          minHeight: "90vh",
           width: "90%",
           backgroundColor: "primary.light",
           alignSelf: "center",

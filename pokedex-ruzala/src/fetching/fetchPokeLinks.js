@@ -11,7 +11,6 @@ export default async function fetchPokeLinks(pageParam) {
     const response = await axios.get(
       `${baseURL}pokemon/?limit=${limit}&offset=${offset}`
     );
-    console.log(response);
     const data = response.data;
     rawData = data;
     nextPage = data.next;

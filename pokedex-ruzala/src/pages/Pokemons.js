@@ -6,6 +6,7 @@ import PokemonTile from "../components/PokemonTile";
 import { useParams } from "react-router-dom";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -22,7 +23,19 @@ export default function HomePage() {
     enabled: pokemonLinks.data ? true : false,
   });
   if (pokemons.isLoading) {
-    return <h2>Is Loading...</h2>;
+    return (
+      <Box sx={{ position: "relative", height: "100%", width: "100%" }}>
+        <CircularProgress
+          size={100}
+          color="warning"
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+          }}
+        />
+      </Box>
+    );
   }
   if (pokemons.isError) {
     return <Box>{JSON.stringify(pokemons.error)};</Box>;
@@ -45,7 +58,6 @@ export default function HomePage() {
           onClick={() => {
             navigate(`/pokemons/${Number(id) - 1}`, { replace: true });
           }}
-          color="primary.light"
         >
           <ArrowBackIos />
         </IconButton>
@@ -74,7 +86,6 @@ export default function HomePage() {
           onClick={() => {
             navigate(`/pokemons/${Number(id) + 1}`, { replace: true });
           }}
-          color="primary.light"
         >
           <ArrowForwardIos />
         </IconButton>
