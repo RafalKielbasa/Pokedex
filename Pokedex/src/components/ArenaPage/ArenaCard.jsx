@@ -17,6 +17,10 @@ const [fetchedDatabyID, setDatabyID] = useState([]);
 const [loading, setLoading] = useState(true); 
 const [classofPokemon, setclassofPokemon] = useState("");
 const [pokemonStats, setpokemonStats] = useState(0);
+const [numOfWins, setnumOfWins] = useState(0);
+const [numOfExp, setnumOfExp] = useState(0);
+
+
 const arenaPokemon = props.arena;
 useEffect(() => {
     const fetchDatabyID = async () => {
@@ -40,20 +44,30 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
-  
-    const pokemonStats = fetchedDatabyID.base_experience * fetchedDatabyID.weight;
-    props.setpokemonStats(pokemonStats)
+    const arenaResults = JSON.parse(localStorage.getItem('arenaResults'));
+    console.log("TT",arenaResults[props.cardID] )
+    if (arenaResults && arenaResults[props.cardID]) {
+      setnumOfWins(arenaResults[props.cardID])
+   
+
+    }
+    const pokemonPoints = (fetchedDatabyID.base_experience + (numOfWins * 10)) * fetchedDatabyID.weight;
+    setnumOfExp(fetchedDatabyID.base_experience + (numOfWins * 10))
+    props.setpokemonStats(pokemonPoints)
  
-}, [loading]);
+}, [loading,props.pokemonArenaID, props.isWinner]);
 
 
   const removeFromArena = () => {
-
-
+    console.log("TEST")
     let arenaPokemonsID = JSON.parse(localStorage.getItem("arenaPokemons"));
+    {console.log(props.cardID)}
     arenaPokemonsID = arenaPokemonsID.filter((id) => id !== props.cardID)
     localStorage.setItem("arenaPokemons", JSON.stringify(arenaPokemonsID));
     props.setpokemonArenaID(arenaPokemonsID)
+    props.setisFight(false)
+
+
 
 
   };
@@ -62,22 +76,50 @@ useEffect(() => {
   
 
   return (
+<> 
 
-  
 
-
+      
   <Box className={classofPokemon} sx={{
 
  boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;',
  borderRadius: '10px',
- width: "300px"
- 
+ width: "300px",
+ height: "599px",
   }}>
+
+
 
     {loading ? (
       <Typography>Loading...</Typography>
     ) : (
-      <>
+      <> 
+
+
+{(!props.isWinner && props.isFight ) ? ( 
+
+<Box sx={{
+  display: "flex",
+  justifyContent: "center",
+  flexWrap: "wrap",
+  alignContent: "center",
+  height: "599px",
+  width: "300px",
+  position: "absolute",
+  backgroundColor: `${!props.isWinner ? "rgba(0, 0, 0, 0.6)" : ""}`
+   }}>
+     <Typography variant='h4' sx={{width: "100%", textAlign: "center"}}>Lost</Typography>
+    <Button variant="contained" onClick={removeFromArena} sx={{}} >Usun Pokemona Z Areny</Button> </Box> ) : (<> </>)}
+      
+      
+      
+      
+      
+      
+      
+      
+      <Box sx={{  
+    }}> 
          <IconButton size='large' onClick={removeFromArena} sx={{display: "flex",fontWeight: 700, color: "black", width: "100%", p:0, marginBottom: "-15px", justifyContent:"flex-end", paddingRight: 1, paddingTop: 1 }}>
       <CloseIcon  />
     </IconButton>
@@ -85,7 +127,8 @@ useEffect(() => {
 
             <CardMedia
               component="img"
-              sx={{ width: {xs: "125px", md:"125px"}, height: "125px", objectFit: 'contain'}}
+              sx={{ width: {xs: "125px", md:"125px"}, height: "125px", objectFit: 'contain',  
+}}
               image={`${fetchedDatabyID.sprites.other.dream_world.front_default}`}
             />          
     
@@ -95,14 +138,14 @@ useEffect(() => {
             
             <Typography sx={{color:"white", marginTop: 3, width: "100%", textAlign: "center"}}>{`Height: ${fetchedDatabyID.height} Weight: ${fetchedDatabyID.weight}`}</Typography>
     
-            <Typography sx={{color:"white",  display: {xs: "none", sm: "flex"}}}>{`Exp: ${fetchedDatabyID.base_experience}`}</Typography>
+            <Typography sx={{color:"white",  display: {xs: "none", sm: "flex"}}}>{`Exp: ${numOfExp} Wins:${numOfWins}`}</Typography>
           </Box>
        
           
       
 
-      <Box sx={{width: '100%', bgcolor: 'white', boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;', borderRadius: '10px', boxSizing: "border-box", p:3, height: `275px`}}>
-      <Typography variant='h5' sx={{fontWeight: 700}}>Stats</Typography>
+      <Box sx={{width: '100%', bgcolor: 'white', boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;', borderRadius: '10px', boxSizing: "border-box", p:3, height: `275px`,}}>
+      <Typography variant='h5' sx={{fontWeight: 700,}}>Stats</Typography>
       {fetchedDatabyID.stats.map((stat) => (
   <Box
     key={stat.stat.name}
@@ -130,7 +173,7 @@ useEffect(() => {
 ))}
         </Box>
 
-          </>
+        </Box></>
        
 
 
@@ -147,7 +190,7 @@ useEffect(() => {
 
   
 
-  
+        </>
   )
 }
 
