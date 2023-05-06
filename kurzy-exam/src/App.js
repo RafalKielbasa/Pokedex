@@ -1,12 +1,11 @@
 import "./App.css";
-import Navigation from "src/Navigation/Navigation";
-import MainPage from "src/Pages/MainPage";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./Routes/Routes";
 
 function App() {
   return (
     <>
-      <Navigation />
-      <MainPage />
+      <RouterProvider router={router} />
     </>
   );
 }
