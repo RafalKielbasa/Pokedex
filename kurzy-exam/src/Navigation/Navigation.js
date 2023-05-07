@@ -1,19 +1,15 @@
-import useLogic from "src/Pages/useMainPage";
-import { useEffect, useState } from "react";
 import { pokelogo } from "src/Images";
 import NavigationWrapper from "src/Navigation/NavigationWrapper";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import styled from "styled-components";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const NavigationContainer = styled.div`
   padding: 50px 40px 50px 40px;
 `;
 
 const Navigation = () => {
-  // const { data } = useLogic();
-
   return (
     <>
       <NavigationContainer>

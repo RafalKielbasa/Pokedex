@@ -29,8 +29,6 @@ const HomePage = () => {
   const [response, setResponse] = useState([]);
   const [pokemonData, setPokemonData] = useState([]);
 
-  console.log(`pokemonData`, pokemonData);
-
   useEffect(() => {
     async function getResults() {
       const response = await axios.get(`${BASE_URL}?limit=15&offset=${offset}`);
@@ -84,6 +82,7 @@ const HomePage = () => {
             baseexp={item.base_experience}
             weight={item.weight}
             abilitie={item.abilities[0].ability.name}
+            pokemonData={pokemonData}
           />
         ))}
       </PokemonWrapper>
