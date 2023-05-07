@@ -30,7 +30,6 @@ const HomePage = () => {
   const [pokemonData, setPokemonData] = useState([]);
 
   console.log(`pokemonData`, pokemonData);
-  // console.log(`handleClick`, handleClick);
 
   useEffect(() => {
     async function getResults() {
@@ -38,7 +37,7 @@ const HomePage = () => {
       setResponse(response.data.results);
     }
     getResults();
-  }, [offset]);
+  }, [page, pokemonData.length > 15]);
 
   useEffect(() => {
     async function getPokemonData() {

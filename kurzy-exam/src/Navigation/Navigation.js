@@ -37,6 +37,7 @@ const Navigation = () => {
             <Link to="edition">
               <Button variant="outlined">EDYCJA</Button>
             </Link>
+
             <Button variant="outlined">WYLOGUJ</Button>
           </Stack>
         </NavigationWrapper>

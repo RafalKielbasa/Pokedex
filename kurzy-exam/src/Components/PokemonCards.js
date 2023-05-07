@@ -9,9 +9,7 @@ import styled from "styled-components";
 import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
-import { Hidden } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const CardsWrapper = styled.div`
   margin: 20px;
@@ -28,6 +26,16 @@ export default function PokemonCard({
   weight,
   abilitie,
 }) {
+  let navigate = useNavigate();
+
+  // console.log(`id`, id);
+
+  const handleClick = () => {
+    console.log(`id`, id);
+    // let path = "details";
+    // navigate(path, { state: { id } });
+  };
+
   return (
     <CardsWrapper>
       <Card
@@ -37,6 +45,7 @@ export default function PokemonCard({
             transform: "scale(1.15)",
           },
         }}
+        onClick={(e) => handleClick(e.currentTarget.id)}
       >
         <CardMedia style={{ textAlign: "center" }}>
           <img src={pic} alt={"picture"} key={id} />

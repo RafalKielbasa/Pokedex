@@ -7,6 +7,7 @@ import {
   LoginPage,
   RegistrationPage,
   MainPage,
+  DetailsPage,
 } from "src/Pages";
 
 export const router = createBrowserRouter([
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
       { path: "login", element: <LoginPage /> },
       { path: "registration", element: <RegistrationPage /> },
       { path: "edition", element: <EditionPage /> },
+      { path: "details", element: <DetailsPage /> },
     ],
   },
 ]);
