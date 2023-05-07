@@ -34,7 +34,7 @@ const InfoContainer = styled.div`
   margin-left: 50px;
   margin-right: 50px;
 `;
-const DetailedPokemonCard = ({ value }) => {
+const DetailedPokemonCard = ({ value, onClickFavorite, isFavorite, inArena, onClickArena }) => {
   const navigate = useNavigate();
   const dataToPass = value?.data;
   return (
@@ -56,14 +56,22 @@ const DetailedPokemonCard = ({ value }) => {
             <CardBoxInfo dataToPass={dataToPass}></CardBoxInfo>
           </InfoContainer>
           <div>
-            <span>ULUBIONE</span>
-            <IconButton aria-label="favorite" color="secondary">
+            <span>{isFavorite ? "USUŃ Z ULUBIONYCH" : "DODAJ DO ULUBIONYCH"}</span>
+            <IconButton
+              aria-label="favorite"
+              onClick={onClickFavorite}
+              sx={{ color: isFavorite ? "red" : "grey" }}
+            >
               <FavoriteIcon />
             </IconButton>
           </div>
           <div>
-            <span>ARENA</span>
-            <IconButton aria-label="fight" color="secondary">
+            <span>{inArena ? "USUŃ Z ARENY" : "DODAJ DO ARENY"}</span>
+            <IconButton
+              aria-label="fight"
+              onClick={onClickArena}
+              sx={{ color: inArena ? "red" : "grey" }}
+            >
               <ColorizeIcon />
             </IconButton>
           </div>
