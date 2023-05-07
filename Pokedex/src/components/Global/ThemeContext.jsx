@@ -1,25 +1,65 @@
-import React, { createContext, useState, useEffect } from "react";
+import { createContext, useState, useMemo } from "react";
+import { createTheme } from "@mui/material/styles";
 
 
-export const ThemeContext = React.createContext();
-
-export const FavoriteContext = createContext();
-
-export const FavoriteProvider = ({ children }) => {
-  const [favorites, setFavorites] = useState([]);
-
-  const toggleFavorite = (itemId) => {
-    if (favorites.includes(itemId)) {
-      setFavorites(favorites.filter((id) => id !== itemId));
-    } else {
-      setFavorites([...favorites, itemId]);
-    }
+export const themeSetup = (mode) => {
+    return {
+      palette: {
+        mode: mode,
+        ...(mode === "dark"
+          ? {
+              // palette values for dark mode
+              primary: {
+                main: "#141b2d",
+                contrastText: "#FFFFFF",
+              },
+              secondary: {
+                main: "#4cceac",
+              },
+              neutral: {
+                dark: "#3d3d3d",
+                main: "#666666",
+              },
+              background: {
+                default: "#141b2d",
+              },
+            }
+          : {
+              // palette values for light mode
+              primary: {
+                main: "#d0d1d5",
+                contrastText: "#000000",
+              },
+              secondary: {
+                main: "#141b2d",
+              },
+              neutral: {
+                dark: "#3d3d3d",
+                main: "#666666",
+              },
+              background: {
+                default: "#fcfcfc",
+              },
+            }),
+      },
+    };
   };
-
-
-  return (
-    <FavoriteContext.Provider value={{ favorites, toggleFavorite }}>
-      {children}
-    </FavoriteContext.Provider>
-  );
-};
+  
+  export const ThemeContext = createContext({ toggleColorMode: () => {} });
+  
+  export const useMode = () => {
+    const [mode, setMode] = useState("light");
+  
+    const colorMode = useMemo(
+      () => ({
+        toggleColorMode: () => {
+          setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+        },
+      }),
+      []
+    );
+  
+    const theme = useMemo(() => createTheme(themeSetup(mode)), [mode]);
+  
+    return [theme, colorMode];
+  };

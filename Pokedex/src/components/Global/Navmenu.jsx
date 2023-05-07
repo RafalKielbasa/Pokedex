@@ -6,7 +6,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import PersonIcon from '@mui/icons-material/Person';
 import logo from '../../assets/logo.png';
 import { redirect } from "react-router-dom";
-
+import { ThemeContext } from "./ThemeContext";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import { useContext } from "react";
+import { useTheme } from "@mui/material";
 
 
 
@@ -16,6 +20,9 @@ const pages = ['Arena', 'Cards', 'Favourites'];
 const toggleNavMenu = (event) => {
   setmobileMenu(mobileMenu ? null : event.currentTarget);
 };
+const theme = useTheme();
+const colorMode = useContext(ThemeContext);
+
 
 
 return (
@@ -54,7 +61,7 @@ return (
                 </NavLink>
               </Typography>
             </MenuItem>
-           
+
         </Menu>
       </Box>
 
@@ -69,6 +76,15 @@ return (
            <NavLink to={`account`} style={{ textDecoration: 'none', color: 'black' }}>
            <PersonIcon sx={{p:3}}/>
             </NavLink>
+            <Box display="flex">
+              <IconButton onClick={colorMode.toggleColorMode}>
+                {theme.palette.mode === "dark" ? (
+                  <DarkModeOutlinedIcon sx={{ color: "white" }} />
+                ) : (
+                  <LightModeOutlinedIcon sx={{ color: "black" }} />
+                )}
+              </IconButton>
+            </Box>
  
    
             

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography, Grid, Pagination, Box, Button} from '@mui/material';
 import { useEffect, useState, useContext } from 'react';
-import { FavoriteContext } from "../Global/ThemeContext";
+import { FavoriteContext } from "../Global/FavoriteContext";
 import PokemonCard from '../MainPage/PokemonCard';
 import PokemonDetails from '../MainPage/PokemonDetails';
 import ArenaCard from './ArenaCard';

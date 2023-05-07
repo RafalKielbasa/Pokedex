@@ -5,7 +5,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import PokemonDetails from "./PokemonDetails";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { FavoriteContext } from "../Global/ThemeContext";
+import { FavoriteContext } from "../Global/FavoriteContext";
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepartmentOutlined';
 import { useSnackbar } from 'notistack';

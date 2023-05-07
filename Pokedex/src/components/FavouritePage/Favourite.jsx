@@ -1,7 +1,7 @@
 import { Typography, Grid, Pagination, } from '@mui/material';
 import React from 'react'
 import { useEffect, useState, useContext } from 'react';
-import { FavoriteContext } from "../Global/ThemeContext";
+import { FavoriteContext } from "../Global/FavoriteContext";
 import PokemonCard from '../MainPage/PokemonCard';
 
 function Favourite() {

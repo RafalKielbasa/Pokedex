@@ -3,11 +3,13 @@ import { ThemeProvider, createTheme, createMuiTheme} from '@mui/material'
 import MainPage from './components/MainPage/MainPage'
 import { BrowserRouter, createBrowserRouter, createRoutesFromElements, Route, RouterProvider, Routes } from 'react-router-dom';
 import RootLayout from './components/layouts/RootLayout'
-import { ThemeContext } from './components/Global/ThemeContext';
+import { FavoriteContext } from './components/Global/FavoriteContext';
+import { useMode, ThemeContext } from './components/Global/ThemeContext';
+
 import LogIn from './components/AccountPages/LogIn';
 import UserPage from './components/AccountPages/UserPage';
 import LoginWrapper from './components/AccountPages/LoginWrapper';
-import { FavoriteProvider } from "./components/Global/ThemeContext";
+import { FavoriteProvider } from "./components/Global/FavoriteContext";
 import Favourite from './components/FavouritePage/Favourite';
 import { SnackbarProvider } from 'notistack';
 import Arena from './components/ArenaPage/Arena';
@@ -34,18 +36,22 @@ const router = createBrowserRouter(
   )
 )
 function App() {
+  const [theme, colorMode] = useMode()
+
   return (
 
-
+<ThemeContext.Provider value={colorMode}>
 <ThemeProvider theme={theme}>
-<ThemeContext.Provider value={theme}>
+<FavoriteContext.Provider value={theme}>
 <SnackbarProvider>
 <FavoriteProvider> 
 <RouterProvider router={router} />
 </FavoriteProvider>
 </SnackbarProvider>
-</ThemeContext.Provider>
+</FavoriteContext.Provider>
 </ThemeProvider>
+
+</ThemeContext.Provider>
 
   );
 }

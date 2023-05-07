@@ -18,37 +18,75 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { useNavigate } from "react-router-dom";
 import UserPage from './UserPage';
+import { SnackbarProvider, useSnackbar } from 'notistack';
 
 
 function LogIn({ setIsLogged }) {
 
 const [isRegistered, setisRegistered] = useState(false);
 const navigate = useNavigate();
+const { enqueueSnackbar } = useSnackbar();
 
 
 
-  const validationSchema = yup.object({
+const handleLogInBtn = () => {
+  setisRegistered(!isRegistered)
+}
+
+
+  const validationSchema = !isRegistered ? yup.object({
     email: yup
       .string('Enter your email')
       .email('Enter a valid email')
       .required('Email is required'),
     password: yup
       .string('Enter your password')
-      .min(8, 'Password should be of minimum 8 characters length')
+      .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,'Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character')
       .required('Password is required'),
-  });
+      repeatedpassword: yup
+      .string('Enter your password again')
+      .oneOf([yup.ref('password'), null], 'Passwords must match')
+      .required('Repeated password is required'),
+      name: yup
+      .string('Enter your name')
+
+  }) : yup.object({
+    email: yup
+      .string('Enter your email')
+      .email('Enter a valid email')
+      .required('Email is required'),
+    password: yup
+      .string('Enter your password')
+  
+      .required('Password is required'),
+ 
+
+  })
 
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
+      name: '',
+      repeatedpassword: ''
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      const data = {
-        email: values.email,
-        password: values.password,
-      };
+
+      let data;
+      if (isRegistered) {
+        data = {
+          email: values.email,
+          password: values.password,
+        };
+      } else {
+        data = {
+          name: values.name,
+          email: values.email,
+          password: values.password,
+          repeatedpassword: values.repeatedpassword,
+        };
+      }
       console.log(data)
 
       if (!isRegistered) {
@@ -57,25 +95,40 @@ const navigate = useNavigate();
           .post('http://localhost:3000/users', data)
           .then(response => {
             setIsLogged(true);
-            
+
+            enqueueSnackbar('Registration successful', { variant: 'success' });
+
           })
           .catch(error => {
             console.log(error);
+            enqueueSnackbar('Invalid email or password', { variant: 'error' });
+
           })
           
       } else {
         // Login the user
         axios
-          .get(`http://localhost:3000/users?email=${dataemail}&password=${data.password}`)
+          .get(`http://localhost:3000/users?email=${data.email}&password=${data.password}`)
           .then(response => {
             if (response.data.length > 0) {
-              history.push('/user');
+              console.log("TES34T",data)
+              setIsLogged(true);
+              enqueueSnackbar('Login successful', { variant: 'success' });
+              localStorage.setItem("logged", JSON.stringify(true));
+
+
             } else {
+              console.log("TES3111114T",response)
+
               console.log('Invalid email or password');
+              enqueueSnackbar('Invalid email or password', { variant: 'error' });
+
             }
           })
           .catch(error => {
             console.log(error);
+            enqueueSnackbar('Invalid email or password', { variant: 'error' });
+
           })
        
       }
@@ -103,6 +156,18 @@ const navigate = useNavigate();
 
 
 <form onSubmit={formik.handleSubmit}>
+      {!isRegistered && 
+        <TextField
+          fullWidth
+          id="name"
+          name="name"
+          label="Name"
+          sx={{mt: 1}}
+          value={formik.values.name}
+          onChange={formik.handleChange}
+          error={formik.touched.name && Boolean(formik.errors.name)}
+          helperText={formik.touched.name && formik.errors.name}
+        />}
         <TextField
           fullWidth
           id="email"
@@ -125,6 +190,19 @@ const navigate = useNavigate();
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={formik.touched.password && formik.errors.password}
         />
+        {!isRegistered && 
+          <TextField
+          fullWidth
+          id="repeatedpassword"
+          name="repeatedpassword"
+          label="Repeated Password"
+          sx={{my: 2}}
+          type="password"
+          value={formik.values.repeatedpassword}
+          onChange={formik.handleChange}
+          error={formik.touched.repeatedpassword && Boolean(formik.errors.repeatedpassword)}
+          helperText={formik.touched.repeatedpassword && formik.errors.repeatedpassword}
+        />}
         <Button color="primary" variant="contained" fullWidth type="submit"   sx={{ mt: 3, mb: 2 }}>
         {isRegistered ? 'Sign in' : 'Sign up'}
         </Button>
@@ -134,9 +212,9 @@ const navigate = useNavigate();
 
          
    
-            <Link href="#" variant="body2">
+            <Button onClick={handleLogInBtn} variant="body2">
             {isRegistered ?  "Don't have an account? Sign Up" : "Have an account? Log in" }
-            </Link>
+            </Button>
     </Box>
   </Container> 
   </>
