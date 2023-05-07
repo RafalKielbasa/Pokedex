@@ -1,6 +1,7 @@
 import React, { createContext, useRef } from "react";
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { SnackbarProvider } from "notistack";
 import Arena from "./pages/Arena";
 import Edycja from "./pages/Edycja";
 import Logowanie from "./pages/Logowanie";
@@ -26,37 +27,42 @@ function App() {
     <>
       <ThemeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
-          <ResponsiveAppBar />
-          <div className="container" id={theme}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route
-                path="/Arena"
-                element={<Arena battle={battle} setBattle={setBattle} />}
-              />
-              <Route path="/Edycja" element={<Edycja />} />
-              <Route path="/Logowanie" element={<Logowanie />} />
-              <Route path="/Rejestracja" element={<Rejestracja />} />
-              <Route
-                path="/Ulubione"
-                element={
-                  <Ulubione setFavorites={setFavorites} favorites={favorites} />
-                }
-              />
-              <Route path="/Wyloguj" element={<Wyloguj />} />
-              <Route
-                path="/Details/:id/"
-                element={
-                  <Details
-                    setFavorites={setFavorites}
-                    favorites={favorites}
-                    battle={battle}
-                    setBattle={setBattle}
-                  />
-                }
-              />
-            </Routes>
-          </div>
+          <SnackbarProvider>
+            <ResponsiveAppBar />
+            <div className="container" id={theme}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route
+                  path="/Arena"
+                  element={<Arena battle={battle} setBattle={setBattle} />}
+                />
+                <Route path="/Edycja" element={<Edycja />} />
+                <Route path="/Logowanie" element={<Logowanie />} />
+                <Route path="/Rejestracja" element={<Rejestracja />} />
+                <Route
+                  path="/Ulubione"
+                  element={
+                    <Ulubione
+                      setFavorites={setFavorites}
+                      favorites={favorites}
+                    />
+                  }
+                />
+                <Route path="/Wyloguj" element={<Wyloguj />} />
+                <Route
+                  path="/Details/:id/"
+                  element={
+                    <Details
+                      setFavorites={setFavorites}
+                      favorites={favorites}
+                      battle={battle}
+                      setBattle={setBattle}
+                    />
+                  }
+                />
+              </Routes>
+            </div>
+          </SnackbarProvider>
         </ThemeProvider>
       </ThemeContext.Provider>
     </>

@@ -1,25 +1,11 @@
 import { useState } from "react";
+
+import { useSnackbar } from "notistack";
 import axios from "axios";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import styled from "styled-components";
-
-const Container2 = styled.div`
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const FormWrapper = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid black;
-  padding: 50px;
-`;
 
 const userSchema = Yup.object().shape({
   name: Yup.string().required("Imię jest wymagane."),
@@ -36,7 +22,7 @@ const userSchema = Yup.object().shape({
 
 export default function Rejestracja() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const { enqueueSnackbar } = useSnackbar();
   const handleOnSubmit = (values, actions) => {
     setIsSubmitting(true);
     console.log(values);
@@ -46,6 +32,11 @@ export default function Rejestracja() {
       email: values.email,
       password: values.password,
     });
+    handleClick();
+  };
+
+  const handleClick = () => {
+    enqueueSnackbar("Register Succes", { variant: "success" });
   };
 
   return (

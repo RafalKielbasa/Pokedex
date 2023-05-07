@@ -1,15 +1,14 @@
-import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import Tooltip from "@mui/material/Tooltip";
-import Box from "@mui/material/Box";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
 import { ThemeContext } from "../context/ThemeContext";
 import { useTheme } from "@mui/material";
+import { useSnackbar } from "notistack";
 
 const Container = styled.div`
   display: flex;
@@ -160,7 +159,7 @@ export default function Details({
   const [isToggledBattle, setIsToggledBattle] = useState(false);
   const location = useLocation();
   const pokemonData = location.state?.pokemonData;
-
+  const { enqueueSnackbar } = useSnackbar();
   const theme = useTheme();
   const colorMode = useContext(ThemeContext);
 
@@ -191,6 +190,10 @@ export default function Details({
     setIsToggledBattle(battle?.includes(pokemonData?.id));
   }, [favorites, battle]);
 
+  const handleClick = (text, type) => {
+    enqueueSnackbar(text, { variant: type });
+  };
+
   const handleHeartClick = () => {
     if (isToggled === false && favorites.includes(pokemonData.name) === false) {
       axios.post("http://localhost:3001/favorites", {
@@ -203,9 +206,11 @@ export default function Details({
         baseExperience: pokemonData.base_experience,
       });
       setIsToggled(!isToggled);
+      handleClick("Added to favorites", "success");
     } else {
       axios.delete(`http://localhost:3001/favorites/${pokemonData.id}`);
       setIsToggled(!isToggled);
+      handleClick("Deleted from favorites", "error");
     }
   };
 
@@ -226,10 +231,12 @@ export default function Details({
         baseExperience: pokemonData.base_experience,
       });
       setIsToggledBattle(!isToggledBattle);
+      handleClick("Added to battle", "success");
     } else {
       console.log("usuniecie", pokemonData.id);
       axios.delete(`http://localhost:3001/battle/${pokemonData.id}`);
       setIsToggledBattle(!isToggledBattle);
+      handleClick("Removed from battle", "error");
     }
   };
 

@@ -1,16 +1,12 @@
-import { useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import Tooltip from "@mui/material/Tooltip";
-import Box from "@mui/material/Box";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
 import { ThemeContext } from "../context/ThemeContext";
 import { useTheme } from "@mui/material";
 import Card from "../components/Card";
+import { useSnackbar } from "notistack";
 const Container = styled.div`
   height: 100vh;
   display: flex;
@@ -52,7 +48,7 @@ export default function Arena({ battle, setBattle }) {
   const [playerTwoForce, setPlayerTwoForce] = useState();
   const [winner, setWinner] = useState("");
   const [listener, setListener] = useState(true);
-
+  const { enqueueSnackbar } = useSnackbar();
   const theme = useTheme();
   const colorMode = useContext(ThemeContext);
 
@@ -79,11 +75,15 @@ export default function Arena({ battle, setBattle }) {
       console.log("brak drugiego gracza");
     }
   };
+  const handleClick = (text, type) => {
+    enqueueSnackbar(text, { variant: type });
+  };
 
   const removeFighter = (index) => {
     console.log("usuwamy", battle[0]);
     axios.delete(`http://localhost:3001/battle/${index}`);
     setListener(!listener);
+    handleClick("Removed Pokemon from battle", "error");
   };
 
   const backHome = (index) => {
@@ -99,7 +99,9 @@ export default function Arena({ battle, setBattle }) {
         backgroundColor: theme.palette.background.contrast,
       }}
     >
-      {winner ? <h1>winner {winner.toUpperCase()} !</h1> : null}
+      {winner ? (
+        <h2 style={{ marginTop: "20px" }}>winner {winner.toUpperCase()} !</h2>
+      ) : null}
       <CardsContainer>
         <StyledBox
           style={{

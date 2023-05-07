@@ -1,33 +1,6 @@
 {
   "favorites": [
     {
-      "name": "venusaur",
-      "id": 3,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
-      "weight": 1000,
-      "ability": "overgrow",
-      "height": 20,
-      "baseExperience": 263
-    },
-    {
-      "name": "mewtwo",
-      "id": 150,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/150.svg",
-      "weight": 1220,
-      "ability": "pressure",
-      "height": 20,
-      "baseExperience": 340
-    },
-    {
-      "name": "bulbasaur",
-      "id": 1,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
-      "weight": 69,
-      "ability": "overgrow",
-      "height": 7,
-      "baseExperience": 64
-    },
-    {
       "id": 4,
       "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/4.svg",
       "name": "charmander",
@@ -46,7 +19,17 @@
       "baseExperience": 142
     }
   ],
-  "battle": [],
+  "battle": [
+    {
+      "id": 3,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
+      "name": "venusaur",
+      "weight": 1000,
+      "ability": "overgrow",
+      "height": 20,
+      "baseExperience": 263
+    }
+  ],
   "user": [],
   "login": []
 }

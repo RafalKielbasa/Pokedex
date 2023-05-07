@@ -1,25 +1,10 @@
 import { useState, useEffect } from "react";
+import { useSnackbar } from "notistack";
 import axios from "axios";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import styled from "styled-components";
-
-const Container2 = styled.div`
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const FormWrapper = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid black;
-  padding: 50px;
-`;
 
 const userSchema = Yup.object().shape({
   email: Yup.string()
@@ -32,6 +17,7 @@ export default function Logowanie() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userInfo, setUserInfo] = useState([]);
   const [test, setTest] = useState([]);
+  const { enqueueSnackbar } = useSnackbar();
   // console.log("rejestr", test);
   // console.log("userInfo", userInfo);
 
@@ -47,6 +33,10 @@ export default function Logowanie() {
       )
       .catch((error) => console.log(error));
   }, []);
+
+  const handleClick = (text, type) => {
+    enqueueSnackbar(text, { variant: type });
+  };
 
   const handleOnSubmit = (values, actions) => {
     setIsSubmitting(true);
@@ -67,8 +57,9 @@ export default function Logowanie() {
 
     if (filtered[0].password === currPass && filtered[0].email === currLog) {
       console.log("zalogowano");
+      handleClick("Login succes", "success");
     } else {
-      console.log("bledne haslo lub login");
+      handleClick("Login faild, wrond password or email", "error");
     }
   };
 
