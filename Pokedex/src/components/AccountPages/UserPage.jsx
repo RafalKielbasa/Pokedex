@@ -29,14 +29,20 @@ function UserPage({ setIsLogged}) {
       
       let updatedDataDetails = dataDetails.map((pokemon) => {
         const pokemonInUpdatedPokemons = updatedPokemons.find((item) => item.id === pokemon.id);
+        console.log("TT",pokemonInUpdatedPokemons)
+       
+
         return pokemonInUpdatedPokemons ? pokemonInUpdatedPokemons : pokemon;
       });
-      console.log(updatedDataDetails)
+      const newPokemons = updatedPokemons.filter(pokemon => !dataDetails.find(item => item.id === pokemon.id));
+      updatedDataDetails = updatedDataDetails.concat(newPokemons)
+     
 
+      console.log("N", updatedDataDetails)
+      
 
      
 
-      console.log(updatedDataDetails)
       setallPokemon(updatedDataDetails);
 
     };
