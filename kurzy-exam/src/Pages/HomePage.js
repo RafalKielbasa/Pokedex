@@ -8,7 +8,7 @@ import PokemonCard from "../Components/PokemonCards";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-const MainPageWrapper = styled.div`
+const HomePageWrapper = styled.div`
   margin-bottom: 20px;
   padding: 0px 40px 0px 40px;
 `;
@@ -58,7 +58,7 @@ const HomePage = () => {
   };
 
   return (
-    <MainPageWrapper>
+    <HomePageWrapper>
       <PaginationWrapper>
         <Stack spacing={2}>
           <Pagination
@@ -99,7 +99,7 @@ const HomePage = () => {
           />
         </Stack>
       </PaginationWrapper>
-    </MainPageWrapper>
+    </HomePageWrapper>
   );
 };
 export default HomePage;
