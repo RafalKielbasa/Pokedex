@@ -1,5 +1,6 @@
 export { default as Searcher } from "./Searcher";
-export { default as PokemonCard } from "./PokemonCard";
-export { default as PokemonCardContainer } from "./PokemonCardContainer";
+export { default as PokemonCard } from "./Cards/PokemonCard";
+export { default as PokemonCardContainer } from "./Cards/PokemonCardContainer";
 export { default as MyPagination } from "./MyPagination";
-export { default as DetailedPokemonCard } from "./DetailedPokemonCard";
+export { default as DetailedPokemonCard } from "./Cards/DetailedPokemonCard";
+export { default as DetailedPokemonCardConatiner } from "./Cards/DetailedPokemonCardConatiner";
