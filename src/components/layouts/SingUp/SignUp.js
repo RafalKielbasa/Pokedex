@@ -8,9 +8,9 @@ const signUpSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string()
     .min(8, "Password is to short")
-    .minUpperCase(1, "Password must contain at least 1 capital letter")
-    .minNumbers(1, "password must contain at least 1 number")
-    .minSymbols(1, "password must contain at least 1 special character")
+    .matches(/[0-9]/, "Password requires a number")
+    .matches(/[A-Z]/, "Password requires an uppercase letter")
+    .matches(/[^\w]/, "Password requires a symbol")
     .required("required"),
   repeatPassword: Yup.string().oneOf([Yup.ref("password"), null]),
 });
