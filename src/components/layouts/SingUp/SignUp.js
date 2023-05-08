@@ -1,16 +1,18 @@
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form, Input, Wrapper } from "./SignUp.styles";
 import { Button } from "@mui/material";
+
+const regularExpression = `^(?=.[A-Z])(?=.\d)(?=.[!@#$%^&()+-=[]{};':"\|,.<>/?])[\w!@#$%^&*()+-=[]{};':"\|,.<>/?]{8,}$`;
 
 const signUpSchema = Yup.object().shape({
   name: Yup.string().required("Required"),
   email: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string()
-    .min(8, "Password is to short")
-    .matches(/[0-9]/, "Password requires a number")
-    .matches(/[A-Z]/, "Password requires an uppercase letter")
-    .matches(/[^\w]/, "Password requires a symbol")
+    .matches(
+      regularExpression,
+      "Password must contain one capital letter, one number, one special sign and has at least 8 characters"
+    )
     .required("required"),
   repeatPassword: Yup.string().oneOf([Yup.ref("password"), null]),
 });
