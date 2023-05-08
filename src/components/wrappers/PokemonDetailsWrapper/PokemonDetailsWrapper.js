@@ -51,11 +51,10 @@ export const PokemonDetailsWrapper = (props) => {
           </Container>
         </PokemonInfo>
       </PokemonDetailsWrap>
-      <Link to={ProjectUrl.HomePage}>
-        <Button variant="outlined" fullWidth>
-          Back to homepage
-        </Button>
-      </Link>
+
+      <Button href={ProjectUrl.Home} variant="outlined" fullWidth>
+        Back to homepage
+      </Button>
     </PageWrapper>
   );
 };

@@ -5,13 +5,13 @@ export const PageWrapper = styled.div`
   width: 100%;
   flex-direction: column;
   margin-top: 48px;
+  max-width: 1980px;
+  width: 100%;
 `;
 
 export const DetailsSign = styled.span`
   color: #00cc00;
   font-size: 24px;
-  display: flex;
-  justify-content: flex-start;
 `;
 
 export const PokedexSign = styled.h1`
@@ -30,7 +30,7 @@ export const PokemonDetailsWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 32px;
+  margin-bottom: 150px;
 `;
 
 export const PokemonInfo = styled.div`
