@@ -23,6 +23,15 @@ useEffect(() => {
     const fetchDatabyID = async () => {
     const response = await fetch(`${BASE_URL}pokemon/${props.cardID}`);
     data = await response.json();
+
+    if(error) {
+      console.log("Test")
+    }
+
+
+
+
+
         
       setclassofPokemon(data.types[0].type.name)
      
