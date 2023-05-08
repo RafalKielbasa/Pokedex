@@ -1,3 +1,4 @@
 export const ProjectUrl = Object.freeze({
-  Home: '/',
+  Home: "/",
+  PokemonDetails: "/pokemon?name=",
 });

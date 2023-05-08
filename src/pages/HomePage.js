@@ -1,14 +1,13 @@
-import { Navigation } from "../components/layouts/Navigation/Navigation";
 import { useGetAllPokemonQuery } from "../hooks/useGetAllPokemon";
-import { PokemonCard } from "../components/PokemonCard/PokemonCard";
+import { DefaultLayout } from "../components/layouts/Default/DefaultLayout";
+import { HomePageWrapper } from "../components/wrappers/HomePageWrapper/HomePageWrapper";
 
 export const HomePage = () => {
   useGetAllPokemonQuery();
 
   return (
-    <>
-      <Navigation />
-      <PokemonCard />
-    </>
+    <DefaultLayout>
+      <HomePageWrapper />
+    </DefaultLayout>
   );
 };

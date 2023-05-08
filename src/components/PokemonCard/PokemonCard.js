@@ -1,4 +1,14 @@
-import { Body, Container, PropsDiv, WrapperDiv } from "./PokemonCard.styles";
+import { Link } from "react-router-dom";
+import {
+  Body,
+  Container,
+  PropsDiv,
+  WrapperDiv,
+  PokemonName,
+  PokemonPropName,
+  PokemonPropValue,
+} from "./PokemonCard.styles";
+import { ProjectUrl } from "../../const/ProjectUrl";
 
 export const PokemonCard = (props) => {
   const { name, height, base_experience, weight, ability, img } = props;
@@ -13,23 +23,25 @@ export const PokemonCard = (props) => {
       ></img>
 
       <Body>
-        <div>Pokemon</div>
+        <PokemonName>
+          <Link to={ProjectUrl.PokemonDetails + name}> Pokemon</Link>
+        </PokemonName>
         <Container>
           <PropsDiv>
-            <span>Height</span>
-            <span>100</span>
+            <PokemonPropName>Height</PokemonPropName>
+            <PokemonPropValue>100</PokemonPropValue>
           </PropsDiv>
           <PropsDiv>
-            <span>Base Experience</span>
-            <span>100</span>
+            <PokemonPropName>Base Experience</PokemonPropName>
+            <PokemonPropValue>100</PokemonPropValue>
           </PropsDiv>
           <PropsDiv>
-            <span>Weight</span>
-            <span>100</span>
+            <PokemonPropName>Weight</PokemonPropName>
+            <PokemonPropValue>100</PokemonPropValue>
           </PropsDiv>
           <PropsDiv>
-            <span>Ability</span>
-            <span>100</span>
+            <PokemonPropName>Ability</PokemonPropName>
+            <PokemonPropValue>100</PokemonPropValue>
           </PropsDiv>
         </Container>
       </Body>
