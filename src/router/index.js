@@ -7,12 +7,9 @@ export const router = createBrowserRouter([
   {
     path: ProjectUrl.Home,
     element: <HomePage />,
-
-    children: [
-      {
-        path: ProjectUrl.PokemonDetails,
-        element: <PokemonDetailsPage />,
-      },
-    ],
+  },
+  {
+    path: ProjectUrl.PokemonDetails,
+    element: <PokemonDetailsPage />,
   },
 ]);

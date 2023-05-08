@@ -24,7 +24,7 @@ export const PokemonCard = (props) => {
 
       <Body>
         <PokemonName>
-          <Link to={ProjectUrl.PokemonDetails + name}> Pokemon</Link>
+          <Link to={`${ProjectUrl.PokemonDetails}?name=${name}`}> Pokemon</Link>
         </PokemonName>
         <Container>
           <PropsDiv>
