@@ -6,12 +6,16 @@ import {
 import { useLocation, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchPokemonData } from "src/api";
-const DetailedPage = () => {
+const DetailedPage = ({
+  firstFighterProp,
+  secondFighterProp,
+  setFirstFighterProp,
+  setSecondFighterProp,
+  favoriteProp,
+  setFavoriteProp,
+}) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [inArena, setInArena] = useState(false);
-  const [favoriteList, setFavoriteList] = useState([]);
-  const [arenaFirstFighter, setArenaFirstFighter] = useState(null);
-  const [arenaSecondFighter, setArenaSecondFighter] = useState(null);
   const { id } = useParams();
   const { state } = useLocation();
   const { data: detailPokemon, status: pokemonStatus } = useQuery({
@@ -24,21 +28,21 @@ const DetailedPage = () => {
   });
   const addFavorite = () => {
     setIsFavorite((prev) => !prev);
-    setFavoriteList((prev) => [...prev, id]);
+    setFavoriteProp((prev) => [...prev, id]);
   };
   const deleteFavorite = () => {
     setIsFavorite((prev) => !prev);
-    setFavoriteList((prev) => prev.filter((value) => value !== id));
+    setFavoriteProp((prev) => prev.filter((value) => value !== id));
   };
   const arenaFightersHandle = () => {
     setInArena((prev) => !prev);
-    !arenaFirstFighter
-      ? setArenaFirstFighter(id)
-      : !arenaSecondFighter &&
-        arenaFirstFighter !== id &&
-        setArenaSecondFighter(id);
+    !firstFighterProp
+      ? setFirstFighterProp(id)
+      : !secondFighterProp &&
+        firstFighterProp !== id &&
+        setSecondFighterProp(id);
   };
-  console.log({ arenaFirstFighter, arenaSecondFighter });
+  console.log({ firstFighterProp, secondFighterProp });
   return (
     <DetailedPokemonCardConatiner>
       {pokemonStatus === "success" && (
@@ -48,6 +52,8 @@ const DetailedPage = () => {
           onClickArena={arenaFightersHandle}
           isFavorite={isFavorite}
           inArena={inArena}
+          firstFighterProp={firstFighterProp}
+          secondFighterProp={secondFighterProp}
         />
       )}
     </DetailedPokemonCardConatiner>

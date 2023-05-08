@@ -34,7 +34,18 @@ const InfoContainer = styled.div`
   margin-left: 50px;
   margin-right: 50px;
 `;
-const DetailedPokemonCard = ({ value, onClickFavorite, isFavorite, inArena, onClickArena }) => {
+const FavoriteWrapper = styled.div`
+  margin-bottom: 20px;
+`;
+const DetailedPokemonCard = ({
+  value,
+  onClickFavorite,
+  isFavorite,
+  inArena,
+  onClickArena,
+  firstFighterProp,
+  secondFighterProp,
+}) => {
   const navigate = useNavigate();
   const dataToPass = value?.data;
   return (
@@ -55,8 +66,10 @@ const DetailedPokemonCard = ({ value, onClickFavorite, isFavorite, inArena, onCl
             <CardImg dataToPass={dataToPass}></CardImg>
             <CardBoxInfo dataToPass={dataToPass}></CardBoxInfo>
           </InfoContainer>
-          <div>
-            <span>{isFavorite ? "USUŃ Z ULUBIONYCH" : "DODAJ DO ULUBIONYCH"}</span>
+          <FavoriteWrapper>
+            <span>
+              {isFavorite ? "USUŃ Z ULUBIONYCH" : "DODAJ DO ULUBIONYCH"}
+            </span>
             <IconButton
               aria-label="favorite"
               onClick={onClickFavorite}
@@ -64,18 +77,25 @@ const DetailedPokemonCard = ({ value, onClickFavorite, isFavorite, inArena, onCl
             >
               <FavoriteIcon />
             </IconButton>
-          </div>
-          <div>
-            <span>{inArena ? "USUŃ Z ARENY" : "DODAJ DO ARENY"}</span>
-            <IconButton
-              aria-label="fight"
-              onClick={onClickArena}
-              sx={{ color: inArena ? "red" : "grey" }}
-            >
-              <ColorizeIcon />
-            </IconButton>
-          </div>
-
+          </FavoriteWrapper>
+          <FavoriteWrapper>
+            {firstFighterProp && secondFighterProp ? (
+              <div>MAKSYMALNA LICZBA POKEMONÓW NA ARENIE</div>
+            ) : inArena ? (
+              <div>POKEMON ZOSTAŁ WYSŁANY NA ARENĘ</div>
+            ) : (
+              <div>
+                <span>DODAJ DO ARENY</span>
+                <IconButton
+                  aria-label="fight"
+                  onClick={onClickArena}
+                  sx={{ color: inArena ? "red" : "grey" }}
+                >
+                  <ColorizeIcon />
+                </IconButton>
+              </div>
+            )}
+          </FavoriteWrapper>
           <Button
             variant="outlined"
             color="error"
