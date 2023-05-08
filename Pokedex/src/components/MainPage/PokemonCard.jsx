@@ -26,6 +26,11 @@ const PokemonCard = ({ item, onArrowClick }) => {
       const isFavoriteNow = localStorageFavorites.includes(item.id);
       setIsFavorite(isFavoriteNow);
 
+      const addedPokemonIds = JSON.parse(localStorage.getItem("arenaPokemons")) || [];
+      if (addedPokemonIds.includes(item.id)) {
+          setaddedToArena(true);}
+
+
     }
 
 
@@ -117,7 +122,7 @@ const PokemonCard = ({ item, onArrowClick }) => {
  <CardContent sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
   <Box sx={{display: "flex"}}> 
   <Typography  variant="h6" sx={{display: "flex", alignContent: "space-between", fontWeight: "700", width: "90%"}}>
-       {`${item.species.name.charAt(0).toUpperCase()}${item.species.name.slice(1)}`} 
+       {`${item.name.charAt(0).toUpperCase()}${item.name.slice(1)}`} 
   </Typography>
   
  

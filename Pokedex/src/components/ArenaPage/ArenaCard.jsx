@@ -41,7 +41,7 @@ useEffect(() => {
 
    
 
-}, []);
+}, [props.pokemonArenaID]);
 
 useEffect(() => {
     const arenaResults = JSON.parse(localStorage.getItem('arenaResults'));

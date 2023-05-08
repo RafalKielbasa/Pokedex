@@ -23,7 +23,7 @@ function Arena() {
             console.log(isBothPokemon,"TEEET")
             console.log(isWinner1,"TEEET")
             console.log(isWinner2,"TEEET")
-            localStorageArenaPokemon = localStorage.getItem("arenaPokemons");
+            localStorageArenaPokemon = (localStorage.getItem("arenaPokemons") || []);
             localStorageArenaPokemon = JSON.parse(localStorageArenaPokemon)
             if(localStorageArenaPokemon) { 
             setpokemonArenaID(localStorageArenaPokemon)
@@ -31,7 +31,7 @@ function Arena() {
                 setisBothPokemon(true);
             } }
             console.log("POK",pokemonArenaID)
-          }, [favorites,refresh]);
+          }, [isFight]);
     
 
      
@@ -111,7 +111,7 @@ function Arena() {
         <Typography> 
         {isBothPokemon ? "YES" : "NON"}
         </Typography>
-    <Box sx={{display:"flex",justifyContent: "center", flexWrap: "wrap", alignContent: "center", flexDirection: {xs: "column", md: "row"}}}> 
+    {pokemonArenaID && <Box sx={{display:"flex",justifyContent: "center", flexWrap: "wrap", alignContent: "center", flexDirection: {xs: "column", md: "row"}}}> 
 
     {pokemonArenaID[0] ? <ArenaCard showCardDetails={true} setshowCardDetails={setshowCardDetails} cardID={pokemonArenaID[0]} arena={true} setpokemonStats={setpokemon1Stats} isWinner={isWinner1} setpokemonArenaID={setpokemonArenaID} setIsWinner={setIsWinner1} isFight={isFight} setisFight={setisFight} onDeleteButton={() => handleDeleteButton(pokemonArenaID[0], 0) } pokemonArenaID={pokemonArenaID}
  /> : 
@@ -121,7 +121,7 @@ function Arena() {
     {pokemonArenaID[1] ? <ArenaCard showCardDetails={true} setshowCardDetails={setshowCardDetails} cardID={pokemonArenaID[1]} arena={true} setpokemonStats={setpokemon2Stats} isWinner={isWinner2} setpokemonArenaID={setpokemonArenaID} setIsWinner={setIsWinner2} isFight={isFight} setisFight={setisFight} onDeleteButton={() => handleDeleteButton(pokemonArenaID[1], 1)} pokemonArenaID={pokemonArenaID}/> : 
     <Box sx={{width: "300px", height: "500px", bgcolor: "grey", borderRadius: "10px"}}> Dodaj 2 pokemona </Box>}
 
-</Box>
+</Box>}
 
 
         </>

@@ -75,6 +75,13 @@
       "password": "B@rca123",
       "repeatedpassword": "B@rca123",
       "id": 14
+    },
+    {
+      "name": "charizarddd",
+      "email": "fsdf@gmail.com",
+      "password": "B@rca123",
+      "repeatedpassword": "B@rca123",
+      "id": 15
     }
   ]
 }

@@ -50,8 +50,29 @@ useEffect(() => {
       const vDetails = await fetch(v.url);
       return await vDetails.json();
     }));
-    setData(dataDetails);
-    setFilteredData(dataDetails);
+
+    const updatedPokemons = JSON.parse(localStorage.getItem("updatedPokemons")) || []
+      
+    let updatedDataDetails = dataDetails.map((pokemon) => {
+      const pokemonInUpdatedPokemons = updatedPokemons.find((item) => item.id === pokemon.id);
+      return pokemonInUpdatedPokemons ? pokemonInUpdatedPokemons : pokemon;
+    });
+      const newPokemons = updatedPokemons.filter(pokemon => !dataDetails.find(item => item.id === pokemon.id));
+      updatedDataDetails = updatedDataDetails.concat(newPokemons)
+     
+
+      
+
+     console.log(updatedDataDetails)
+
+      setData(updatedDataDetails);
+      setFilteredData(updatedDataDetails)
+
+
+
+    
+    // setData(dataDetails);
+    // setFilteredData(dataDetails);
   };
   fetchData();
 }, []);

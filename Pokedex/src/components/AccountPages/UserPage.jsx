@@ -14,6 +14,7 @@ function UserPage({ setIsLogged}) {
   const [allPokemon, setallPokemon] = useState('')
   const [selectedPokemon, setselectedPokemon] = useState()
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isNewPokemon, setisNewPokemon] = useState(false);
 
   
   useEffect(() => {
@@ -29,7 +30,6 @@ function UserPage({ setIsLogged}) {
       
       let updatedDataDetails = dataDetails.map((pokemon) => {
         const pokemonInUpdatedPokemons = updatedPokemons.find((item) => item.id === pokemon.id);
-        console.log("TT",pokemonInUpdatedPokemons)
        
 
         return pokemonInUpdatedPokemons ? pokemonInUpdatedPokemons : pokemon;
@@ -38,7 +38,6 @@ function UserPage({ setIsLogged}) {
       updatedDataDetails = updatedDataDetails.concat(newPokemons)
      
 
-      console.log("N", updatedDataDetails)
       
 
      
@@ -49,6 +48,7 @@ function UserPage({ setIsLogged}) {
     fetchData();
   }, [pokemonName,formSubmitted]);
 
+ 
 
   const handleChange = (event) => {
     const pokemon = allPokemon.find(p => p.name === event.target.value);

@@ -33,7 +33,27 @@ let localStorageFavorites = []
                 fetchedData.push(data);
                 console.log(fetchData)
               }
-              setFetchedFavorites(fetchedData); 
+
+              const updatedPokemons = JSON.parse(localStorage.getItem("updatedPokemons")) || []
+      
+              let updatedDataDetails = fetchedData.map((pokemon) => {
+                const pokemonInUpdatedPokemons = updatedPokemons.find((item) => item.id === pokemon.id);
+               
+        
+                return pokemonInUpdatedPokemons ? pokemonInUpdatedPokemons : pokemon;
+              });
+              
+             
+        
+              
+        
+             
+        
+              setFetchedFavorites(updatedDataDetails);
+
+
+
+               
         };
         fetchData();
       }, [favorites]);
