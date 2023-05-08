@@ -1,28 +1,28 @@
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import pokedexLogo from '../../../assets/pokedexLogo.png';
-import { Container } from './Navigation.styles';
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import pokedexLogo from "../../../assets/pokedexLogo.png";
+import { Container } from "./Navigation.styles";
 
 const navigationButtons = [
   {
-    label: 'Ulubione',
-    href: '/ulubione',
+    label: "Favorite",
+    href: "/favorite",
   },
   {
-    label: 'Arena',
-    href: '/arena',
+    label: "PvP",
+    href: "/pvp",
   },
   {
-    label: 'Logowanie',
-    href: '/logowanie',
+    label: "Sing in",
+    href: "/singIn",
   },
   {
-    label: 'Rejestracja',
-    href: '/rejestracja',
+    label: "Sign up",
+    href: "/signUp",
   },
   {
-    label: 'Edycja i wyloguj',
-    href: '/edycja-i-wyloguj',
+    label: "Edit and log out",
+    href: "/editAndLogOut",
   },
 ];
 
