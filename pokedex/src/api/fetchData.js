@@ -1,9 +1,11 @@
 import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
+const keysToFilter = ["id", "name"];
 
 export const fetchData = async (page) => {
   const response = await axios.get(`${BASE_URL}?offset=${page}&limit=15`);
+
   return response;
 };
 export const fetchPokemonData = async (url) => {

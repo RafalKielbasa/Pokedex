@@ -67,9 +67,7 @@ const DetailedPokemonCard = ({
             <CardBoxInfo dataToPass={dataToPass}></CardBoxInfo>
           </InfoContainer>
           <FavoriteWrapper>
-            <span>
-              {isFavorite ? "USUŃ Z ULUBIONYCH" : "DODAJ DO ULUBIONYCH"}
-            </span>
+            <span>{isFavorite ? "USUŃ Z ULUBIONYCH" : "DODAJ DO ULUBIONYCH"}</span>
             <IconButton
               aria-label="favorite"
               onClick={onClickFavorite}
@@ -80,17 +78,13 @@ const DetailedPokemonCard = ({
           </FavoriteWrapper>
           <FavoriteWrapper>
             {firstFighterProp && secondFighterProp ? (
-              <div>MAKSYMALNA LICZBA POKEMONÓW NA ARENIE</div>
+              <div>MAKSYMALNA LICZBA POKEMONÓW NA ARENIE, NIE MOŻESZ DODAĆ KOLEJNEGO</div>
             ) : inArena ? (
               <div>POKEMON ZOSTAŁ WYSŁANY NA ARENĘ</div>
             ) : (
               <div>
                 <span>DODAJ DO ARENY</span>
-                <IconButton
-                  aria-label="fight"
-                  onClick={onClickArena}
-                  sx={{ color: inArena ? "red" : "grey" }}
-                >
+                <IconButton aria-label="fight" onClick={onClickArena}>
                   <ColorizeIcon />
                 </IconButton>
               </div>

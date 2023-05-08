@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import {
-  DetailedPokemonCard,
-  DetailedPokemonCardConatiner,
-} from "./components";
+import { DetailedPokemonCard, DetailedPokemonCardConatiner } from "./components";
 import { useLocation, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { fetchPokemonData } from "src/api";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { fetchPokemonData, postData } from "src/api";
 const DetailedPage = ({
   firstFighterProp,
   secondFighterProp,
@@ -26,9 +23,15 @@ const DetailedPage = ({
     retryOnMount: false,
     staleTime: 10 * (60 * 1000),
   });
+  console.log({ detailPokemon });
+  const createDataMutation = useMutation({
+    mutationFn: () => postData(detailPokemon.data),
+    mutationKey: [id],
+  });
   const addFavorite = () => {
     setIsFavorite((prev) => !prev);
     setFavoriteProp((prev) => [...prev, id]);
+    createDataMutation.mutate();
   };
   const deleteFavorite = () => {
     setIsFavorite((prev) => !prev);
@@ -38,11 +41,8 @@ const DetailedPage = ({
     setInArena((prev) => !prev);
     !firstFighterProp
       ? setFirstFighterProp(id)
-      : !secondFighterProp &&
-        firstFighterProp !== id &&
-        setSecondFighterProp(id);
+      : !secondFighterProp && firstFighterProp !== id && setSecondFighterProp(id);
   };
-  console.log({ firstFighterProp, secondFighterProp });
   return (
     <DetailedPokemonCardConatiner>
       {pokemonStatus === "success" && (
