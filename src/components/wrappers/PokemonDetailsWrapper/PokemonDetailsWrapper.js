@@ -1,4 +1,4 @@
-import { Button, Stack } from "@mui/material";
+import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { ProjectUrl } from "../../../const/ProjectUrl";
 import {
@@ -7,8 +7,12 @@ import {
   PageWrapper,
   PokedexSign,
   PokemonDetailsWrap,
+  PokemonImg,
   PokemonInfo,
+  PokemonName,
   PropsDiv,
+  PropsName,
+  PropsValue,
 } from "./PokemonDetailsWrapper.style";
 
 export const PokemonDetailsWrapper = (props) => {
@@ -19,38 +23,39 @@ export const PokemonDetailsWrapper = (props) => {
       <DetailsSign>Pokemon Details</DetailsSign>
       <PokedexSign>POKEDEX</PokedexSign>
       <PokemonDetailsWrap>
-        <img
+        <PokemonImg
           src={
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"
           }
-        ></img>
+          alt={`${name}`}
+        ></PokemonImg>
         <PokemonInfo>
-          <h2>Pokemon Name</h2>
+          <PokemonName>Pokemon Name</PokemonName>
           <Container>
             <PropsDiv>
-              <span>name</span>
-              <span>100</span>
+              <PropsName>name</PropsName>
+              <PropsValue>100</PropsValue>
             </PropsDiv>
             <PropsDiv>
-              <span>name</span>
-              <span>100</span>
+              <PropsName>name</PropsName>
+              <PropsValue>100</PropsValue>
             </PropsDiv>
             <PropsDiv>
-              <span>name</span>
-              <span>100</span>
+              <PropsName>name</PropsName>
+              <PropsValue>100</PropsValue>
             </PropsDiv>
             <PropsDiv>
-              <span>name</span>
-              <span>100</span>
+              <PropsName>name</PropsName>
+              <PropsValue>100</PropsValue>
             </PropsDiv>
           </Container>
         </PokemonInfo>
       </PokemonDetailsWrap>
-      <Stack direction="row" spacing={2}>
-        <Link to={ProjectUrl.HomePage}>
-          <Button variant="outlined">Back to homepage</Button>
-        </Link>
-      </Stack>
+      <Link to={ProjectUrl.HomePage}>
+        <Button variant="outlined" fullWidth>
+          Back to homepage
+        </Button>
+      </Link>
     </PageWrapper>
   );
 };
