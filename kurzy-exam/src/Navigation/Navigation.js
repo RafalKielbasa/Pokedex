@@ -15,7 +15,7 @@ const Navigation = () => {
       <NavigationContainer>
         <NavigationWrapper src={pokelogo} alt={`Logo`}>
           <Stack direction="row" spacing={2}>
-            <Link to="/">
+            <Link to="home">
               <Button variant="outlined">HOME</Button>
             </Link>
             <Link to="favorites">

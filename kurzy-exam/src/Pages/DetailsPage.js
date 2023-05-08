@@ -4,23 +4,27 @@ import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import { useNavigate } from "react-router-dom";
 
 const DetailsPageWrapper = styled.div`
   margin-bottom: 20px;
   padding: 20px 250px 20px 250px;
-  // display: flex;
-  // justify-content: space-between;
-  // flex-wrap: wrap;
 `;
 
-const DetailsPage = () => {
+export default function DetailsPage() {
   const location = useLocation();
   const id = location.state?.id;
+  const page = location.state?.page;
+  // const urlDet = location.state?.url;
   const pokemonData = location.state?.pokemonData;
   const pokemonDataFiltered = pokemonData.filter((item) => item.id === id);
 
-  console.log(`id`, id);
-  console.log(`pokemonDataFiltered `, pokemonDataFiltered);
+  // console.log(`page`, page);
+
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/home", { state: { page } });
+  };
 
   return (
     <>
@@ -178,13 +182,18 @@ const DetailsPage = () => {
         }}
       >
         <Button
-          sx={{ borderColor: "red", color: "red", textTransform: "capitalize" }}
+          sx={{
+            width: "80%",
+            borderColor: "red",
+            color: "red",
+            textTransform: "capitalize",
+          }}
           variant="outlined"
+          onClick={handleClick}
         >
           Strona główna
         </Button>
       </Stack>
     </>
   );
-};
-export default DetailsPage;
+}

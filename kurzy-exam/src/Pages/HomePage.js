@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -28,6 +29,14 @@ const HomePage = () => {
   const [offset, setOffset] = useState(0);
   const [response, setResponse] = useState([]);
   const [pokemonData, setPokemonData] = useState([]);
+  const location = useLocation();
+  const pageDet = location.state?.page;
+  console.log(`pageDet`, pageDet);
+
+  // useEffect(() => {
+  //
+  //   setPage(pageDet);
+  // }, [pageDet]);
 
   useEffect(() => {
     async function getResults() {
@@ -83,6 +92,8 @@ const HomePage = () => {
             weight={item.weight}
             abilitie={item.abilities[0].ability.name}
             pokemonData={pokemonData}
+            offset={offset}
+            page={page}
           />
         ))}
       </PokemonWrapper>
