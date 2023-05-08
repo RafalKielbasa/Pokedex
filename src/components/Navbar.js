@@ -20,7 +20,7 @@ export const Navbar = () => {
       <div
         className="ui tiny menu"
         style={{
-          backgroundColor: theme ? "black" : "white",
+          backgroundColor: theme ? "black" : "papayawhip",
           color: theme ? "white" : "black",
           borderRadius: "0px",
         }}
@@ -33,7 +33,7 @@ export const Navbar = () => {
             width: "70px",
             height: "70px",
             marginRight: "10px",
-            backgroundColor: theme ? "black" : "white",
+            backgroundColor: theme ? "black" : "papayawhip",
           }}
         />
 
@@ -60,7 +60,7 @@ export const Navbar = () => {
             icon="search icon"
             class="ui icon input"
             style={{
-              backgroundColor: theme ? "black" : "white",
+              backgroundColor: theme ? "black" : "papayawhip",
               color: theme ? "white" : "black",
               height: "40px",
               marginRight: "15px",
@@ -76,7 +76,7 @@ export const Navbar = () => {
               <ThemeToggleButton onChange={toggleTheme} checked={theme} />
             </div>
             <a
-              style={{ fontWeight: "bold" }}
+              style={{ fontWeight: "bold", fontSize: "15px" }}
               href="https://github.com/mr-fox93"
               target="_blank"
               rel="noopener noreferrer"

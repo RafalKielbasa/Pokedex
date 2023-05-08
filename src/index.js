@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { QueryClient, QueryClientProvider } from "react-query";
 import "semantic-ui-css/semantic.min.css";
 import { BrowserRouter } from "react-router-dom";
-import { FavoritesProvider } from "./FavoritesContext";
+import { FavoritesProvider } from "./components/FavoritesContext";
 
 const queryClient = new QueryClient();
 

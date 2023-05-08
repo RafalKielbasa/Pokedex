@@ -1,84 +1,67 @@
-import React, { useState, useEffect } from "react";
-import { useQuery } from "react-query";
-import { useContext } from "react";
-
+import React, { useEffect, useState, useContext } from "react";
 import PokemonCard from "./PokemonCard";
+import styled from "styled-components";
 import { SearchContext } from "./SearchContext";
+import { useFavorite } from "./FavoritesContext";
+import { Message } from "semantic-ui-react";
+
+const PokemonsGrid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 10px;
+`;
 
 const PokemonsCards = () => {
-  const [pokemon, setPokemon] = useState([]);
-  // const [value, setValue] = useState("");
+  const [pokemons, setPokemons] = useState([]);
   const { search } = useContext(SearchContext);
-  {
-    /* const [loading, setLoading] = useState(
-    `https://pokeapi.co/api/v2/pokemon?limit=1118`
- );*/
-  }
+  const { error, closeError } = useFavorite();
 
-  const { data, isLoading, error } = useQuery("pokemon", async () => {
-    const response = await fetch(
-      `https://pokeapi.co/api/v2/pokemon?limit=1010`
-    );
+  const fetchPokemons = async () => {
+    const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
     const data = await response.json();
-
-    const pokemonsData = await Promise.all(
-      data.results.map(async (pokemon) => {
-        const pokemonResponse = await fetch(pokemon.url);
-        const pokemonData = await pokemonResponse.json();
-        return pokemonData;
+    const results = await Promise.all(
+      data.results.map(async (result) => {
+        const response = await fetch(result.url);
+        return await response.json();
       })
     );
+    setPokemons(results);
+  };
 
-    setPokemon(pokemonsData);
-    //setLoading(data.next);
-  });
+  useEffect(() => {
+    fetchPokemons();
+  }, []);
 
-  if (isLoading)
-    return (
-      <div
-        className="loader"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <div class="ui active inverted dimmer">
-          <div class="ui large text loader">Loading</div>
-        </div>
-      </div>
-    );
-  if (error) return <div>Error!</div>;
-
-  const filtredPokemon = pokemon.filter((p) => {
-    return p.name.toLowerCase().includes(search.toLowerCase());
-  });
+  const filteredPokemons = pokemons.filter((pokemon) =>
+    pokemon.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <>
-      <div
-        className="input"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "15px",
-          marginBottom: "15px",
-        }}
-      ></div>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "10px",
-          margin: "10px",
-        }}
-      >
-        {filtredPokemon.map((p) => (
-          <PokemonCard key={p.id} pokemon={p} />
+      {error && (
+        <Message
+          negative
+          className="ui huge message"
+          onDismiss={closeError}
+          header="This pokemon is already in your favorites !   "
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+
+            zIndex: 1000,
+          }}
+        />
+      )}
+      <PokemonsGrid>
+        {filteredPokemons.map((pokemon) => (
+          <PokemonCard key={pokemon.id} pokemon={pokemon} />
         ))}
-      </div>
+      </PokemonsGrid>
     </>
   );
 };

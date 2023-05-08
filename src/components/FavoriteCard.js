@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import "./PokemonCard.css";
+import { Button } from "semantic-ui-react";
 import { useFavorite } from "./FavoritesContext";
-
-import { Button, Message } from "semantic-ui-react";
 
 const Card = styled.div`
   border: 1px solid black;
@@ -24,8 +22,8 @@ const TypesGrid = styled.div`
   gap: 10px;
 `;
 
-const PokemonCard = ({ pokemon }) => {
-  const { addFavorite } = useFavorite();
+const FavoriteCard = ({ pokemon }) => {
+  const { removeFavorite } = useFavorite();
 
   return (
     <Card>
@@ -41,20 +39,9 @@ const PokemonCard = ({ pokemon }) => {
         <p>⚔️ {pokemon.stats[1].base_stat}</p>
         <p>🛡️ {pokemon.stats[2].base_stat}</p>
       </TypesGrid>
-
-      <Button
-        size="small"
-        style={{ border: "1px solid black", background: "transparent" }}
-        onClick={() => addFavorite(pokemon)}
-        class="ui labeled button"
-        tabindex="0"
-      >
-        <div class="ui button" style={{ background: "transparent" }}>
-          <i class="heart icon"></i> Add to Favorite
-        </div>
-      </Button>
+      <Button onClick={() => removeFavorite(pokemon.id)}>delete</Button>
     </Card>
   );
 };
 
-export default PokemonCard;
+export default FavoriteCard;
