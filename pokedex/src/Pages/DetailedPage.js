@@ -25,8 +25,7 @@ const DetailedPage = ({
   });
   console.log({ detailPokemon });
   const createDataMutation = useMutation({
-    mutationFn: () => postData(detailPokemon.data),
-    mutationKey: [id],
+    mutationFn: () => postData(detailPokemon.data, id),
   });
   const addFavorite = () => {
     setIsFavorite((prev) => !prev);
