@@ -25,7 +25,7 @@ export default function NavBar() {
       <ButtonGroup variant="text">
         <Button
           onClick={() => {
-            navigate("/pokemons/1");
+            navigate("/pokemons/");
           }}
         >
           Pokemony

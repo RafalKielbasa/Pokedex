@@ -3,25 +3,30 @@ import { useQuery } from "@tanstack/react-query";
 import fetchPokeLinks from "../fetching/fetchPokeLinks";
 import fetchArray from "../fetching/fetchArray";
 import PokemonTile from "../components/PokemonTile";
-import { useParams } from "react-router-dom";
-import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import { ArrowForwardIos } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useState } from "react";
+import ArrowButton from "../components/ArrowButton";
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const { id } = useParams();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentItemsPerPage, setCurrentItemsPerPage] = useState(15);
+
   const pokemonLinks = useQuery({
-    queryKey: ["pokemonLinks", id],
-    queryFn: () => fetchPokeLinks(id),
+    queryKey: ["pokemonLinks"],
+    queryFn: () => fetchPokeLinks(),
     staleTime: 1000000,
   });
   const pokemons = useQuery({
-    queryKey: ["pokemons", id],
-    queryFn: () => fetchArray(pokemonLinks.data.arrayOfLinks),
+    queryKey: ["pokemons"],
+    queryFn: () => fetchArray(pokemonLinks.data),
     staleTime: 1000000,
     enabled: pokemonLinks.data ? true : false,
   });
+
   if (pokemons.isLoading) {
     return (
       <Box sx={{ position: "relative", height: "100%", width: "100%" }}>
@@ -48,21 +53,15 @@ export default function HomePage() {
         width: "100%",
       }}
     >
-      {id > 1 ? (
-        <IconButton
-          sx={{
-            background: "rgba(0, 0, 0, 0.2)",
-            borderRadius: "0",
-            width: "10%",
-          }}
+      {currentPage > 1 ? (
+        <ArrowButton
           onClick={() => {
-            navigate(`/pokemons/${Number(id) - 1}`, { replace: true });
+            setCurrentPage(currentPage - 1);
           }}
-        >
-          <ArrowBackIos />
-        </IconButton>
+          variant="back"
+        />
       ) : (
-        <Box />
+        <Box sx={{ width: "10%" }} />
       )}
       <Box
         sx={{
@@ -72,25 +71,28 @@ export default function HomePage() {
           width: "80%",
         }}
       >
-        {pokemons.data.map((element) => {
-          return <PokemonTile key={`${element.name}Tile`} pokemon={element} />;
+        {pokemons.data.map((element, index) => {
+          if (
+            element.id >=
+              currentPage * currentItemsPerPage - currentItemsPerPage &&
+            element.id <= currentPage * currentItemsPerPage
+          ) {
+            return (
+              <PokemonTile key={`${element.name}Tile`} pokemon={element} />
+            );
+          }
         })}
       </Box>
-      {pokemonLinks.data.nextPage ? (
-        <IconButton
-          sx={{
-            background: "rgba(0, 0, 0, 0.2)",
-            borderRadius: "0",
-            width: "10%",
-          }}
+      {currentPage * currentItemsPerPage < pokemons.data?.length ? (
+        <ArrowButton
           onClick={() => {
-            navigate(`/pokemons/${Number(id) + 1}`, { replace: true });
+            setCurrentPage(currentPage + 1);
+            console.log(currentPage + 1);
           }}
-        >
-          <ArrowForwardIos />
-        </IconButton>
+          variant="forward"
+        />
       ) : (
-        <Box />
+        <Box sx={{ width: "10%" }} />
       )}
     </Box>
   );

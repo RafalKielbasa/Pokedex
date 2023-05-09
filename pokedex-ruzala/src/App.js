@@ -21,7 +21,7 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
-        <Route path="pokemons/:id" element={<Pokemons />} />
+        <Route path="pokemons" element={<Pokemons />} />
         <Route path="pokemon/:id" element={<PokemonPreview />} />
         <Route path="arena" element={<Arena />} />
         <Route path="favorites" element={<Favorites />} />
