@@ -7,7 +7,7 @@ import Edycja from "./pages/Edycja";
 import Logowanie from "./pages/Logowanie";
 import Rejestracja from "./pages/Rejestracja";
 import Ulubione from "./pages/Ulubione";
-import Wyloguj from "./pages/Wyloguj";
+import EditForm from "./pages/EditForm";
 import Details from "./pages/Details";
 import { useState, useEffect, useContext } from "react";
 import { useMode, ThemeContext } from "./context/ThemeContext";
@@ -63,6 +63,18 @@ function App() {
                 {userData ? (
                   <Route path="/Edycja" element={<Edycja />} />
                 ) : null}
+
+                <Route
+                  path="/EditForm/:id/"
+                  element={
+                    <EditForm
+                      setFavorites={setFavorites}
+                      favorites={favorites}
+                      battle={battle}
+                      setBattle={setBattle}
+                    />
+                  }
+                />
               </Routes>
             </div>
           </SnackbarProvider>

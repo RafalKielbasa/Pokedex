@@ -79,7 +79,7 @@ const StyledBigTitle = styled.span`
   font-weight: bold;
 `;
 
-function Card({ url, force, closebutton, removeFighter }) {
+function Card({ url, force, closebutton, removeFighter, gate }) {
   const [pokemonData, setPokemonData] = useState(null);
   const navigate = useNavigate();
   const theme = useTheme();
@@ -100,9 +100,13 @@ function Card({ url, force, closebutton, removeFighter }) {
   }, [url]);
 
   const handleClick = () => {
-    navigate(`/Details/${pokemonData?.id}`, {
-      state: { pokemonData },
-    });
+    gate === true
+      ? navigate(`/EditForm/${pokemonData?.id}`, {
+          state: { pokemonData },
+        })
+      : navigate(`/Details/${pokemonData?.id}`, {
+          state: { pokemonData },
+        });
   };
 
   return (
