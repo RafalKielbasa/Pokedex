@@ -37,11 +37,7 @@ export const Navbar = () => {
           }}
         />
 
-        <Link
-          style={{ color: theme ? "white" : "black" }}
-          to="/"
-          class="active item"
-        >
+        <Link style={{ color: theme ? "white" : "black" }} to="/" class="item">
           Home
         </Link>
         <Link

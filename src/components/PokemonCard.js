@@ -2,8 +2,30 @@ import React from "react";
 import styled from "styled-components";
 import "./PokemonCard.css";
 import { useFavorite } from "./FavoritesContext";
-
 import { Button, Message } from "semantic-ui-react";
+
+export const typeColor = (type) => {
+  switch (type) {
+    case "grass":
+      return "lightgreen";
+    case "fire":
+      return "rgba(210, 26, 43, 0.89)";
+    case "water":
+      return "lightblue";
+    case "electric":
+      return "yellow";
+    case "poison":
+      return "#B728FB";
+    case "normal":
+      return " rgba(10, 9, 9, 0.42)";
+    case "psychic":
+      return "rgba(224, 19, 109, 0.69)";
+    case "ground":
+      return "rgba(171, 128, 41, 0.69)";
+    case "bug":
+      return "rgba(172, 216, 53, 0.69)";
+  }
+};
 
 const Card = styled.div`
   border: 1px solid black;
@@ -14,7 +36,7 @@ const Card = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: white;
+  background-color: ${({ type }) => typeColor(type)};
 `;
 
 const TypesGrid = styled.div`
@@ -28,7 +50,7 @@ const PokemonCard = ({ pokemon }) => {
   const { addFavorite } = useFavorite();
 
   return (
-    <Card>
+    <Card type={pokemon?.types[0].type.name}>
       <img
         style={{ width: "150px", height: "150px" }}
         src={pokemon.sprites.other["official-artwork"].front_default}
