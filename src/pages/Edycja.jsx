@@ -1,3 +1,3 @@
-export default function Home() {
-  return <h1>Edycja</h1>;
+export default function Edycja() {
+  return <h2>Edycja</h2>;
 }

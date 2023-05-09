@@ -1,6 +1,6 @@
 import React, { createContext, useRef } from "react";
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 import Arena from "./pages/Arena";
 import Edycja from "./pages/Edycja";
@@ -10,19 +10,16 @@ import Ulubione from "./pages/Ulubione";
 import Wyloguj from "./pages/Wyloguj";
 import Details from "./pages/Details";
 import { useState, useEffect, useContext } from "react";
-
 import { useMode, ThemeContext } from "./context/ThemeContext";
 import { ThemeProvider } from "@mui/material";
-
 import Home from "./pages/Home";
+
 function App() {
   const [favorites, setFavorites] = useState([]);
   const [battle, setBattle] = useState([]);
+  const [userData, setUserData] = useState([]);
   const [theme, colorMode] = useMode();
 
-  const toggleTheme = () => {
-    setTheme((current) => (current === "light" ? "dark" : "light"));
-  };
   return (
     <>
       <ThemeContext.Provider value={colorMode}>
@@ -36,8 +33,10 @@ function App() {
                   path="/Arena"
                   element={<Arena battle={battle} setBattle={setBattle} />}
                 />
-                <Route path="/Edycja" element={<Edycja />} />
-                <Route path="/Logowanie" element={<Logowanie />} />
+                <Route
+                  path="/Logowanie"
+                  element={<Logowanie setUserData={setUserData} />}
+                />
                 <Route path="/Rejestracja" element={<Rejestracja />} />
                 <Route
                   path="/Ulubione"
@@ -48,7 +47,7 @@ function App() {
                     />
                   }
                 />
-                <Route path="/Wyloguj" element={<Wyloguj />} />
+
                 <Route
                   path="/Details/:id/"
                   element={
@@ -60,6 +59,10 @@ function App() {
                     />
                   }
                 />
+
+                {userData ? (
+                  <Route path="/Edycja" element={<Edycja />} />
+                ) : null}
               </Routes>
             </div>
           </SnackbarProvider>

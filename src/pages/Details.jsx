@@ -233,7 +233,6 @@ export default function Details({
       setIsToggledBattle(!isToggledBattle);
       handleClick("Added to battle", "success");
     } else {
-      console.log("usuniecie", pokemonData.id);
       axios.delete(`http://localhost:3001/battle/${pokemonData.id}`);
       setIsToggledBattle(!isToggledBattle);
       handleClick("Removed from battle", "error");

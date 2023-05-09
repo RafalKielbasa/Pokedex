@@ -1,10 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useSnackbar } from "notistack";
 import axios from "axios";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { ThemeContext } from "../context/ThemeContext";
+import { useTheme } from "@mui/material";
+
 import styled from "styled-components";
+import { Height } from "@mui/icons-material";
 
 const userSchema = Yup.object().shape({
   email: Yup.string()
@@ -13,13 +18,14 @@ const userSchema = Yup.object().shape({
   password: Yup.string().required("Hasło jest wymagane."),
 });
 
-export default function Logowanie() {
+export default function Logowanie({ setUserData }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userInfo, setUserInfo] = useState([]);
   const [test, setTest] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
-  // console.log("rejestr", test);
-  // console.log("userInfo", userInfo);
+  const navigate = useNavigate();
+  const theme = useTheme();
+  const colorMode = useContext(ThemeContext);
 
   useEffect(() => {
     axios
@@ -46,83 +52,103 @@ export default function Logowanie() {
     checkLogin(values);
   };
 
-  const checkLogin = (gwo) => {
-    const currLog = gwo.email;
-    const currPass = gwo.password;
+  const checkLogin = (userData) => {
+    const currLog = userData.email;
+    const currPass = userData.password;
     const filtered = test.filter((item) => {
       console.log("dupa", item);
       return item.email === currLog;
     });
-    console.log(filtered);
+    console.log("users", filtered);
 
     if (filtered[0].password === currPass && filtered[0].email === currLog) {
-      console.log("zalogowano");
+      localStorage.setItem("userData", JSON.stringify(userData));
+      setUserData(userData);
       handleClick("Login succes", "success");
+      navigate("/edycja");
     } else {
       handleClick("Login faild, wrond password or email", "error");
     }
   };
 
   return (
-    <Container
+    <Box
       sx={{
-        marginTop: "30px",
         display: "flex",
-        alignItems: "center",
+        alignItems: "felx-start",
         justifyContent: "center",
-        width: "300px",
-        border: "1px solid black",
+      }}
+      style={{
+        backgroundColor: theme.palette.background.contrast,
+        height: "100vh",
       }}
     >
-      <Formik
-        initialValues={{
-          email: "",
-          password: "",
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          border: "3px solid black",
+          marginTop: "30px",
         }}
-        onSubmit={handleOnSubmit}
-        validationSchema={userSchema}
+        style={{
+          backgroundColor: theme.palette.background.default,
+          width: "300px",
+          height: "350px",
+        }}
       >
-        {({ errors, touched, isSubmitting }) => (
-          <Form>
-            <Box marginBottom={2}>
-              <h1>Logowanie</h1>
-            </Box>
-            <Box marginBottom={2}>
-              <Field
-                as={TextField}
-                type="email"
-                name="email"
-                label="Adres e-mail"
-                error={touched.email && errors.email ? true : false}
-                helperText={touched.email && errors.email ? errors.email : ""}
-              />
-            </Box>
-            <Box marginBottom={2}>
-              <Field
-                as={TextField}
-                type="password"
-                name="password"
-                label="Hasło"
-                fullWidth
-                error={touched.password && errors.password ? true : false}
-                helperText={
-                  touched.password && errors.password ? errors.password : ""
-                }
-              />
-            </Box>
-            <Box display="flex" justifyContent="center" marginBottom={2}>
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                disabled={isSubmitting}
-              >
-                Zaloguj
-              </Button>
-            </Box>
-          </Form>
-        )}
-      </Formik>
-    </Container>
+        <Formik
+          initialValues={{
+            email: "",
+            password: "",
+          }}
+          onSubmit={handleOnSubmit}
+          validationSchema={userSchema}
+        >
+          {({ errors, touched, isSubmitting }) => (
+            <Form>
+              <Box marginBottom={2}>
+                <h1>Logowanie</h1>
+              </Box>
+              <Box marginBottom={2}>
+                <Field
+                  as={TextField}
+                  type="email"
+                  name="email"
+                  label="Adres e-mail"
+                  error={touched.email && errors.email ? true : false}
+                  helperText={touched.email && errors.email ? errors.email : ""}
+                  style={{ background: theme.palette.background.contrast }}
+                />
+              </Box>
+              <Box marginBottom={2}>
+                <Field
+                  as={TextField}
+                  type="password"
+                  name="password"
+                  label="Hasło"
+                  fullWidth
+                  error={touched.password && errors.password ? true : false}
+                  helperText={
+                    touched.password && errors.password ? errors.password : ""
+                  }
+                  style={{ background: theme.palette.background.contrast }}
+                />
+              </Box>
+              <Box display="flex" justifyContent="center" marginBottom={2}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  Zaloguj
+                </Button>
+              </Box>
+            </Form>
+          )}
+        </Formik>
+      </Box>
+    </Box>
   );
 }

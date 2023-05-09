@@ -1,15 +1,6 @@
 {
   "favorites": [
     {
-      "id": 4,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/4.svg",
-      "name": "charmander",
-      "weight": 85,
-      "ability": "blaze",
-      "height": 6,
-      "baseExperience": 62
-    },
-    {
       "id": 2,
       "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
       "name": "ivysaur",
@@ -17,19 +8,25 @@
       "ability": "overgrow",
       "height": 10,
       "baseExperience": 142
-    }
-  ],
-  "battle": [
+    },
     {
-      "id": 3,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
-      "name": "venusaur",
-      "weight": 1000,
-      "ability": "overgrow",
-      "height": 20,
-      "baseExperience": 263
+      "id": 5,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
+      "name": "charmeleon",
+      "weight": 190,
+      "ability": "blaze",
+      "height": 11,
+      "baseExperience": 142
     }
   ],
-  "user": [],
+  "battle": [],
+  "user": [
+    {
+      "name": "Testowy1",
+      "email": "testowy123@wp.pl",
+      "password": "123456",
+      "id": 1
+    }
+  ],
   "login": []
 }

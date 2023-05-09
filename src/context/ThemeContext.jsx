@@ -10,12 +10,14 @@ export const themeSetup = (mode) => {
             background: {
               default: "#141b2d",
               contrast: "#8D8A8A",
+              login: "#141b2d",
             },
           }
         : {
             background: {
               default: "#3225E1",
               contrast: "#EBEBEB",
+              login: "#3c93e4",
             },
           }),
     },

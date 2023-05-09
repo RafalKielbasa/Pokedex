@@ -11,24 +11,26 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Padding } from "@mui/icons-material";
 import styled from "styled-components";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import { useTheme } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
+import { useSnackbar } from "notistack";
 
 const StyledTitle = styled.span`
   font-size: 30px;
 `;
 
 const pages = ["Ulubione", "Arena", "Logowanie", "Rejestracja"];
-const settings = ["Edycja", "Wyloguj"];
 function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
 
   const theme = useTheme();
   const colorMode = useContext(ThemeContext);
@@ -37,7 +39,17 @@ function ResponsiveAppBar() {
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
+    const userDataFromLocalStorage = localStorage.getItem("userData");
+    const userData = JSON.parse(userDataFromLocalStorage);
+    if (userData) {
+      setAnchorElUser(event.currentTarget);
+    } else {
+      handleClick("Zaloguj sie aby uzyskac dostep", "error");
+    }
+  };
+
+  const handleClick = (text, type) => {
+    enqueueSnackbar(text, { variant: type });
   };
 
   const handleCloseNavMenu = () => {
@@ -46,6 +58,12 @@ function ResponsiveAppBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const logOut = () => {
+    navigate("/");
+    localStorage.removeItem("userData");
+    handleCloseUserMenu();
   };
 
   return (
@@ -142,14 +160,7 @@ function ResponsiveAppBar() {
               variant="h4"
               noWrap
               sx={{
-                mr: 1,
-                display: { xs: "flex", md: "none" },
-                flexGrow: 1,
-                fontFamily: "monospace",
-                fontWeight: 100,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
+                display: { md: "none" },
               }}
             >
               <Link to={"/"}>POKEDEX</Link>
@@ -205,19 +216,27 @@ function ResponsiveAppBar() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem
-                    key={setting}
-                    onClick={handleCloseUserMenu}
-                    style={{
-                      backgroundColor: theme.palette.background.default,
-                    }}
-                  >
-                    <Typography textAlign="center">
-                      <Link to={`/${setting}`}>{setting}</Link>
-                    </Typography>
-                  </MenuItem>
-                ))}
+                <MenuItem
+                  key={"edit"}
+                  onClick={handleCloseUserMenu}
+                  style={{
+                    backgroundColor: theme.palette.background.default,
+                  }}
+                >
+                  <span textAlign="center">
+                    <Link to={`/Edycja`}>Edycja</Link>
+                  </span>
+                </MenuItem>
+
+                <MenuItem
+                  key={"logout"}
+                  onClick={logOut}
+                  style={{
+                    backgroundColor: theme.palette.background.default,
+                  }}
+                >
+                  <span textAlign="center">wyloguj</span>
+                </MenuItem>
               </Menu>
             </Box>
           </Box>

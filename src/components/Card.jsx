@@ -88,7 +88,6 @@ function Card({ url, force, closebutton, removeFighter }) {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(url);
-      console.log("url", url);
       setPokemonData(response.data);
       force
         ? force([
