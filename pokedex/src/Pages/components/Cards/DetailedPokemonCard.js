@@ -41,7 +41,7 @@ const DetailedPokemonCard = ({
   value,
   onClickFavorite,
   isFavorite,
-  inArena,
+  myId,
   onClickArena,
   firstFighterProp,
   secondFighterProp,
@@ -77,10 +77,10 @@ const DetailedPokemonCard = ({
             </IconButton>
           </FavoriteWrapper>
           <FavoriteWrapper>
-            {firstFighterProp && secondFighterProp ? (
-              <div>MAKSYMALNA LICZBA POKEMONÓW NA ARENIE, NIE MOŻESZ DODAĆ KOLEJNEGO</div>
-            ) : inArena ? (
+            {firstFighterProp === myId || secondFighterProp === myId ? (
               <div>POKEMON ZOSTAŁ WYSŁANY NA ARENĘ</div>
+            ) : firstFighterProp && secondFighterProp ? (
+              <div>MAKSYMALNA LICZBA POKEMONÓW NA ARENIE, NIE MOŻESZ DODAĆ KOLEJNEGO</div>
             ) : (
               <div>
                 <span>DODAJ DO ARENY</span>

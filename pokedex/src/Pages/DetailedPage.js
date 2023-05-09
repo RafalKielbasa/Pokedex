@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { DetailedPokemonCard, DetailedPokemonCardConatiner } from "./components";
 import { useLocation, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { fetchPokemonData, postData } from "src/api";
+import { deleteData, fetchPokemonData, postData } from "src/api";
 const DetailedPage = ({
   firstFighterProp,
   secondFighterProp,
@@ -11,10 +11,9 @@ const DetailedPage = ({
   favoriteProp,
   setFavoriteProp,
 }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [inArena, setInArena] = useState(false);
   const { id } = useParams();
   const { state } = useLocation();
+  const [isFavorite, setIsFavorite] = useState(favoriteProp?.includes(id) ? true : false);
   const { data: detailPokemon, status: pokemonStatus } = useQuery({
     queryKey: ["pokemon", state],
     queryFn: () => fetchPokemonData(`https://pokeapi.co/api/v2/pokemon/${id}`),
@@ -24,20 +23,23 @@ const DetailedPage = ({
     staleTime: 10 * (60 * 1000),
   });
   console.log({ detailPokemon });
-  const createDataMutation = useMutation({
+  const createPostMutation = useMutation({
     mutationFn: () => postData(detailPokemon.data, id),
+  });
+  const createDeleteMutation = useMutation({
+    mutationFn: () => deleteData(id),
   });
   const addFavorite = () => {
     setIsFavorite((prev) => !prev);
     setFavoriteProp((prev) => [...prev, id]);
-    createDataMutation.mutate();
+    createPostMutation.mutate();
   };
   const deleteFavorite = () => {
     setIsFavorite((prev) => !prev);
     setFavoriteProp((prev) => prev.filter((value) => value !== id));
+    createDeleteMutation.mutate();
   };
   const arenaFightersHandle = () => {
-    setInArena((prev) => !prev);
     !firstFighterProp
       ? setFirstFighterProp(id)
       : !secondFighterProp && firstFighterProp !== id && setSecondFighterProp(id);
@@ -50,7 +52,7 @@ const DetailedPage = ({
           onClickFavorite={!isFavorite ? addFavorite : deleteFavorite}
           onClickArena={arenaFightersHandle}
           isFavorite={isFavorite}
-          inArena={inArena}
+          myId={id}
           firstFighterProp={firstFighterProp}
           secondFighterProp={secondFighterProp}
         />
