@@ -28,9 +28,20 @@ export const FavoritesProvider = ({ children }) => {
   const removeFavorite = (id) => {
     setFavorites(favorites.filter((item) => item.id !== id));
   };
+
+  const removeAll = () => {
+    setFavorites([]);
+  };
   return (
     <FavoriteContext.Provider
-      value={{ favorites, addFavorite, removeFavorite, error, closeError }}
+      value={{
+        favorites,
+        addFavorite,
+        removeFavorite,
+        error,
+        closeError,
+        removeAll,
+      }}
     >
       {children}
     </FavoriteContext.Provider>

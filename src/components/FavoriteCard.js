@@ -26,21 +26,33 @@ const FavoriteCard = ({ pokemon }) => {
   const { removeFavorite } = useFavorite();
 
   return (
-    <Card>
-      <img
-        style={{ width: "150px", height: "150px" }}
-        src={pokemon.sprites.other["official-artwork"].front_default}
-        alt={pokemon.name}
-      />
-      <h2>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
-      <TypesGrid>
-        <p>🆔 {pokemon.id}</p>
-        <p>❤️ {pokemon.stats[0].base_stat}</p>
-        <p>⚔️ {pokemon.stats[1].base_stat}</p>
-        <p>🛡️ {pokemon.stats[2].base_stat}</p>
-      </TypesGrid>
-      <Button onClick={() => removeFavorite(pokemon.id)}>delete</Button>
-    </Card>
+    <>
+      <Card>
+        <img
+          style={{ width: "150px", height: "150px" }}
+          src={pokemon.sprites.other["official-artwork"].front_default}
+          alt={pokemon.name}
+        />
+        <h2>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
+        <TypesGrid>
+          <p>🆔 {pokemon.id}</p>
+          <p>❤️ {pokemon.stats[0].base_stat}</p>
+          <p>⚔️ {pokemon.stats[1].base_stat}</p>
+          <p>🛡️ {pokemon.stats[2].base_stat}</p>
+        </TypesGrid>
+        <Button
+          size="small"
+          style={{ border: "1px solid black", background: "transparent" }}
+          onClick={() => removeFavorite(pokemon.id)}
+          class="ui labeled button"
+          tabindex="0"
+        >
+          <div class="ui button" style={{ background: "transparent" }}>
+            <i class="trash icon"></i> Delete
+          </div>
+        </Button>
+      </Card>
+    </>
   );
 };
 

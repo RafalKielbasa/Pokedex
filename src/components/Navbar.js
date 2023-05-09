@@ -5,11 +5,13 @@ import pokeLogo from "../images/poke.png";
 import { ThemeContext } from "./ThemeContext";
 import { ThemeToggleButton } from "./ThemeToggleButton";
 import { SearchContext } from "./SearchContext";
-import { Input } from "semantic-ui-react";
+import { Button, Input } from "semantic-ui-react";
+import { useFavorite } from "./FavoritesContext";
 
 export const Navbar = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const { search, setSearch } = useContext(SearchContext);
+  const { removeAll } = useFavorite();
 
   const toggleTheme = () => {
     setTheme(!theme);
@@ -56,6 +58,7 @@ export const Navbar = () => {
           class="right menu"
           style={{ display: "flex", alignItems: "center" }}
         >
+          <Button onClick={() => removeAll()}>remove</Button>
           <Input
             icon="search icon"
             class="ui icon input"
