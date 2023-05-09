@@ -7,6 +7,7 @@ import Login from "./components/Login";
 import PokemonsCards from "./components/PokemonsCards";
 import { SearchProvider } from "./components/SearchContext";
 import { FavoritesProvider } from "./components/FavoritesContext";
+import FightArena from "./components/FightArena";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route path="/" element={<PokemonsCards />} />
               <Route path="/favorites" element={<Favorites />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/arena" element={<FightArena />} />
             </Routes>
           </FavoritesProvider>
         </SearchProvider>

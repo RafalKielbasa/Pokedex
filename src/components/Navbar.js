@@ -47,6 +47,13 @@ export const Navbar = () => {
         >
           Favorites
         </Link>
+        <Link
+          style={{ color: theme ? "white" : "black" }}
+          to="/arena"
+          class="item"
+        >
+          Fight Arena
+        </Link>
 
         <div
           class="right menu"

@@ -27,7 +27,6 @@ export const typeColor = (type) => {
 };
 
 const Card = styled.div`
-  border: 1px solid black;
   border-radius: 6px;
   width: 300px;
   height: 400px;
@@ -36,8 +35,14 @@ const Card = styled.div`
   align-items: center;
   justify-content: center;
   background-color: ${({ type }) => typeColor(type)};
-`;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+`;
 const TypesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
