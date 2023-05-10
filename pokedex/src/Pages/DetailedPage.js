@@ -40,7 +40,7 @@ const DetailedPage = ({
   };
   const deleteFavorite = () => {
     setIsFavorite((prev) => !prev);
-    setFavoriteProp((prev) => prev.filter((value) => value !== id));
+    setFavoriteProp((prev) => prev?.filter((value) => value !== id));
     createDeleteMutation.mutate();
   };
   const arenaFightersHandle = () => {

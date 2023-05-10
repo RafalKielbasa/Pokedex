@@ -6,7 +6,6 @@ import { CardImg, CardBoxInfo, HoverCard } from "../CardElements";
 function FavoriteCard({ value }) {
   const navigate = useNavigate();
   const dataToPass = value;
-  console.log({ dataToPass });
   return (
     <HoverCard>
       <Card

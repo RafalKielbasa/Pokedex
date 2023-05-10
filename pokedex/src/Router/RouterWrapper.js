@@ -16,9 +16,16 @@ const RouterWrapper = () => {
   const [arenaSecondFighter, setArenaSecondFighter] = useState(null);
   const [favoriteList, setFavoriteList] = useState([]);
   useEffect(() => {
-    favoriteList.length > 0 &&
+    const localList = localStorage.getItem("favoriteList");
+    const dataList = JSON.parse(localList);
+    dataList?.length > 0 && setFavoriteList(dataList);
+  }, []);
+  useEffect(() => {
+    favoriteList &&
       localStorage.setItem("favoriteList", JSON.stringify(favoriteList));
   }, [favoriteList]);
+
+  console.log({ favoriteList });
   const router = createBrowserRouter([
     {
       path: "/",
