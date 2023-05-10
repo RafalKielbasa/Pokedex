@@ -25,7 +25,6 @@ const RouterWrapper = () => {
       localStorage.setItem("favoriteList", JSON.stringify(favoriteList));
   }, [favoriteList]);
 
-  console.log({ favoriteList });
   const router = createBrowserRouter([
     {
       path: "/",

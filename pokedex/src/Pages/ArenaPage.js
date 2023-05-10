@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { PokemonCard } from "./components";
 import Card from "@mui/material/Card";
 import styled from "styled-components";
@@ -6,11 +6,17 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchPokemonData } from "src/api";
 const ArenaContainer = styled.div`
   display: flex;
-  height: 660px;
+  height: 500px;
   justify-content: space-evenly;
   align-items: center;
 `;
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const ArenaPage = ({ firstPokemonId, secondPokemonId }) => {
+  const [fightResult, setFightResult] = useState("");
   const { data: firstFighter, status: firstFighterStatus } = useQuery({
     queryKey: ["fighter1"],
     queryFn: () =>
@@ -31,49 +37,90 @@ const ArenaPage = ({ firstPokemonId, secondPokemonId }) => {
     retryOnMount: false,
     staleTime: 10 * (60 * 1000),
   });
-  console.log({ firstFighter, secondFighter });
+  const firstFighterPowerLevel =
+    firstFighter?.data?.base_experience * firstFighter?.data?.weight;
+  const secondFighterPowerLevel =
+    secondFighter?.data?.base_experience * secondFighter?.data?.weight;
+  const fightResultFnc = () => {
+    firstFighterPowerLevel === secondFighterPowerLevel
+      ? setFightResult("tie")
+      : firstFighterPowerLevel > secondFighterPowerLevel
+      ? setFightResult("first")
+      : setFightResult("second");
+  };
+  console.log({ fightResult });
   return (
-    <ArenaContainer>
-      {firstFighterStatus === "success" ? (
-        <PokemonCard value={firstFighter} />
-      ) : (
-        <Card
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            width: 220,
-            height: 300,
-            background: "#E0E0E0",
-            fontSize: 24,
-            fontWeight: "bold",
-          }}
-        >
-          Pierwszy Pokemon
-        </Card>
-      )}
-      <span>VS</span>
-      {secondFighterStatus === "success" ? (
-        <PokemonCard value={secondFighter} />
-      ) : (
-        <Card
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            width: 220,
-            height: 300,
-            background: "#E0E0E0",
-            fontSize: 24,
-            fontWeight: "bold",
-          }}
-        >
-          Drugi Pokemon
-        </Card>
-      )}
-    </ArenaContainer>
+    <>
+      <ArenaContainer>
+        {firstFighterStatus === "success" ? (
+          <>
+            {fightResult === "first" ? (
+              <>
+                <span>WINNER</span>
+                <PokemonCard value={firstFighter} />
+              </>
+            ) : (
+              <>
+                <PokemonCard value={firstFighter} />
+              </>
+            )}
+          </>
+        ) : (
+          <Card
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              width: 220,
+              height: 300,
+              background: "#E0E0E0",
+              fontSize: 24,
+              fontWeight: "bold",
+            }}
+          >
+            Pierwszy Pokemon
+          </Card>
+        )}
+        <span>VS</span>
+        {secondFighterStatus === "success" ? (
+          <>
+            {fightResult === "second" ? (
+              <>
+                <span>WINNER</span>
+                <PokemonCard value={secondFighter} />
+              </>
+            ) : (
+              <>
+                <PokemonCard value={secondFighter} />
+              </>
+            )}
+          </>
+        ) : (
+          <Card
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              width: 220,
+              height: 300,
+              background: "#E0E0E0",
+              fontSize: 24,
+              fontWeight: "bold",
+            }}
+          >
+            Drugi Pokemon
+          </Card>
+        )}
+      </ArenaContainer>
+      {firstFighterStatus === "success" &&
+        secondFighterStatus === "success" && (
+          <ButtonContainer>
+            <button onClick={fightResultFnc}>WALKA</button>
+          </ButtonContainer>
+        )}
+    </>
   );
 };
 
