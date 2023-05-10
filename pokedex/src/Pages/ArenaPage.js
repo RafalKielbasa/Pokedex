@@ -1,5 +1,6 @@
 import React from "react";
 import { PokemonCard } from "./components";
+import Card from "@mui/material/Card";
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 import { fetchPokemonData } from "src/api";
@@ -10,7 +11,7 @@ const ArenaContainer = styled.div`
   align-items: center;
 `;
 const ArenaPage = ({ firstPokemonId, secondPokemonId }) => {
-  const { data: firstFighter } = useQuery({
+  const { data: firstFighter, status: firstFighterStatus } = useQuery({
     queryKey: ["fighter1"],
     queryFn: () =>
       fetchPokemonData(`https://pokeapi.co/api/v2/pokemon/${firstPokemonId}`),
@@ -20,7 +21,7 @@ const ArenaPage = ({ firstPokemonId, secondPokemonId }) => {
     retryOnMount: false,
     staleTime: 10 * (60 * 1000),
   });
-  const { data: secondFighter } = useQuery({
+  const { data: secondFighter, status: secondFighterStatus } = useQuery({
     queryKey: ["fighter2"],
     queryFn: () =>
       fetchPokemonData(`https://pokeapi.co/api/v2/pokemon/${secondPokemonId}`),
@@ -33,9 +34,45 @@ const ArenaPage = ({ firstPokemonId, secondPokemonId }) => {
   console.log({ firstFighter, secondFighter });
   return (
     <ArenaContainer>
-      <PokemonCard value={firstFighter} />
+      {firstFighterStatus === "success" ? (
+        <PokemonCard value={firstFighter} />
+      ) : (
+        <Card
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            width: 220,
+            height: 300,
+            background: "#E0E0E0",
+            fontSize: 24,
+            fontWeight: "bold",
+          }}
+        >
+          Pierwszy Pokemon
+        </Card>
+      )}
       <span>VS</span>
-      <PokemonCard value={secondFighter} />
+      {secondFighterStatus === "success" ? (
+        <PokemonCard value={secondFighter} />
+      ) : (
+        <Card
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            width: 220,
+            height: 300,
+            background: "#E0E0E0",
+            fontSize: 24,
+            fontWeight: "bold",
+          }}
+        >
+          Drugi Pokemon
+        </Card>
+      )}
     </ArenaContainer>
   );
 };
