@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import { CardImg, CardBoxInfo, HoverCard } from "../CardElements";
+import { CardImg, CardBoxInfo, HoverCard } from "../cardElements";
 import { Card, Button, IconButton } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ColorizeIcon from "@mui/icons-material/Colorize";

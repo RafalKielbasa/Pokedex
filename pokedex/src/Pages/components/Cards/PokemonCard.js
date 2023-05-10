@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
-import { CardImg, CardBoxInfo, HoverCard } from "../CardElements";
+import { CardImg, CardBoxInfo, HoverCard } from "../cardElements";
 
 const PokemonCard = ({ value }) => {
   const navigate = useNavigate();
@@ -18,9 +18,7 @@ const PokemonCard = ({ value }) => {
           width: 220,
           background: "#E0E0E0",
         }}
-        onClick={() =>
-          navigate(`/pokemon/${dataToPass.id}`, { state: dataToPass.name })
-        }
+        onClick={() => navigate(`/pokemon/${dataToPass.id}`, { state: dataToPass.name })}
       >
         <CardImg dataToPass={dataToPass}></CardImg>
         <CardBoxInfo dataToPass={dataToPass}></CardBoxInfo>
