@@ -18,7 +18,9 @@ const PokemonCard = ({ value }) => {
           width: 220,
           background: "#E0E0E0",
         }}
-        onClick={() => navigate(`pokemon/${dataToPass.id}`, { state: dataToPass.name })}
+        onClick={() =>
+          navigate(`/pokemon/${dataToPass.id}`, { state: dataToPass.name })
+        }
       >
         <CardImg dataToPass={dataToPass}></CardImg>
         <CardBoxInfo dataToPass={dataToPass}></CardBoxInfo>

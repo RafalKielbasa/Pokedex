@@ -41,7 +41,12 @@ const RouterWrapper = () => {
         },
         {
           path: "arena",
-          element: <ArenaPage />,
+          element: (
+            <ArenaPage
+              firstPokemonId={arenaFirstFighter}
+              secondPokemonId={arenaSecondFighter}
+            />
+          ),
         },
         {
           path: "logIn",
