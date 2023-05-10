@@ -42,6 +42,8 @@ const RouterWrapper = () => {
           path: "arena",
           element: (
             <ArenaPage
+              firstPokemonAction={setArenaFirstFighter}
+              secondPokemonAction={setArenaSecondFighter}
               firstPokemonId={arenaFirstFighter}
               secondPokemonId={arenaSecondFighter}
             />

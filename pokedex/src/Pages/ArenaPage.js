@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { PokemonCard } from "./components";
 import Card from "@mui/material/Card";
 import styled from "styled-components";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchPokemonData } from "src/api";
 const ArenaContainer = styled.div`
   display: flex;
@@ -15,7 +15,13 @@ const ButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const ArenaPage = ({ firstPokemonId, secondPokemonId }) => {
+const ArenaPage = ({
+  firstPokemonId,
+  secondPokemonId,
+  firstPokemonAction,
+  secondPokemonAction,
+}) => {
+  const queryClient = useQueryClient();
   const [fightResult, setFightResult] = useState("");
   const { data: firstFighter, status: firstFighterStatus } = useQuery({
     queryKey: ["fighter1"],
@@ -48,7 +54,11 @@ const ArenaPage = ({ firstPokemonId, secondPokemonId }) => {
       ? setFightResult("first")
       : setFightResult("second");
   };
-  console.log({ fightResult });
+  const deleteFighter = (action) => {
+    queryClient?.invalidateQueries({ queryKey: ["fighter1"] });
+    action(null);
+  };
+  console.log({ firstFighter });
   return (
     <>
       <ArenaContainer>
@@ -57,10 +67,20 @@ const ArenaPage = ({ firstPokemonId, secondPokemonId }) => {
             {fightResult === "first" ? (
               <>
                 <span>WINNER</span>
+                <button onClick={() => deleteFighter(firstPokemonAction)}>
+                  USUŃ
+                </button>
                 <PokemonCard value={firstFighter} />
               </>
             ) : (
               <>
+                <button
+                  onClick={() =>
+                    deleteFighter(firstPokemonAction, firstFighterStatus)
+                  }
+                >
+                  USUŃ
+                </button>
                 <PokemonCard value={firstFighter} />
               </>
             )}
@@ -88,10 +108,12 @@ const ArenaPage = ({ firstPokemonId, secondPokemonId }) => {
             {fightResult === "second" ? (
               <>
                 <span>WINNER</span>
+                <button onClick={() => secondPokemonAction(null)}>USUŃ</button>
                 <PokemonCard value={secondFighter} />
               </>
             ) : (
               <>
+                <button onClick={() => secondPokemonAction(null)}>USUŃ</button>
                 <PokemonCard value={secondFighter} />
               </>
             )}
