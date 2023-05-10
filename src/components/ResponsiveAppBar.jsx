@@ -24,8 +24,8 @@ import { useSnackbar } from "notistack";
 const StyledTitle = styled.span`
   font-size: 30px;
 `;
-
 const pages = ["Ulubione", "Arena", "Logowanie", "Rejestracja"];
+
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -223,7 +223,7 @@ function ResponsiveAppBar() {
                     backgroundColor: theme.palette.background.default,
                   }}
                 >
-                  <span textAlign="center">
+                  <span>
                     <Link to={`/Edycja`}>Edycja</Link>
                   </span>
                 </MenuItem>
@@ -235,7 +235,7 @@ function ResponsiveAppBar() {
                     backgroundColor: theme.palette.background.default,
                   }}
                 >
-                  <span textAlign="center">wyloguj</span>
+                  <span>wyloguj</span>
                 </MenuItem>
               </Menu>
             </Box>

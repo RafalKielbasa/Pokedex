@@ -3,9 +3,7 @@ import { useSnackbar } from "notistack";
 import axios from "axios";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Box, Button, Container, TextField, Typography } from "@mui/material";
-import styled from "styled-components";
-import { ThemeContext } from "../context/ThemeContext";
+import { Box, Button, TextField } from "@mui/material";
 import { useTheme } from "@mui/material";
 
 const userSchema = Yup.object().shape({

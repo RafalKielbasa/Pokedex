@@ -14,12 +14,15 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: ${({ theme }) => theme.palette.background.contrast};
+  height: 100vh;
 `;
 
 const PokemonCard = styled.div`
   max-width: 80vw;
   min-height: 50vh;
   margin: 2rem;
+  background-color: ${({ theme }) => theme.palette.background.default};
 
   &:hover {
     transform: scale(1.01);
@@ -68,21 +71,21 @@ const TitleContainer = styled.div`
 const Title = styled.span`
   font-size: 3rem;
   font-weight: bold;
-  text-align: center;
+
   margin: 0 auto;
 `;
 
 const HeartIcon = styled(FavoriteRoundedIcon)`
   margin-left: 5px;
-  color: ${({ isToggled }) => (isToggled ? "red" : "white")};
-
   cursor: pointer;
+  color: ${({ isToggled }) => (isToggled ? "red" : "white")};
 `;
 
 const SportsIcon = styled(SportsMmaRoundedIcon)`
   color: white;
-  color: ${({ isToggledBattle }) => (isToggledBattle ? "red" : "white")};
   margin-left: 5px;
+  cursor: pointer;
+  color: ${({ isToggledBattle }) => (isToggledBattle ? "red" : "white")};
 `;
 
 const InfoContainer = styled.div`
@@ -155,34 +158,29 @@ export default function Details({
   battle,
   setBattle,
 }) {
-  const [isToggled, setIsToggled] = useState(false);
-  const [isToggledBattle, setIsToggledBattle] = useState(false);
   const location = useLocation();
   const pokemonData = location.state?.pokemonData;
+  const [isToggled, setIsToggled] = useState(false);
+  const [isToggledBattle, setIsToggledBattle] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const theme = useTheme();
-  const colorMode = useContext(ThemeContext);
 
-  function fetchData(setFavorites, setBattle) {
-    setFavorites
-      ? axios
-          .get("http://localhost:3001/favorites")
-          .then((response) =>
-            setFavorites(response?.data?.map((item) => item.name))
-          )
-          .catch((error) => console.log(error))
-      : null;
+  function fetchData() {
+    axios
+      .get("http://localhost:3001/favorites")
+      .then((response) =>
+        setFavorites(response?.data?.map((item) => item.name))
+      )
+      .catch((error) => console.log(error));
 
-    setBattle
-      ? axios
-          .get("http://localhost:3001/battle")
-          .then((response) => setBattle(response.data?.map((item) => item.id)))
-          .catch((error) => console.log(error))
-      : null;
+    axios
+      .get("http://localhost:3001/battle")
+      .then((response) => setBattle(response.data?.map((item) => item.name)))
+      .catch((error) => console.log(error));
   }
 
   useEffect(() => {
-    fetchData(setFavorites, setBattle);
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -222,13 +220,14 @@ export default function Details({
       battle.includes(pokemonData.name) === false
     ) {
       axios.post("http://localhost:3001/battle", {
-        id: pokemonData.id,
-        sprite: pokemonData.sprites.other.dream_world.front_default,
-        name: pokemonData.name,
-        weight: pokemonData.weight,
-        ability: pokemonData.abilities[0].ability.name,
-        height: pokemonData.height,
-        baseExperience: pokemonData.base_experience,
+        id: pokemonData?.id,
+        sprite: pokemonData?.sprites.other.dream_world.front_default,
+        name: pokemonData?.name,
+        weight: pokemonData?.weight,
+        ability: pokemonData?.abilities[0].ability.name,
+        height: pokemonData?.height,
+        baseExperience: pokemonData?.base_experience,
+        url: pokemonData?.url,
       });
       setIsToggledBattle(!isToggledBattle);
       handleClick("Added to battle", "success");
@@ -240,15 +239,8 @@ export default function Details({
   };
 
   return (
-    <Container
-      style={{
-        backgroundColor: theme.palette.background.contrast,
-        height: "100vh",
-      }}
-    >
-      <PokemonCard
-        style={{ backgroundColor: theme.palette.background.default }}
-      >
+    <Container theme={theme}>
+      <PokemonCard theme={theme}>
         <ImageContainer>
           <Image src={pokemonData?.sprites.other.dream_world.front_default} />
         </ImageContainer>
@@ -258,14 +250,14 @@ export default function Details({
             <Tooltip
               title={isToggled ? "Remove from favorites" : "Add to favorites"}
             >
-              <HeartIcon isToggled={isToggled} onClick={handleHeartClick} />
+              <HeartIcon onClick={handleHeartClick} isToggled={isToggled} />
             </Tooltip>
             <Tooltip
               title={isToggledBattle ? "Remove from battle" : "Add to battle"}
             >
               <SportsIcon
-                isToggledBattle={isToggledBattle}
                 onClick={handleBattleClick}
+                isToggledBattle={isToggledBattle}
               />
             </Tooltip>
           </TitleContainer>

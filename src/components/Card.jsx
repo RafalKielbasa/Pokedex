@@ -1,9 +1,7 @@
 import axios from "axios";
-import { useState, useEffect, useContext } from "react";
-import Box from "@mui/material/Box";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
-import { ThemeContext } from "../context/ThemeContext";
+import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -79,34 +77,26 @@ const StyledBigTitle = styled.span`
   font-weight: bold;
 `;
 
-function Card({ url, force, closebutton, removeFighter, gate }) {
+function Card({ url, closebutton, removeFighter, gate }) {
   const [pokemonData, setPokemonData] = useState(null);
+
   const navigate = useNavigate();
   const theme = useTheme();
-  const colorMode = useContext(ThemeContext);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(url);
       setPokemonData(response.data);
-      force
-        ? force([
-            response.data.base_experience * response.data.weight,
-            response.data.name,
-          ])
-        : null;
     };
     fetchData();
   }, [url]);
 
   const handleClick = () => {
-    gate === true
-      ? navigate(`/EditForm/${pokemonData?.id}`, {
-          state: { pokemonData },
-        })
-      : navigate(`/Details/${pokemonData?.id}`, {
-          state: { pokemonData },
-        });
+    if (!pokemonData) return;
+    const path = gate
+      ? `/EditForm/${pokemonData?.id}`
+      : `/Details/${pokemonData?.id}`;
+    navigate(path, { state: { pokemonData } });
   };
 
   return (

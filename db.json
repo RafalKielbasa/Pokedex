@@ -1,24 +1,5 @@
 {
-  "favorites": [
-    {
-      "id": 2,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
-      "name": "ivysaur",
-      "weight": 130,
-      "ability": "overgrow",
-      "height": 10,
-      "baseExperience": 142
-    },
-    {
-      "id": 5,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
-      "name": "charmeleon",
-      "weight": 190,
-      "ability": "blaze",
-      "height": 11,
-      "baseExperience": 142
-    }
-  ],
+  "favorites": [],
   "battle": [],
   "user": [
     {
@@ -28,5 +9,5 @@
       "id": 1
     }
   ],
-  "login": []
+  "battleHistory": []
 }

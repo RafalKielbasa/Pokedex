@@ -1,16 +1,26 @@
 import axios from "axios";
-import { useState, useEffect, useContext } from "react";
+import { useEffect } from "react";
 import Box from "@mui/material/Box";
-import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
 import Card from "../components/Card";
-import { ThemeContext } from "../context/ThemeContext";
 import { useTheme } from "@mui/material";
+import styled from "styled-components";
+
+const Container = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: top;
+  justify-content: center;
+  height: 100vh;
+  background-color: ${({ theme }) => theme.palette.background.contrast};
+`;
+
+const Heading = styled.h1`
+  color: black;
+`;
 
 export default function Ulubione({ favorites, setFavorites }) {
   const theme = useTheme();
-  const colorMode = useContext(ThemeContext);
-  console.log("fav", favorites);
 
   useEffect(() => {
     axios
@@ -20,32 +30,20 @@ export default function Ulubione({ favorites, setFavorites }) {
   }, []);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        alignItems: "top",
-        justifyContent: "center",
-        height: "100vh",
-      }}
-      style={{
-        backgroundColor: theme.palette.background.contrast,
-      }}
-    >
+    <Container theme={theme}>
       {favorites.length >= 1 ? (
         favorites.map((item) => {
           return (
             <Card
               key={item}
               url={`https://pokeapi.co/api/v2/pokemon/${item}`}
-              gate={true}
+              gate={false}
             />
           );
         })
       ) : (
-        <h1 color="black">brak ulubionych pokemonow</h1>
+        <Heading>brak ulubionych pokemonow</Heading>
       )}
-    </Box>
+    </Container>
   );
 }

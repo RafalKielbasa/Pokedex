@@ -73,7 +73,14 @@ export default function Home() {
         }}
       >
         {pokedex?.map((item) => {
-          return <Card key={item.name} url={item.url} gate={false} />;
+          return (
+            <Card
+              key={item.name}
+              url={item.url}
+              pokemonInfo={undefined}
+              gate={false}
+            />
+          );
         })}
       </Box>
 

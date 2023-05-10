@@ -1,14 +1,7 @@
-import { useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
-import Tooltip from "@mui/material/Tooltip";
-import Box from "@mui/material/Box";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
-import { ThemeContext } from "../context/ThemeContext";
 import { useTheme } from "@mui/material";
 import Card from "../components/Card";
 const Container = styled.div`
@@ -17,6 +10,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: ${({ theme }) => theme.palette.background.contrast};
 `;
 
 const CardsContainer = styled.div`
@@ -30,7 +24,6 @@ const StyledBox = styled.div`
   width: 300px;
   height: 400px;
   margin: 2rem;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -40,80 +33,83 @@ const StyledBox = styled.div`
 const FightButton = styled.button`
   border: 1px solid red;
   width: 40vw;
-  text-align: center;
   color: red;
   margin: 1rem auto;
   cursor: pointer;
   font-size: 30px;
+  background-color: ${({ theme }) => theme.palette.background.contrast};
+`;
+
+const HomeButton = styled.button`
+  border: 1px solid red;
+  width: 40vw;
+  color: red;
+  margin: 1rem auto;
+  cursor: pointer;
+  font-size: 30px;
+  background-color: ${({ theme }) => theme.palette.background.contrast};
+  visibility: ${({ winner }) => (winner !== null ? "visible" : "hidden")};
 `;
 
 export default function Arena({ battle, setBattle }) {
-  const [playerOneForce, setPlayerOneForce] = useState();
-  const [playerTwoForce, setPlayerTwoForce] = useState();
-  const [winner, setWinner] = useState("");
+  const [winner, setWinner] = useState(null);
   const [listener, setListener] = useState(true);
+  const [exp, setExp] = useState(0);
 
   const theme = useTheme();
-  const colorMode = useContext(ThemeContext);
 
   useEffect(() => {
     axios
       .get("http://localhost:3001/battle")
-      .then((response) =>
-        setBattle(
-          response.data?.map((item) => {
-            console.log(item);
-            return item.id;
-          })
-        )
-      )
-      .catch((error) => console.log(error));
+      .then((response) => setBattle(response.data));
   }, [listener]);
 
   const fight = () => {
-    if (battle.length > 1 && playerOneForce[0] > playerTwoForce[0]) {
-      setWinner(playerOneForce[1]);
-    } else if (battle.length > 1 && playerOneForce[0] < playerTwoForce[0]) {
-      setWinner(playerTwoForce[1]);
+    if (
+      battle.length > 1 &&
+      battle[0].baseExperience * battle[0].height >
+        battle[1].baseExperience * battle[1].height
+    ) {
+      setWinner(battle[0].name);
+    } else if (
+      battle.length > 1 &&
+      battle[0].baseExperience * battle[0].height <
+        battle[1].baseExperience * battle[1].height
+    ) {
+      setWinner(battle[1].name);
     } else {
       console.log("brak drugiego gracza");
     }
   };
 
   const removeFighter = (index) => {
-    console.log("usuwamy", battle[0]);
     axios.delete(`http://localhost:3001/battle/${index}`);
     setListener(!listener);
   };
 
-  const backHome = (index) => {
-    console.log("usuwamy", battle[0]);
-    axios.delete(`http://localhost:3001/battle/${battle[0]}`);
-    axios.delete(`http://localhost:3001/battle/${battle[1]}`);
+  const backHome = () => {
+    axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
+    axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
     setListener(!listener);
   };
 
   return (
-    <Container
-      style={{
-        backgroundColor: theme.palette.background.contrast,
-      }}
-    >
+    <Container theme={theme}>
       {winner ? <h1>winner {winner.toUpperCase()} !</h1> : null}
       <CardsContainer>
         <StyledBox
+          theme={theme}
           style={{
             backgroundColor: theme.palette.background.default,
-            opacity: winner ? (winner === playerOneForce[1] ? 1 : 0.3) : null,
+            opacity: winner ? (winner === battle[0].name ? "1" : "0.3") : null,
           }}
         >
-          {battle[0] ? (
+          {battle[0]?.id !== undefined ? (
             <Card
+              url={`https://pokeapi.co/api/v2/pokemon/${battle[0].id}/`}
               key={battle[0]}
-              url={`https://pokeapi.co/api/v2/pokemon/${battle[0]}/`}
-              force={setPlayerOneForce}
               closebutton={true}
-              removeFighter={() => removeFighter(battle[0])}
+              removeFighter={() => removeFighter(battle[0].id)}
             />
           ) : (
             <StyledBox></StyledBox>
@@ -123,44 +119,28 @@ export default function Arena({ battle, setBattle }) {
         <StyledBox
           style={{
             backgroundColor: theme.palette.background.default,
-            opacity: winner ? (winner === playerTwoForce[1] ? 1 : 0.3) : null,
+            opacity: winner ? (winner === battle[1].name ? "1" : "0.3") : null,
           }}
         >
-          {battle[1] ? (
+          {battle[1]?.id !== undefined ? (
             <Card
+              url={`https://pokeapi.co/api/v2/pokemon/${battle[1].id}/`}
               key={battle[1]}
-              url={`https://pokeapi.co/api/v2/pokemon/${battle[1]}/`}
-              force={setPlayerTwoForce}
               closebutton={true}
-              removeFighter={() => removeFighter(battle[1])}
+              removeFighter={() => removeFighter(battle[1].id)}
             />
           ) : (
             <StyledBox></StyledBox>
           )}
         </StyledBox>
       </CardsContainer>
-      <FightButton
-        onClick={fight}
-        style={{
-          backgroundColor: theme.palette.background.contrast,
-        }}
-      >
+      <FightButton onClick={fight} theme={theme} winner={winner}>
         FIGHT
       </FightButton>
       <Link to={"/"}>
-        <FightButton
-          onClick={backHome}
-          style={{
-            backgroundColor: theme.palette.background.contrast,
-            visibility: winner
-              ? winner === playerOneForce[1] || winner === playerTwoForce[1]
-                ? "visible"
-                : "hidden"
-              : "hidden",
-          }}
-        >
+        <HomeButton onClick={backHome} winner={winner} theme={theme}>
           Back Home
-        </FightButton>
+        </HomeButton>
       </Link>
     </Container>
   );

@@ -5,11 +5,31 @@ import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { ThemeContext } from "../context/ThemeContext";
 import { useTheme } from "@mui/material";
-
 import styled from "styled-components";
-import { Height } from "@mui/icons-material";
+
+const StyledBox = styled(Box)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid black;
+  margin-top: 30px;
+  background-color: ${({ theme }) => theme.palette.background.default};
+  width: 300px;
+  height: 350px;
+
+  & h1 {
+    margin-bottom: 16px;
+  }
+`;
+
+const StyledTextField = styled(TextField)`
+  background-color: ${({ theme }) => theme.palette.background.contrast};
+`;
+
+const StyledButton = styled(Button)`
+  margin-top: 8px;
+`;
 
 const userSchema = Yup.object().shape({
   email: Yup.string()
@@ -25,7 +45,6 @@ export default function Logowanie({ setUserData }) {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const theme = useTheme();
-  const colorMode = useContext(ThemeContext);
 
   useEffect(() => {
     axios
@@ -56,10 +75,8 @@ export default function Logowanie({ setUserData }) {
     const currLog = userData.email;
     const currPass = userData.password;
     const filtered = test.filter((item) => {
-      console.log("dupa", item);
       return item.email === currLog;
     });
-    console.log("users", filtered);
 
     if (filtered[0].password === currPass && filtered[0].email === currLog) {
       localStorage.setItem("userData", JSON.stringify(userData));
