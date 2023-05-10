@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { DetailedPokemonCard, DetailedPokemonCardConatiner } from "./components";
+import {
+  DetailedPokemonCard,
+  DetailedPokemonCardConatiner,
+} from "./components";
 import { useLocation, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { deleteData, fetchPokemonData, postData } from "src/api";
@@ -13,7 +16,9 @@ const DetailedPage = ({
 }) => {
   const { id } = useParams();
   const { state } = useLocation();
-  const [isFavorite, setIsFavorite] = useState(favoriteProp?.includes(id) ? true : false);
+  const [isFavorite, setIsFavorite] = useState(
+    favoriteProp?.includes(id) ? true : false
+  );
   const { data: detailPokemon, status: pokemonStatus } = useQuery({
     queryKey: ["pokemon", state],
     queryFn: () => fetchPokemonData(`https://pokeapi.co/api/v2/pokemon/${id}`),
@@ -22,7 +27,6 @@ const DetailedPage = ({
     retryOnMount: false,
     staleTime: 10 * (60 * 1000),
   });
-  console.log({ detailPokemon });
   const createPostMutation = useMutation({
     mutationFn: () => postData(detailPokemon.data, id),
   });
@@ -42,7 +46,9 @@ const DetailedPage = ({
   const arenaFightersHandle = () => {
     !firstFighterProp
       ? setFirstFighterProp(id)
-      : !secondFighterProp && firstFighterProp !== id && setSecondFighterProp(id);
+      : !secondFighterProp &&
+        firstFighterProp !== id &&
+        setSecondFighterProp(id);
   };
   return (
     <DetailedPokemonCardConatiner>

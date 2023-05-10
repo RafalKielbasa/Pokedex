@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RouterProvider } from "react-router-dom";
 import { createBrowserRouter } from "react-router-dom";
 import MainPage from "src/MainPage";
@@ -15,6 +15,10 @@ const RouterWrapper = () => {
   const [arenaFirstFighter, setArenaFirstFighter] = useState(null);
   const [arenaSecondFighter, setArenaSecondFighter] = useState(null);
   const [favoriteList, setFavoriteList] = useState([]);
+  useEffect(() => {
+    favoriteList.length > 0 &&
+      localStorage.setItem("favoriteList", JSON.stringify(favoriteList));
+  }, [favoriteList]);
   const router = createBrowserRouter([
     {
       path: "/",
