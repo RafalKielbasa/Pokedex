@@ -24,6 +24,24 @@ export const typeColor = (type) => {
       return "rgba(171, 128, 41, 0.69)";
     case "bug":
       return "rgba(172, 216, 53, 0.69)";
+    case "rock":
+      return "#5A4D41";
+    case "fairy":
+      return "#d8bfd8";
+    case "fighting":
+      return "#c65747";
+    case "ghost":
+      return "#8f5dcd";
+    case "dragon":
+      return "#45267b";
+    case "dark":
+      return "#4b3d17";
+    case "steel":
+      return "#9b9c9d";
+    case "ice":
+      return "#0fffff";
+    case "flying":
+      return "#87CEEB";
   }
 };
 
@@ -56,7 +74,10 @@ const PokemonCard = ({ pokemon }) => {
   const { addFavorite } = useFavorite();
 
   return (
-    <Card type={pokemon?.types[0].type.name}>
+    <Card
+      //onClick={() => alert(pokemon.name)}
+      type={pokemon?.types[0].type.name}
+    >
       <img
         style={{ width: "150px", height: "150px" }}
         src={pokemon.sprites.other["official-artwork"].front_default}

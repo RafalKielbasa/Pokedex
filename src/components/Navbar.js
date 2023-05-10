@@ -6,10 +6,12 @@ import { ThemeContext } from "./ThemeContext";
 import { ThemeToggleButton } from "./ThemeToggleButton";
 import { SearchContext } from "./SearchContext";
 import { Button, Input } from "semantic-ui-react";
+import { LoginContext } from "./LoginContext";
 
 export const Navbar = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const { search, setSearch } = useContext(SearchContext);
+  const { userData, setUserData } = useContext(LoginContext);
 
   const toggleTheme = () => {
     setTheme(!theme);
@@ -59,6 +61,12 @@ export const Navbar = () => {
           class="right menu"
           style={{ display: "flex", alignItems: "center" }}
         >
+          {userData ? (
+            <button onClick={() => setUserData(null)}>Log out</button>
+          ) : null}
+          <div class="item">
+            {userData ? `Logged in as ${userData.name}` : "Not logged in"}
+          </div>
           <Input
             icon="search icon"
             class="ui icon input"
@@ -88,7 +96,7 @@ export const Navbar = () => {
             </a>
           </div>
           <div class="item">
-            <Link to="/login" class="ui primary button">
+            <Link to="/register" class="ui primary button">
               Sign Up
             </Link>
           </div>
