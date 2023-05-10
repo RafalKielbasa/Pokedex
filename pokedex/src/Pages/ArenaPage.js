@@ -23,6 +23,7 @@ const ArenaPage = ({
 }) => {
   const queryClient = useQueryClient();
   const [fightResult, setFightResult] = useState("");
+  const [testState, setTestState] = useState(false);
   const { data: firstFighter, status: firstFighterStatus } = useQuery({
     queryKey: ["fighter1"],
     queryFn: () =>
@@ -55,14 +56,15 @@ const ArenaPage = ({
       : setFightResult("second");
   };
   const deleteFighter = (action) => {
-    queryClient?.invalidateQueries({ queryKey: ["fighter1"] });
     action(null);
+    setTestState(true);
+    queryClient?.removeQueries({ queryKey: ["fighter1"], exact: true });
   };
-  console.log({ firstFighter });
+  console.log({ firstPokemonId });
   return (
     <>
       <ArenaContainer>
-        {firstFighterStatus === "success" ? (
+        {firstFighterStatus === "success" && !testState ? (
           <>
             {fightResult === "first" ? (
               <>
