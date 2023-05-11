@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useQuery, useQueries } from "@tanstack/react-query";
 
 import { fetchData, fetchPokemonData, fetchDataToFilter } from "src/api";
-import { MyPagination, PokemonCard, PokemonCardContainer, Searcher } from "./components";
+import {
+  MyPagination,
+  PokemonCard,
+  PokemonCardContainer,
+  Searcher,
+} from "./components";
 
 import { filterFnc } from "src/helpers/filterFnc";
 
@@ -16,7 +21,6 @@ const HomePage = () => {
     queryFn: () => fetchData((page - 1) * 15),
     enabled: searchedValue === "",
     cacheTime: 0,
-    retry: false,
     refetchOnMount: false,
     retryOnMount: false,
     staleTime: 10 * (60 * 1000),
@@ -26,16 +30,19 @@ const HomePage = () => {
     queryFn: () => fetchDataToFilter(),
     enabled: searchedValue !== "",
     cacheTime: 0,
-    retry: false,
     refetchOnMount: false,
     retryOnMount: false,
     staleTime: 10 * (60 * 1000),
   });
   useEffect(() => {
-    pokemons && searchedValue === "" && setCreateComponentData(pokemons?.data?.results);
+    pokemons &&
+      searchedValue === "" &&
+      setCreateComponentData(pokemons?.data?.results);
     pokemonsToFilter &&
       searchedValue !== "" &&
-      setCreateComponentData(filterFnc(pokemonsToFilter?.data?.results, searchedValue));
+      setCreateComponentData(
+        filterFnc(pokemonsToFilter?.data?.results, searchedValue)
+      );
   }, [pokemons, pokemonsToFilter, searchedValue]);
   const resultList = createComponentData ? createComponentData : [];
   const pokemonQueries = useQueries({
@@ -43,7 +50,6 @@ const HomePage = () => {
       return {
         queryKey: ["pokemon", pokemon.name],
         queryFn: () => fetchPokemonData(pokemon.url),
-        cacheTime: 0,
         retry: false,
         refetchOnMount: false,
         retryOnMount: false,
@@ -55,13 +61,19 @@ const HomePage = () => {
     <>
       {status === "success" && (
         <>
-          <Searcher handleSearcherChange={(e) => setSearchedValue(e.target.value)} />
+          <Searcher
+            handleSearcherChange={(e) => setSearchedValue(e.target.value)}
+          />
           <PokemonCardContainer>
             {pokemonQueries.length !== 0 ? (
               pokemonQueries?.map(
                 ({ data, status }) =>
                   status === "success" && (
-                    <PokemonCard key={data?.data?.id} id={data?.data?.id} value={data} />
+                    <PokemonCard
+                      key={data?.data?.id}
+                      id={data?.data?.id}
+                      value={data}
+                    />
                   )
               )
             ) : (

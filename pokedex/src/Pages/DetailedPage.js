@@ -4,8 +4,8 @@ import {
   DetailedPokemonCardConatiner,
 } from "./components";
 import { useLocation, useParams } from "react-router-dom";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { deleteData, fetchPokemonData, postData } from "src/api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteData, postData } from "src/api";
 const DetailedPage = ({
   firstFighterProp,
   secondFighterProp,
@@ -19,14 +19,12 @@ const DetailedPage = ({
   const [isFavorite, setIsFavorite] = useState(
     favoriteProp?.includes(id) ? true : false
   );
-  const { data: detailPokemon, status: pokemonStatus } = useQuery({
-    queryKey: ["pokemon", state],
-    queryFn: () => fetchPokemonData(`https://pokeapi.co/api/v2/pokemon/${id}`),
-    retry: false,
-    refetchOnMount: false,
-    retryOnMount: false,
-    staleTime: 10 * (60 * 1000),
-  });
+  const queryClient = useQueryClient();
+  const detailPokemon = queryClient.setQueryData(
+    ["pokemon", state],
+    (prev) => prev
+  );
+  console.log({ detailPokemon, state });
   const createPostMutation = useMutation({
     mutationFn: () => postData(detailPokemon.data, id),
   });
@@ -52,17 +50,15 @@ const DetailedPage = ({
   };
   return (
     <DetailedPokemonCardConatiner>
-      {pokemonStatus === "success" && (
-        <DetailedPokemonCard
-          value={detailPokemon}
-          onClickFavorite={!isFavorite ? addFavorite : deleteFavorite}
-          onClickArena={arenaFightersHandle}
-          isFavorite={isFavorite}
-          myId={id}
-          firstFighterProp={firstFighterProp}
-          secondFighterProp={secondFighterProp}
-        />
-      )}
+      <DetailedPokemonCard
+        value={detailPokemon}
+        onClickFavorite={!isFavorite ? addFavorite : deleteFavorite}
+        onClickArena={arenaFightersHandle}
+        isFavorite={isFavorite}
+        myId={id}
+        firstFighterProp={firstFighterProp}
+        secondFighterProp={secondFighterProp}
+      />
     </DetailedPokemonCardConatiner>
   );
 };

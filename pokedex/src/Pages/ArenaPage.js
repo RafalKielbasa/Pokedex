@@ -3,7 +3,7 @@ import { BlankCard, PokemonCard } from "./components";
 import styled from "styled-components";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchPokemonData } from "src/api";
-import { Stadium, VS } from "src/img";
+import { Stadium, VS, Winner } from "src/img";
 const ArenaBody = styled.div`
   background: url(${Stadium});
   height: 80vh;
@@ -30,7 +30,8 @@ const ArenaPage = ({
   const [isPokemonDeleted, setIsPokemonDeleted] = useState(false);
   const { data: firstFighter, status: firstFighterStatus } = useQuery({
     queryKey: ["fighter1"],
-    queryFn: () => fetchPokemonData(`https://pokeapi.co/api/v2/pokemon/${firstPokemonId}`),
+    queryFn: () =>
+      fetchPokemonData(`https://pokeapi.co/api/v2/pokemon/${firstPokemonId}`),
     enabled: firstPokemonId != null,
     retry: false,
     refetchOnMount: false,
@@ -39,14 +40,16 @@ const ArenaPage = ({
   });
   const { data: secondFighter, status: secondFighterStatus } = useQuery({
     queryKey: ["fighter2"],
-    queryFn: () => fetchPokemonData(`https://pokeapi.co/api/v2/pokemon/${secondPokemonId}`),
+    queryFn: () =>
+      fetchPokemonData(`https://pokeapi.co/api/v2/pokemon/${secondPokemonId}`),
     enabled: secondPokemonId != null,
     retry: false,
     refetchOnMount: false,
     retryOnMount: false,
     staleTime: 10 * (60 * 1000),
   });
-  const firstFighterPowerLevel = firstFighter?.data?.base_experience * firstFighter?.data?.weight;
+  const firstFighterPowerLevel =
+    firstFighter?.data?.base_experience * firstFighter?.data?.weight;
   const secondFighterPowerLevel =
     secondFighter?.data?.base_experience * secondFighter?.data?.weight;
   const fightResultFnc = () => {
@@ -59,7 +62,10 @@ const ArenaPage = ({
   const deleteFighter = (action, queryKeyToDelete) => {
     action(null);
     setIsPokemonDeleted(true);
-    queryClient?.removeQueries({ queryKey: [{ queryKeyToDelete }], exact: true });
+    queryClient?.removeQueries({
+      queryKey: [{ queryKeyToDelete }],
+      exact: true,
+    });
   };
   console.log({ firstPokemonId });
   return (
@@ -69,13 +75,26 @@ const ArenaPage = ({
           <>
             {fightResult === "first" ? (
               <>
-                <span>WINNER</span>
-                <button onClick={() => deleteFighter(firstPokemonAction, "fighter1")}>USUŃ</button>
+                <img
+                  src={Winner}
+                  alt="Winner"
+                  width={"200px"}
+                  height={"200px"}
+                />
+                <button
+                  onClick={() => deleteFighter(firstPokemonAction, "fighter1")}
+                >
+                  USUŃ
+                </button>
                 <PokemonCard value={firstFighter} />
               </>
             ) : (
               <>
-                <button onClick={() => deleteFighter(firstPokemonAction, "fighter1")}>USUŃ</button>
+                <button
+                  onClick={() => deleteFighter(firstPokemonAction, "fighter1")}
+                >
+                  USUŃ
+                </button>
                 <PokemonCard value={firstFighter} />
               </>
             )}
@@ -88,13 +107,26 @@ const ArenaPage = ({
           <>
             {fightResult === "second" ? (
               <>
-                <span>WINNER</span>
-                <button onClick={() => deleteFighter(secondPokemonAction, "fighter2")}>USUŃ</button>
+                <img
+                  src={Winner}
+                  alt="Winner"
+                  width={"200px"}
+                  height={"200px"}
+                />
+                <button
+                  onClick={() => deleteFighter(secondPokemonAction, "fighter2")}
+                >
+                  USUŃ
+                </button>
                 <PokemonCard value={secondFighter} />
               </>
             ) : (
               <>
-                <button onClick={() => deleteFighter(secondPokemonAction, "fighter2")}>USUŃ</button>
+                <button
+                  onClick={() => deleteFighter(secondPokemonAction, "fighter2")}
+                >
+                  USUŃ
+                </button>
                 <PokemonCard value={secondFighter} />
               </>
             )}
@@ -103,11 +135,12 @@ const ArenaPage = ({
           <BlankCard value={"Drugi Pokemon"} />
         )}
       </ArenaContainer>
-      {firstFighterStatus === "success" && secondFighterStatus === "success" && (
-        <ButtonContainer>
-          <button onClick={fightResultFnc}>WALKA</button>
-        </ButtonContainer>
-      )}
+      {firstFighterStatus === "success" &&
+        secondFighterStatus === "success" && (
+          <ButtonContainer>
+            <button onClick={fightResultFnc}>WALKA</button>
+          </ButtonContainer>
+        )}
     </ArenaBody>
   );
 };
