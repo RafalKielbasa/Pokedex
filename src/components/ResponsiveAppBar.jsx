@@ -1,4 +1,9 @@
 import * as React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useTheme } from "@mui/material";
+import { useContext, useState } from "react";
+import { ThemeContext } from "../context/ThemeContext";
+import { useSnackbar } from "notistack";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,20 +16,14 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
-import { Link, useNavigate } from "react-router-dom";
-import { Padding } from "@mui/icons-material";
 import styled from "styled-components";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import { useTheme } from "@mui/material";
-import { useContext, useState } from "react";
-import { ThemeContext } from "../context/ThemeContext";
-import { useSnackbar } from "notistack";
 
 const StyledTitle = styled.span`
   font-size: 30px;
 `;
-const pages = ["Ulubione", "Arena", "Logowanie", "Rejestracja"];
+const pages = ["Favorites", "Arena", "SignIn", "Register"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -181,7 +180,9 @@ function ResponsiveAppBar() {
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "secondary", display: "block" }}
                 >
-                  <Link to={`/${page}`}>{page}</Link>
+                  <Link to={`/${page}`}>
+                    <h2>{page}</h2>
+                  </Link>
                 </Button>
               ))}
             </Box>
@@ -224,7 +225,7 @@ function ResponsiveAppBar() {
                   }}
                 >
                   <span>
-                    <Link to={`/Edycja`}>Edycja</Link>
+                    <Link to={`/EditList`}>Edit List</Link>
                   </span>
                 </MenuItem>
 

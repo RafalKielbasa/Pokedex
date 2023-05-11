@@ -1,6 +1,62 @@
 {
-  "favorites": [],
-  "battle": [],
+  "favorites": [
+    {
+      "id": 5,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
+      "name": "charmeleon",
+      "weight": 190,
+      "ability": "blaze",
+      "height": 11,
+      "baseExperience": 142
+    },
+    {
+      "id": 1,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
+      "name": "bulbasaur",
+      "weight": 69,
+      "ability": "overgrow",
+      "height": 7,
+      "baseExperience": 64
+    },
+    {
+      "id": 6,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/6.svg",
+      "name": "charizard",
+      "weight": 905,
+      "ability": "blaze",
+      "height": 17,
+      "baseExperience": 267
+    },
+    {
+      "id": 15,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/15.svg",
+      "name": "beedrill",
+      "weight": 295,
+      "ability": "swarm",
+      "height": 10,
+      "baseExperience": 178
+    }
+  ],
+  "battle": [
+    {
+      "id": 15,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/15.svg",
+      "name": "beedrill",
+      "weight": 295,
+      "ability": "swarm",
+      "height": 10,
+      "baseExperience": 178
+    },
+    {
+      "id": 1,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
+      "name": "bulbasaur",
+      "weight": 69,
+      "ability": "overgrow",
+      "height": 7,
+      "baseExperience": 64
+    }
+  ],
   "user": [
     {
       "name": "Testowy1",

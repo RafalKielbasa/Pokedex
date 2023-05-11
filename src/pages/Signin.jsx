@@ -1,46 +1,92 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import axios from "axios";
-import * as Yup from "yup";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import { Box, Button, TextField } from "@mui/material";
 import { useTheme } from "@mui/material";
+import axios from "axios";
+import * as Yup from "yup";
+
+import styled from "styled-components";
+
+const StyledBox = styled(Box)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid black;
+  margin-top: 30px;
+  background-color: ${({ theme }) => theme.palette.background.default};
+  width: 300px;
+  height: 350px;
+
+  & h1 {
+    margin-bottom: 16px;
+  }
+`;
+
+const StyledTextField = styled(TextField)`
+  background-color: ${({ theme }) => theme.palette.background.contrast};
+`;
+
+const StyledButton = styled(Button)`
+  margin-top: 8px;
+`;
 
 const userSchema = Yup.object().shape({
-  name: Yup.string().required("Imię jest wymagane."),
   email: Yup.string()
     .email("Nieprawidłowy adres e-mail.")
     .required("Adres e-mail jest wymagany."),
-  password: Yup.string()
-    .matches(
-      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])(?=.*[a-z]).{8,}$/,
-      "Hasło musi składać się z co najmniej 8 znaków, w tym co najmniej 1 dużej litery, 1 cyfry i 1 znaku specjalnego."
-    )
-    .required("Hasło jest wymagane."),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "Hasła muszą się zgadzać.")
-    .required("Potwierdź hasło."),
+  password: Yup.string().required("Hasło jest wymagane."),
 });
 
-export default function Rejestracja() {
+export default function Signin({ setUserData }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [userInfo, setUserInfo] = useState([]);
+  const [test, setTest] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
   const theme = useTheme();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/user")
+      .then((response) =>
+        setTest(
+          response.data?.filter((item) => {
+            return item.name && item.password;
+          })
+        )
+      )
+      .catch((error) => console.log(error));
+  }, []);
+
+  const handleClick = (text, type) => {
+    enqueueSnackbar(text, { variant: type });
+  };
 
   const handleOnSubmit = (values, actions) => {
     setIsSubmitting(true);
     console.log(values);
     actions.setSubmitting(false);
-    axios.post(`http://localhost:3001/user/`, {
-      name: values.name,
-      email: values.email,
-      password: values.password,
-    });
-    handleClick();
+    setUserInfo(values);
+    checkLogin(values);
   };
 
-  const handleClick = () => {
-    enqueueSnackbar("Register Succes", { variant: "success" });
+  const checkLogin = (userData) => {
+    const currLog = userData.email;
+    const currPass = userData.password;
+    const filtered = test.filter((item) => {
+      return item.email === currLog;
+    });
+
+    if (filtered[0].password === currPass && filtered[0].email === currLog) {
+      localStorage.setItem("userData", JSON.stringify(userData));
+      setUserData(userData);
+      handleClick("Login succes", "success");
+      navigate("/edycja");
+    } else {
+      handleClick("Login faild, wrond password or email", "error");
+    }
   };
 
   return (
@@ -64,17 +110,15 @@ export default function Rejestracja() {
           marginTop: "30px",
         }}
         style={{
-          backgroundColor: theme.palette.background.login,
+          backgroundColor: theme.palette.background.default,
           width: "300px",
-          maxHeight: "550px",
+          height: "350px",
         }}
       >
         <Formik
           initialValues={{
-            name: "",
             email: "",
             password: "",
-            confirmPassword: "",
           }}
           onSubmit={handleOnSubmit}
           validationSchema={userSchema}
@@ -82,16 +126,7 @@ export default function Rejestracja() {
           {({ errors, touched, isSubmitting }) => (
             <Form>
               <Box marginBottom={2}>
-                <h1>Rejestracja</h1>
-              </Box>
-              <Box marginBottom={2}>
-                <Field
-                  as={TextField}
-                  name="name"
-                  label="Imię"
-                  error={touched.name && errors.name ? true : false}
-                  helperText={touched.name && errors.name ? errors.name : ""}
-                />
+                <h1>Logowanie</h1>
               </Box>
               <Box marginBottom={2}>
                 <Field
@@ -101,6 +136,7 @@ export default function Rejestracja() {
                   label="Adres e-mail"
                   error={touched.email && errors.email ? true : false}
                   helperText={touched.email && errors.email ? errors.email : ""}
+                  style={{ background: theme.palette.background.contrast }}
                 />
               </Box>
               <Box marginBottom={2}>
@@ -114,25 +150,7 @@ export default function Rejestracja() {
                   helperText={
                     touched.password && errors.password ? errors.password : ""
                   }
-                />
-              </Box>
-              <Box marginBottom={2}>
-                <Field
-                  as={TextField}
-                  type="password"
-                  name="confirmPassword"
-                  label="Potwierdź hasło"
-                  fullWidth
-                  error={
-                    touched.confirmPassword && errors.confirmPassword
-                      ? true
-                      : false
-                  }
-                  helperText={
-                    touched.confirmPassword && errors.confirmPassword
-                      ? errors.confirmPassword
-                      : ""
-                  }
+                  style={{ background: theme.palette.background.contrast }}
                 />
               </Box>
               <Box display="flex" justifyContent="center" marginBottom={2}>
@@ -142,7 +160,7 @@ export default function Rejestracja() {
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  Zarejestruj
+                  Zaloguj
                 </Button>
               </Box>
             </Form>

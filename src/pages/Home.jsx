@@ -1,14 +1,12 @@
+import { useTheme } from "@mui/material";
+import { useState, useEffect } from "react";
 import React from "react";
-import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Card from "../components/Card";
 import Box from "@mui/material/Box";
 import Textfield from "../components/Textfield";
 import Pagination from "@mui/material/Pagination";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { ThemeContext } from "../context/ThemeContext";
-import { useTheme } from "@mui/material";
 
 const StyledBox = styled.div`
   height: 100%;
@@ -25,7 +23,6 @@ export default function Home() {
   const [search, setSearch] = useState();
   const [error, setError] = useState(null);
   const theme = useTheme();
-  const colorMode = useContext(ThemeContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,14 +70,7 @@ export default function Home() {
         }}
       >
         {pokedex?.map((item) => {
-          return (
-            <Card
-              key={item.name}
-              url={item.url}
-              pokemonInfo={undefined}
-              gate={false}
-            />
-          );
+          return <Card key={item.name} url={item.url} gate={false} />;
         })}
       </Box>
 

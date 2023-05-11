@@ -1,14 +1,13 @@
 import { useLocation } from "react-router-dom";
-import axios from "axios";
-import { useState, useEffect, useContext } from "react";
-import Tooltip from "@mui/material/Tooltip";
-import styled from "styled-components";
 import { Link } from "react-router-dom";
-import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
-import { ThemeContext } from "../context/ThemeContext";
+import { useState, useEffect } from "react";
 import { useTheme } from "@mui/material";
 import { useSnackbar } from "notistack";
+import axios from "axios";
+import Tooltip from "@mui/material/Tooltip";
+import styled from "styled-components";
+import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
+import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
 
 const Container = styled.div`
   display: flex;
@@ -48,8 +47,8 @@ const ImageContainer = styled.div`
 `;
 
 const Image = styled.img`
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
   @media screen and (max-width: 600px) {
     width: 100px;
     height: 100px;

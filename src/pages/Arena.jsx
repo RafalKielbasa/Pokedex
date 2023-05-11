@@ -1,9 +1,10 @@
-import axios from "axios";
-import { useState, useEffect, useContext } from "react";
-import styled from "styled-components";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material";
+import axios from "axios";
+import styled from "styled-components";
 import Card from "../components/Card";
+
 const Container = styled.div`
   height: 100vh;
   display: flex;

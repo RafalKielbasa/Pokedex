@@ -1,18 +1,17 @@
-import React, { createContext, useRef } from "react";
-import ResponsiveAppBar from "./components/ResponsiveAppBar";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
-import Arena from "./pages/Arena";
-import Edycja from "./pages/Edycja";
-import Logowanie from "./pages/Logowanie";
-import Rejestracja from "./pages/Rejestracja";
-import Ulubione from "./pages/Ulubione";
-import EditForm from "./pages/EditForm";
-import Details from "./pages/Details";
-import { useState, useEffect, useContext } from "react";
+import { useState } from "react";
 import { useMode, ThemeContext } from "./context/ThemeContext";
 import { ThemeProvider } from "@mui/material";
+import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import Home from "./pages/Home";
+import Arena from "./pages/Arena";
+import EditList from "./pages/EditList";
+import Signin from "./pages/Signin";
+import Register from "./pages/Register";
+import Favorites from "./pages/Favorites";
+import EditForm from "./pages/EditForm";
+import Details from "./pages/Details";
 
 function App() {
   const [favorites, setFavorites] = useState([]);
@@ -34,14 +33,14 @@ function App() {
                   element={<Arena battle={battle} setBattle={setBattle} />}
                 />
                 <Route
-                  path="/Logowanie"
-                  element={<Logowanie setUserData={setUserData} />}
+                  path="/Signin"
+                  element={<Signin setUserData={setUserData} />}
                 />
-                <Route path="/Rejestracja" element={<Rejestracja />} />
+                <Route path="/Register" element={<Register />} />
                 <Route
-                  path="/Ulubione"
+                  path="/Favorites"
                   element={
-                    <Ulubione
+                    <Favorites
                       setFavorites={setFavorites}
                       favorites={favorites}
                     />
@@ -61,7 +60,7 @@ function App() {
                 />
 
                 {userData ? (
-                  <Route path="/Edycja" element={<Edycja />} />
+                  <Route path="/EditList" element={<EditList />} />
                 ) : null}
 
                 <Route

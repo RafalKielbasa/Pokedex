@@ -1,15 +1,9 @@
 import { Formik, Form, Field } from "formik";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
-import { useState, useEffect, useContext } from "react";
-import Tooltip from "@mui/material/Tooltip";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
-import { ThemeContext } from "../context/ThemeContext";
 import { useTheme } from "@mui/material";
 import { useSnackbar } from "notistack";
+import Tooltip from "@mui/material/Tooltip";
+import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
@@ -73,19 +67,6 @@ const Title = styled.span`
   margin: 0 auto;
 `;
 
-const HeartIcon = styled(FavoriteRoundedIcon)`
-  margin-left: 5px;
-  color: ${({ isToggled }) => (isToggled ? "red" : "white")};
-
-  cursor: pointer;
-`;
-
-const SportsIcon = styled(SportsMmaRoundedIcon)`
-  color: white;
-  color: ${({ isToggledBattle }) => (isToggledBattle ? "red" : "white")};
-  margin-left: 5px;
-`;
-
 const InfoContainer = styled.div`
   width: 100%;
   height: 35%;
@@ -132,22 +113,14 @@ const MiniTitle = styled.span`
     font-size: 12px;
   }
 `;
-
-const BigTitle = styled.span`
-  font-size: 20px;
-  font-family: "Courier New", Courier, monospace;
-  font-weight: bold;
-  @media screen and (max-width: 600px) {
-    font-size: 15px;
-  }
-`;
-
-const BackButton = styled(Link)`
+const HomeButton = styled.button`
   border: 1px solid red;
-  width: 40vw;
-
+  margin-left: 40px;
+  width: 30vw;
   color: red;
-  margin: 1rem auto;
+
+  cursor: pointer;
+  font-size: 30px;
 `;
 
 export default function EditForm() {
@@ -212,7 +185,8 @@ export default function EditForm() {
                 </InfoContainer>
               </ContentContainer>
             </PokemonCard>
-            <button type="submit">Submit</button>
+            <HomeButton>save as new</HomeButton>
+            <HomeButton>Edit</HomeButton>
           </Form>
         )}
       </Formik>

@@ -1,8 +1,8 @@
-import axios from "axios";
+import { useTheme } from "@mui/material";
 import { useEffect } from "react";
+import axios from "axios";
 import Box from "@mui/material/Box";
 import Card from "../components/Card";
-import { useTheme } from "@mui/material";
 import styled from "styled-components";
 
 const Container = styled(Box)`
@@ -19,7 +19,7 @@ const Heading = styled.h1`
   color: black;
 `;
 
-export default function Ulubione({ favorites, setFavorites }) {
+export default function Favorites({ favorites, setFavorites }) {
   const theme = useTheme();
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function Ulubione({ favorites, setFavorites }) {
           );
         })
       ) : (
-        <Heading>brak ulubionych pokemonow</Heading>
+        <Heading>no favorite pokemon</Heading>
       )}
     </Container>
   );
