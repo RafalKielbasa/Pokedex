@@ -25,13 +25,13 @@ export default function PokemonCard({
   weight,
   abilitie,
   pokemonData,
-  offset,
-  page,
+  // offset,
+  // page,
 }) {
   const navigate = useNavigate();
   const handleClick = () => {
     const path = "/details";
-    navigate(path, { state: { id, pokemonData, offset, page } });
+    navigate(path, { state: { id, pokemonData } });
   };
 
   return (

@@ -9,13 +9,14 @@ import {
   MainPage,
   DetailsPage,
 } from "src/Pages";
+import { getFullResults } from "src/api/source";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainPage />,
     children: [
-      { path: "home", element: <HomePage /> },
+      { path: "/", element: <HomePage />, loader: () => getFullResults() },
       { path: "favorites", element: <FavoritesPage /> },
       { path: "arena", element: <ArenaPage /> },
       { path: "login", element: <LoginPage /> },

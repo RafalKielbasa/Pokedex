@@ -14,7 +14,7 @@ const DetailsPageWrapper = styled.div`
 export default function DetailsPage() {
   const location = useLocation();
   const id = location.state?.id;
-  const page = location.state?.page;
+  // const page = location.state?.page;
   // const urlDet = location.state?.url;
   const pokemonData = location.state?.pokemonData;
   const pokemonDataFiltered = pokemonData.filter((item) => item.id === id);
@@ -23,7 +23,7 @@ export default function DetailsPage() {
 
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/home", { state: { page } });
+    navigate("/");
   };
 
   return (
