@@ -34,9 +34,9 @@ const HomePage = () => {
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
   const [inputText, setInputText] = useState();
-  // const [data, setData] = useState([]);
   const [partialPokemonData, setPartialPokemonData] = useState([]);
   const [fullPokemonData, setFullPokemonData] = useState([]);
+  const [dataToShow, setdataToShow] = useState([]);
 
   const queryPartialData = useQuery([`/`, offset], () =>
     getPartialResults(`${offset}`)
@@ -94,35 +94,6 @@ const HomePage = () => {
   //   }
   // }, []);
 
-  // useEffect(() => {
-  //   async function getResults() {
-  //     const response = await axios.get(
-  //       inputText ? `${BASE_URL}?limit=150&offset=0}` : url
-  //     );
-  //     const data = response.data.results;
-  //     setData(data);
-  //   }
-  //   setPokemonData([]);
-  //   getResults();
-  // }, [url, inputText]);
-
-  // useEffect(() => {
-  //   async function getPokemonData() {
-  //     [queryFullData.data]?.map(async (item) => {
-  //       const result = await axios.get(item.url);
-  //       setPokemonData((resultUrl) => {
-  //         resultUrl = [...resultUrl, result?.data];
-  //         resultUrl.sort((a, b) => (a.id > b.id ? 1 : -1));
-  //         return resultUrl;
-  //       });
-  //     });
-  //   }
-  //   // setPokemonData([]);
-  //   getPokemonData();
-  // }, [queryFullData]);
-
-  // console.log(`inputText`, inputText);
-  // console.log(`url`, url);
   // const saveToLocalStorage = () => {
   //   localStorage.setItem("pagePag", JSON.stringify(page));
   // };
@@ -140,6 +111,8 @@ const HomePage = () => {
     const textFieldText = event.target.value.toLowerCase();
     setInputText(textFieldText);
   };
+
+  inputText ? fullPokemonData : partialPokemonData;
 
   return (
     <HomePageWrapper>
