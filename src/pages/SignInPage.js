@@ -1,10 +1,10 @@
 import { DefaultLayout } from "../components/layouts/Default/DefaultLayout";
-import { SignUpWrapper } from "../components/wrappers/SingUp/SignUpWrapper";
+import { SignInWrapper } from "../components/wrappers/SingIn/SignInWrapper";
 
-export const SingUpPage = () => {
+export const SignInPage = () => {
   return (
     <DefaultLayout>
-      <SignUpWrapper />
+      <SignInWrapper />
     </DefaultLayout>
   );
 };

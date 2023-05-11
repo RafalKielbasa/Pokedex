@@ -13,8 +13,8 @@ const navigationButtons = [
     href: "/pvp",
   },
   {
-    label: "Sing in",
-    href: "/singIn",
+    label: "Sign in",
+    href: "/signIn",
   },
   {
     label: "Sign up",

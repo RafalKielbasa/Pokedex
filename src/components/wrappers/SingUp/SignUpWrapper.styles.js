@@ -29,6 +29,10 @@ export const Input = styled.input`
 
   &:focus {
     transition: 1s all ease-in;
-    box-shadow: 0px 0px 10px 1px rgba(0, 91, 146, 1);
+    box-shadow: 0px 0px 10px 1px rgba(8, 0, 243, 0.8);
   }
+`;
+
+export const ErrorMessage = styled.p`
+  color: #ff0000;
 `;

@@ -3,6 +3,7 @@ import { ProjectUrl } from "../const/ProjectUrl";
 import { HomePage } from "../pages/HomePage";
 import { PokemonDetailsPage } from "../pages/PokemonDetailsPage";
 import { SingUpPage } from "../pages/SingUpPage";
+import { SignInPage } from "../pages/SignInPage";
 
 export const router = createBrowserRouter([
   {
@@ -16,5 +17,9 @@ export const router = createBrowserRouter([
   {
     path: ProjectUrl.SingUp,
     element: <SingUpPage />,
+  },
+  {
+    path: ProjectUrl.SignIn,
+    element: <SignInPage />,
   },
 ]);
