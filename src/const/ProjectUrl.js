@@ -4,4 +4,5 @@ export const ProjectUrl = Object.freeze({
   SingUp: "/signUp",
   SignIn: "/signIn",
   Favorite: "/favorite",
+  PvP: "/pvp",
 });

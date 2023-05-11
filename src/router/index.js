@@ -5,6 +5,7 @@ import { PokemonDetailsPage } from "../pages/PokemonDetailsPage";
 import { SingUpPage } from "../pages/SingUpPage";
 import { SignInPage } from "../pages/SignInPage";
 import { FavoritePage } from "../pages/FavoritePage";
+import { PvpPage } from "../pages/PvpPage";
 
 export const router = createBrowserRouter([
   {
@@ -26,5 +27,9 @@ export const router = createBrowserRouter([
   {
     path: ProjectUrl.Favorite,
     element: <FavoritePage />,
+  },
+  {
+    path: ProjectUrl.PvP,
+    element: <PvpPage />,
   },
 ]);
