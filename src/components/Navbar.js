@@ -61,12 +61,7 @@ export const Navbar = () => {
           class="right menu"
           style={{ display: "flex", alignItems: "center" }}
         >
-          {userData ? (
-            <button onClick={() => setUserData(null)}>Log out</button>
-          ) : null}
-          <div class="item">
-            {userData ? `Logged in as ${userData.name}` : "Not logged in"}
-          </div>
+          <div class="item">{userData ? `Welcome ${userData.name}` : null}</div>
           <Input
             icon="search icon"
             class="ui icon input"
@@ -96,9 +91,18 @@ export const Navbar = () => {
             </a>
           </div>
           <div class="item">
-            <Link to="/register" class="ui primary button">
-              Sign Up
-            </Link>
+            {userData ? (
+              <Button
+                className="ui negative basic button"
+                onClick={() => setUserData(null)}
+              >
+                Log Out
+              </Button>
+            ) : (
+              <Link to="/register" class="ui primary button">
+                Sign Up
+              </Link>
+            )}
           </div>
         </div>
       </div>

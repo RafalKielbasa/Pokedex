@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  margin-top: 30px;
 `;
 
 const FormWraper = styled.form`
@@ -17,7 +17,6 @@ const FormWraper = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   gap: 20px;
   border: 1px solid black;
   border-radius: 6px;
