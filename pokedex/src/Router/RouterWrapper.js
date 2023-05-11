@@ -24,7 +24,7 @@ const RouterWrapper = () => {
     favoriteList &&
       localStorage.setItem("favoriteList", JSON.stringify(favoriteList));
   }, [favoriteList]);
-
+  console.log({ arenaFirstFighter, arenaSecondFighter });
   const router = createBrowserRouter([
     {
       path: "/",
@@ -66,7 +66,7 @@ const RouterWrapper = () => {
           element: <h1>BAD URL</h1>,
         },
         {
-          path: "pokemon/:id",
+          path: "pokemon/:name",
           element: (
             <DetailedPage
               favoriteProp={favoriteList}

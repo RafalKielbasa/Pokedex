@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { BlankCard, PokemonCard } from "./components";
 import styled from "styled-components";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchPokemonData } from "src/api";
+import { useQueryClient } from "@tanstack/react-query";
 import { Stadium, VS, Winner } from "src/img";
 const ArenaBody = styled.div`
   background: url(${Stadium});
@@ -19,6 +18,12 @@ const ButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
+const ArenaCardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+`;
 const ArenaPage = ({
   firstPokemonId,
   secondPokemonId,
@@ -27,27 +32,16 @@ const ArenaPage = ({
 }) => {
   const queryClient = useQueryClient();
   const [fightResult, setFightResult] = useState("");
-  const [isPokemonDeleted, setIsPokemonDeleted] = useState(false);
-  const { data: firstFighter, status: firstFighterStatus } = useQuery({
-    queryKey: ["fighter1"],
-    queryFn: () =>
-      fetchPokemonData(`https://pokeapi.co/api/v2/pokemon/${firstPokemonId}`),
-    enabled: firstPokemonId != null,
-    retry: false,
-    refetchOnMount: false,
-    retryOnMount: false,
-    staleTime: 10 * (60 * 1000),
-  });
-  const { data: secondFighter, status: secondFighterStatus } = useQuery({
-    queryKey: ["fighter2"],
-    queryFn: () =>
-      fetchPokemonData(`https://pokeapi.co/api/v2/pokemon/${secondPokemonId}`),
-    enabled: secondPokemonId != null,
-    retry: false,
-    refetchOnMount: false,
-    retryOnMount: false,
-    staleTime: 10 * (60 * 1000),
-  });
+  const [isFirstPokemonDeleted, setIsFirstPokemonDeleted] = useState(false);
+  const [isSecondPokemonDeleted, setIsSecondPokemonDeleted] = useState(false);
+  const firstFighter = queryClient.setQueryData(
+    ["pokemon", firstPokemonId],
+    (prev) => prev
+  );
+  const secondFighter = queryClient.setQueryData(
+    ["pokemon", secondPokemonId],
+    (prev) => prev
+  );
   const firstFighterPowerLevel =
     firstFighter?.data?.base_experience * firstFighter?.data?.weight;
   const secondFighterPowerLevel =
@@ -59,22 +53,17 @@ const ArenaPage = ({
       ? setFightResult("first")
       : setFightResult("second");
   };
-  const deleteFighter = (action, queryKeyToDelete) => {
+  const deleteFighter = (action, deletedPokemonState) => {
     action(null);
-    setIsPokemonDeleted(true);
-    queryClient?.removeQueries({
-      queryKey: [{ queryKeyToDelete }],
-      exact: true,
-    });
+    deletedPokemonState(true);
   };
-  console.log({ firstPokemonId });
   return (
     <ArenaBody>
       <ArenaContainer>
-        {firstFighterStatus === "success" && !isPokemonDeleted ? (
+        {firstFighter && !isFirstPokemonDeleted ? (
           <>
             {fightResult === "first" ? (
-              <>
+              <ArenaCardContainer>
                 <img
                   src={Winner}
                   alt="Winner"
@@ -82,31 +71,35 @@ const ArenaPage = ({
                   height={"200px"}
                 />
                 <button
-                  onClick={() => deleteFighter(firstPokemonAction, "fighter1")}
+                  onClick={() =>
+                    deleteFighter(firstPokemonAction, setIsFirstPokemonDeleted)
+                  }
                 >
                   USUŃ
                 </button>
                 <PokemonCard value={firstFighter} />
-              </>
+              </ArenaCardContainer>
             ) : (
-              <>
+              <ArenaCardContainer>
                 <button
-                  onClick={() => deleteFighter(firstPokemonAction, "fighter1")}
+                  onClick={() =>
+                    deleteFighter(firstPokemonAction, setIsFirstPokemonDeleted)
+                  }
                 >
                   USUŃ
                 </button>
                 <PokemonCard value={firstFighter} />
-              </>
+              </ArenaCardContainer>
             )}
           </>
         ) : (
           <BlankCard value={"Pierwszy Pokemon"} />
         )}
         <img src={VS} alt="VS" width={"200px"} height={"200px"} />
-        {secondFighterStatus === "success" && !isPokemonDeleted ? (
+        {secondFighter && !isSecondPokemonDeleted ? (
           <>
             {fightResult === "second" ? (
-              <>
+              <ArenaCardContainer>
                 <img
                   src={Winner}
                   alt="Winner"
@@ -114,33 +107,42 @@ const ArenaPage = ({
                   height={"200px"}
                 />
                 <button
-                  onClick={() => deleteFighter(secondPokemonAction, "fighter2")}
+                  onClick={() =>
+                    deleteFighter(
+                      secondPokemonAction,
+                      setIsSecondPokemonDeleted
+                    )
+                  }
                 >
                   USUŃ
                 </button>
                 <PokemonCard value={secondFighter} />
-              </>
+              </ArenaCardContainer>
             ) : (
-              <>
+              <ArenaCardContainer>
                 <button
-                  onClick={() => deleteFighter(secondPokemonAction, "fighter2")}
+                  onClick={() =>
+                    deleteFighter(
+                      secondPokemonAction,
+                      setIsSecondPokemonDeleted
+                    )
+                  }
                 >
                   USUŃ
                 </button>
                 <PokemonCard value={secondFighter} />
-              </>
+              </ArenaCardContainer>
             )}
           </>
         ) : (
           <BlankCard value={"Drugi Pokemon"} />
         )}
       </ArenaContainer>
-      {firstFighterStatus === "success" &&
-        secondFighterStatus === "success" && (
-          <ButtonContainer>
-            <button onClick={fightResultFnc}>WALKA</button>
-          </ButtonContainer>
-        )}
+      {firstFighter && secondFighter && (
+        <ButtonContainer>
+          <button onClick={fightResultFnc}>WALKA</button>
+        </ButtonContainer>
+      )}
     </ArenaBody>
   );
 };
