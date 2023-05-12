@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
 import pokeLogo from "../images/poke.png";
 import { ThemeContext } from "./ThemeContext";
@@ -7,7 +7,14 @@ import { ThemeToggleButton } from "./ThemeToggleButton";
 import { SearchContext } from "./SearchContext";
 import { Button, Input } from "semantic-ui-react";
 import { LoginContext } from "./LoginContext";
+import styled from "styled-components";
 
+const StyledNavLink = styled(NavLink)`
+  &.active {
+    color: white !important;
+    background-color: #e5d7bf !important;
+  }
+`;
 export const Navbar = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const { search, setSearch } = useContext(SearchContext);
@@ -39,23 +46,27 @@ export const Navbar = () => {
           }}
         />
 
-        <Link style={{ color: theme ? "white" : "black" }} to="/" class="item">
+        <StyledNavLink
+          style={{ color: theme ? "white" : "black" }}
+          to="/"
+          className="item"
+        >
           Home
-        </Link>
-        <Link
+        </StyledNavLink>
+        <StyledNavLink
           style={{ color: theme ? "white" : "black" }}
           to="/favorites"
-          class="item"
+          className="item"
         >
           Favorites
-        </Link>
-        <Link
+        </StyledNavLink>
+        <StyledNavLink
           style={{ color: theme ? "white" : "black" }}
           to="/arena"
-          class="item"
+          className="item"
         >
           Fight Arena
-        </Link>
+        </StyledNavLink>
 
         <div
           class="right menu"
