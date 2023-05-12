@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { BlankCard, PokemonCard } from "./components";
 import styled from "styled-components";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { Stadium, VS, Winner } from "src/img";
+import { postData } from "src/api";
 const ArenaBody = styled.div`
   background: url(${Stadium});
   height: 80vh;
@@ -34,24 +35,28 @@ const ArenaPage = ({
   const [fightResult, setFightResult] = useState("");
   const [isFirstPokemonDeleted, setIsFirstPokemonDeleted] = useState(false);
   const [isSecondPokemonDeleted, setIsSecondPokemonDeleted] = useState(false);
-  const firstFighter = queryClient.setQueryData(
-    ["pokemon", firstPokemonId],
-    (prev) => prev
-  );
-  const secondFighter = queryClient.setQueryData(
-    ["pokemon", secondPokemonId],
-    (prev) => prev
-  );
+  const firstFighter = queryClient.getQueryData(["pokemon", firstPokemonId]);
+  const secondFighter = queryClient.getQueryData(["pokemon", secondPokemonId]);
   const firstFighterPowerLevel =
     firstFighter?.data?.base_experience * firstFighter?.data?.weight;
   const secondFighterPowerLevel =
     secondFighter?.data?.base_experience * secondFighter?.data?.weight;
+  const afterBattleMutation = useMutation({
+    mutationFn: () => postData("edited", firstFighter.data, firstPokemonId),
+    onSuccess: (data) => {
+      queryClient.setQueryData(["pokemon", firstPokemonId], data.data);
+    },
+  });
+  const afterBattleHandle = (result) => {
+    setFightResult(result);
+    afterBattleMutation.mutate();
+  };
   const fightResultFnc = () => {
     firstFighterPowerLevel === secondFighterPowerLevel
       ? setFightResult("tie")
       : firstFighterPowerLevel > secondFighterPowerLevel
-      ? setFightResult("first")
-      : setFightResult("second");
+      ? afterBattleHandle("first")
+      : afterBattleHandle("second");
   };
   const deleteFighter = (action, deletedPokemonState) => {
     action(null);

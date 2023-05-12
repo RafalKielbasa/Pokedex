@@ -19,12 +19,9 @@ const DetailedPage = ({
     favoriteProp?.includes(name) ? true : false
   );
   const queryClient = useQueryClient();
-  const detailPokemon = queryClient.setQueryData(
-    ["pokemon", name],
-    (prev) => prev
-  );
+  const detailPokemon = queryClient.getQueryData(["pokemon", name]);
   const createPostMutation = useMutation({
-    mutationFn: () => postData(detailPokemon.data, name),
+    mutationFn: () => postData("favorite", detailPokemon.data, name),
   });
   const createDeleteMutation = useMutation({
     mutationFn: () => deleteData(name),

@@ -20,18 +20,14 @@ const HomePage = () => {
     queryKey: ["pokemons", page],
     queryFn: () => fetchData((page - 1) * 15),
     enabled: searchedValue === "",
-    cacheTime: 0,
     refetchOnMount: false,
-    retryOnMount: false,
     staleTime: 10 * (60 * 1000),
   });
   const { data: pokemonsToFilter } = useQuery({
     queryKey: ["pokemonsToFilter"],
     queryFn: () => fetchDataToFilter(),
     enabled: searchedValue !== "",
-    cacheTime: 0,
     refetchOnMount: false,
-    retryOnMount: false,
     staleTime: 10 * (60 * 1000),
   });
   useEffect(() => {
