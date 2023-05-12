@@ -19,8 +19,9 @@ const DetailedPage = ({
   const [isFavorite, setIsFavorite] = useState(
     favoriteProp?.includes(id) ? true : false
   );
-  const detailPokemon = pokemonQueries?.filter(({ data }) => data?.data?.id);
-  console.log({ detailPokemon });
+  const detailPokemon = pokemonQueries?.filter(
+    ({ data }) => Number(data?.data?.id) === Number(id)
+  );
   const createPostMutation = useMutation({
     mutationFn: () => postData("favorite", detailPokemon[0].data, id),
   });

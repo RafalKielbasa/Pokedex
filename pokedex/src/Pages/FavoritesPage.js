@@ -6,10 +6,7 @@ const FavoritesPage = () => {
   const { data: favorite } = useQuery({
     queryKey: ["favorite"],
     queryFn: () => fetchFavorite(),
-    cacheTime: 0,
-    retry: false,
     refetchOnMount: false,
-    retryOnMount: false,
     staleTime: 10 * (60 * 1000),
   });
   return (

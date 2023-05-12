@@ -64,7 +64,7 @@ const RouterWrapper = () => {
       };
     }),
   });
-  console.log({ pokemonQueries });
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -91,6 +91,7 @@ const RouterWrapper = () => {
           path: "arena",
           element: (
             <ArenaPage
+              pokemonQueries={pokemonQueries}
               firstPokemonAction={setArenaFirstFighter}
               secondPokemonAction={setArenaSecondFighter}
               firstPokemonId={arenaFirstFighter}

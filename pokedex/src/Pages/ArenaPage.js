@@ -30,13 +30,20 @@ const ArenaPage = ({
   secondPokemonId,
   firstPokemonAction,
   secondPokemonAction,
+  pokemonQueries,
 }) => {
   const queryClient = useQueryClient();
   const [fightResult, setFightResult] = useState("");
   const [isFirstPokemonDeleted, setIsFirstPokemonDeleted] = useState(false);
   const [isSecondPokemonDeleted, setIsSecondPokemonDeleted] = useState(false);
-  const firstFighter = queryClient.getQueryData(["pokemon", firstPokemonId]);
-  const secondFighter = queryClient.getQueryData(["pokemon", secondPokemonId]);
+
+  const firstFighter = pokemonQueries?.filter(
+    ({ data }) => Number(data?.data?.id) === Number(firstPokemonId)
+  );
+  const secondFighter = pokemonQueries?.filter(
+    ({ data }) => Number(data?.data?.id) === Number(secondPokemonId)
+  );
+  console.log({ firstPokemonId, secondPokemonId, firstFighter });
   const firstFighterPowerLevel =
     firstFighter?.data?.base_experience * firstFighter?.data?.weight;
   const secondFighterPowerLevel =
@@ -66,7 +73,7 @@ const ArenaPage = ({
   return (
     <ArenaBody>
       <ArenaContainer>
-        {firstFighter && !isFirstPokemonDeleted ? (
+        {firstFighter.length > 0 && !isFirstPokemonDeleted ? (
           <>
             {fightResult === "first" ? (
               <ArenaCardContainer>
@@ -83,7 +90,7 @@ const ArenaPage = ({
                 >
                   USUŃ
                 </button>
-                <PokemonCard value={firstFighter} />
+                <PokemonCard value={firstFighter[0]?.data} />
               </ArenaCardContainer>
             ) : (
               <ArenaCardContainer>
@@ -94,7 +101,7 @@ const ArenaPage = ({
                 >
                   USUŃ
                 </button>
-                <PokemonCard value={firstFighter} />
+                <PokemonCard value={firstFighter[0]?.data} />
               </ArenaCardContainer>
             )}
           </>
@@ -102,7 +109,7 @@ const ArenaPage = ({
           <BlankCard value={"Pierwszy Pokemon"} />
         )}
         <img src={VS} alt="VS" width={"200px"} height={"200px"} />
-        {secondFighter && !isSecondPokemonDeleted ? (
+        {secondFighter.length > 0 && !isSecondPokemonDeleted ? (
           <>
             {fightResult === "second" ? (
               <ArenaCardContainer>
@@ -122,7 +129,7 @@ const ArenaPage = ({
                 >
                   USUŃ
                 </button>
-                <PokemonCard value={secondFighter} />
+                <PokemonCard value={secondFighter[0]?.data} />
               </ArenaCardContainer>
             ) : (
               <ArenaCardContainer>
@@ -136,7 +143,7 @@ const ArenaPage = ({
                 >
                   USUŃ
                 </button>
-                <PokemonCard value={secondFighter} />
+                <PokemonCard value={secondFighter[0]?.data} />
               </ArenaCardContainer>
             )}
           </>
