@@ -1,9 +1,8 @@
 import axios from "axios";
-export const postData = async (location, data, myName) => {
-  const newData = { ...data, base_experience: data.base_experience + 10 };
+export const postData = async (location, data, myId) => {
   const response = await axios.post(`http://localhost:3000/${location}/`, {
-    data: newData,
-    name: myName,
+    data,
+    id: myId,
   });
   return response;
 };

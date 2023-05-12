@@ -3,7 +3,7 @@ import { BlankCard, PokemonCard } from "./components";
 import styled from "styled-components";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { Stadium, VS, Winner } from "src/img";
-import { postData } from "src/api";
+import { arenaActionHandle } from "src/api";
 const ArenaBody = styled.div`
   background: url(${Stadium});
   height: 80vh;
@@ -42,7 +42,8 @@ const ArenaPage = ({
   const secondFighterPowerLevel =
     secondFighter?.data?.base_experience * secondFighter?.data?.weight;
   const afterBattleMutation = useMutation({
-    mutationFn: () => postData("edited", firstFighter.data, firstPokemonId),
+    mutationFn: () =>
+      arenaActionHandle("edited", firstFighter.data, firstPokemonId),
     onSuccess: (data) => {
       queryClient.setQueryData(["pokemon", firstPokemonId], data.data);
     },

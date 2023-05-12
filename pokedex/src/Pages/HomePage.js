@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useQuery, useQueries } from "@tanstack/react-query";
+import React from "react";
 
-import { fetchData, fetchPokemonData, fetchDataToFilter } from "src/api";
 import {
   MyPagination,
   PokemonCard,
@@ -9,50 +7,14 @@ import {
   Searcher,
 } from "./components";
 
-import { filterFnc } from "src/helpers/filterFnc";
-
-const HomePage = () => {
-  const [page, setPage] = useState(1);
-  const [searchedValue, setSearchedValue] = useState("");
-  const [createComponentData, setCreateComponentData] = useState(null);
-
-  const { data: pokemons, status } = useQuery({
-    queryKey: ["pokemons", page],
-    queryFn: () => fetchData((page - 1) * 15),
-    enabled: searchedValue === "",
-    refetchOnMount: false,
-    staleTime: 10 * (60 * 1000),
-  });
-  const { data: pokemonsToFilter } = useQuery({
-    queryKey: ["pokemonsToFilter"],
-    queryFn: () => fetchDataToFilter(),
-    enabled: searchedValue !== "",
-    refetchOnMount: false,
-    staleTime: 10 * (60 * 1000),
-  });
-  useEffect(() => {
-    pokemons &&
-      searchedValue === "" &&
-      setCreateComponentData(pokemons?.data?.results);
-    pokemonsToFilter &&
-      searchedValue !== "" &&
-      setCreateComponentData(
-        filterFnc(pokemonsToFilter?.data?.results, searchedValue)
-      );
-  }, [pokemons, pokemonsToFilter, searchedValue]);
-  const resultList = createComponentData ? createComponentData : [];
-  const pokemonQueries = useQueries({
-    queries: resultList?.map((pokemon) => {
-      return {
-        queryKey: ["pokemon", pokemon.name],
-        queryFn: () => fetchPokemonData(pokemon.url),
-        retry: false,
-        refetchOnMount: false,
-        retryOnMount: false,
-        staleTime: 10 * (60 * 1000),
-      };
-    }),
-  });
+const HomePage = ({
+  page,
+  setPage,
+  searchedValue,
+  setSearchedValue,
+  status,
+  pokemonQueries,
+}) => {
   return (
     <>
       {status === "success" && (
