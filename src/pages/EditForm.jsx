@@ -176,7 +176,7 @@ export default function EditForm() {
     console.log("nooooowe", newValues);
     axios
       .post(`http://localhost:3001/newPokemon/`, {
-        id: pokemonData?.id + 10000000000000000,
+        id: pokemonData?.id,
         sprite: pokemonData?.sprites.other.dream_world.front_default,
         name: newValues.pokemonName,
         weight: newValues.weight,

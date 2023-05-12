@@ -77,7 +77,7 @@ const StyledBigTitle = styled.span`
   font-weight: bold;
 `;
 
-function Card({ url, closebutton, removeFighter, gate }) {
+function Card({ url, closebutton, removeFighter, gate, newCard }) {
   const [pokemonData, setPokemonData] = useState(null);
 
   const navigate = useNavigate();
@@ -88,7 +88,7 @@ function Card({ url, closebutton, removeFighter, gate }) {
       const response = await axios.get(url);
       setPokemonData(response.data);
       console.log(response.data);
-      fetchNewData(response);
+      newCard === true ? fetchAddedPokemon(response) : fetchNewData(response);
     };
 
     fetchData();
@@ -115,6 +115,29 @@ function Card({ url, closebutton, removeFighter, gate }) {
       })
       .catch((error) => {});
   };
+
+  const fetchAddedPokemon = async (oldData) => {
+    await axios
+      .get(`http://localhost:3001/newPokemon`)
+      .then((response) => {
+        const obj = response.data.find((item) => item.id === oldData.data.id);
+
+        if (obj !== undefined) {
+          const updatedPokemonData = {
+            ...oldData.data,
+            name: obj.name,
+            weight: obj.weight,
+            height: obj.height,
+            base_experience: obj.base_experience,
+          };
+          setPokemonData(updatedPokemonData);
+        } else {
+          return;
+        }
+      })
+      .catch((error) => {});
+  };
+
   const handleClick = () => {
     if (!pokemonData) return;
     const path = gate
@@ -125,7 +148,7 @@ function Card({ url, closebutton, removeFighter, gate }) {
 
   return (
     <StyledBox
-      onClick={closebutton ? null : handleClick}
+      onClick={closebutton || newCard ? null : handleClick}
       style={{ backgroundColor: theme.palette.background.default }}
     >
       {closebutton === true ? (

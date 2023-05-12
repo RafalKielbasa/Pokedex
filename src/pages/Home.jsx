@@ -82,10 +82,12 @@ export default function Home() {
         }}
       >
         {pokedex?.map((item) => {
-          return <Card key={item.name} url={item.url} gate={false} />;
+          return (
+            <Card key={item.name} url={item.url} gate={false} newCard={false} />
+          );
         })}
       </Box>
-      {/* <h3>nowe pokemony</h3>
+      <h3>Added Pokemons</h3>
       <Box
         sx={{
           display: "flex",
@@ -101,10 +103,11 @@ export default function Home() {
               key={element.name}
               url={`https://pokeapi.co/api/v2/pokemon/${element.id}`}
               gate={false}
+              newCard={true}
             />
           );
         })}
-      </Box> */}
+      </Box>
 
       <Pagination
         count={10}
