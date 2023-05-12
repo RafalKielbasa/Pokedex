@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import {
-  DetailedPokemonCard,
-  DetailedPokemonCardConatiner,
-} from "./components";
+import { DetailedPokemonCard, DetailedPokemonCardConatiner } from "./components";
 import { useParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { deleteData, postData } from "src/api";
@@ -16,14 +13,10 @@ const DetailedPage = ({
   pokemonQueries,
 }) => {
   const { id } = useParams();
-  const [isFavorite, setIsFavorite] = useState(
-    favoriteProp?.includes(id) ? true : false
-  );
-  const detailPokemon = pokemonQueries?.filter(
-    ({ data }) => Number(data?.data?.id) === Number(id)
-  );
+  const [isFavorite, setIsFavorite] = useState(favoriteProp?.includes(id) ? true : false);
+  const detailPokemon = pokemonQueries?.filter(({ data }) => Number(data?.data?.id) === Number(id));
   const createPostMutation = useMutation({
-    mutationFn: () => postData("favorite", detailPokemon[0].data, id),
+    mutationFn: () => postData("favorite", detailPokemon[0]?.data?.data),
   });
   const createDeleteMutation = useMutation({
     mutationFn: () => deleteData(id),
@@ -41,15 +34,13 @@ const DetailedPage = ({
   const arenaFightersHandle = () => {
     !firstFighterProp
       ? setFirstFighterProp(id)
-      : !secondFighterProp &&
-        firstFighterProp !== id &&
-        setSecondFighterProp(id);
+      : !secondFighterProp && firstFighterProp !== id && setSecondFighterProp(id);
   };
   return (
     <DetailedPokemonCardConatiner>
       {detailPokemon[0] && (
         <DetailedPokemonCard
-          value={detailPokemon[0]?.data}
+          value={detailPokemon[0]?.data?.data}
           onClickFavorite={!isFavorite ? addFavorite : deleteFavorite}
           onClickArena={arenaFightersHandle}
           isFavorite={isFavorite}

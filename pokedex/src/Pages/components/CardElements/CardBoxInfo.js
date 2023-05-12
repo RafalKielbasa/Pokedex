@@ -33,7 +33,7 @@ const CardBoxConatiner = styled.div`
 const CardBoxInfo = ({ dataToPass }) => {
   return (
     <CardBoxConatiner>
-      <MyName>{dataToPass?.name.toUpperCase()}</MyName>
+      <MyName>{dataToPass?.name?.toUpperCase()}</MyName>
       <ColumnsConatiner>
         <MyColumn>
           <MyValues>{dataToPass?.height}</MyValues>
@@ -44,7 +44,7 @@ const CardBoxInfo = ({ dataToPass }) => {
         <MyColumn>
           <MyValues>{dataToPass?.base_experience}</MyValues>
           <MyValuesNames>Base Experience</MyValuesNames>
-          <MyValues>{dataToPass?.abilities[0].ability.name}</MyValues>
+          <MyValues>{dataToPass?.abilities[0]?.ability?.name}</MyValues>
           <MyValuesNames>Ability</MyValuesNames>
         </MyColumn>
       </ColumnsConatiner>

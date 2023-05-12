@@ -18,3 +18,7 @@ export const fetchFavorite = async () => {
   const response = await axios.get(`http://localhost:3000/favorite/`);
   return response;
 };
+export const fetchEdited = async () => {
+  const response = await axios.get(`http://localhost:3000/edited/`);
+  return response;
+};

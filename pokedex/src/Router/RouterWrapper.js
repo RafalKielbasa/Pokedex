@@ -12,7 +12,7 @@ import {
 } from "src/Pages";
 import { filterFnc } from "src/helpers/filterFnc";
 import { useQuery, useQueries } from "@tanstack/react-query";
-import { fetchData, fetchPokemonData, fetchDataToFilter } from "src/api";
+import { fetchData, fetchPokemonData, fetchDataToFilter, fetchEdited } from "src/api";
 const RouterWrapper = () => {
   const [arenaFirstFighter, setArenaFirstFighter] = useState(null);
   const [arenaSecondFighter, setArenaSecondFighter] = useState(null);
@@ -26,9 +26,14 @@ const RouterWrapper = () => {
     dataList?.length > 0 && setFavoriteList(dataList);
   }, []);
   useEffect(() => {
-    favoriteList &&
-      localStorage.setItem("favoriteList", JSON.stringify(favoriteList));
+    favoriteList && localStorage.setItem("favoriteList", JSON.stringify(favoriteList));
   }, [favoriteList]);
+  const { data: edited } = useQuery({
+    queryKey: ["pokemon"],
+    queryFn: () => fetchEdited(),
+    refetchOnMount: false,
+    staleTime: 10 * (60 * 1000),
+  });
   const { data: pokemons, status } = useQuery({
     queryKey: ["pokemons", page],
     queryFn: () => fetchData((page - 1) * 15),
@@ -44,15 +49,12 @@ const RouterWrapper = () => {
     staleTime: 10 * (60 * 1000),
   });
   useEffect(() => {
-    pokemons &&
-      searchedValue === "" &&
-      setCreateComponentData(pokemons?.data?.results);
+    pokemons && searchedValue === "" && setCreateComponentData(pokemons?.data?.results);
     pokemonsToFilter &&
       searchedValue !== "" &&
-      setCreateComponentData(
-        filterFnc(pokemonsToFilter?.data?.results, searchedValue)
-      );
+      setCreateComponentData(filterFnc(pokemonsToFilter?.data?.results, searchedValue));
   }, [pokemons, pokemonsToFilter, searchedValue]);
+
   const resultList = createComponentData ? createComponentData : [];
   const pokemonQueries = useQueries({
     queries: resultList?.map((pokemon) => {
@@ -64,7 +66,19 @@ const RouterWrapper = () => {
       };
     }),
   });
-
+  const editedId = edited?.data?.map((value) => value.name);
+  const dataToRender =
+    edited?.data &&
+    pokemonQueries?.map((value) => {
+      let NewValue = null;
+      editedId?.forEach((element, index) => {
+        element === value?.data?.data?.id
+          ? (NewValue = { ...value, data: edited?.data[index] })
+          : (NewValue = { ...value });
+      });
+      return NewValue;
+    });
+  console.log({ edited, pokemonQueries, editedId, dataToRender });
   const router = createBrowserRouter([
     {
       path: "/",
@@ -79,7 +93,7 @@ const RouterWrapper = () => {
               searchedValue={searchedValue}
               setSearchedValue={setSearchedValue}
               status={status}
-              pokemonQueries={pokemonQueries}
+              pokemonQueries={dataToRender}
             />
           ),
         },

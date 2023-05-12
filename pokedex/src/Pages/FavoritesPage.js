@@ -9,10 +9,11 @@ const FavoritesPage = () => {
     refetchOnMount: false,
     staleTime: 10 * (60 * 1000),
   });
+  console.log({ favorite });
   return (
     <PokemonCardContainer>
-      {favorite?.data?.map(({ data, id }) => (
-        <FavoriteCard key={id} id={id} value={data} />
+      {favorite?.data?.map((value) => (
+        <FavoriteCard key={value?.id} id={value?.id} value={value} />
       ))}
     </PokemonCardContainer>
   );
