@@ -43,16 +43,17 @@ const ArenaPage = ({
   const secondFighter = pokemonQueries?.filter(
     ({ data }) => Number(data?.data?.id) === Number(secondPokemonId)
   );
-  console.log({ firstPokemonId, secondPokemonId, firstFighter });
   const firstFighterPowerLevel =
-    firstFighter?.data?.base_experience * firstFighter?.data?.weight;
+    firstFighter[0]?.data?.data?.base_experience *
+    firstFighter[0]?.data?.data?.weight;
   const secondFighterPowerLevel =
-    secondFighter?.data?.base_experience * secondFighter?.data?.weight;
+    secondFighter[0]?.data?.data?.base_experience *
+    secondFighter[0]?.data?.data?.weight;
   const afterBattleMutation = useMutation({
     mutationFn: () =>
-      arenaActionHandle("edited", firstFighter.data, firstPokemonId),
+      arenaActionHandle("edited", firstFighter[0]?.data, firstPokemonId),
     onSuccess: (data) => {
-      queryClient.setQueryData(["pokemon", firstPokemonId], data.data);
+      queryClient.setQueryData(["pokemon", firstFighter[0]?.data?.name], data);
     },
   });
   const afterBattleHandle = (result) => {
