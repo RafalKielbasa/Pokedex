@@ -1,13 +1,13 @@
 {
   "favorites": [
     {
-      "id": 5,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
-      "name": "charmeleon",
-      "weight": 190,
-      "ability": "blaze",
-      "height": 11,
-      "baseExperience": 142
+      "id": 3,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
+      "name": "venusaur",
+      "weight": 1000,
+      "ability": "overgrow",
+      "height": 20,
+      "base_experience": 263
     },
     {
       "id": 1,
@@ -16,47 +16,10 @@
       "weight": 69,
       "ability": "overgrow",
       "height": 7,
-      "baseExperience": 64
-    },
-    {
-      "id": 6,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/6.svg",
-      "name": "charizard",
-      "weight": 905,
-      "ability": "blaze",
-      "height": 17,
-      "baseExperience": 267
-    },
-    {
-      "id": 15,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/15.svg",
-      "name": "beedrill",
-      "weight": 295,
-      "ability": "swarm",
-      "height": 10,
-      "baseExperience": 178
+      "base_experience": 64
     }
   ],
-  "battle": [
-    {
-      "id": 15,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/15.svg",
-      "name": "beedrill",
-      "weight": 295,
-      "ability": "swarm",
-      "height": 10,
-      "baseExperience": 178
-    },
-    {
-      "id": 1,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
-      "name": "bulbasaur",
-      "weight": 69,
-      "ability": "overgrow",
-      "height": 7,
-      "baseExperience": 64
-    }
-  ],
+  "battle": [],
   "user": [
     {
       "name": "Testowy1",
@@ -65,5 +28,53 @@
       "id": 1
     }
   ],
-  "battleHistory": []
+  "pokemon": [
+    {
+      "id": 2,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
+      "name": "ivysaur",
+      "weight": 130,
+      "ability": "overgrow",
+      "height": 10,
+      "base_experience": 142
+    },
+    {
+      "id": 3,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
+      "name": "rexio",
+      "weight": 1000,
+      "ability": "overgrow",
+      "height": 20,
+      "base_experience": 263
+    },
+    {
+      "id": 5,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
+      "name": "charmeleon",
+      "weight": 190,
+      "ability": "blaze",
+      "height": 11,
+      "base_experience": 142
+    },
+    {
+      "id": 6,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/6.svg",
+      "name": "charizard",
+      "weight": 905,
+      "ability": "blaze",
+      "height": 17,
+      "base_experience": 287
+    }
+  ],
+  "newPokemon": [
+    {
+      "id": 10000000000000004,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
+      "name": "rexio",
+      "weight": 1000,
+      "ability": "overgrow",
+      "height": 20,
+      "base_experience": 263
+    }
+  ]
 }

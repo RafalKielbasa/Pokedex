@@ -83,7 +83,7 @@ export default function Signin({ setUserData }) {
       localStorage.setItem("userData", JSON.stringify(userData));
       setUserData(userData);
       handleClick("Login succes", "success");
-      navigate("/edycja");
+      navigate("/EditList");
     } else {
       handleClick("Login faild, wrond password or email", "error");
     }

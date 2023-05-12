@@ -22,6 +22,8 @@ export default function Home() {
   const [pokedex, setPokedex] = useState([]);
   const [search, setSearch] = useState();
   const [error, setError] = useState(null);
+  const [newPokemon, setNewPokemon] = useState(null);
+
   const theme = useTheme();
 
   useEffect(() => {
@@ -42,6 +44,16 @@ export default function Home() {
 
     fetchData();
   }, [url, search]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3001/newPokemon/`)
+      .then((response) => {
+        setNewPokemon(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {});
+  }, []);
 
   const searchFilter = (data, name) => {
     const filtered = data?.filter((item) => {
@@ -73,6 +85,26 @@ export default function Home() {
           return <Card key={item.name} url={item.url} gate={false} />;
         })}
       </Box>
+      {/* <h3>nowe pokemony</h3>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {newPokemon?.map((element) => {
+          return (
+            <Card
+              key={element.name}
+              url={`https://pokeapi.co/api/v2/pokemon/${element.id}`}
+              gate={false}
+            />
+          );
+        })}
+      </Box> */}
 
       <Pagination
         count={10}

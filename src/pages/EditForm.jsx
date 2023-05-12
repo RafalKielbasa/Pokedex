@@ -3,7 +3,9 @@ import { useLocation } from "react-router-dom";
 import { useTheme } from "@mui/material";
 import { useSnackbar } from "notistack";
 import Tooltip from "@mui/material/Tooltip";
+import axios from "axios";
 import styled from "styled-components";
+import { useState } from "react";
 
 const Container = styled.div`
   display: flex;
@@ -128,6 +130,7 @@ export default function EditForm() {
   const pokemonData = location.state?.pokemonData;
   const { enqueueSnackbar } = useSnackbar();
   const theme = useTheme();
+  const [newValues, setNewValues] = useState(null);
 
   const initialValues = {
     pokemonName: pokemonData?.name || "",
@@ -138,9 +141,53 @@ export default function EditForm() {
   };
 
   const handleSubmit = (values) => {
-    console.log(values);
+    console.log("asdasd");
+    setNewValues(values);
   };
 
+  const editPokemon = () => {
+    axios
+      .post(`http://localhost:3001/pokemon/`, {
+        id: pokemonData?.id,
+        sprite: pokemonData?.sprites.other.dream_world.front_default,
+        name: newValues.pokemonName,
+        weight: newValues.weight,
+        ability: newValues.ability,
+        height: newValues.height,
+        base_experience: newValues.baseExperience,
+      })
+      .catch((error) => {
+        console.log(error.response.status);
+        if (error.response.status === 500) {
+          axios.put(`http://localhost:3001/pokemon/${pokemonData?.id}`, {
+            id: pokemonData?.id,
+            sprite: pokemonData?.sprites.other.dream_world.front_default,
+            name: newValues.pokemonName,
+            weight: newValues.weight,
+            ability: newValues.ability,
+            height: newValues.height,
+            base_experience: newValues.baseExperience,
+          });
+        }
+      });
+  };
+
+  const addNewPokemon = () => {
+    console.log("nooooowe", newValues);
+    axios
+      .post(`http://localhost:3001/newPokemon/`, {
+        id: pokemonData?.id + 10000000000000000,
+        sprite: pokemonData?.sprites.other.dream_world.front_default,
+        name: newValues.pokemonName,
+        weight: newValues.weight,
+        ability: newValues.ability,
+        height: newValues.height,
+        base_experience: newValues.baseExperience,
+      })
+      .catch((error) => {
+        console.log(error.response.status);
+      });
+  };
   return (
     <Container
       style={{
@@ -185,11 +232,16 @@ export default function EditForm() {
                 </InfoContainer>
               </ContentContainer>
             </PokemonCard>
-            <HomeButton>save as new</HomeButton>
-            <HomeButton>Edit</HomeButton>
+            <button type="submit">zapisz zmiany w formularzu </button>
           </Form>
         )}
       </Formik>
+      <button onClick={addNewPokemon} type="submit">
+        save as new
+      </button>
+      <button onClick={editPokemon} type="submit">
+        Edit
+      </button>
     </Container>
   );
 }

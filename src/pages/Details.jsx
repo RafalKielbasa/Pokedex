@@ -200,7 +200,7 @@ export default function Details({
         weight: pokemonData.weight,
         ability: pokemonData.abilities[0].ability.name,
         height: pokemonData.height,
-        baseExperience: pokemonData.base_experience,
+        base_experience: pokemonData.base_experience,
       });
       setIsToggled(!isToggled);
       handleClick("Added to favorites", "success");
@@ -225,9 +225,20 @@ export default function Details({
         weight: pokemonData?.weight,
         ability: pokemonData?.abilities[0].ability.name,
         height: pokemonData?.height,
-        baseExperience: pokemonData?.base_experience,
+        base_experience: pokemonData?.base_experience,
         url: pokemonData?.url,
       });
+
+      axios.post(`http://localhost:3001/pokemon`, {
+        id: pokemonData?.id,
+        sprite: pokemonData?.sprites.other.dream_world.front_default,
+        name: pokemonData?.name,
+        weight: pokemonData?.weight,
+        ability: pokemonData?.abilities[0].ability.name,
+        height: pokemonData?.height,
+        base_experience: pokemonData?.base_experience,
+      });
+
       setIsToggledBattle(!isToggledBattle);
       handleClick("Added to battle", "success");
     } else {

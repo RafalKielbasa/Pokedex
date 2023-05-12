@@ -87,10 +87,34 @@ function Card({ url, closebutton, removeFighter, gate }) {
     const fetchData = async () => {
       const response = await axios.get(url);
       setPokemonData(response.data);
+      console.log(response.data);
+      fetchNewData(response);
     };
+
     fetchData();
   }, [url]);
 
+  const fetchNewData = async (oldData) => {
+    await axios
+      .get(`http://localhost:3001/pokemon`)
+      .then((response) => {
+        const obj = response.data.find((item) => item.id === oldData.data.id);
+
+        if (obj !== undefined) {
+          const updatedPokemonData = {
+            ...oldData.data,
+            name: obj.name,
+            weight: obj.weight,
+            height: obj.height,
+            base_experience: obj.base_experience,
+          };
+          setPokemonData(updatedPokemonData);
+        } else {
+          return;
+        }
+      })
+      .catch((error) => {});
+  };
   const handleClick = () => {
     if (!pokemonData) return;
     const path = gate

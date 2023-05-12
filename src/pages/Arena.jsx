@@ -55,7 +55,6 @@ const HomeButton = styled.button`
 export default function Arena({ battle, setBattle }) {
   const [winner, setWinner] = useState(null);
   const [listener, setListener] = useState(true);
-  const [exp, setExp] = useState(0);
 
   const theme = useTheme();
 
@@ -66,18 +65,27 @@ export default function Arena({ battle, setBattle }) {
   }, [listener]);
 
   const fight = () => {
+    console.log(battle);
     if (
       battle.length > 1 &&
-      battle[0].baseExperience * battle[0].height >
-        battle[1].baseExperience * battle[1].height
+      battle[0].base_experience * battle[0].height >
+        battle[1].base_experience * battle[1].height
     ) {
       setWinner(battle[0].name);
+      axios.put(`http://localhost:3001/pokemon/${battle[0].id}`, {
+        ...battle[0],
+        base_experience: battle[0].base_experience + 10,
+      });
     } else if (
       battle.length > 1 &&
-      battle[0].baseExperience * battle[0].height <
-        battle[1].baseExperience * battle[1].height
+      battle[0].base_experience * battle[0].height <
+        battle[1].base_experience * battle[1].height
     ) {
       setWinner(battle[1].name);
+      axios.put(`http://localhost:3001/pokemon/${battle[1].id}`, {
+        ...battle[1],
+        base_experience: battle[1].base_experience + 10,
+      });
     } else {
       console.log("brak drugiego gracza");
     }
