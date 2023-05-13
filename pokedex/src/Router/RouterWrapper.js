@@ -14,22 +14,21 @@ import { filterFnc } from "src/helpers/filterFnc";
 import { useQuery, useQueries } from "@tanstack/react-query";
 import { fetchData, fetchPokemonData, fetchDataToFilter, fetchEdited } from "src/api";
 const RouterWrapper = () => {
+  const localList = localStorage.getItem("favoriteList");
+  const dataList = JSON.parse(localList);
   const [arenaFirstFighter, setArenaFirstFighter] = useState(null);
   const [arenaSecondFighter, setArenaSecondFighter] = useState(null);
-  const [favoriteList, setFavoriteList] = useState([]);
+  const [favoriteList, setFavoriteList] = useState(dataList?.length > 0 ? dataList : []);
+  const [editedList, setEditedList] = useState([]);
   const [page, setPage] = useState(1);
   const [searchedValue, setSearchedValue] = useState("");
   const [createComponentData, setCreateComponentData] = useState(null);
   useEffect(() => {
-    const localList = localStorage.getItem("favoriteList");
-    const dataList = JSON.parse(localList);
-    dataList?.length > 0 && setFavoriteList(dataList);
-  }, []);
-  useEffect(() => {
     favoriteList && localStorage.setItem("favoriteList", JSON.stringify(favoriteList));
   }, [favoriteList]);
+
   const { data: edited } = useQuery({
-    queryKey: ["pokemon"],
+    queryKey: ["editedPokemons"],
     queryFn: () => fetchEdited(),
     refetchOnMount: false,
     staleTime: 10 * (60 * 1000),
@@ -66,19 +65,7 @@ const RouterWrapper = () => {
       };
     }),
   });
-  const editedId = edited?.data?.map((value) => value.name);
-  const dataToRender =
-    edited?.data &&
-    pokemonQueries?.map((value) => {
-      let NewValue = null;
-      editedId?.forEach((element, index) => {
-        element === value?.data?.data?.id
-          ? (NewValue = { ...value, data: edited?.data[index] })
-          : (NewValue = { ...value });
-      });
-      return NewValue;
-    });
-  console.log({ edited, pokemonQueries, editedId, dataToRender });
+  console.log({ pokemonQueries });
   const router = createBrowserRouter([
     {
       path: "/",
@@ -93,7 +80,7 @@ const RouterWrapper = () => {
               searchedValue={searchedValue}
               setSearchedValue={setSearchedValue}
               status={status}
-              pokemonQueries={dataToRender}
+              pokemonQueriesProp={pokemonQueries}
             />
           ),
         },
@@ -110,6 +97,7 @@ const RouterWrapper = () => {
               secondPokemonAction={setArenaSecondFighter}
               firstPokemonId={arenaFirstFighter}
               secondPokemonId={arenaSecondFighter}
+              setEditedList={setEditedList}
             />
           ),
         },

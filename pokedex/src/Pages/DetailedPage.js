@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { DetailedPokemonCard, DetailedPokemonCardConatiner } from "./components";
 import { useParams } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteData, postData } from "src/api";
 const DetailedPage = ({
   firstFighterProp,
@@ -13,13 +13,20 @@ const DetailedPage = ({
   pokemonQueries,
 }) => {
   const { id } = useParams();
+  const queryClient = useQueryClient();
   const [isFavorite, setIsFavorite] = useState(favoriteProp?.includes(id) ? true : false);
   const detailPokemon = pokemonQueries?.filter(({ data }) => Number(data?.data?.id) === Number(id));
   const createPostMutation = useMutation({
     mutationFn: () => postData("favorite", detailPokemon[0]?.data?.data),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["favorite"]);
+    },
   });
   const createDeleteMutation = useMutation({
     mutationFn: () => deleteData(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["favorite"]);
+    },
   });
   const addFavorite = () => {
     setIsFavorite((prev) => !prev);
