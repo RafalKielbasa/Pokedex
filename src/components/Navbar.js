@@ -8,24 +8,37 @@ import { SearchContext } from "./SearchContext";
 import { Button, Input } from "semantic-ui-react";
 import { LoginContext } from "./LoginContext";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const StyledNavLink = styled(NavLink)`
   &.active {
-    color: white !important;
-    background-color: #e5d7bf !important;
+    color: palevioletred !important;
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
     transform: translateY(2px);
+  }
+`;
+
+const StyledInput = styled(Input)`
+  &.ui.input > input {
+    background-color: palevioletred !important;
+    color: white !important;
   }
 `;
 export const Navbar = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const { search, setSearch } = useContext(SearchContext);
   const { userData, setUserData } = useContext(LoginContext);
+  const navigate = useNavigate();
 
   const toggleTheme = () => {
     setTheme(!theme);
   };
 
+  const navToUser = () => {
+    if (userData) {
+      navigate("/user");
+    }
+  };
   return (
     <div>
       <div
@@ -74,13 +87,17 @@ export const Navbar = () => {
           class="right menu"
           style={{ display: "flex", alignItems: "center" }}
         >
-          <div class="item">{userData ? `Welcome ${userData.name}` : null}</div>
-          <Input
+          <div onClick={navToUser} class="item">
+            {userData ? (
+              <>
+                <i class="user icon"></i> {userData.name}
+              </>
+            ) : null}
+          </div>
+          <StyledInput
             icon="search icon"
             class="ui icon input"
             style={{
-              backgroundColor: theme ? "black" : "papayawhip",
-              color: theme ? "white" : "black",
               height: "40px",
               marginRight: "15px",
             }}
