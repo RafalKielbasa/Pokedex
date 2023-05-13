@@ -10,6 +10,8 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { getPartialResults } from "src/api/source";
 import { getFullResults } from "src/api/source";
+import ReactPaginate from "react-paginate";
+import { faker } from "@faker-js/faker";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -43,9 +45,9 @@ const HomePage = () => {
   );
   const queryFullData = useQuery([`/`], () => getFullResults());
 
-  console.log(`queryPartialData`, queryPartialData);
-  console.log(`partialPokemonData`, partialPokemonData);
-  console.log(`offset `, offset);
+  console.log(`fullPokemonData`, fullPokemonData);
+  // console.log(`queryFullData`, queryFullData);
+  // console.log(`offset `, offset);
 
   useEffect(() => {
     async function getPokemonData() {
@@ -63,56 +65,158 @@ const HomePage = () => {
     getPokemonData();
   }, [inputText]);
 
-  useEffect(() => {
-    async function getPokemonData() {
-      queryPartialData?.data?.map(async (item) => {
-        const result = await axios.get(item?.url);
-        setPartialPokemonData((resultUrl) => {
-          resultUrl = [...resultUrl, result?.data].sort((a, b) =>
-            a.id > b.id ? 1 : -1
-          );
-          return resultUrl;
-        });
-      });
-    }
-    // setPartialPokemonData([]);
-    getPokemonData();
-  }, [offset, queryPartialData.data]);
-
-  // query.data.map((item) => console.log(`item`, item));
   // useEffect(() => {
-  //   const pagefromLS = localStorage.getItem("page");
-  //   if (pagefromLS) {
-  //     setPage(JSON.parse(pagefromLS));
-  //   }
-  // }, []);
+  const pageCount = fullPokemonData.length / 15;
+  const partial = fullPokemonData
+    .slice(offset, offset + 15)
+    .sort((a, b) => (a.id > b.id ? 1 : -1));
+  console.log(`partial`, partial);
+
+  // }, [offset]);
+
+  // if (fullPokemonData.length === 150) {
+  //   setFullPokemonData((prevState) => ({
+  //     ...prevState,
+  //     offset: offset,
+  //     numberPerPage: 10,
+  //     pageCount: 0,
+  //     currentData: [],
+  //     pageCount: fullPokemonData.length / prevState.numberPerPage,
+  //   }));
+  // }
+
+  // useEffect(() => {}, [fullPokemonData.length > 0]);
+  //
+
+  // const [pagination, setPagination] = useState({
+  //   data: new Array(1000).fill().map((value, index) => ({
+  //     id: index,
+  //     title: faker.lorem.words(5),
+  //     body: faker.lorem.sentences(8),
+  //   })),
+  //   offset: 0,
+  //   numberPerPage: 10,
+  //   pageCount: 0,
+  //   currentData: [],
+  // });
 
   // useEffect(() => {
-  //   const offSetfromLS = localStorage.getItem("offset");
-  //   if (offSetfromLS) {
-  //     setOffset(JSON.parse(offSetfromLS));
-  //   }
-  // }, []);
+  //   setFullPokemonData((prevState) => ({
+  //     ...prevState,
+  // offset: offset,
+  // numberPerPage: 10,
+  // pageCount: 0,
+  // currentData: [],
+  // pageCount: fullPokemonData.length / fullPokemonData.numberPerPage,
+  // currentData: prevState.slice(
+  //   fullPokemonData.offset,
+  //   fullPokemonData.offset + fullPokemonData.numberPerPage
+  // ),
+  //   }));
+  // }, [fullPokemonData.numberPerPage, fullPokemonData.offset]);
 
-  // const saveToLocalStorage = () => {
-  //   localStorage.setItem("pagePag", JSON.stringify(page));
+  // const handlePageClick = (event) => {
+  //   const selected = event.selected;
+  //   const offset = selected * pagination.numberPerPage;
+  //   setPagination({ ...pagination, offset });
   // };
-
-  const handleChange = (event, value) => {
-    setPartialPokemonData([]);
-    setFullPokemonData([]);
-    // setUrl(`${BASE_URL}?limit=15&offset=${(value - 1) * 15}`);
-    setPage(value);
-    setOffset((value - 1) * 15);
-    // localStorage.setItem("page", JSON.stringify(value));
-    // localStorage.setItem("offset", JSON.stringify(value - 1) * 15);
-  };
   let inputHandler = (event) => {
     const textFieldText = event.target.value.toLowerCase();
     setInputText(textFieldText);
   };
+  // return (
+  //   <div>
+  //     {setFullPokemonData.currentData &&
+  //       setFullPokemonData.currentData.map((item, index) => (
+  //         <div key={item.id} className="post">
+  //           <h3>{`${item.title} - ${item.id}`}</h3>
+  //           <p>{item.body}</p>
+  //         </div>
+  //       ))}
+  //     <ReactPaginate
+  //       previousLabel={"previous"}
+  //       nextLabel={"next"}
+  //       breakLabel={"..."}
+  //       pageCount={setFullPokemonData.pageCount}
+  //       marginPagesDisplayed={2}
+  //       pageRangeDisplayed={5}
+  //       // onPageChange={handlePageClick}
+  //       containerClassName={"pagination"}
+  //       activeClassName={"active"}
+  //     />
+  //     <Box
+  //       component="form"
+  //       // sx={{
+  //       //   "& > :not(style)": { m: 1, width: "25ch" },
+  //       // }}
 
-  inputText ? fullPokemonData : partialPokemonData;
+  //       noValidate
+  //       autoComplete="off"
+  //     >
+  //       <TextField
+  //         size="small"
+  //         id="outlined-basic"
+  //         label="Search"
+  //         variant="outlined"
+  //         onChange={inputHandler}
+  //         sx={{ marginRight: "400px" }}
+  //       />
+  //     </Box>
+  //   </div>
+  // );
+
+  //
+
+  // useEffect(() => {
+  //   async function getPokemonData() {
+  //     queryPartialData?.data?.map(async (item) => {
+  //       const result = await axios.get(item?.url);
+  //       setPartialPokemonData((resultUrl) => {
+  //         resultUrl = [...resultUrl, result?.data].sort((a, b) =>
+  //           a.id > b.id ? 1 : -1
+  //         );
+  //         return resultUrl;
+  //       });
+  //     });
+  //   }
+  //   // setPartialPokemonData([]);
+  //   getPokemonData();
+  // }, [offset, queryPartialData.data]);
+
+  // // query.data.map((item) => console.log(`item`, item));
+  // // useEffect(() => {
+  // //   const pagefromLS = localStorage.getItem("page");
+  // //   if (pagefromLS) {
+  // //     setPage(JSON.parse(pagefromLS));
+  // //   }
+  // // }, []);
+
+  // // useEffect(() => {
+  // //   const offSetfromLS = localStorage.getItem("offset");
+  // //   if (offSetfromLS) {
+  // //     setOffset(JSON.parse(offSetfromLS));
+  // //   }
+  // // }, []);
+
+  // // const saveToLocalStorage = () => {
+  // //   localStorage.setItem("pagePag", JSON.stringify(page));
+  // // };
+
+  const handleChange = (event, value) => {
+    // setPartialPokemonData([]);
+    // setFullPokemonData([]);
+    // setUrl(`${BASE_URL}?limit=15&offset=${(value - 1) * 15}`);
+    // setPage(value);
+    // setOffset((value - 1) * 15);
+    // localStorage.setItem("page", JSON.stringify(value));
+    // localStorage.setItem("offset", JSON.stringify(value - 1) * 15);
+  };
+  // let inputHandler = (event) => {
+  //   const textFieldText = event.target.value.toLowerCase();
+  //   setInputText(textFieldText);
+  // };
+
+  // inputText ? fullPokemonData : partialPokemonData;
 
   return (
     <HomePageWrapper>
@@ -150,7 +254,7 @@ const HomePage = () => {
       </PaginationWrapper>
 
       <PokemonWrapper>
-        {partialPokemonData.map((item, index) => (
+        {fullPokemonData.map((item, index) => (
           <PokemonCard
             key={index}
             id={item.id}
@@ -160,7 +264,7 @@ const HomePage = () => {
             baseexp={item.base_experience}
             weight={item.weight}
             abilitie={item.abilities[0].ability.name}
-            partialPokemonData={partialPokemonData}
+            fullPokemonData={fullPokemonData}
             // onClick={() => saveToLocalStorage()}
           />
         ))}
