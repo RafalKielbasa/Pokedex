@@ -10,6 +10,7 @@ import { FavoritesProvider } from "./components/FavoritesContext";
 import FightArena from "./components/FightArena";
 import Register from "./components/Register";
 import { LoginProvider } from "./components/LoginContext";
+import PokemonMoreCard from "./components/PokemonMoreCard";
 
 function App() {
   const ErrorPage = () => {
@@ -36,6 +37,10 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/arena" element={<FightArena />} />
                 <Route path="/login" element={<Login />} />
+                <Route
+                  path="/pokemon/:pokemonName"
+                  element={<PokemonMoreCard />}
+                />
                 <Route path="*" element={<ErrorPage />} />
               </Routes>
             </FavoritesProvider>

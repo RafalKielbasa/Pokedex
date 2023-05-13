@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import "./PokemonCard.css";
 import { useFavorite } from "./FavoritesContext";
-import { Button, Message } from "semantic-ui-react";
+import { Button, Icon, Popup } from "semantic-ui-react";
 import { useNavigate } from "react-router";
 
 export const typeColor = (type) => {
@@ -90,7 +90,12 @@ const PokemonCard = ({ pokemon }) => {
         src={pokemon.sprites.other["official-artwork"].front_default}
         alt={pokemon.name}
       />
-      {<button onClick={navToPokemoMoreInfo}>i</button>}
+      <Popup
+        //style={{ background: "palevioletred", border: "none" }}
+        content="More info"
+        trigger={<i onClick={navToPokemoMoreInfo} class="info icon"></i>}
+      />
+
       <h2>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
       <TypesGrid>
         <p>🆔 {pokemon.id}</p>
