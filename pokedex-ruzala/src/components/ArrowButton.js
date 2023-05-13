@@ -7,6 +7,7 @@ export default function ArrowButton({ onClick, variant }) {
     <IconButton
       sx={{
         background: "rgba(0, 0, 0, 0.2)",
+        border: "3px solid lightblue",
         borderRadius: "0",
         width: "10%",
       }}

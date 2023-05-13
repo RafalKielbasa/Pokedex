@@ -1,7 +1,6 @@
 import NavBar from "../components/NavBar";
 import FooterBar from "../components/FooterBar";
 import { Outlet } from "react-router-dom";
-import { useState } from "react";
 import { Box } from "@mui/material";
 
 export default function MainLayout() {

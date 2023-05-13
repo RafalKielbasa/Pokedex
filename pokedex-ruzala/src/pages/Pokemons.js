@@ -1,15 +1,17 @@
-import { Box, TextField } from "@mui/material";
+import { Box } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import fetchPokeLinks from "../fetching/fetchPokeLinks";
 import fetchArray from "../fetching/fetchArray";
 import PokemonTile from "../components/PokemonTile";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ArrowButton from "../components/ArrowButton";
+import TableProperties from "../components/TableProperties";
+import fetchData from "../fetching/fetchData";
+
+const baseURL = process.env.REACT_APP_BASE_URL;
 
 export default function HomePage() {
-  const itemsPerPageArray = [15, 30, 45, 60];
-
   const [currentPage, setCurrentPage] = useState(1);
   const [currentItemsPerPage, setCurrentItemsPerPage] = useState(15);
   const [filteredArray, setFilteredArray] = useState();
@@ -25,13 +27,11 @@ export default function HomePage() {
     staleTime: 1000000,
     enabled: pokemonLinks.data ? true : false,
   });
-
-  const handleInput = (e) => {
-    pokemons.data &&
-      setFilteredArray(
-        pokemons.data.filter((pokemon) => pokemon.name.includes(e.target.value))
-      );
-  };
+  const pokeTypes = useQuery({
+    queryKey: ["pokeTypes"],
+    queryFn: () => fetchData(`${baseURL}type`),
+    staleTime: 1000000,
+  });
 
   if (pokemons.isLoading) {
     return (
@@ -51,7 +51,6 @@ export default function HomePage() {
   if (pokemons.isError) {
     return <Box>{JSON.stringify(pokemons.error)};</Box>;
   }
-  console.log(filteredArray);
   return (
     <Box
       sx={{
@@ -78,15 +77,18 @@ export default function HomePage() {
           width: "80%",
         }}
       >
-        <TextField
-          label="Search"
-          variant="filled"
-          sx={{ width: "80%", justifySelf: "center" }}
-          onChange={(event) => handleInput(event)}
-        />
+        {pokemons.isFetched && (
+          <TableProperties
+            pokemons={pokemons}
+            itemsPerPage={currentItemsPerPage}
+            itemsPerPageSetter={setCurrentItemsPerPage}
+            currentPageSetter={setCurrentPage}
+            filteredArraySetter={setFilteredArray}
+            pokemonTypes={pokeTypes.data.results}
+          />
+        )}
         {pokemons.isFetched && filteredArray === undefined
           ? pokemons.data.map((element, index) => {
-              console.log("pokemony");
               if (
                 index >=
                   currentPage * currentItemsPerPage - currentItemsPerPage &&
@@ -98,7 +100,6 @@ export default function HomePage() {
               }
             })
           : filteredArray.map((element, index) => {
-              console.log("filtrowane");
               if (
                 index >=
                   currentPage * currentItemsPerPage - currentItemsPerPage &&
