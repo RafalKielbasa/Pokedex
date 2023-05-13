@@ -8,7 +8,6 @@ const FavoritesPage = () => {
     queryFn: () => fetchFavorite(),
     staleTime: 10 * (60 * 1000),
   });
-  console.log({ favorite });
 
   return (
     <PokemonCardContainer>

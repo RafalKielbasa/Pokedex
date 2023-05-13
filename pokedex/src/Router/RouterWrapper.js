@@ -11,15 +11,15 @@ import {
   FavoritesPage,
 } from "src/Pages";
 import { filterFnc } from "src/helpers/filterFnc";
-import { useQuery, useQueries } from "@tanstack/react-query";
+import { useQuery, useQueries, useQueryClient } from "@tanstack/react-query";
 import { fetchData, fetchPokemonData, fetchDataToFilter, fetchEdited } from "src/api";
 const RouterWrapper = () => {
   const localList = localStorage.getItem("favoriteList");
   const dataList = JSON.parse(localList);
+  const queryClient = useQueryClient();
   const [arenaFirstFighter, setArenaFirstFighter] = useState(null);
   const [arenaSecondFighter, setArenaSecondFighter] = useState(null);
   const [favoriteList, setFavoriteList] = useState(dataList?.length > 0 ? dataList : []);
-  const [editedList, setEditedList] = useState([]);
   const [page, setPage] = useState(1);
   const [searchedValue, setSearchedValue] = useState("");
   const [createComponentData, setCreateComponentData] = useState(null);
@@ -32,6 +32,11 @@ const RouterWrapper = () => {
     queryFn: () => fetchEdited(),
     refetchOnMount: false,
     staleTime: 10 * (60 * 1000),
+  });
+  const editedList = edited?.data?.map((value) => value.name);
+  editedList?.forEach((value, index) => {
+    queryClient.setQueryData(["pokemon", value], { data: edited?.data[index] });
+    console.log(edited?.data[index]);
   });
   const { data: pokemons, status } = useQuery({
     queryKey: ["pokemons", page],
@@ -58,14 +63,14 @@ const RouterWrapper = () => {
   const pokemonQueries = useQueries({
     queries: resultList?.map((pokemon) => {
       return {
-        queryKey: ["pokemon", pokemon.name],
-        queryFn: () => fetchPokemonData(pokemon.url),
+        queryKey: ["pokemon", pokemon?.name],
+        queryFn: () => fetchPokemonData(pokemon?.url),
+        enabled: !editedList?.includes(pokemon?.name),
         refetchOnMount: false,
         staleTime: 10 * (60 * 1000),
       };
     }),
   });
-  console.log({ pokemonQueries });
   const router = createBrowserRouter([
     {
       path: "/",
@@ -97,7 +102,6 @@ const RouterWrapper = () => {
               secondPokemonAction={setArenaSecondFighter}
               firstPokemonId={arenaFirstFighter}
               secondPokemonId={arenaSecondFighter}
-              setEditedList={setEditedList}
             />
           ),
         },

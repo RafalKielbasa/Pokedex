@@ -52,7 +52,6 @@ const ArenaPage = ({
     mutationFn: () => arenaActionHandle("edited", firstFighter[0]?.data?.data, firstPokemonId),
     onSuccess: (data) => {
       queryClient.setQueryData(["pokemon", firstFighter[0]?.data?.data?.name], data);
-      setEditedList(firstFighter[0]?.data?.data?.id);
     },
   });
   const afterBattleHandle = (result) => {
