@@ -1,19 +1,18 @@
-import { Box, IconButton } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import fetchPokeLinks from "../fetching/fetchPokeLinks";
 import fetchArray from "../fetching/fetchArray";
 import PokemonTile from "../components/PokemonTile";
-import { ArrowForwardIos } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ArrowButton from "../components/ArrowButton";
 
 export default function HomePage() {
-  const navigate = useNavigate();
+  const itemsPerPageArray = [15, 30, 45, 60];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentItemsPerPage, setCurrentItemsPerPage] = useState(15);
+  const [filteredArray, setFilteredArray] = useState();
 
   const pokemonLinks = useQuery({
     queryKey: ["pokemonLinks"],
@@ -26,6 +25,13 @@ export default function HomePage() {
     staleTime: 1000000,
     enabled: pokemonLinks.data ? true : false,
   });
+
+  const handleInput = (e) => {
+    pokemons.data &&
+      setFilteredArray(
+        pokemons.data.filter((pokemon) => pokemon.name.includes(e.target.value))
+      );
+  };
 
   if (pokemons.isLoading) {
     return (
@@ -45,6 +51,7 @@ export default function HomePage() {
   if (pokemons.isError) {
     return <Box>{JSON.stringify(pokemons.error)};</Box>;
   }
+  console.log(filteredArray);
   return (
     <Box
       sx={{
@@ -71,23 +78,42 @@ export default function HomePage() {
           width: "80%",
         }}
       >
-        {pokemons.data.map((element, index) => {
-          if (
-            element.id >=
-              currentPage * currentItemsPerPage - currentItemsPerPage &&
-            element.id <= currentPage * currentItemsPerPage
-          ) {
-            return (
-              <PokemonTile key={`${element.name}Tile`} pokemon={element} />
-            );
-          }
-        })}
+        <TextField
+          label="Search"
+          variant="filled"
+          sx={{ width: "80%", justifySelf: "center" }}
+          onChange={(event) => handleInput(event)}
+        />
+        {pokemons.isFetched && filteredArray === undefined
+          ? pokemons.data.map((element, index) => {
+              console.log("pokemony");
+              if (
+                index >=
+                  currentPage * currentItemsPerPage - currentItemsPerPage &&
+                index <= currentPage * currentItemsPerPage - 1
+              ) {
+                return (
+                  <PokemonTile key={`${element.name}Tile`} pokemon={element} />
+                );
+              }
+            })
+          : filteredArray.map((element, index) => {
+              console.log("filtrowane");
+              if (
+                index >=
+                  currentPage * currentItemsPerPage - currentItemsPerPage &&
+                index <= currentPage * currentItemsPerPage - 1
+              ) {
+                return (
+                  <PokemonTile key={`${element.name}Tile`} pokemon={element} />
+                );
+              }
+            })}
       </Box>
       {currentPage * currentItemsPerPage < pokemons.data?.length ? (
         <ArrowButton
           onClick={() => {
             setCurrentPage(currentPage + 1);
-            console.log(currentPage + 1);
           }}
           variant="forward"
         />

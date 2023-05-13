@@ -7,11 +7,12 @@ import {
 } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import { Box } from "@mui/material";
-import { Pokemons, Arena, Favorites, Login, Register } from "./pages";
+import { Pokemons, Arena, Favorites, Login, Register, HomePage } from "./pages";
 import { useState } from "react";
 import FavoritesButton from "./components/FavoritesButton";
 import React from "react";
 import PokemonPreview from "./pages/PokemonPreview";
+
 export const GlobalContext = React.createContext();
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
+        <Route index element={<HomePage />} />
         <Route path="pokemons" element={<Pokemons />} />
         <Route path="pokemon/:id" element={<PokemonPreview />} />
         <Route path="arena" element={<Arena />} />
