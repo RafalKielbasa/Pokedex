@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useMemo } from "react";
 import PokemonCard from "./PokemonCard";
 import styled from "styled-components";
 import { SearchContext } from "./SearchContext";
 import { useFavorite } from "./FavoritesContext";
 import { Message } from "semantic-ui-react";
+import { Button, Modal } from "semantic-ui-react";
 
 const PokemonsGrid = styled.div`
   display: flex;
@@ -14,10 +15,25 @@ const PokemonsGrid = styled.div`
   margin: 10px;
 `;
 
+const SelectWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+`;
+
+const Select = styled.select`
+  background-color: transparent;
+  padding: 0.5rem;
+  border-radius: 6px;
+`;
+
 const PokemonsCards = () => {
   const [pokemons, setPokemons] = useState([]);
   const { search } = useContext(SearchContext);
   const { error, closeError } = useFavorite();
+  const [type, setType] = useState("");
 
   const fetchPokemons = async () => {
     const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=500");
@@ -35,12 +51,34 @@ const PokemonsCards = () => {
     fetchPokemons();
   }, []);
 
-  const filteredPokemons = pokemons.filter((pokemon) =>
-    pokemon.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredByTypeAndSearch = useMemo(() => {
+    return type
+      ? pokemons.filter(
+          (pokemon) =>
+            pokemon.name.toLowerCase().includes(search.toLowerCase()) &&
+            pokemon.types[0].type.name === type
+        )
+      : pokemons.filter((pokemon) =>
+          pokemon.name.toLowerCase().includes(search.toLowerCase())
+        );
+  }, [search, pokemons, type]);
+
+  const handleChangeType = (e) => {
+    setType(e.target.value);
+  };
 
   return (
     <>
+      <SelectWrapper>
+        <Select onChange={handleChangeType}>
+          <option value="">choose your type...</option>
+          <option value="grass">Grass</option>
+          <option value="fire">Fire</option>
+          <option value="water">Water</option>
+          <option value="electric">Electric</option>
+        </Select>
+      </SelectWrapper>
+
       {error && (
         <Message
           negative
@@ -52,13 +90,12 @@ const PokemonsCards = () => {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-
             zIndex: 1000,
           }}
         />
       )}
       <PokemonsGrid>
-        {filteredPokemons.map((pokemon) => (
+        {filteredByTypeAndSearch.map((pokemon) => (
           <PokemonCard key={pokemon.id} pokemon={pokemon} />
         ))}
       </PokemonsGrid>

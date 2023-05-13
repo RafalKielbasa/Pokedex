@@ -12,6 +12,14 @@ import Register from "./components/Register";
 import { LoginProvider } from "./components/LoginContext";
 
 function App() {
+  const ErrorPage = () => {
+    return (
+      <div>
+        <h1>404 </h1>
+        <p>Page not found</p>
+      </div>
+    );
+  };
   return (
     <>
       <LoginProvider>
@@ -28,6 +36,7 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/arena" element={<FightArena />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="*" element={<ErrorPage />} />
               </Routes>
             </FavoritesProvider>
           </SearchProvider>

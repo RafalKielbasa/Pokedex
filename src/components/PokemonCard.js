@@ -3,6 +3,7 @@ import styled from "styled-components";
 import "./PokemonCard.css";
 import { useFavorite } from "./FavoritesContext";
 import { Button, Message } from "semantic-ui-react";
+import { useNavigate } from "react-router";
 
 export const typeColor = (type) => {
   switch (type) {
@@ -72,17 +73,24 @@ const TypesGrid = styled.div`
 
 const PokemonCard = ({ pokemon }) => {
   const { addFavorite } = useFavorite();
+  const nav = useNavigate();
+
+  const navToPokemoMoreInfo = () => {
+    nav(`/pokemon/${pokemon.name}`);
+  };
 
   return (
     <Card
       //onClick={() => alert(pokemon.name)}
       type={pokemon?.types[0].type.name}
+      // onClick={() => alert("click")}
     >
       <img
         style={{ width: "150px", height: "150px" }}
         src={pokemon.sprites.other["official-artwork"].front_default}
         alt={pokemon.name}
       />
+      {<button onClick={navToPokemoMoreInfo}>i</button>}
       <h2>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
       <TypesGrid>
         <p>🆔 {pokemon.id}</p>

@@ -13,6 +13,8 @@ const StyledNavLink = styled(NavLink)`
   &.active {
     color: white !important;
     background-color: #e5d7bf !important;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+    transform: translateY(2px);
   }
 `;
 export const Navbar = () => {
