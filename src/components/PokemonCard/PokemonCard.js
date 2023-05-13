@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Body,
   Container,
@@ -13,6 +13,9 @@ import { ProjectUrl } from "../../const/ProjectUrl";
 export const PokemonCard = (props) => {
   const { name, height, base_experience, weight, ability, img } = props;
 
+  const location = useLocation();
+  console.log(location.pathname);
+
   return (
     <WrapperDiv>
       <img
@@ -24,7 +27,13 @@ export const PokemonCard = (props) => {
 
       <Body>
         <PokemonName>
-          <Link to={`${ProjectUrl.PokemonDetails}?name=${name}`}> Pokemon</Link>
+          {location.pathname === ProjectUrl.EditAndLogout ? (
+            <Link to={`${ProjectUrl.Edit}?name=${name}`}>Pokemon</Link>
+          ) : (
+            <Link to={`${ProjectUrl.PokemonDetails}?name=${name}`}>
+              Pokemon
+            </Link>
+          )}
         </PokemonName>
         <Container>
           <PropsDiv>
