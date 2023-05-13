@@ -16,8 +16,8 @@ export default function DetailsPage() {
   const id = location.state?.id;
   // const page = location.state?.page;
   // const urlDet = location.state?.url;
-  const pokemonData = location.state?.pokemonData;
-  const pokemonDataFiltered = pokemonData.filter((item) => item.id === id);
+  const fullPokemonData = location.state?.fullPokemonData;
+  const pokemonDataFiltered = fullPokemonData.filter((item) => item.id === id);
 
   // console.log(`page`, page);
 
