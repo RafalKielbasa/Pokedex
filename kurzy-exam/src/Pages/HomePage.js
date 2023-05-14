@@ -10,7 +10,6 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { getPartialResults } from "src/api/source";
 import { getFullResults } from "src/api/source";
-import ReactPaginate from "react-paginate";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -36,16 +35,17 @@ const HomePage = () => {
   const [inputText, setInputText] = useState();
   // const [partialPokemonData, setPartialPokemonData] = useState([]);
   const [fullPokemonData, setFullPokemonData] = useState([]);
+  const [fullPokemonDataFiltered, setFullPokemonDataFiltered] = useState([]);
 
-  const queryPartialData = useQuery([`/`, offset], () =>
-    getPartialResults(`${offset}`)
-  );
+  // const queryPartialData = useQuery([`/`, offset], () =>
+  //   getPartialResults(`${offset}`)
+  // );
   const queryFullData = useQuery([`/`], () => getFullResults());
 
   console.log(`fullPokemonData`, fullPokemonData);
-  // console.log(`queryFullData`, queryFullData);
-  console.log(`offset`, offset);
-  console.log(`page`, page);
+  console.log(`fullPokemonDataFiltered`, fullPokemonDataFiltered);
+  // console.log(`offset`, offset);
+  // console.log(`page`, page);
 
   useEffect(() => {
     async function getPokemonData() {
@@ -63,48 +63,42 @@ const HomePage = () => {
     getPokemonData();
   }, [queryFullData.status === "success", page]);
 
+  fullPokemonData.length > 150 ? window.location.reload() : {};
+
   const pageCount = fullPokemonData.length / 15;
   const partialPokemonData = fullPokemonData
     .slice(offset, offset + 15)
     .sort((a, b) => (a.id > b.id ? 1 : -1));
   console.log(`partialPokemonData`, partialPokemonData);
 
-  // const [pagination, setPagination] = useState({
-  //   data: new Array(1000).fill().map((value, index) => ({
-  //     id: index,
-  //     title: faker.lorem.words(5),
-  //     body: faker.lorem.sentences(8),
-  //   })),
-  //   offset: 0,
-  //   numberPerPage: 10,
-  //   pageCount: 0,
-  //   currentData: [],
-  // });
-
-  // useEffect(() => {
-  //   setFullPokemonData((prevState) => ({
-  //     ...prevState,
-  // offset: offset,
-  // numberPerPage: 10,
-  // pageCount: 0,
-  // currentData: [],
-  // pageCount: fullPokemonData.length / fullPokemonData.numberPerPage,
-  // currentData: prevState.slice(
-  //   fullPokemonData.offset,
-  //   fullPokemonData.offset + fullPokemonData.numberPerPage
-  // ),
-  //   }));
-  // }, [fullPokemonData.numberPerPage, fullPokemonData.offset]);
-
-  // const handlePageClick = (event) => {
-  //   const selected = event.selected;
-  //   const offset = selected * pagination.numberPerPage;
-  //   setPagination({ ...pagination, offset });
-  // };
-  let inputHandler = (event) => {
+  const inputHandler = (event) => {
     const textFieldText = event.target.value.toLowerCase();
     setInputText(textFieldText);
   };
+
+  useEffect(
+    () =>
+      fullPokemonData &&
+      setFullPokemonDataFiltered(
+        fullPokemonData.filter(
+          ({ name, height, base_experience, weight, abilities }) =>
+            name?.toLowerCase().includes(inputText)
+          // height?.toLowerCase().includes(inputText)
+          // base_experience?.toLowerCase().includes(inputText) ||
+          // weight?.toLowerCase().includes(inputText) ||
+          // abilities?.toLowerCase().includes(inputText)
+        )
+      ),
+    [inputText]
+  );
+
+  // useEffect(() => {
+  //   const reloadPage = () => {
+  //     window.location.reload();
+  //   };
+  //   reloadPage();
+  // }, [inputText]);
+
   //
   // // useEffect(() => {
   // //   const pagefromLS = localStorage.getItem("page");
@@ -159,7 +153,7 @@ const HomePage = () => {
           </PaginationWrapper>
 
           <PokemonWrapper>
-            {fullPokemonData.map((item, index) => (
+            {fullPokemonDataFiltered.map((item, index) => (
               <PokemonCard
                 key={index}
                 id={item.id}

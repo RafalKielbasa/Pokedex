@@ -25,8 +25,6 @@ export default function PokemonCard({
   weight,
   abilitie,
   fullPokemonData,
-  // offset,
-  // page,
 }) {
   const navigate = useNavigate();
   const handleClick = () => {

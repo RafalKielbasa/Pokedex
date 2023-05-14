@@ -14,12 +14,8 @@ const DetailsPageWrapper = styled.div`
 export default function DetailsPage() {
   const location = useLocation();
   const id = location.state?.id;
-  // const page = location.state?.page;
-  // const urlDet = location.state?.url;
   const fullPokemonData = location.state?.fullPokemonData;
   const pokemonDataFiltered = fullPokemonData.filter((item) => item.id === id);
-
-  // console.log(`page`, page);
 
   const navigate = useNavigate();
   const handleClick = () => {
