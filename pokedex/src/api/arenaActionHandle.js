@@ -49,12 +49,12 @@ export const arenaSecondOneActionHandle = async (data, myId, firstPowerLevel, se
         };
   try {
     let response = await axios.patch(`http://localhost:3000/edited/${myId}`, newData);
-    console.log("Patched1");
+    console.log("Patched2");
     return response;
   } catch (error) {
     if (error.response.status === 404) {
       const response = await axios.post(`http://localhost:3000/edited/`, newData);
-      console.log("POST1");
+      console.log("POST2");
       return response;
     }
   }

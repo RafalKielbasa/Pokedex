@@ -72,23 +72,15 @@ const ArenaPage = ({
       queryClient.setQueryData(["pokemon", secondFighter[0]?.data?.data?.name], data);
     },
   });
-  const afterBattleHandle = (result) => {
-    setFightResult(result);
-    if (result === "first") {
-      firstFighterMutation.mutateAsync();
-      secondFighterMutation.mutateAsync();
-    }
-    if (result === "second") {
-      secondFighterMutation.mutateAsync();
-      firstFighterMutation.mutateAsync();
-    }
-  };
-  const fightResultFnc = () => {
+
+  const fightResultFnc = async () => {
     firstFighterPowerLevel === secondFighterPowerLevel
       ? setFightResult("tie")
       : firstFighterPowerLevel > secondFighterPowerLevel
-      ? afterBattleHandle("first")
-      : afterBattleHandle("second");
+      ? setFightResult("first")
+      : setFightResult("second");
+    await firstFighterMutation.mutateAsync();
+    await secondFighterMutation.mutateAsync();
   };
   const deleteFighter = (action, deletedPokemonState) => {
     action(null);
