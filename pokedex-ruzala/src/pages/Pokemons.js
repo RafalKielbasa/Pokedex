@@ -4,7 +4,7 @@ import fetchPokeLinks from "../fetching/fetchPokeLinks";
 import fetchArray from "../fetching/fetchArray";
 import PokemonTile from "../components/PokemonTile";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ArrowButton from "../components/ArrowButton";
 import TableProperties from "../components/TableProperties";
 import fetchData from "../fetching/fetchData";
@@ -12,10 +12,6 @@ import fetchData from "../fetching/fetchData";
 const baseURL = process.env.REACT_APP_BASE_URL;
 
 export default function HomePage() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [currentItemsPerPage, setCurrentItemsPerPage] = useState(15);
-  const [filteredArray, setFilteredArray] = useState();
-
   const pokemonLinks = useQuery({
     queryKey: ["pokemonLinks"],
     queryFn: () => fetchPokeLinks(),
@@ -23,7 +19,7 @@ export default function HomePage() {
   });
   const pokemons = useQuery({
     queryKey: ["pokemons"],
-    queryFn: () => fetchArray(pokemonLinks.data),
+    queryFn: () => fetchArray(pokemonLinks.data, setCurrentArray),
     staleTime: 1000000,
     enabled: pokemonLinks.data ? true : false,
   });
@@ -32,6 +28,12 @@ export default function HomePage() {
     queryFn: () => fetchData(`${baseURL}type`),
     staleTime: 1000000,
   });
+
+  const [currentArray, setCurrentArray] = useState(
+    pokemons.data ? pokemons.data : undefined
+  );
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentItemsPerPage, setCurrentItemsPerPage] = useState(15);
 
   if (pokemons.isLoading) {
     return (
@@ -77,29 +79,29 @@ export default function HomePage() {
           width: "80%",
         }}
       >
-        {pokemons.isFetched && (
+        {pokemons.data && (
           <TableProperties
             pokemons={pokemons}
             itemsPerPage={currentItemsPerPage}
             itemsPerPageSetter={setCurrentItemsPerPage}
+            currentPage={currentPage}
             currentPageSetter={setCurrentPage}
-            filteredArraySetter={setFilteredArray}
+            currentArray={currentArray}
+            currentArraySetter={setCurrentArray}
             pokemonTypes={pokeTypes.data.results}
           />
         )}
-        {pokemons.isFetched && filteredArray === undefined
-          ? pokemons.data.map((element, index) => {
-              if (
-                index >=
-                  currentPage * currentItemsPerPage - currentItemsPerPage &&
-                index <= currentPage * currentItemsPerPage - 1
-              ) {
-                return (
-                  <PokemonTile key={`${element.name}Tile`} pokemon={element} />
-                );
-              }
-            })
-          : filteredArray.map((element, index) => {
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            width: "100%",
+            justifyContent: "center",
+            minHeight: "700px",
+          }}
+        >
+          {pokemons.data &&
+            currentArray.map((element, index) => {
               if (
                 index >=
                   currentPage * currentItemsPerPage - currentItemsPerPage &&
@@ -110,8 +112,9 @@ export default function HomePage() {
                 );
               }
             })}
+        </Box>
       </Box>
-      {currentPage * currentItemsPerPage < pokemons.data?.length ? (
+      {currentPage * currentItemsPerPage < currentArray.length ? (
         <ArrowButton
           onClick={() => {
             setCurrentPage(currentPage + 1);

@@ -7,50 +7,66 @@ import {
   Typography,
 } from "@mui/material";
 import { useState, useEffect } from "react";
+import { useSnackbar } from "notistack";
 
 export default function TableProperties({
   pokemons,
   itemsPerPage,
+  currentPage,
   currentPageSetter,
   itemsPerPageSetter,
-  filteredArraySetter,
+  currentArraySetter,
+  currentArray,
   pokemonTypes,
 }) {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
   const [itemsPerPageArray, setItemsPerPageArray] = useState([]);
   const [goToPage, setGoToPage] = useState();
 
   const handleSearchInput = (e) => {
     currentPageSetter(1);
     pokemons.data &&
-      filteredArraySetter(
+      currentArraySetter(
         pokemons.data.filter((pokemon) => pokemon.name.includes(e.target.value))
       );
   };
   const handleTypeFilter = (e) => {
     currentPageSetter(1);
     pokemons.data &&
-      filteredArraySetter(
+      currentArraySetter(
         pokemons.data.filter((pokemon) =>
           pokemon.types.some((type) => type.type.name.includes(e.target.value))
         )
       );
   };
+  console.log(currentArray);
   const handleItemPerPageChange = (e) => {
     itemsPerPageSetter(e.target.value);
   };
   const handleGoToPageChange = (e) => {
     const value = Number(e.target.value);
-    console.log(value);
-
     if (!isNaN(value)) {
-      setGoToPage(value);
+      if (value * itemsPerPage <= currentArray.length + itemsPerPage) {
+        setGoToPage(value);
+      } else {
+        enqueueSnackbar(
+          `Such page does not exist, last page is ${Math.ceil(
+            currentArray.length / itemsPerPage
+          )}`
+        );
+        setGoToPage((prev) => prev);
+        console.log(goToPage);
+      }
     } else {
       setGoToPage(1);
     }
   };
   const handleGoClick = () => {
     const newPage = goToPage;
-    currentPageSetter(newPage);
+    if (newPage > 0) {
+      currentPageSetter(newPage);
+    }
   };
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default async function fetchArray(array) {
+export default async function fetchArray(array, setArray) {
   const arrayofRecords = [];
   for (const element of array) {
     try {
@@ -10,6 +10,9 @@ export default async function fetchArray(array) {
     } catch (error) {
       console.log(error.response);
     }
+  }
+  if (setArray) {
+    setArray(arrayofRecords);
   }
   return arrayofRecords;
 }

@@ -5,7 +5,7 @@ export default async function fetchPokeLinks() {
   let rawData;
   const arrayOfLinks = [];
   try {
-    const response = await axios.get(`${baseURL}pokemon/?limit=1300`);
+    const response = await axios.get(`${baseURL}pokemon/?limit=151`);
     const data = response.data;
     rawData = data;
   } catch (error) {

@@ -12,6 +12,7 @@ import { useState } from "react";
 import FavoritesButton from "./components/FavoritesButton";
 import React from "react";
 import PokemonPreview from "./pages/PokemonPreview";
+import { SnackbarProvider } from "notistack";
 
 export const GlobalContext = React.createContext();
 
@@ -39,7 +40,9 @@ function App() {
       <GlobalContext.Provider
         value={{ loginState, setLoginState, favoritesArray, setFavoritesArray }}
       >
-        <RouterProvider router={router} />
+        <SnackbarProvider>
+          <RouterProvider router={router} />
+        </SnackbarProvider>
       </GlobalContext.Provider>
     </Box>
   );
