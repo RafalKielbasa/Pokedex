@@ -87,7 +87,7 @@ export default function Home() {
           );
         })}
       </Box>
-      <h3>Added Pokemons</h3>
+      <h3>Added Pokemons:</h3>
       <Box
         sx={{
           display: "flex",

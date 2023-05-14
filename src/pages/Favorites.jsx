@@ -1,18 +1,15 @@
 import { useTheme } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Card from "../components/Card";
 import styled from "styled-components";
 
-const Container = styled(Box)`
+const StyledBox = styled.div`
+  height: 100%;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: top;
-  justify-content: center;
-  height: 100vh;
-  background-color: ${({ theme }) => theme.palette.background.contrast};
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Heading = styled.h1`
@@ -21,6 +18,7 @@ const Heading = styled.h1`
 
 export default function Favorites({ favorites, setFavorites }) {
   const theme = useTheme();
+  const [newPokemon, setNewPokemon] = useState(null);
 
   useEffect(() => {
     axios
@@ -29,21 +27,62 @@ export default function Favorites({ favorites, setFavorites }) {
       .catch((error) => console.log("ulub", error));
   }, []);
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3001/newPokemon/`)
+      .then((response) => {
+        setNewPokemon(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {});
+  }, []);
+
   return (
-    <Container theme={theme}>
-      {favorites.length >= 1 ? (
-        favorites.map((item) => {
+    <StyledBox style={{ backgroundColor: theme.palette.background.contrast }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {favorites.length >= 1 ? (
+          favorites.map((item) => {
+            return (
+              <Card
+                key={item}
+                url={`https://pokeapi.co/api/v2/pokemon/${item}`}
+                gate={false}
+              />
+            );
+          })
+        ) : (
+          <Heading>no favorite pokemon</Heading>
+        )}
+      </Box>
+      <h3>Added Pokemons</h3>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {newPokemon?.map((element) => {
           return (
             <Card
-              key={item}
-              url={`https://pokeapi.co/api/v2/pokemon/${item}`}
+              key={element.name}
+              url={`https://pokeapi.co/api/v2/pokemon/${element.id}`}
               gate={false}
+              newCard={true}
             />
           );
-        })
-      ) : (
-        <Heading>no favorite pokemon</Heading>
-      )}
-    </Container>
+        })}
+      </Box>
+    </StyledBox>
   );
 }

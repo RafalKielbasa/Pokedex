@@ -79,6 +79,7 @@ const StyledBigTitle = styled.span`
 
 function Card({ url, closebutton, removeFighter, gate, newCard }) {
   const [pokemonData, setPokemonData] = useState(null);
+  console.log(pokemonData);
 
   const navigate = useNavigate();
   const theme = useTheme();
@@ -87,7 +88,6 @@ function Card({ url, closebutton, removeFighter, gate, newCard }) {
     const fetchData = async () => {
       const response = await axios.get(url);
       setPokemonData(response.data);
-      console.log(response.data);
       newCard === true ? fetchAddedPokemon(response) : fetchNewData(response);
     };
 
@@ -99,7 +99,7 @@ function Card({ url, closebutton, removeFighter, gate, newCard }) {
       .get(`http://localhost:3001/pokemon`)
       .then((response) => {
         const obj = response.data.find((item) => item.id === oldData.data.id);
-
+        console.log("obj", obj);
         if (obj !== undefined) {
           const updatedPokemonData = {
             ...oldData.data,
@@ -107,6 +107,7 @@ function Card({ url, closebutton, removeFighter, gate, newCard }) {
             weight: obj.weight,
             height: obj.height,
             base_experience: obj.base_experience,
+            ability: obj?.abilities?.[0]?.ability?.name,
           };
           setPokemonData(updatedPokemonData);
         } else {
@@ -148,7 +149,7 @@ function Card({ url, closebutton, removeFighter, gate, newCard }) {
 
   return (
     <StyledBox
-      onClick={closebutton || newCard ? null : handleClick}
+      onClick={closebutton ? null : handleClick}
       style={{ backgroundColor: theme.palette.background.default }}
     >
       {closebutton === true ? (

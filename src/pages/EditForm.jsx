@@ -125,12 +125,31 @@ const HomeButton = styled.button`
   font-size: 30px;
 `;
 
+const SubmitButton = styled.button`
+  border: 1px solid red;
+  width: 40vw;
+  margin-right: 5px;
+  color: red;
+  cursor: pointer;
+  font-size: 20px;
+`;
+
+const SaveButton = styled.button`
+  border: 1px solid red;
+  width: 25vw;
+  margin-top: 5px;
+  color: red;
+  cursor: pointer;
+  font-size: 20px;
+`;
+
 export default function EditForm() {
   const location = useLocation();
   const pokemonData = location.state?.pokemonData;
   const { enqueueSnackbar } = useSnackbar();
   const theme = useTheme();
   const [newValues, setNewValues] = useState(null);
+  const [disp, setDisp] = useState(false);
 
   const initialValues = {
     pokemonName: pokemonData?.name || "",
@@ -141,11 +160,12 @@ export default function EditForm() {
   };
 
   const handleSubmit = (values) => {
-    console.log("asdasd");
     setNewValues(values);
+    setDisp(!disp);
   };
 
   const editPokemon = () => {
+    handleClick("Edited old Card", "success");
     axios
       .post(`http://localhost:3001/pokemon/`, {
         id: pokemonData?.id,
@@ -174,6 +194,7 @@ export default function EditForm() {
 
   const addNewPokemon = () => {
     console.log("nooooowe", newValues);
+    handleClick("added new Card", "success");
     axios
       .post(`http://localhost:3001/newPokemon/`, {
         id: pokemonData?.id,
@@ -187,6 +208,10 @@ export default function EditForm() {
       .catch((error) => {
         console.log(error.response.status);
       });
+  };
+
+  const handleClick = (text, type) => {
+    enqueueSnackbar(text, { variant: type });
   };
   return (
     <Container
@@ -231,17 +256,27 @@ export default function EditForm() {
                   </InfoBox>
                 </InfoContainer>
               </ContentContainer>
+              <SubmitButton type="submit">
+                zapisz zmiany w formularzu{" "}
+              </SubmitButton>
             </PokemonCard>
-            <button type="submit">zapisz zmiany w formularzu </button>
           </Form>
         )}
       </Formik>
-      <button onClick={addNewPokemon} type="submit">
+      <SaveButton
+        onClick={addNewPokemon}
+        type="submit"
+        style={{ display: disp === true ? null : "none" }}
+      >
         save as new
-      </button>
-      <button onClick={editPokemon} type="submit">
+      </SaveButton>
+      <SaveButton
+        onClick={editPokemon}
+        type="submit"
+        style={{ display: disp === true ? null : "none" }}
+      >
         Edit
-      </button>
+      </SaveButton>
     </Container>
   );
 }
