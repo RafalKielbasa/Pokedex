@@ -72,7 +72,7 @@ const RouterWrapper = () => {
             const oldData = data?.data;
             const updatedData = {
               ...prev,
-              data: { ...oldData, winCount: 0, lostCount: 0, tieCount: 0 },
+              data: { ...oldData, winCount: 0, lossCount: 0, tieCount: 0 },
             };
             return updatedData;
           }),

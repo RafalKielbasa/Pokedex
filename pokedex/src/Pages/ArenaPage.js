@@ -3,7 +3,7 @@ import { BlankCard, PokemonCard } from "./components";
 import styled from "styled-components";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { Stadium, VS, Winner } from "src/img";
-import { arenaActionHandle } from "src/api";
+import { arenaFirstOneActionHandle, arenaSecondOneActionHandle } from "src/api";
 import { fighterPowerLevel } from "src/helpers";
 const ArenaBody = styled.div`
   background: url(${Stadium});
@@ -48,22 +48,40 @@ const ArenaPage = ({
   const firstFighterPowerLevel = fighterPowerLevel(firstFighter[0]);
   const secondFighterPowerLevel = fighterPowerLevel(secondFighter[0]);
 
-  const firstFighterWinMutation = useMutation({
-    mutationFn: () => arenaActionHandle("edited", firstFighter[0]?.data?.data, firstPokemonId),
+  const firstFighterMutation = useMutation({
+    mutationFn: () =>
+      arenaFirstOneActionHandle(
+        firstFighter[0]?.data?.data,
+        firstPokemonId,
+        firstFighterPowerLevel,
+        secondFighterPowerLevel
+      ),
     onSuccess: (data) => {
       queryClient.setQueryData(["pokemon", firstFighter[0]?.data?.data?.name], data);
     },
   });
-  const secondFighterWinMutation = useMutation({
-    mutationFn: () => arenaActionHandle("edited", secondFighter[0]?.data?.data, secondPokemonId),
+  const secondFighterMutation = useMutation({
+    mutationFn: () =>
+      arenaSecondOneActionHandle(
+        secondFighter[0]?.data?.data,
+        secondPokemonId,
+        firstFighterPowerLevel,
+        secondFighterPowerLevel
+      ),
     onSuccess: (data) => {
       queryClient.setQueryData(["pokemon", secondFighter[0]?.data?.data?.name], data);
     },
   });
   const afterBattleHandle = (result) => {
     setFightResult(result);
-    if (result === "first") firstFighterWinMutation.mutate();
-    if (result === "second") secondFighterWinMutation.mutate();
+    if (result === "first") {
+      firstFighterMutation.mutateAsync();
+      secondFighterMutation.mutateAsync();
+    }
+    if (result === "second") {
+      secondFighterMutation.mutateAsync();
+      firstFighterMutation.mutateAsync();
+    }
   };
   const fightResultFnc = () => {
     firstFighterPowerLevel === secondFighterPowerLevel
