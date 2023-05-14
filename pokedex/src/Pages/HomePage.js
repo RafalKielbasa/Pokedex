@@ -10,6 +10,7 @@ const HomePage = ({
   status,
   pokemonQueriesProp,
 }) => {
+  console.log({ pokemonQueriesProp });
   return (
     <>
       {status === "success" && (

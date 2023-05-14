@@ -10,7 +10,7 @@ import {
   DetailedPage,
   FavoritesPage,
 } from "src/Pages";
-import { filterFnc } from "src/helpers/filterFnc";
+import { filterFnc } from "src/helpers";
 import { useQuery, useQueries, useQueryClient } from "@tanstack/react-query";
 import { fetchData, fetchPokemonData, fetchDataToFilter, fetchEdited } from "src/api";
 const RouterWrapper = () => {
@@ -36,7 +36,6 @@ const RouterWrapper = () => {
   const editedList = edited?.data?.map((value) => value.name);
   editedList?.forEach((value, index) => {
     queryClient.setQueryData(["pokemon", value], { data: edited?.data[index] });
-    console.log(edited?.data[index]);
   });
   const { data: pokemons, status } = useQuery({
     queryKey: ["pokemons", page],
@@ -61,16 +60,26 @@ const RouterWrapper = () => {
 
   const resultList = createComponentData ? createComponentData : [];
   const pokemonQueries = useQueries({
-    queries: resultList?.map((pokemon) => {
+    queries: resultList?.map(({ name, url }) => {
       return {
-        queryKey: ["pokemon", pokemon?.name],
-        queryFn: () => fetchPokemonData(pokemon?.url),
-        enabled: !editedList?.includes(pokemon?.name),
+        queryKey: ["pokemon", name],
+        queryFn: () => fetchPokemonData(url),
+        enabled: !editedList?.includes(name),
         refetchOnMount: false,
         staleTime: 10 * (60 * 1000),
+        onSuccess: (data) =>
+          queryClient.setQueryData(["pokemon", name], (prev) => {
+            const oldData = data?.data;
+            const updatedData = {
+              ...prev,
+              data: { ...oldData, winCount: 0, lostCount: 0, tieCount: 0 },
+            };
+            return updatedData;
+          }),
       };
     }),
   });
+
   const router = createBrowserRouter([
     {
       path: "/",
