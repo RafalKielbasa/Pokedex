@@ -164,21 +164,21 @@ export default function Details({
   const { enqueueSnackbar } = useSnackbar();
   const theme = useTheme();
 
-  function fetchData() {
-    axios
-      .get("http://localhost:3001/favorites")
-      .then((response) =>
-        setFavorites(response?.data?.map((item) => item.name))
-      )
-      .catch((error) => console.log(error));
-
-    axios
-      .get("http://localhost:3001/battle")
-      .then((response) => setBattle(response.data?.map((item) => item.name)))
-      .catch((error) => console.log(error));
-  }
-
   useEffect(() => {
+    function fetchData() {
+      axios
+        .get("http://localhost:3001/favorites")
+        .then((response) =>
+          setFavorites(response?.data?.map((item) => item.name))
+        )
+        .catch((error) => console.log(error));
+
+      axios
+        .get("http://localhost:3001/battle")
+        .then((response) => setBattle(response.data?.map((item) => item.name)))
+        .catch((error) => console.log(error));
+    }
+
     fetchData();
   }, []);
 
@@ -213,7 +213,7 @@ export default function Details({
 
   const handleBattleClick = () => {
     if (battle.length === 2 && battle.includes(pokemonData.id) === false) {
-      console.log("za duzo na arenie");
+      handleClick("Too much players", "error");
     } else if (
       isToggledBattle === false &&
       battle.includes(pokemonData.name) === false

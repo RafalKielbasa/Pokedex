@@ -2,10 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
-export default function Textfield({ setUrl, setSearch, search }) {
-  const test = (name) => {
-    setSearch(name);
-  };
+export default function Textfield({ setSearch, search }) {
   return (
     <Box
       sx={{

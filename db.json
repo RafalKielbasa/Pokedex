@@ -26,17 +26,35 @@
       "ability": "overgrow",
       "height": 20,
       "base_experience": 273
+    },
+    {
+      "id": 7,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/7.svg",
+      "name": "squirtle",
+      "weight": 90,
+      "ability": "torrent",
+      "height": 5,
+      "base_experience": 63
+    },
+    {
+      "id": 9,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/9.svg",
+      "name": "blastoise",
+      "weight": 855,
+      "ability": "torrent",
+      "height": 16,
+      "base_experience": 265
     }
   ],
   "battle": [
     {
-      "id": 2,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
-      "name": "ivysaur",
-      "weight": 13044,
-      "ability": "overgrow",
-      "height": 10,
-      "base_experience": 142
+      "id": 4,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/4.svg",
+      "name": "charmander",
+      "weight": 85,
+      "ability": "blaze",
+      "height": 6,
+      "base_experience": 62
     }
   ],
   "user": [
@@ -47,6 +65,53 @@
       "id": 1
     }
   ],
-  "pokemon": [],
-  "newPokemon": []
+  "pokemon": [
+    {
+      "id": 4,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/4.svg",
+      "name": "charmander",
+      "weight": 85,
+      "ability": "blaze",
+      "height": 6,
+      "base_experience": 62
+    },
+    {
+      "id": 5,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
+      "name": "charmeleon",
+      "weight": 190,
+      "ability": "blaze",
+      "height": 11,
+      "base_experience": 142
+    },
+    {
+      "id": 3,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
+      "name": "GOWNO",
+      "weight": 1000,
+      "ability": "overgrow",
+      "height": 20,
+      "base_experience": 263
+    },
+    {
+      "id": 29,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/29.svg",
+      "name": "nidoran-fBABAB",
+      "weight": 70,
+      "ability": "poison-point",
+      "height": 4,
+      "base_experience": 55
+    }
+  ],
+  "newPokemon": [
+    {
+      "id": 4,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/4.svg",
+      "name": "charmanderGOWNOJAD",
+      "weight": 85,
+      "ability": "blaze",
+      "height": 6,
+      "base_experience": 62
+    }
+  ]
 }

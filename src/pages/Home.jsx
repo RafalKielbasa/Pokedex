@@ -52,7 +52,9 @@ export default function Home() {
         setNewPokemon(response.data);
         console.log(response.data);
       })
-      .catch((error) => {});
+      .catch((error) => {
+        setError(error);
+      });
   }, []);
 
   const searchFilter = (data, name) => {
