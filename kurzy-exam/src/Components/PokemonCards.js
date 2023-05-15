@@ -9,6 +9,7 @@ import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import { useNavigate } from "react-router-dom";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const CardsWrapper = styled.div`
   margin: 20px;
@@ -30,6 +31,10 @@ export default function PokemonCard({
   const handleClick = () => {
     const path = "/details";
     navigate(path, { state: { id, fullPokemonData } });
+  };
+
+  const handleFavorite = () => {
+    console.log("Favorite");
   };
 
   return (
@@ -136,6 +141,7 @@ export default function PokemonCard({
             icon={<FavoriteBorder />}
             checkedIcon={<Favorite sx={{ color: "#d50000" }} />}
           />
+          <FavoriteIcon onClick={handleFavorite} />
         </CardActions>
       </Card>
     </CardsWrapper>
