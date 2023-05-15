@@ -79,8 +79,6 @@ const StyledBigTitle = styled.span`
 
 function Card({ url, closebutton, removeFighter, gate, newCard }) {
   const [pokemonData, setPokemonData] = useState(null);
-  console.log(pokemonData);
-
   const navigate = useNavigate();
   const theme = useTheme();
 
