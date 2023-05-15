@@ -22,3 +22,7 @@ export const fetchEdited = async () => {
   const response = await axios.get(`http://localhost:3000/edited/`);
   return response;
 };
+export const fetchUsers = async () => {
+  const response = await axios.get(`http://localhost:3000/users/`);
+  return response;
+};

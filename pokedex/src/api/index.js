@@ -4,6 +4,7 @@ export {
   fetchFavorite,
   fetchDataToFilter,
   fetchEdited,
+  fetchUsers,
 } from "./fetchData";
 export { postData } from "./postData";
 export { deleteData } from "./deleteData";
