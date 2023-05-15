@@ -60629,5 +60629,14 @@
       "lossCount": 3,
       "tieCount": 0
     }
+  ],
+  "users": [
+    {
+      "userName": "ewew",
+      "email": "ada@wp.pl",
+      "password": "P#oeN1XMK",
+      "repeatPassword": "P#oeN1XMK",
+      "id": 1
+    }
   ]
 }

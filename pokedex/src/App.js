@@ -7,7 +7,7 @@ import RouterWrapper from "./Router/RouterWrapper";
 function App() {
   const queryClient = new QueryClient();
   return (
-    <SnackbarProvider>
+    <SnackbarProvider maxSnack={1}>
       <QueryClientProvider client={queryClient}>
         <RouterWrapper />
         <ReactQueryDevtools />

@@ -1,8 +1,12 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import { enqueueSnackbar } from "notistack";
 import React from "react";
+import { postData } from "src/api";
 import * as Yup from "yup";
 
 const RegisterPage = () => {
+  const regPasword =
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
   return (
     <>
       <Formik
@@ -21,20 +25,18 @@ const RegisterPage = () => {
             .required("Required"),
           password: Yup.string()
             .matches(
-              "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
+              regPasword,
               "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character "
             )
             .required("Required"),
-          repeatPassword: Yup.string().oneOf(
-            [Yup.ref("password")],
-            "Passwords must match"
-          ),
+          repeatPassword: Yup.string()
+            .oneOf([Yup.ref("password")], "Passwords must match")
+            .required("Required"),
         })}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+          postData("users", values);
+          setSubmitting(false);
+          enqueueSnackbar("Rejestracja udana", { variant: "success" });
         }}
       >
         <Form>
@@ -43,7 +45,7 @@ const RegisterPage = () => {
             name="userName"
             type="text"
             placeholder="Wprowadź nazwę użytkownika"
-          />
+          ></Field>
           <ErrorMessage name="userName" />
           <label htmlFor="email">E-mail</label>
           <Field name="email" type="email" placeholder="Wprowadź email" />
