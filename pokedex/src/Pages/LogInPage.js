@@ -1,19 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { fetchUsers } from "src/api";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { enqueueSnackbar } from "notistack";
+import GlobalContext from "src/context/GlobalContext";
 const LogInPage = () => {
   const navigate = useNavigate();
-  const [logIn, setLogIn] = useState(false);
+  const { setLoggedIn } = useContext(GlobalContext);
   const { data: users } = useQuery({
     queryKey: ["users"],
     queryFn: () => fetchUsers(),
     staleTime: 10 * (60 * 1000),
   });
-  console.log(logIn);
   return (
     <Formik
       initialValues={{
@@ -30,19 +30,15 @@ const LogInPage = () => {
           password === users[0]?.password
         ) {
           setSubmitting(false);
-          setLogIn(true);
+          setLoggedIn(true);
           enqueueSnackbar("Zostałeś zalogowany", {
             variant: "success",
           });
           navigate(`/edit`);
         } else {
           enqueueSnackbar("Dane logowania niepoprawne", { variant: "error" });
+          setSubmitting(false);
         }
-        console.log(
-          { userName, password },
-          users[0].userName,
-          users[0]?.password
-        );
       }}
     >
       {({ isSubmitting }) => (
