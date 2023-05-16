@@ -1,65 +1,7 @@
 {
-  "favorites": [
-    {
-      "id": 2,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
-      "name": "nowy pokemon",
-      "weight": 130,
-      "ability": "overgrow",
-      "height": 10,
-      "base_experience": 142
-    }
-  ],
-  "battle": [
-    {
-      "id": 2,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
-      "name": "nowy pokemon",
-      "weight": 130,
-      "ability": "overgrow",
-      "height": 10,
-      "base_experience": 142
-    }
-  ],
-  "user": [
-    {
-      "name": "Testowy1",
-      "email": "testowy123@wp.pl",
-      "password": "123456",
-      "id": 1
-    },
-    {
-      "name": "Wiktor Ostrach",
-      "email": "ostrach109@gmail.com",
-      "password": "Allstar525!",
-      "id": 2
-    },
-    {
-      "name": "Wiktor Ostrach",
-      "email": "ostrach109@gmail.com",
-      "password": "Allstar525!@",
-      "id": 3
-    }
-  ],
-  "editedPokemon": [
-    {
-      "id": 2,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
-      "name": "nowy pokemon",
-      "weight": 130,
-      "ability": "overgrow",
-      "height": 10,
-      "base_experience": 142
-    },
-    {
-      "id": "142446198443189291",
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
-      "name": "nowy pokemon",
-      "weight": 130,
-      "ability": "overgrow",
-      "height": 10,
-      "base_experience": 142
-    }
-  ],
+  "user": [],
+  "battle": [],
+  "favorites": [],
+  "editedPokemon": [],
   "newPokemon": []
 }

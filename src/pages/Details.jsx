@@ -1,10 +1,10 @@
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
-import { useTheme } from "@mui/material";
-import { useSnackbar } from "notistack";
 import axios from "axios";
-import Tooltip from "@mui/material/Tooltip";
+import { useState, useEffect, useContext } from "react";
+import { useTheme, Tooltip } from "@mui/material";
+import { useSnackbar } from "notistack";
+
 import styled from "styled-components";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
