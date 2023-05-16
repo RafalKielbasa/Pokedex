@@ -14,11 +14,16 @@ const NavButton = styled.button`
     letter-spacing: 4px;
     overflow: hidden;
     transition: 0.5s;
-    cursor: pointer;
     font-size: 24px;
   }
-
   :hover {
+    background: #7851a9;
+    color: white;
+    box-shadow: 0 0 5px #7851a9, 0 0 25px #7851a9, 0 0 50px #7851a9,
+      0 0 200px #7851a9;
+    -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+  }
+  :focus {
     background: #7851a9;
     color: white;
     box-shadow: 0 0 5px #7851a9, 0 0 25px #7851a9, 0 0 50px #7851a9,
@@ -31,7 +36,7 @@ const NavigationBar = () => {
   return (
     <ButtonGroup variant="contained" sx={{ display: "flex", flexWrap: "wrap" }}>
       <Link to="favourites">
-        <NavButton>Ulubione</NavButton>
+        <NavButton className="active">Ulubione</NavButton>
       </Link>
       <Link to="arena">
         <NavButton>Arena</NavButton>
