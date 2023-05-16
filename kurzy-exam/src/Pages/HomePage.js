@@ -47,8 +47,8 @@ const HomePage = () => {
   // );
   const queryFullData = useQuery([`/`], () => getFullResults());
 
-  console.log(`fullPokemonData`, fullPokemonData);
-  console.log(`fullPokemonDataFiltered`, fullPokemonDataFiltered);
+  // console.log(`fullPokemonData`, fullPokemonData);
+  // console.log(`fullPokemonDataFiltered`, fullPokemonDataFiltered);
   // console.log(`offset`, offset);
   // console.log(`page`, page);
 

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -10,9 +11,16 @@ import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import { useNavigate } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { CardActionArea } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import { createPortal } from "react-dom";
 
 const CardsWrapper = styled.div`
   margin: 20px;
+`;
+const FavIcon = styled(FavoriteIcon)`
+  cursor: pointer;
+  color: ${({ isMarked }) => (isMarked ? "red" : "grey")};
 `;
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
@@ -27,16 +35,25 @@ export default function PokemonCard({
   abilitie,
   fullPokemonData,
 }) {
+  const [isMarked, setIsMarked] = useState(false);
+  const [favoriteId, setFavoriteId] = useState([]);
+
   const navigate = useNavigate();
   const handleClick = () => {
     const path = "/details";
     navigate(path, { state: { id, fullPokemonData } });
   };
 
-  const handleFavorite = () => {
-    console.log("Favorite");
+  const handleFavorite = (e) => {
+    setIsMarked((isMarked) => !isMarked);
+    setFavoriteId((resultUrl) => {
+      resultUrl = [...resultUrl, Number(id)];
+      return resultUrl;
+    });
   };
 
+  console.log(`favoriteId`, favoriteId);
+  // console.log(`isMarked`, isMarked);
   return (
     <CardsWrapper>
       <Card
@@ -46,102 +63,100 @@ export default function PokemonCard({
             transform: "scale(1.15)",
           },
         }}
-        onClick={(e) => handleClick(e.currentTarget.id)}
       >
-        <CardMedia style={{ textAlign: "center" }}>
-          <img src={pic} alt={"picture"} key={id} />
-        </CardMedia>
+        <CardActionArea onClick={handleClick}>
+          <CardMedia style={{ textAlign: "center" }}>
+            <img src={pic} alt={"picture"} key={id} />
+          </CardMedia>
 
-        <Typography
-          gutterBottom
-          variant="h5"
-          component="div"
-          style={{ textAlign: "center" }}
-        >
-          {name}
-        </Typography>
-
-        <CardContent
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "flex-start",
-          }}
-        >
-          <CardContent
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            style={{ textAlign: "center" }}
           >
-            <Typography variant="body2" color="text.secondary">
-              {height}
-            </Typography>
-            <Typography
-              sx={{ fontWeight: "bold", paddingBottom: "20px" }}
-              variant="body2"
-              color="text.secondary"
-            >
-              Height
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {baseexp}
-            </Typography>
-            <Typography
-              sx={{ fontWeight: "bold" }}
-              variant="body2"
-              color="text.secondary"
-            >
-              Base experience
-            </Typography>
-          </CardContent>
+            {name}
+          </Typography>
 
           <CardContent
             sx={{
               display: "flex",
-              flexDirection: "column",
+              flexDirection: "row",
               justifyContent: "center",
-              alignItems: "center",
+              alignItems: "flex-start",
             }}
           >
-            <Typography variant="body2" color="text.secondary">
-              {weight}
-            </Typography>
-            <Typography
-              sx={{ fontWeight: "bold", paddingBottom: "20px" }}
-              variant="body2"
-              color="text.secondary"
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
-              Weight
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {abilitie}
-            </Typography>
-            <Typography
-              sx={{ fontWeight: "bold" }}
-              variant="body2"
-              color="text.secondary"
-            >
-              Abilitie
-            </Typography>
-          </CardContent>
-        </CardContent>
+              <Typography variant="body2" color="text.secondary">
+                {height}
+              </Typography>
+              <Typography
+                sx={{ fontWeight: "bold", paddingBottom: "20px" }}
+                variant="body2"
+                color="text.secondary"
+              >
+                Height
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {baseexp}
+              </Typography>
+              <Typography
+                sx={{ fontWeight: "bold" }}
+                variant="body2"
+                color="text.secondary"
+              >
+                Base experience
+              </Typography>
+            </CardContent>
 
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="body2" color="text.secondary">
+                {weight}
+              </Typography>
+              <Typography
+                sx={{ fontWeight: "bold", paddingBottom: "20px" }}
+                variant="body2"
+                color="text.secondary"
+              >
+                Weight
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {abilitie}
+              </Typography>
+              <Typography
+                sx={{ fontWeight: "bold" }}
+                variant="body2"
+                color="text.secondary"
+              >
+                Abilitie
+              </Typography>
+            </CardContent>
+          </CardContent>
+        </CardActionArea>
         <CardActions
           sx={{
             display: "flex",
             justifyContent: "center",
           }}
         >
-          <Checkbox
-            {...label}
-            icon={<FavoriteBorder />}
-            checkedIcon={<Favorite sx={{ color: "#d50000" }} />}
+          <FavIcon
+            onClick={(e) => handleFavorite(e.target.id)}
+            isMarked={isMarked}
           />
-          <FavoriteIcon onClick={handleFavorite} />
         </CardActions>
       </Card>
     </CardsWrapper>
