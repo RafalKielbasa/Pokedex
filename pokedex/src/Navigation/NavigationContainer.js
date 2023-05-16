@@ -28,7 +28,7 @@ const NavigationContainer = ({ children }) => {
       <NavButtonWrapper>{children}</NavButtonWrapper>
       <span>
         <span>Dark Theme</span>
-        <Switch onClick={() => toggleDarkMode()}>ZMIANA THEME</Switch>
+        <Switch onClick={() => toggleDarkMode()} />
       </span>
     </NavWrapper>
   );
