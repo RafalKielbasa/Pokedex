@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import GlobalContext from "src/context/GlobalContext";
 import styled from "styled-components";
 const NavBarRow = styled.div`
   display: flex;
@@ -7,6 +8,7 @@ const NavBarRow = styled.div`
   font-size: 24px;
 `;
 const NavigationBar = () => {
+  const { setLoggedIn } = useContext(GlobalContext);
   return (
     <NavBarRow>
       <Link to="favourites"> Ulubione</Link>
@@ -14,7 +16,9 @@ const NavigationBar = () => {
       <Link to="logIn"> Logowanie</Link>
       <Link to="register"> Rejestracja</Link>
       <Link to="edit"> Edytowanie - tylko dla zalogowanych</Link>
-      <Link to="/"> Wyloguj - tylko dla zalogowanych</Link>
+      <Link to="/">
+        <button onClick={() => setLoggedIn(false)}>Wyloguj</button>
+      </Link>
     </NavBarRow>
   );
 };
