@@ -8,17 +8,19 @@ const NavBarRow = styled.div`
   font-size: 24px;
 `;
 const NavigationBar = () => {
-  const { setLoggedIn } = useContext(GlobalContext);
+  const { loggedIn, setLoggedIn } = useContext(GlobalContext);
   return (
     <NavBarRow>
       <Link to="favourites"> Ulubione</Link>
       <Link to="arena"> Arena</Link>
       <Link to="logIn"> Logowanie</Link>
       <Link to="register"> Rejestracja</Link>
-      <Link to="edit"> Edytowanie - tylko dla zalogowanych</Link>
-      <Link to="/">
-        <button onClick={() => setLoggedIn(false)}>Wyloguj</button>
-      </Link>
+      {loggedIn && <Link to="edit"> Edytowanie</Link>}
+      {loggedIn && (
+        <Link to="/">
+          <button onClick={() => setLoggedIn(false)}>Wyloguj</button>
+        </Link>
+      )}
     </NavBarRow>
   );
 };
