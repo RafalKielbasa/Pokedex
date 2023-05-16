@@ -4,13 +4,12 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import PokemonDetailsBox from "./PokemonDetailsBox";
+import PokemonCardInfo from "./PokemonCardInfo";
 
 const StyledBox = styled.div`
   width: 300px;
   height: 400px;
   margin: 2rem;
-
   padding: 20px;
 
   cursor: pointer;
@@ -47,7 +46,7 @@ const StyledTitle = styled.span`
   font-size: 30px;
 `;
 
-const Card = ({ url, closebutton, removeFighter, gate, pokemon }) => {
+const PokemonCard = ({ url, closebutton, removeFighter, gate, pokemon }) => {
   const [pokemonData, setPokemonData] = useState(null);
   const navigate = useNavigate();
   const theme = useTheme();
@@ -100,7 +99,7 @@ const Card = ({ url, closebutton, removeFighter, gate, pokemon }) => {
       .catch((error) => {});
   };
 
-  const handleClick = () => {
+  const handlePokemonCardClick = () => {
     const path = gate
       ? `/EditForm/${pokemonData?.id}`
       : `/Details/${pokemonData?.id || pokemon.id}`;
@@ -109,7 +108,7 @@ const Card = ({ url, closebutton, removeFighter, gate, pokemon }) => {
 
   return (
     <StyledBox
-      onClick={closebutton ? null : handleClick}
+      onClick={closebutton ? null : handlePokemonCardClick}
       style={{ backgroundColor: theme.palette.background.default }}
     >
       {closebutton ? (
@@ -126,9 +125,9 @@ const Card = ({ url, closebutton, removeFighter, gate, pokemon }) => {
         <StyledTitle className="title">{pokemonData?.name}</StyledTitle>
       </StyledTitleBox>
 
-      <PokemonDetailsBox pokemonData={pokemonData} />
+      <PokemonCardInfo pokemonData={pokemonData} />
     </StyledBox>
   );
 };
 
-export default Card;
+export default PokemonCard;

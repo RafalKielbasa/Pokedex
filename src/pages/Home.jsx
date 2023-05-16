@@ -1,18 +1,28 @@
-import { useTheme } from "@mui/material";
-import { useState, useEffect } from "react";
-import React from "react";
-import axios from "axios";
-import Card from "../components/Card";
-import Box from "@mui/material/Box";
-import Textfield from "../components/Textfield";
-import Pagination from "@mui/material/Pagination";
+import { useTheme, Box, Pagination } from "@mui/material";
+import { React, useState, useEffect } from "react";
 import styled from "styled-components";
+import axios from "axios";
+import PokemonCard from "../components/PokemonCard";
+import Textfield from "../components/Textfield";
 
-const StyledBox = styled.div`
+const StyledContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: ${(props) => props.theme.palette.background.contrast};
+  padding-bottom: 30px;
+`;
+
+const StyledContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+const Heading = styled.h3`
+  color: black;
 `;
 
 const Home = () => {
@@ -71,35 +81,22 @@ const Home = () => {
   };
 
   return (
-    <StyledBox style={{ backgroundColor: theme.palette.background.contrast }}>
+    <StyledContainer theme={theme}>
       <Textfield setSearch={setSearch} setUrl={setUrl} />
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <StyledContent theme={theme}>
         {pokedex?.map((item) => {
-          return <Card key={item.name} url={item.url} gate={false} />;
+          return <PokemonCard key={item.name} url={item.url} gate={false} />;
         })}
-      </Box>
-      <h3>Added Pokemons:</h3>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      </StyledContent>
+
+      <Heading>Added Pokemons:</Heading>
+      <StyledContent theme={theme}>
         {newPokemon?.map((element) => {
-          return <Card key={element.name} pokemon={element} gate={false} />;
+          return (
+            <PokemonCard key={element.name} pokemon={element} gate={false} />
+          );
         })}
-      </Box>
+      </StyledContent>
 
       <Pagination
         count={10}
@@ -107,7 +104,7 @@ const Home = () => {
         variant="outlined"
         onChange={handlePaginationChange}
       />
-    </StyledBox>
+    </StyledContainer>
   );
 };
 

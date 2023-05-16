@@ -8,7 +8,8 @@ import Tooltip from "@mui/material/Tooltip";
 import styled from "styled-components";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
-import PokemonDetailsBox from "../components/PokemonDetailsBox";
+import PokemonDetailsInfo from "../components/PokemonDetailsInfo";
+import { JsonPost } from "../api/JsonPost";
 
 const Container = styled.div`
   display: flex;
@@ -18,7 +19,7 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-const PokemonCard = styled.div`
+const Card = styled.div`
   max-width: 80vw;
   min-height: 50vh;
   margin: 2rem;
@@ -88,62 +89,6 @@ const SportsIcon = styled(SportsMmaRoundedIcon)`
   color: ${({ isToggledBattle }) => (isToggledBattle ? "red" : "white")};
 `;
 
-const InfoContainer = styled.div`
-  width: 100%;
-  height: 35%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  @media screen and (max-width: 600px) {
-    margin: 0px;
-    padding: 0px;
-
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-`;
-
-const InfoBox = styled.div`
-  margin: 0;
-  padding: 0.5rem;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  @media screen and (max-width: 600px) {
-    margin: 0;
-    padding: 0;
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-`;
-
-const MiniTitle = styled.span`
-  font-size: 15px;
-  font-family: cursive;
-  font-weight: lighter;
-  @media screen and (max-width: 600px) {
-    font-size: 12px;
-  }
-`;
-
-const BigTitle = styled.span`
-  font-size: 20px;
-  font-family: "Courier New", Courier, monospace;
-  font-weight: bold;
-  @media screen and (max-width: 600px) {
-    font-size: 15px;
-  }
-`;
-
 const BackButton = styled(Link)`
   border: 1px solid red;
   width: 40vw;
@@ -180,7 +125,7 @@ const Details = ({ favorites, setFavorites, battle, setBattle }) => {
 
   useEffect(() => {
     setIsToggled(favorites?.includes(pokemonData?.name));
-    setIsToggledBattle(battle?.includes(pokemonData?.id));
+    setIsToggledBattle(battle?.includes(pokemonData?.name));
   }, [favorites, battle]);
 
   const handleClick = (text, type) => {
@@ -188,16 +133,8 @@ const Details = ({ favorites, setFavorites, battle, setBattle }) => {
   };
 
   const handleHeartClick = () => {
-    if (!isToggled && !favorites.includes(pokemonData.name)) {
-      axios.post("http://localhost:3001/favorites", {
-        id: pokemonData?.id,
-        sprite: pokemonData?.sprite,
-        name: pokemonData?.name,
-        weight: pokemonData?.weight,
-        ability: pokemonData?.ability,
-        height: pokemonData?.height,
-        base_experience: pokemonData?.base_experience,
-      });
+    if (!isToggled && !favorites.includes(pokemonData?.id)) {
+      JsonPost(pokemonData, "favorites");
       setIsToggled((prev) => !prev);
       handleClick("Added to favorites", "success");
     } else {
@@ -208,28 +145,11 @@ const Details = ({ favorites, setFavorites, battle, setBattle }) => {
   };
 
   const handleBattleClick = () => {
-    if (battle.length === 2 && !battle.includes(pokemonData.id)) {
+    if (battle.includes(pokemonData.id)) {
       handleClick("Too much players", "error");
-    } else if (!isToggledBattle && !battle.includes(pokemonData.name)) {
-      axios.post("http://localhost:3001/battle", {
-        id: pokemonData?.id,
-        sprite: pokemonData?.sprite,
-        name: pokemonData?.name,
-        weight: pokemonData?.weight,
-        ability: pokemonData?.ability,
-        height: pokemonData?.height,
-        base_experience: pokemonData?.base_experience,
-      });
-
-      axios.post(`http://localhost:3001/editedPokemon`, {
-        id: pokemonData?.id,
-        sprite: pokemonData?.sprite,
-        name: pokemonData?.name,
-        weight: pokemonData?.weight,
-        ability: pokemonData?.ability,
-        height: pokemonData?.height,
-        base_experience: pokemonData?.base_experience,
-      });
+    } else if (!isToggledBattle && !battle.includes(pokemonData.id)) {
+      JsonPost(pokemonData, "battle");
+      JsonPost(pokemonData, "editedPokemon");
 
       setIsToggledBattle((prev) => !prev);
       handleClick("Added to battle", "success");
@@ -242,7 +162,7 @@ const Details = ({ favorites, setFavorites, battle, setBattle }) => {
 
   return (
     <Container theme={theme}>
-      <PokemonCard theme={theme}>
+      <Card theme={theme}>
         <ImageContainer>
           <Image src={pokemonData?.sprite} />
         </ImageContainer>
@@ -265,27 +185,9 @@ const Details = ({ favorites, setFavorites, battle, setBattle }) => {
             </Tooltip>
           </TitleContainer>
 
-          <InfoContainer>
-            <InfoBox>
-              <MiniTitle>{pokemonData?.weight}</MiniTitle>
-              <BigTitle>weight</BigTitle>
-            </InfoBox>
-            <InfoBox>
-              <MiniTitle>{pokemonData?.ability}</MiniTitle>
-              <BigTitle>abilitie</BigTitle>
-            </InfoBox>
-            <InfoBox>
-              <MiniTitle>{pokemonData?.height}</MiniTitle>
-              <BigTitle>height</BigTitle>
-            </InfoBox>
-            <InfoBox>
-              <MiniTitle>{pokemonData?.base_experience}</MiniTitle>
-              <BigTitle>base experience</BigTitle>
-            </InfoBox>
-          </InfoContainer>
-          {/* <PokemonDetailsBox pokemonData={pokemonData} flag={true} /> */}
+          <PokemonDetailsInfo pokemonData={pokemonData} flag={true} />
         </ContentContainer>
-      </PokemonCard>
+      </Card>
       <BackButton to={"/"}>do strony glownej</BackButton>
     </Container>
   );

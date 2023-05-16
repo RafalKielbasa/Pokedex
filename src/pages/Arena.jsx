@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material";
 import axios from "axios";
 import styled from "styled-components";
-import Card from "../components/Card";
+import PokemonCard from "../components/PokemonCard";
 
 const Container = styled.div`
   height: 100vh;
@@ -38,6 +38,7 @@ const FightButton = styled.button`
   margin: 1rem auto;
   cursor: pointer;
   font-size: 30px;
+
   background-color: ${({ theme }) => theme.palette.background.contrast};
 `;
 
@@ -55,7 +56,6 @@ const HomeButton = styled.button`
 const Arena = ({ battle, setBattle }) => {
   const [winner, setWinner] = useState(null);
   const [listener, setListener] = useState(true);
-
   const theme = useTheme();
 
   useEffect(() => {
@@ -64,24 +64,38 @@ const Arena = ({ battle, setBattle }) => {
       .then((response) => setBattle(response.data));
   }, [listener]);
 
-  const fight = () => {
-    const playerOneForce = battle[0].base_experience * battle[0].height;
-    const playerTwoForce = battle[1].base_experience * battle[1].height;
+  const playerOne = battle[0];
+  const playerTwo = battle[1];
 
-    if (battle.length > 1 && playerOneForce > playerTwoForce) {
-      setWinner(battle[0].name);
-      axios.put(`http://localhost:3001/editedPokemon/${battle[0].id}`, {
-        ...battle[0],
-        base_experience: battle[0].base_experience + 10,
-      });
-    } else if (battle.length > 1 && playerOneForce < playerTwoForce) {
-      setWinner(battle[1].name);
-      axios.put(`http://localhost:3001/editedPokemon/${battle[1].id}`, {
-        ...battle[1],
-        base_experience: battle[1].base_experience + 10,
+  const playerOneName = playerOne?.name;
+  const playerTwoName = playerTwo?.name;
+
+  const playerOneForce = playerOne?.base_experience * playerOne?.height;
+  const playerTwoForce = playerTwo?.base_experience * playerTwo?.height;
+
+  const handleFight = () => {
+    if (playerOneForce > playerTwoForce) {
+      setWinner(playerOne);
+      updateData(playerOne);
+    } else if (playerOneForce < playerTwoForce) {
+      setWinner(playerTwo);
+      updateData(playerTwo);
+    } else {
+      setWinner("DRAW");
+    }
+  };
+
+  const updateData = (winner) => {
+    if (winner?.id < 1500) {
+      axios.put(`http://localhost:3001/editedPokemon/${winner.id}`, {
+        ...winner,
+        base_experience: winner.base_experience + 10,
       });
     } else {
-      console.log("brak drugiego gracza");
+      axios.put(`http://localhost:3001/newPokemon/${winner.id}`, {
+        ...winner,
+        base_experience: winner.base_experience + 10,
+      });
     }
   };
 
@@ -91,28 +105,32 @@ const Arena = ({ battle, setBattle }) => {
   };
 
   const backHome = () => {
-    axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
-    axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
+    axios.delete(`http://localhost:3001/battle/${playerOne.id}`);
+    axios.delete(`http://localhost:3001/battle/${playerTwo.id}`);
     setListener(!listener);
   };
 
   return (
     <Container theme={theme}>
-      {winner ? <h1>winner {winner.toUpperCase()} !</h1> : null}
+      {winner ? <h1>winner {winner.name.toUpperCase()} !</h1> : null}
       <CardsContainer>
         <StyledBox
           theme={theme}
           style={{
             backgroundColor: theme.palette.background.default,
-            opacity: winner ? (winner === battle[0].name ? "1" : "0.3") : null,
+            opacity: winner
+              ? winner.name === playerOne.name
+                ? "1"
+                : "0.3"
+              : null,
           }}
         >
-          {battle[0]?.id !== undefined ? (
-            <Card
-              pokemon={battle[0]}
-              key={battle[0].name}
+          {playerOne?.id !== undefined ? (
+            <PokemonCard
+              pokemon={playerOne}
+              key={playerOneName}
               closebutton={true}
-              removeFighter={() => removeFighter(battle[0].id)}
+              removeFighter={() => removeFighter(playerOne.id)}
             />
           ) : (
             <StyledBox></StyledBox>
@@ -122,26 +140,34 @@ const Arena = ({ battle, setBattle }) => {
         <StyledBox
           style={{
             backgroundColor: theme.palette.background.default,
-            opacity: winner ? (winner === battle[1].name ? "1" : "0.3") : null,
+            opacity: winner
+              ? winner.name === playerTwo.name
+                ? "1"
+                : "0.3"
+              : null,
           }}
         >
-          {battle[1]?.id !== undefined ? (
-            <Card
-              pokemon={battle[1]}
-              key={battle[1].name}
+          {playerTwo?.id !== undefined ? (
+            <PokemonCard
+              pokemon={playerTwo}
+              key={playerTwoName}
               closebutton={true}
-              removeFighter={() => removeFighter(battle[1].id)}
+              removeFighter={() => removeFighter(playerTwo.id)}
             />
           ) : (
             <StyledBox></StyledBox>
           )}
         </StyledBox>
       </CardsContainer>
-      <FightButton onClick={fight} theme={theme} winner={winner}>
+      <FightButton
+        onClick={handleFight}
+        theme={theme}
+        disabled={battle.length > 1 ? false : true}
+      >
         FIGHT
       </FightButton>
       <Link to={"/"}>
-        <HomeButton onClick={backHome} winner={winner} theme={theme}>
+        <HomeButton onClick={backHome} winner={winner?.name} theme={theme}>
           Back Home
         </HomeButton>
       </Link>

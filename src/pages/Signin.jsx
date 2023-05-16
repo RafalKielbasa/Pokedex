@@ -42,7 +42,7 @@ const userSchema = Yup.object().shape({
 const Signin = ({ setUserData }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userInfo, setUserInfo] = useState([]);
-  const [test, setTest] = useState([]);
+  const [usersFromData, setUsersFromData] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -50,13 +50,7 @@ const Signin = ({ setUserData }) => {
   useEffect(() => {
     axios
       .get("http://localhost:3001/user")
-      .then((response) =>
-        setTest(
-          response.data?.filter((item) => {
-            return item.name && item.password;
-          })
-        )
-      )
+      .then((response) => setUsersFromData(response.data))
       .catch((error) => console.log(error));
   }, []);
 
@@ -66,7 +60,6 @@ const Signin = ({ setUserData }) => {
 
   const handleOnSubmit = (values, actions) => {
     setIsSubmitting(true);
-    console.log(values);
     actions.setSubmitting(false);
     setUserInfo(values);
     checkLogin(values);
@@ -75,17 +68,19 @@ const Signin = ({ setUserData }) => {
   const checkLogin = (userData) => {
     const currLog = userData.email;
     const currPass = userData.password;
-    const filtered = test.filter((item) => {
-      return item.email === currLog;
-    });
 
-    if (filtered[0].password === currPass && filtered[0].email === currLog) {
+    const passwordCheck = usersFromData.find(
+      (item) => item.password === currPass
+    );
+    const emailCheck = usersFromData.find((item) => item.email === currLog);
+
+    if (passwordCheck && emailCheck) {
       localStorage.setItem("userData", JSON.stringify(userData));
       setUserData(userData);
       handleClick("Login succes", "success");
       navigate("/EditList");
     } else {
-      handleClick("Login faild, wrond password or email", "error");
+      handleClick("Login faild, wrong password or email", "error");
     }
   };
 

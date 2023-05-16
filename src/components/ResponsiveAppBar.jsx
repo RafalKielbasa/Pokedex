@@ -4,15 +4,19 @@ import { AppBar, Box } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { Link, useNavigate } from "react-router-dom";
 
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
+import {
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Button,
+  Tooltip,
+  MenuItem,
+} from "@mui/material/";
+
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
+
 import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
 import styled from "styled-components";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -24,10 +28,10 @@ const StyledTitle = styled.span`
   font-size: 30px;
 `;
 const pages = [
-  { text: "Favorites", path: "favorites", isUser: true },
-  { text: "Arena", path: "arena", isUser: true },
-  { text: "Sign In", path: "sign-in", isUser: false },
-  { text: "Register", path: "register", isUser: false },
+  { text: "Favorites", path: "favorites" },
+  { text: "Arena", path: "arena" },
+  { text: "Sign In", path: "sign-in", isUser: true },
+  { text: "Register", path: "register", isUser: true },
 ];
 
 const ResponsiveAppBar = () => {
@@ -73,7 +77,7 @@ const ResponsiveAppBar = () => {
   };
 
   const visibleAppBarPages = pages.filter((page) =>
-    userDataFromLocalStorage ? page.isUser : page
+    userDataFromLocalStorage ? !page.isUser : page
   );
 
   return (

@@ -29,7 +29,7 @@ const StyledBigTitle = styled.span`
   font-weight: bold;
 `;
 
-const PokemonDetailsBox = ({ pokemonData, flag }) => {
+const PokemonCardInfo = ({ pokemonData, flag }) => {
   return (
     <StyledDetailsBox>
       <StyledDetail>
@@ -52,4 +52,4 @@ const PokemonDetailsBox = ({ pokemonData, flag }) => {
   );
 };
 
-export default PokemonDetailsBox;
+export default PokemonCardInfo;

@@ -14,7 +14,7 @@ const userSchema = Yup.object().shape({
   password: Yup.string()
     .matches(
       /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])(?=.*[a-z]).{8,}$/,
-      "Hasło musi składać się z co najmniej 8 znaków, w tym co najmniej 1 dużej litery, 1 cyfry i 1 znaku specjalnego."
+      "Haslo nie spelnia warunkow "
     )
     .required("Hasło jest wymagane."),
   confirmPassword: Yup.string()

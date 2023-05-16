@@ -2,10 +2,10 @@ import { Formik, Form, Field } from "formik";
 import { useLocation } from "react-router-dom";
 import { useTheme } from "@mui/material";
 import { useSnackbar } from "notistack";
-import Tooltip from "@mui/material/Tooltip";
-import axios from "axios";
 import styled from "styled-components";
 import { useState } from "react";
+import { JsonEditPokemon } from "../api/JsonEditPokemon";
+import { JsonAddPokemon } from "../api/JsonAddPokemon";
 
 const Container = styled.div`
   display: flex;
@@ -166,46 +166,12 @@ const EditForm = () => {
 
   const editPokemon = () => {
     handleClick("Edited old Card", "success");
-    axios
-      .post(`http://localhost:3001/editedPokemon/`, {
-        id: pokemonData?.id,
-        sprite: pokemonData?.sprite,
-        name: newValues.pokemonName,
-        weight: newValues.weight,
-        ability: newValues.ability,
-        height: newValues.height,
-        base_experience: newValues.baseExperience,
-      })
-      .catch((error) => {
-        if (error.response.status === 500) {
-          axios.put(`http://localhost:3001/editedPokemon/${pokemonData?.id}`, {
-            id: pokemonData?.id,
-            sprite: pokemonData?.sprite,
-            name: newValues.pokemonName,
-            weight: newValues.weight,
-            ability: newValues.ability,
-            height: newValues.height,
-            base_experience: newValues.baseExperience,
-          });
-        }
-      });
+    JsonEditPokemon(pokemonData, newValues);
   };
 
   const addNewPokemon = () => {
     handleClick("added new Card", "success");
-    axios
-      .post(`http://localhost:3001/newPokemon/`, {
-        id: pokemonData?.id,
-        sprite: pokemonData?.sprite,
-        name: newValues.pokemonName,
-        weight: newValues.weight,
-        ability: newValues.ability,
-        height: newValues.height,
-        base_experience: newValues.baseExperience,
-      })
-      .catch((error) => {
-        console.log(error.response.status);
-      });
+    JsonAddPokemon(pokemonData, newValues);
   };
 
   const handleClick = (text, type) => {

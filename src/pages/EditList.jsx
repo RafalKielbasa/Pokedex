@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Pagination from "@mui/material/Pagination";
 import React from "react";
 import axios from "axios";
-import Card from "../components/Card";
+import PokemonCard from "../components/PokemonCard";
 
 import { styled, css, Box, useTheme } from "@mui/material";
 
@@ -53,7 +53,7 @@ const EditList = () => {
         }}
       >
         {pokedex?.map((item) => {
-          return <Card key={item.name} url={item.url} gate={true} />;
+          return <PokemonCard key={item.name} url={item.url} gate={true} />;
         })}
       </Box>
       <Pagination

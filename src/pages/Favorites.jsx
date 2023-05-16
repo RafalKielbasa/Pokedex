@@ -2,14 +2,19 @@ import { useTheme } from "@mui/material";
 import { useEffect } from "react";
 import axios from "axios";
 import Box from "@mui/material/Box";
-import Card from "../components/Card";
+import PokemonCard from "../components/PokemonCard";
 import styled from "styled-components";
 
 const StyledBox = styled.div`
   height: 100%;
+  background-color: ${(props) => props.theme.palette.background.contrast};
+`;
+
+const StyledList = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 
 const Heading = styled.h1`
@@ -27,25 +32,16 @@ const Favorites = ({ favorites, setFavorites }) => {
   }, []);
 
   return (
-    <StyledBox style={{ backgroundColor: theme.palette.background.contrast }}>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+    <StyledBox theme={theme}>
+      <StyledList>
         {favorites.length >= 1 ? (
           favorites.map((item) => {
-            console.log(item);
-            return <Card key={item} pokemon={item} gate={false} />;
+            return <PokemonCard key={item} pokemon={item} gate={false} />;
           })
         ) : (
           <Heading>no favorite pokemon</Heading>
         )}
-      </Box>
+      </StyledList>
     </StyledBox>
   );
 };
