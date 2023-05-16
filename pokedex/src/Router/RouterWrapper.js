@@ -108,7 +108,7 @@ const RouterWrapper = () => {
               searchedValue={searchedValue}
               setSearchedValue={setSearchedValue}
               status={status}
-              pokemonQueriesProp={pokemonQueries}
+              pokemonQueries={pokemonQueries}
             />
           ),
         },

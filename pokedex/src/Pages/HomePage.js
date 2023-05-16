@@ -1,6 +1,11 @@
 import React from "react";
 
-import { MyPagination, PokemonCard, PokemonCardContainer, Searcher } from "./components";
+import {
+  MyPagination,
+  PokemonCard,
+  PokemonCardContainer,
+  Searcher,
+} from "./components";
 
 const HomePage = ({
   page,
@@ -8,19 +13,25 @@ const HomePage = ({
   searchedValue,
   setSearchedValue,
   status,
-  pokemonQueriesProp,
+  pokemonQueries,
 }) => {
   return (
     <>
       {status === "success" && (
         <>
-          <Searcher handleSearcherChange={(e) => setSearchedValue(e.target.value)} />
+          <Searcher
+            handleSearcherChange={(e) => setSearchedValue(e.target.value)}
+          />
           <PokemonCardContainer>
-            {pokemonQueriesProp?.length !== 0 ? (
-              pokemonQueriesProp?.map(
+            {pokemonQueries?.length !== 0 ? (
+              pokemonQueries?.map(
                 ({ data, status }) =>
                   status === "success" && (
-                    <PokemonCard key={data?.data?.id} id={data?.data?.id} value={data} />
+                    <PokemonCard
+                      key={data?.data?.id}
+                      id={data?.data?.id}
+                      value={data}
+                    />
                   )
               )
             ) : (
