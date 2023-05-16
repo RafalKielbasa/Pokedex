@@ -8,7 +8,7 @@ const NavBarRow = styled.div`
   font-size: 24px;
 `;
 const NavigationBar = () => {
-  const { loggedIn, setLoggedIn } = useContext(GlobalContext);
+  const { loggedIn, setLoggedIn, setUser } = useContext(GlobalContext);
   return (
     <NavBarRow>
       <Link to="favourites"> Ulubione</Link>
@@ -18,7 +18,14 @@ const NavigationBar = () => {
       {loggedIn && <Link to="edit"> Edytowanie</Link>}
       {loggedIn && (
         <Link to="/">
-          <button onClick={() => setLoggedIn(false)}>Wyloguj</button>
+          <button
+            onClick={() => {
+              setLoggedIn(false);
+              setUser(null);
+            }}
+          >
+            Wyloguj
+          </button>
         </Link>
       )}
     </NavBarRow>

@@ -8,7 +8,7 @@ import { enqueueSnackbar } from "notistack";
 import GlobalContext from "src/context/GlobalContext";
 const LogInPage = () => {
   const navigate = useNavigate();
-  const { setLoggedIn } = useContext(GlobalContext);
+  const { setLoggedIn, setUser } = useContext(GlobalContext);
   const { data: users } = useQuery({
     queryKey: ["users"],
     queryFn: () => fetchUsers(),
@@ -24,13 +24,14 @@ const LogInPage = () => {
         userName: Yup.string().required("Required"),
         password: Yup.string().required("Required"),
       })}
-      onSubmit={({ userName, password }, { setSubmitting }) => {
+      onSubmit={(values, { setSubmitting }) => {
         if (
-          userName === users[0]?.userName &&
-          password === users[0]?.password
+          values?.userName === users[0]?.userName &&
+          values?.password === users[0]?.password
         ) {
           setSubmitting(false);
           setLoggedIn(true);
+          setUser(values);
           enqueueSnackbar("Zostałeś zalogowany", {
             variant: "success",
           });
