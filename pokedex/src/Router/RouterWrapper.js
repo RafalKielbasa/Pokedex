@@ -20,6 +20,7 @@ import {
 } from "src/api";
 import GlobalContext from "src/context/GlobalContext";
 const RouterWrapper = () => {
+  const { loggedIn } = useContext(GlobalContext);
   const localList = localStorage.getItem("favoriteList");
   const dataList = JSON.parse(localList);
   const queryClient = useQueryClient();
@@ -35,7 +36,7 @@ const RouterWrapper = () => {
     favoriteList &&
       localStorage.setItem("favoriteList", JSON.stringify(favoriteList));
   }, [favoriteList]);
-  const { loggedIn } = useContext(GlobalContext);
+
   const { data: edited } = useQuery({
     queryKey: ["editedPokemons"],
     queryFn: () => fetchEdited(),
@@ -137,7 +138,7 @@ const RouterWrapper = () => {
         },
         {
           path: "edit",
-          element: <EditPage />,
+          element: <EditPage pokemonQueries={pokemonQueries} />,
         },
         {
           path: "*",

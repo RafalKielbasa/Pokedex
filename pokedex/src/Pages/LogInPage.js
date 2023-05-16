@@ -28,7 +28,6 @@ const LogInPage = () => {
         const filteredUsers = users?.filter(
           ({ userName }) => userName === values?.userName
         );
-        console.log({ filteredUsers });
         if (values?.password === filteredUsers[0]?.password) {
           setSubmitting(false);
           setLoggedIn(true);

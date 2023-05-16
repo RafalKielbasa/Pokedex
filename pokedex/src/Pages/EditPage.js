@@ -1,6 +1,8 @@
 import React from "react";
 
-const EditPage = () => {
+const EditPage = (pokemonQueries) => {
+  // const inititialData = pokemonQueries?.map((value) => value?.data);
+  console.log(pokemonQueries);
   return <div>EditPage</div>;
 };
 
