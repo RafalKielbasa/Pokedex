@@ -15,7 +15,7 @@ const StyledBox = styled.div`
   align-items: center;
 `;
 
-export default function Home() {
+const Home = () => {
   const [url, setUrl] = useState(
     `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=15`
   );
@@ -50,7 +50,6 @@ export default function Home() {
       .get(`http://localhost:3001/newPokemon/`)
       .then((response) => {
         setNewPokemon(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         setError(error);
@@ -84,9 +83,7 @@ export default function Home() {
         }}
       >
         {pokedex?.map((item) => {
-          return (
-            <Card key={item.name} url={item.url} gate={false} newCard={false} />
-          );
+          return <Card key={item.name} url={item.url} gate={false} />;
         })}
       </Box>
       <h3>Added Pokemons:</h3>
@@ -100,14 +97,7 @@ export default function Home() {
         }}
       >
         {newPokemon?.map((element) => {
-          return (
-            <Card
-              key={element.name}
-              url={`https://pokeapi.co/api/v2/pokemon/${element.id}`}
-              gate={false}
-              newCard={true}
-            />
-          );
+          return <Card key={element.name} pokemon={element} gate={false} />;
         })}
       </Box>
 
@@ -119,4 +109,6 @@ export default function Home() {
       />
     </StyledBox>
   );
-}
+};
+
+export default Home;

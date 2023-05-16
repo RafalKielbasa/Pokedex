@@ -4,22 +4,25 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import PokemonDetailsBox from "./PokemonDetailsBox";
 
 const StyledBox = styled.div`
   width: 300px;
   height: 400px;
   margin: 2rem;
 
+  padding: 20px;
+
   cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  transition: 800ms all;
   &:hover {
     background-color: blue;
     opacity: 0.9;
-    transform: scale(1.01);
+    transform: scale(1.1);
   }
 `;
 
@@ -27,7 +30,6 @@ const StyledImgBox = styled.div`
   width: 100%;
   height: 200px;
   display: flex;
-
   justify-content: center;
   align-items: center;
 `;
@@ -45,59 +47,41 @@ const StyledTitle = styled.span`
   font-size: 30px;
 `;
 
-const StyledDetailsBox = styled.div`
-  margin: 0px;
-  padding: 0px;
-
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-`;
-
-const StyledDetail = styled.div`
-  margin: 0;
-  padding: 0;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const StyledMiniTitle = styled.span`
-  font-size: 12px;
-  font-family: cursive;
-  font-weight: lighter;
-`;
-
-const StyledBigTitle = styled.span`
-  font-size: 16px;
-  font-family: "Courier New", Courier, monospace;
-  font-weight: bold;
-`;
-
-function Card({ url, closebutton, removeFighter, gate, newCard }) {
+const Card = ({ url, closebutton, removeFighter, gate, pokemon }) => {
   const [pokemonData, setPokemonData] = useState(null);
   const navigate = useNavigate();
   const theme = useTheme();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get(url);
-      setPokemonData(response.data);
-      newCard === true ? fetchAddedPokemon(response) : fetchNewData(response);
-    };
+    if (!pokemon) {
+      const fetchData = async () => {
+        const response = await axios.get(url);
 
-    fetchData();
+        const objPokemon = {
+          sprite: response.data.sprites.other.dream_world.front_default,
+          ability: response.data.abilities?.[0]?.ability?.name,
+          name: response.data.name,
+          weight: response.data.weight,
+          height: response.data.height,
+          id: response.data.id,
+          base_experience: response.data.base_experience,
+        };
+
+        setPokemonData(objPokemon);
+        fetchNewData(response);
+      };
+
+      fetchData();
+    } else {
+      setPokemonData(pokemon);
+    }
   }, [url]);
 
-  const fetchNewData = async (oldData) => {
-    await axios
-      .get(`http://localhost:3001/pokemon`)
+  const fetchNewData = (oldData) => {
+    axios
+      .get(`http://localhost:3001/editedPokemon`)
       .then((response) => {
         const obj = response.data.find((item) => item.id === oldData.data.id);
-        console.log("obj", obj);
         if (obj !== undefined) {
           const updatedPokemonData = {
             ...oldData.data,
@@ -105,29 +89,8 @@ function Card({ url, closebutton, removeFighter, gate, newCard }) {
             weight: obj.weight,
             height: obj.height,
             base_experience: obj.base_experience,
-            ability: obj?.abilities?.[0]?.ability?.name,
-          };
-          setPokemonData(updatedPokemonData);
-        } else {
-          return;
-        }
-      })
-      .catch((error) => {});
-  };
-
-  const fetchAddedPokemon = async (oldData) => {
-    await axios
-      .get(`http://localhost:3001/newPokemon`)
-      .then((response) => {
-        const obj = response.data.find((item) => item.id === oldData.data.id);
-
-        if (obj !== undefined) {
-          const updatedPokemonData = {
-            ...oldData.data,
-            name: obj.name,
-            weight: obj.weight,
-            height: obj.height,
-            base_experience: obj.base_experience,
+            ability: obj?.ability,
+            sprite: obj?.sprite,
           };
           setPokemonData(updatedPokemonData);
         } else {
@@ -138,10 +101,9 @@ function Card({ url, closebutton, removeFighter, gate, newCard }) {
   };
 
   const handleClick = () => {
-    if (!pokemonData) return;
     const path = gate
       ? `/EditForm/${pokemonData?.id}`
-      : `/Details/${pokemonData?.id}`;
+      : `/Details/${pokemonData?.id || pokemon.id}`;
     navigate(path, { state: { pokemonData } });
   };
 
@@ -150,41 +112,23 @@ function Card({ url, closebutton, removeFighter, gate, newCard }) {
       onClick={closebutton ? null : handleClick}
       style={{ backgroundColor: theme.palette.background.default }}
     >
-      {closebutton === true ? (
+      {closebutton ? (
         <CloseIcon
           style={{ color: "white", position: "relative", left: "-135" }}
           onClick={removeFighter}
         />
       ) : null}
       <StyledImgBox>
-        <Image src={pokemonData?.sprites.other.dream_world.front_default} />
+        <Image src={pokemonData?.sprite} />
       </StyledImgBox>
+
       <StyledTitleBox>
         <StyledTitle className="title">{pokemonData?.name}</StyledTitle>
       </StyledTitleBox>
 
-      <StyledDetailsBox>
-        <StyledDetail>
-          <StyledMiniTitle>{pokemonData?.weight}</StyledMiniTitle>
-          <StyledBigTitle>weight</StyledBigTitle>
-        </StyledDetail>
-        <StyledDetail>
-          <StyledMiniTitle>
-            {pokemonData?.abilities?.[0]?.ability?.name}
-          </StyledMiniTitle>
-          <StyledBigTitle>abilitie</StyledBigTitle>
-        </StyledDetail>
-        <StyledDetail>
-          <StyledMiniTitle>{pokemonData?.height}</StyledMiniTitle>
-          <StyledBigTitle>height</StyledBigTitle>
-        </StyledDetail>
-        <StyledDetail>
-          <StyledMiniTitle>{pokemonData?.base_experience}</StyledMiniTitle>
-          <StyledBigTitle>base experience</StyledBigTitle>
-        </StyledDetail>
-      </StyledDetailsBox>
+      <PokemonDetailsBox pokemonData={pokemonData} />
     </StyledBox>
   );
-}
+};
 
 export default Card;

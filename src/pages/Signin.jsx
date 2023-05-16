@@ -39,7 +39,7 @@ const userSchema = Yup.object().shape({
   password: Yup.string().required("Hasło jest wymagane."),
 });
 
-export default function Signin({ setUserData }) {
+const Signin = ({ setUserData }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userInfo, setUserInfo] = useState([]);
   const [test, setTest] = useState([]);
@@ -169,4 +169,6 @@ export default function Signin({ setUserData }) {
       </Box>
     </Box>
   );
-}
+};
+
+export default Signin;

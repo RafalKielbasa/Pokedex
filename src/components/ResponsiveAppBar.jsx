@@ -1,11 +1,9 @@
-import * as React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useTheme } from "@mui/material";
 import { useContext, useState } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import { useTheme } from "@mui/material";
+import { AppBar, Box } from "@mui/material";
 import { useSnackbar } from "notistack";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
+import { Link, useNavigate } from "react-router-dom";
+
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -20,12 +18,19 @@ import styled from "styled-components";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 
+import { ThemeContext } from "../context/ThemeContext";
+
 const StyledTitle = styled.span`
   font-size: 30px;
 `;
-const pages = ["Favorites", "Arena", "SignIn", "Register"];
+const pages = [
+  { text: "Favorites", path: "favorites", isUser: true },
+  { text: "Arena", path: "arena", isUser: true },
+  { text: "Sign In", path: "sign-in", isUser: false },
+  { text: "Register", path: "register", isUser: false },
+];
 
-function ResponsiveAppBar() {
+const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const { enqueueSnackbar } = useSnackbar();
@@ -33,6 +38,8 @@ function ResponsiveAppBar() {
 
   const theme = useTheme();
   const colorMode = useContext(ThemeContext);
+
+  const userDataFromLocalStorage = localStorage.getItem("userData");
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -64,6 +71,10 @@ function ResponsiveAppBar() {
     localStorage.removeItem("userData");
     handleCloseUserMenu();
   };
+
+  const visibleAppBarPages = pages.filter((page) =>
+    userDataFromLocalStorage ? page.isUser : page
+  );
 
   return (
     <AppBar
@@ -139,22 +150,21 @@ function ResponsiveAppBar() {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                {pages.map((page) => (
+                {visibleAppBarPages.map(({ text, path }) => (
                   <MenuItem
-                    key={page}
+                    key={text}
                     onClick={handleCloseNavMenu}
                     style={{
                       backgroundColor: theme.palette.background.default,
                     }}
                   >
-                    <Link to={`/${page}`}>
-                      <h2>{page}</h2>
+                    <Link to={`/${path}`}>
+                      <h2>{text}</h2>
                     </Link>
                   </MenuItem>
                 ))}
               </Menu>
             </Box>
-
             <Typography
               variant="h4"
               noWrap
@@ -174,19 +184,18 @@ function ResponsiveAppBar() {
                 },
               }}
             >
-              {pages.map((page) => (
+              {visibleAppBarPages.map(({ path, text }) => (
                 <Button
-                  key={page}
+                  key={text}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "secondary", display: "block" }}
                 >
-                  <Link to={`/${page}`}>
-                    <h2>{page}</h2>
+                  <Link to={`/${path}`}>
+                    <h2>{text}</h2>
                   </Link>
                 </Button>
               ))}
             </Box>
-
             <Box
               sx={{
                 position: "absolute",
@@ -245,5 +254,5 @@ function ResponsiveAppBar() {
       </Container>
     </AppBar>
   );
-}
+};
 export default ResponsiveAppBar;

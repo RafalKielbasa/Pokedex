@@ -143,7 +143,7 @@ const SaveButton = styled.button`
   font-size: 20px;
 `;
 
-export default function EditForm() {
+const EditForm = () => {
   const location = useLocation();
   const pokemonData = location.state?.pokemonData;
   const { enqueueSnackbar } = useSnackbar();
@@ -154,7 +154,7 @@ export default function EditForm() {
   const initialValues = {
     pokemonName: pokemonData?.name || "",
     weight: pokemonData?.weight || "",
-    ability: pokemonData?.abilities?.[0]?.ability?.name || "",
+    ability: pokemonData?.ability || "",
     height: pokemonData?.height || "",
     baseExperience: pokemonData?.base_experience || "",
   };
@@ -167,9 +167,9 @@ export default function EditForm() {
   const editPokemon = () => {
     handleClick("Edited old Card", "success");
     axios
-      .post(`http://localhost:3001/pokemon/`, {
+      .post(`http://localhost:3001/editedPokemon/`, {
         id: pokemonData?.id,
-        sprite: pokemonData?.sprites.other.dream_world.front_default,
+        sprite: pokemonData?.sprite,
         name: newValues.pokemonName,
         weight: newValues.weight,
         ability: newValues.ability,
@@ -177,11 +177,10 @@ export default function EditForm() {
         base_experience: newValues.baseExperience,
       })
       .catch((error) => {
-        console.log(error.response.status);
         if (error.response.status === 500) {
-          axios.put(`http://localhost:3001/pokemon/${pokemonData?.id}`, {
+          axios.put(`http://localhost:3001/editedPokemon/${pokemonData?.id}`, {
             id: pokemonData?.id,
-            sprite: pokemonData?.sprites.other.dream_world.front_default,
+            sprite: pokemonData?.sprite,
             name: newValues.pokemonName,
             weight: newValues.weight,
             ability: newValues.ability,
@@ -193,12 +192,11 @@ export default function EditForm() {
   };
 
   const addNewPokemon = () => {
-    console.log("nooooowe", newValues);
     handleClick("added new Card", "success");
     axios
       .post(`http://localhost:3001/newPokemon/`, {
         id: pokemonData?.id,
-        sprite: pokemonData?.sprites.other.dream_world.front_default,
+        sprite: pokemonData?.sprite,
         name: newValues.pokemonName,
         weight: newValues.weight,
         ability: newValues.ability,
@@ -227,9 +225,7 @@ export default function EditForm() {
               style={{ backgroundColor: theme.palette.background.default }}
             >
               <ImageContainer>
-                <Image
-                  src={pokemonData?.sprites.other.dream_world.front_default}
-                />
+                <Image src={pokemonData?.sprite} />
               </ImageContainer>
               <ContentContainer>
                 <InfoBox>
@@ -279,4 +275,6 @@ export default function EditForm() {
       </SaveButton>
     </Container>
   );
-}
+};
+
+export default EditForm;

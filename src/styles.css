@@ -8,7 +8,6 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: "MyFont", sans-serif;
   text-decoration: none;
   font-weight: bold;
 }
@@ -17,6 +16,7 @@ span,
 p,
 a {
   color: white;
+  font-family: "MyFont", sans-serif;
 }
 
 h1 {

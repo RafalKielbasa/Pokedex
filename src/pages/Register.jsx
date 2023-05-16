@@ -22,7 +22,7 @@ const userSchema = Yup.object().shape({
     .required("Potwierdź hasło."),
 });
 
-export default function Register() {
+const Register = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const theme = useTheme();
@@ -151,4 +151,6 @@ export default function Register() {
       </Box>
     </Box>
   );
-}
+};
+
+export default Register;

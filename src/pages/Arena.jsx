@@ -52,7 +52,7 @@ const HomeButton = styled.button`
   visibility: ${({ winner }) => (winner !== null ? "visible" : "hidden")};
 `;
 
-export default function Arena({ battle, setBattle }) {
+const Arena = ({ battle, setBattle }) => {
   const [winner, setWinner] = useState(null);
   const [listener, setListener] = useState(true);
 
@@ -65,24 +65,18 @@ export default function Arena({ battle, setBattle }) {
   }, [listener]);
 
   const fight = () => {
-    console.log(battle);
-    if (
-      battle.length > 1 &&
-      battle[0].base_experience * battle[0].height >
-        battle[1].base_experience * battle[1].height
-    ) {
+    const playerOneForce = battle[0].base_experience * battle[0].height;
+    const playerTwoForce = battle[1].base_experience * battle[1].height;
+
+    if (battle.length > 1 && playerOneForce > playerTwoForce) {
       setWinner(battle[0].name);
-      axios.put(`http://localhost:3001/pokemon/${battle[0].id}`, {
+      axios.put(`http://localhost:3001/editedPokemon/${battle[0].id}`, {
         ...battle[0],
         base_experience: battle[0].base_experience + 10,
       });
-    } else if (
-      battle.length > 1 &&
-      battle[0].base_experience * battle[0].height <
-        battle[1].base_experience * battle[1].height
-    ) {
+    } else if (battle.length > 1 && playerOneForce < playerTwoForce) {
       setWinner(battle[1].name);
-      axios.put(`http://localhost:3001/pokemon/${battle[1].id}`, {
+      axios.put(`http://localhost:3001/editedPokemon/${battle[1].id}`, {
         ...battle[1],
         base_experience: battle[1].base_experience + 10,
       });
@@ -115,8 +109,8 @@ export default function Arena({ battle, setBattle }) {
         >
           {battle[0]?.id !== undefined ? (
             <Card
-              url={`https://pokeapi.co/api/v2/pokemon/${battle[0].id}/`}
-              key={battle[0]}
+              pokemon={battle[0]}
+              key={battle[0].name}
               closebutton={true}
               removeFighter={() => removeFighter(battle[0].id)}
             />
@@ -133,8 +127,8 @@ export default function Arena({ battle, setBattle }) {
         >
           {battle[1]?.id !== undefined ? (
             <Card
-              url={`https://pokeapi.co/api/v2/pokemon/${battle[1].id}/`}
-              key={battle[1]}
+              pokemon={battle[1]}
+              key={battle[1].name}
               closebutton={true}
               removeFighter={() => removeFighter(battle[1].id)}
             />
@@ -153,4 +147,6 @@ export default function Arena({ battle, setBattle }) {
       </Link>
     </Container>
   );
-}
+};
+
+export default Arena;

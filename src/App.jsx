@@ -13,6 +13,8 @@ import Favorites from "./pages/Favorites";
 import EditForm from "./pages/EditForm";
 import Details from "./pages/Details";
 
+import ContextProvider from "./context/Context";
+
 function App() {
   const [favorites, setFavorites] = useState([]);
   const [battle, setBattle] = useState([]);
@@ -24,58 +26,60 @@ function App() {
       <ThemeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <SnackbarProvider>
-            <ResponsiveAppBar />
-            <div className="container" id={theme}>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route
-                  path="/Arena"
-                  element={<Arena battle={battle} setBattle={setBattle} />}
-                />
-                <Route
-                  path="/Signin"
-                  element={<Signin setUserData={setUserData} />}
-                />
-                <Route path="/Register" element={<Register />} />
-                <Route
-                  path="/Favorites"
-                  element={
-                    <Favorites
-                      setFavorites={setFavorites}
-                      favorites={favorites}
-                    />
-                  }
-                />
+            <ContextProvider>
+              <ResponsiveAppBar />
+              <div className="container" id={theme}>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route
+                    path="/arena"
+                    element={<Arena battle={battle} setBattle={setBattle} />}
+                  />
+                  <Route
+                    path="/sign-in"
+                    element={<Signin setUserData={setUserData} />}
+                  />
+                  <Route path="/register" element={<Register />} />
+                  <Route
+                    path="/favorites"
+                    element={
+                      <Favorites
+                        setFavorites={setFavorites}
+                        favorites={favorites}
+                      />
+                    }
+                  />
 
-                <Route
-                  path="/Details/:id/"
-                  element={
-                    <Details
-                      setFavorites={setFavorites}
-                      favorites={favorites}
-                      battle={battle}
-                      setBattle={setBattle}
-                    />
-                  }
-                />
+                  <Route
+                    path="/Details/:id/"
+                    element={
+                      <Details
+                        setFavorites={setFavorites}
+                        favorites={favorites}
+                        battle={battle}
+                        setBattle={setBattle}
+                      />
+                    }
+                  />
 
-                {userData ? (
-                  <Route path="/EditList" element={<EditList />} />
-                ) : null}
+                  {userData ? (
+                    <Route path="/EditList" element={<EditList />} />
+                  ) : null}
 
-                <Route
-                  path="/EditForm/:id/"
-                  element={
-                    <EditForm
-                      setFavorites={setFavorites}
-                      favorites={favorites}
-                      battle={battle}
-                      setBattle={setBattle}
-                    />
-                  }
-                />
-              </Routes>
-            </div>
+                  <Route
+                    path="/EditForm/:id/"
+                    element={
+                      <EditForm
+                        setFavorites={setFavorites}
+                        favorites={favorites}
+                        battle={battle}
+                        setBattle={setBattle}
+                      />
+                    }
+                  />
+                </Routes>
+              </div>
+            </ContextProvider>
           </SnackbarProvider>
         </ThemeProvider>
       </ThemeContext.Provider>

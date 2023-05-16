@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useTheme } from "@mui/material";
 import { useSnackbar } from "notistack";
 import axios from "axios";
@@ -8,6 +8,7 @@ import Tooltip from "@mui/material/Tooltip";
 import styled from "styled-components";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
+import PokemonDetailsBox from "../components/PokemonDetailsBox";
 
 const Container = styled.div`
   display: flex;
@@ -151,12 +152,7 @@ const BackButton = styled(Link)`
   margin: 1rem auto;
 `;
 
-export default function Details({
-  favorites,
-  setFavorites,
-  battle,
-  setBattle,
-}) {
+const Details = ({ favorites, setFavorites, battle, setBattle }) => {
   const location = useLocation();
   const pokemonData = location.state?.pokemonData;
   const [isToggled, setIsToggled] = useState(false);
@@ -192,58 +188,54 @@ export default function Details({
   };
 
   const handleHeartClick = () => {
-    if (isToggled === false && favorites.includes(pokemonData.name) === false) {
+    if (!isToggled && !favorites.includes(pokemonData.name)) {
       axios.post("http://localhost:3001/favorites", {
-        id: pokemonData.id,
-        sprite: pokemonData.sprites.other.dream_world.front_default,
-        name: pokemonData.name,
-        weight: pokemonData.weight,
-        ability: pokemonData.abilities[0].ability.name,
-        height: pokemonData.height,
-        base_experience: pokemonData.base_experience,
+        id: pokemonData?.id,
+        sprite: pokemonData?.sprite,
+        name: pokemonData?.name,
+        weight: pokemonData?.weight,
+        ability: pokemonData?.ability,
+        height: pokemonData?.height,
+        base_experience: pokemonData?.base_experience,
       });
-      setIsToggled(!isToggled);
+      setIsToggled((prev) => !prev);
       handleClick("Added to favorites", "success");
     } else {
       axios.delete(`http://localhost:3001/favorites/${pokemonData.id}`);
-      setIsToggled(!isToggled);
+      setIsToggled((prev) => !prev);
       handleClick("Deleted from favorites", "error");
     }
   };
 
   const handleBattleClick = () => {
-    if (battle.length === 2 && battle.includes(pokemonData.id) === false) {
+    if (battle.length === 2 && !battle.includes(pokemonData.id)) {
       handleClick("Too much players", "error");
-    } else if (
-      isToggledBattle === false &&
-      battle.includes(pokemonData.name) === false
-    ) {
+    } else if (!isToggledBattle && !battle.includes(pokemonData.name)) {
       axios.post("http://localhost:3001/battle", {
         id: pokemonData?.id,
-        sprite: pokemonData?.sprites.other.dream_world.front_default,
+        sprite: pokemonData?.sprite,
         name: pokemonData?.name,
         weight: pokemonData?.weight,
-        ability: pokemonData?.abilities[0].ability.name,
+        ability: pokemonData?.ability,
         height: pokemonData?.height,
         base_experience: pokemonData?.base_experience,
-        url: pokemonData?.url,
       });
 
-      axios.post(`http://localhost:3001/pokemon`, {
+      axios.post(`http://localhost:3001/editedPokemon`, {
         id: pokemonData?.id,
-        sprite: pokemonData?.sprites.other.dream_world.front_default,
+        sprite: pokemonData?.sprite,
         name: pokemonData?.name,
         weight: pokemonData?.weight,
-        ability: pokemonData?.abilities[0].ability.name,
+        ability: pokemonData?.ability,
         height: pokemonData?.height,
         base_experience: pokemonData?.base_experience,
       });
 
-      setIsToggledBattle(!isToggledBattle);
+      setIsToggledBattle((prev) => !prev);
       handleClick("Added to battle", "success");
     } else {
       axios.delete(`http://localhost:3001/battle/${pokemonData.id}`);
-      setIsToggledBattle(!isToggledBattle);
+      setIsToggledBattle((prev) => !prev);
       handleClick("Removed from battle", "error");
     }
   };
@@ -252,8 +244,9 @@ export default function Details({
     <Container theme={theme}>
       <PokemonCard theme={theme}>
         <ImageContainer>
-          <Image src={pokemonData?.sprites.other.dream_world.front_default} />
+          <Image src={pokemonData?.sprite} />
         </ImageContainer>
+
         <ContentContainer>
           <TitleContainer>
             <Title>{pokemonData?.name}</Title>
@@ -278,9 +271,7 @@ export default function Details({
               <BigTitle>weight</BigTitle>
             </InfoBox>
             <InfoBox>
-              <MiniTitle>
-                {pokemonData?.abilities?.[0]?.ability?.name}
-              </MiniTitle>
+              <MiniTitle>{pokemonData?.ability}</MiniTitle>
               <BigTitle>abilitie</BigTitle>
             </InfoBox>
             <InfoBox>
@@ -292,9 +283,11 @@ export default function Details({
               <BigTitle>base experience</BigTitle>
             </InfoBox>
           </InfoContainer>
+          {/* <PokemonDetailsBox pokemonData={pokemonData} flag={true} /> */}
         </ContentContainer>
       </PokemonCard>
       <BackButton to={"/"}>do strony glownej</BackButton>
     </Container>
   );
-}
+};
+export default Details;
