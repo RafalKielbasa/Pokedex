@@ -25,10 +25,11 @@ const LogInPage = () => {
         password: Yup.string().required("Required"),
       })}
       onSubmit={(values, { setSubmitting }) => {
-        if (
-          values?.userName === users[0]?.userName &&
-          values?.password === users[0]?.password
-        ) {
+        const filteredUsers = users?.filter(
+          ({ userName }) => userName === values?.userName
+        );
+        console.log({ filteredUsers });
+        if (values?.password === filteredUsers[0]?.password) {
           setSubmitting(false);
           setLoggedIn(true);
           setUser(values);
