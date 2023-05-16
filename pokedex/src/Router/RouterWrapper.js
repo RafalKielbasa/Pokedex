@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import MainPage from "src/MainPage";
+import MainPage from "src/Pages/MainPage";
 import {
   HomePage,
   ArenaPage,
@@ -9,7 +9,7 @@ import {
   EditPage,
   DetailedPage,
   FavoritesPage,
-} from "src/Pages";
+} from "src/Pages/ContentPages";
 import { filterFnc } from "src/helpers";
 import { useQuery, useQueries, useQueryClient } from "@tanstack/react-query";
 import { fetchData, fetchPokemonData, fetchDataToFilter, fetchEdited } from "src/api";

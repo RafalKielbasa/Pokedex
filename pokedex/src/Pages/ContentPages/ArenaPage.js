@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BlankCard, PokemonCard } from "./components";
+import { BlankCard, PokemonCard } from "../components";
 import styled from "styled-components";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { Stadium, VS, Winner } from "src/img";

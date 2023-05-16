@@ -1,37 +1,19 @@
 import React from "react";
 
-import {
-  MyPagination,
-  PokemonCard,
-  PokemonCardContainer,
-  Searcher,
-} from "./components";
+import { MyPagination, PokemonCard, PokemonCardContainer, Searcher } from "../components";
 
-const HomePage = ({
-  page,
-  setPage,
-  searchedValue,
-  setSearchedValue,
-  status,
-  pokemonQueries,
-}) => {
+const HomePage = ({ page, setPage, searchedValue, setSearchedValue, status, pokemonQueries }) => {
   return (
     <>
       {status === "success" && (
         <>
-          <Searcher
-            handleSearcherChange={(e) => setSearchedValue(e.target.value)}
-          />
+          <Searcher handleSearcherChange={(e) => setSearchedValue(e.target.value)} />
           <PokemonCardContainer>
             {pokemonQueries?.length !== 0 ? (
               pokemonQueries?.map(
                 ({ data, status }) =>
                   status === "success" && (
-                    <PokemonCard
-                      key={data?.data?.id}
-                      id={data?.data?.id}
-                      value={data}
-                    />
+                    <PokemonCard key={data?.data?.id} id={data?.data?.id} value={data} />
                   )
               )
             ) : (

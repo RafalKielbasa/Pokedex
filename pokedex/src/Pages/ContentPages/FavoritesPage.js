@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchFavorite } from "src/api";
-import { FavoriteCard, PokemonCardContainer } from "./components";
+import { FavoriteCard, PokemonCardContainer } from "../components";
 const FavoritesPage = () => {
   const { data: favorite } = useQuery({
     queryKey: ["favorite"],
