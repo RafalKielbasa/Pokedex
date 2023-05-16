@@ -6,7 +6,7 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 const NavButton = styled.button`
    {
     padding: 25px 30px;
-    background-color: #e6e6fa;
+    background-color: #9cc1e1;
     color: #050801;
     font-weight: bold;
     border: none;
@@ -17,17 +17,15 @@ const NavButton = styled.button`
     font-size: 24px;
   }
   :hover {
-    background: #7851a9;
+    background: #3d85c6;
     color: white;
-    box-shadow: 0 0 5px #7851a9, 0 0 25px #7851a9, 0 0 50px #7851a9,
-      0 0 200px #7851a9;
+    box-shadow: 0 0 5px #3d85c6 0 0 25px #3d85c6, 0 0 50px #3d85c6, 0 0 200px #3d85c6;
     -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
   }
   :focus {
-    background: #7851a9;
+    background: #3d85c6;
     color: white;
-    box-shadow: 0 0 5px #7851a9, 0 0 25px #7851a9, 0 0 50px #7851a9,
-      0 0 200px #7851a9;
+    box-shadow: 0 0 5px #3d85c6, 0 0 25px #3d85c6, 0 0 50px #3d85c6, 0 0 200px #3d85c6;
     -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
   }
 `;
@@ -41,12 +39,16 @@ const NavigationBar = () => {
       <Link to="arena">
         <NavButton>Arena</NavButton>
       </Link>
-      <Link to="logIn">
-        <NavButton>Logowanie</NavButton>
-      </Link>
-      <Link to="register">
-        <NavButton>Rejestracja</NavButton>
-      </Link>
+      {!loggedIn && (
+        <Link Link to="logIn">
+          <NavButton>Logowanie</NavButton>
+        </Link>
+      )}
+      {!loggedIn && (
+        <Link to="register">
+          <NavButton>Rejestracja</NavButton>
+        </Link>
+      )}
       {loggedIn && (
         <Link to="edit">
           <NavButton>Edytowanie</NavButton>{" "}

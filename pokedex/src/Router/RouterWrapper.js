@@ -12,12 +12,7 @@ import {
 } from "src/Pages";
 import { filterFnc } from "src/helpers";
 import { useQuery, useQueries, useQueryClient } from "@tanstack/react-query";
-import {
-  fetchData,
-  fetchPokemonData,
-  fetchDataToFilter,
-  fetchEdited,
-} from "src/api";
+import { fetchData, fetchPokemonData, fetchDataToFilter, fetchEdited } from "src/api";
 import GlobalContext from "src/context/GlobalContext";
 const RouterWrapper = () => {
   const { loggedIn } = useContext(GlobalContext);
@@ -26,15 +21,12 @@ const RouterWrapper = () => {
   const queryClient = useQueryClient();
   const [arenaFirstFighter, setArenaFirstFighter] = useState(null);
   const [arenaSecondFighter, setArenaSecondFighter] = useState(null);
-  const [favoriteList, setFavoriteList] = useState(
-    dataList?.length > 0 ? dataList : []
-  );
+  const [favoriteList, setFavoriteList] = useState(dataList?.length > 0 ? dataList : []);
   const [page, setPage] = useState(1);
   const [searchedValue, setSearchedValue] = useState("");
   const [createComponentData, setCreateComponentData] = useState(null);
   useEffect(() => {
-    favoriteList &&
-      localStorage.setItem("favoriteList", JSON.stringify(favoriteList));
+    favoriteList && localStorage.setItem("favoriteList", JSON.stringify(favoriteList));
   }, [favoriteList]);
 
   const { data: edited } = useQuery({
@@ -62,14 +54,10 @@ const RouterWrapper = () => {
     staleTime: 10 * (60 * 1000),
   });
   useEffect(() => {
-    pokemons &&
-      searchedValue === "" &&
-      setCreateComponentData(pokemons?.data?.results);
+    pokemons && searchedValue === "" && setCreateComponentData(pokemons?.data?.results);
     pokemonsToFilter &&
       searchedValue !== "" &&
-      setCreateComponentData(
-        filterFnc(pokemonsToFilter?.data?.results, searchedValue)
-      );
+      setCreateComponentData(filterFnc(pokemonsToFilter?.data?.results, searchedValue));
   }, [pokemons, pokemonsToFilter, searchedValue]);
 
   const resultList = createComponentData ? createComponentData : [];
@@ -127,14 +115,6 @@ const RouterWrapper = () => {
               secondPokemonId={arenaSecondFighter}
             />
           ),
-        },
-        {
-          path: "logIn",
-          element: <LogInPage />,
-        },
-        {
-          path: "register",
-          element: <RegisterPage />,
         },
         {
           path: "edit",

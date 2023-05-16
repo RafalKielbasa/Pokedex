@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Pokedex } from "../img";
 import { Link } from "react-router-dom";
 import Switch from "@mui/material/Switch";
+import GlobalContext from "src/context/GlobalContext";
 const NavWrapper = styled.div`
-  background: #e6e6fa;
+  background: #d7e5f3;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -18,6 +19,7 @@ const NavButtonWrapper = styled.div`
   align-items: center;
 `;
 const NavigationContainer = ({ children }) => {
+  const { toggleDarkMode } = useContext(GlobalContext);
   return (
     <NavWrapper>
       <Link to="/">
@@ -26,7 +28,7 @@ const NavigationContainer = ({ children }) => {
       <NavButtonWrapper>{children}</NavButtonWrapper>
       <span>
         <span>Dark Theme</span>
-        <Switch>ZMIANA THEME</Switch>
+        <Switch onClick={() => toggleDarkMode()}>ZMIANA THEME</Switch>
       </span>
     </NavWrapper>
   );

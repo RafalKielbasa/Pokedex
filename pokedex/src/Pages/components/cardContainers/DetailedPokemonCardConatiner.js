@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
+import GlobalContext from "src/context/GlobalContext";
 import styled from "styled-components";
+
 const MyDetailedCardContaner = styled.div`
-  display: flex;
-  height: 450px;
-  justify-content: center;
-  align-items: center;
-  margin-bottom 30px;
-`;
+background:${(prop) => prop.theme.bgColor};
+display: flex;
+height: 450px;
+justify-content: center;
+align-items: center;
+margin-bottom 30px;`;
 
 const DetailedPokemonCardConatiner = ({ children }) => {
-  return <MyDetailedCardContaner>{children}</MyDetailedCardContaner>;
+  const { theme } = useContext(GlobalContext);
+  return <MyDetailedCardContaner theme={theme}>{children}</MyDetailedCardContaner>;
 };
 
 export default DetailedPokemonCardConatiner;
