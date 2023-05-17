@@ -5,6 +5,30 @@ import { Box, Button, TextField } from "@mui/material";
 import { useTheme } from "@mui/material";
 import axios from "axios";
 import * as Yup from "yup";
+import styled, { css } from "styled-components";
+
+const Container = styled("div")(
+  ({ theme }) =>
+    css`
+      display: flex;
+      justify-content: center;
+      background-color: ${theme.palette.background.contrast};
+      height: 100vh;
+    `
+);
+const StyledRegisterBox = styled("div")(
+  ({ theme }) =>
+    css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid black;
+      margin-top: 30px;
+      background-color: ${theme.palette.background.login};
+      width: 300px;
+      max-height: 550px;
+    `
+);
 
 const userSchema = Yup.object().shape({
   name: Yup.string().required("Imię jest wymagane."),
@@ -44,31 +68,8 @@ const Register = () => {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "felx-start",
-        justifyContent: "center",
-      }}
-      style={{
-        backgroundColor: theme.palette.background.contrast,
-        height: "100vh",
-      }}
-    >
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          border: "3px solid black",
-          marginTop: "30px",
-        }}
-        style={{
-          backgroundColor: theme.palette.background.login,
-          width: "300px",
-          maxHeight: "550px",
-        }}
-      >
+    <Container theme={theme}>
+      <StyledRegisterBox theme={theme}>
         <Formik
           initialValues={{
             name: "",
@@ -148,8 +149,8 @@ const Register = () => {
             </Form>
           )}
         </Formik>
-      </Box>
-    </Box>
+      </StyledRegisterBox>
+    </Container>
   );
 };
 

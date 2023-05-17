@@ -1,50 +1,68 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import PokemonCardInfo from "./PokemonCardInfo";
 
-const StyledBox = styled.div`
-  width: 300px;
-  height: 400px;
-  margin: 2rem;
-  padding: 20px;
+const StyledBox = styled("div")(
+  ({ theme }) =>
+    css`
+      width: 300px;
+      height: 400px;
+      margin: 2rem;
+      padding: 20px;
+      background-color: ${theme.palette.background.default};
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: 500ms all;
+      &:hover {
+        opacity: 0.7;
+        transform: scale(1.1);
+      }
+    `
+);
 
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: 800ms all;
-  &:hover {
-    background-color: blue;
-    opacity: 0.9;
-    transform: scale(1.1);
-  }
-`;
+const StyledImgBox = styled("div")(
+  css`
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `
+);
 
-const StyledImgBox = styled.div`
-  width: 100%;
-  height: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+const Image = styled("img")(
+  css`
+    width: 200px;
+    height: 200px;
+  `
+);
 
-const Image = styled.img`
-  width: 200px;
-  height: 200px;
-`;
+const StyledTitleBox = styled("div")(
+  css`
+    margin-bottom: 1rem;
+  `
+);
 
-const StyledTitleBox = styled.div`
-  margin-bottom: 1rem;
-`;
+const StyledTitle = styled("span")(
+  css`
+    font-size: 30px;
+  `
+);
 
-const StyledTitle = styled.span`
-  font-size: 30px;
-`;
+const StyledCloseIcon = styled(CloseIcon)(
+  css`
+    color: white;
+    position: relative;
+    left: -150px;
+  `
+);
 
 const PokemonCard = ({ url, closebutton, removeFighter, gate, pokemon }) => {
   const [pokemonData, setPokemonData] = useState(null);
@@ -109,20 +127,15 @@ const PokemonCard = ({ url, closebutton, removeFighter, gate, pokemon }) => {
   return (
     <StyledBox
       onClick={closebutton ? null : handlePokemonCardClick}
-      style={{ backgroundColor: theme.palette.background.default }}
+      theme={theme}
     >
-      {closebutton ? (
-        <CloseIcon
-          style={{ color: "white", position: "relative", left: "-135" }}
-          onClick={removeFighter}
-        />
-      ) : null}
+      {closebutton ? <StyledCloseIcon onClick={removeFighter} /> : null}
       <StyledImgBox>
         <Image src={pokemonData?.sprite} />
       </StyledImgBox>
 
       <StyledTitleBox>
-        <StyledTitle className="title">{pokemonData?.name}</StyledTitle>
+        <StyledTitle>{pokemonData?.name}</StyledTitle>
       </StyledTitleBox>
 
       <PokemonCardInfo pokemonData={pokemonData} />

@@ -28,7 +28,7 @@ function App() {
           <SnackbarProvider>
             <ContextProvider>
               <ResponsiveAppBar />
-              <div className="container" id={theme}>
+              <div className="container">
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route

@@ -1,29 +1,36 @@
 import { useTheme, Box, Pagination } from "@mui/material";
 import { React, useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import axios from "axios";
 import PokemonCard from "../components/PokemonCard";
 import Textfield from "../components/Textfield";
 
-const StyledContainer = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: ${(props) => props.theme.palette.background.contrast};
-  padding-bottom: 30px;
-`;
+const StyledContainer = styled("div")(
+  ({ theme }) =>
+    css`
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: ${theme.palette.background.contrast};
+      padding-bottom: 30px;
+    `
+);
 
-const StyledContent = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-`;
+const StyledContent = styled("div")(
+  css`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  `
+);
 
-const Heading = styled.h3`
-  color: black;
-`;
+const Heading = styled("h3")(
+  css`
+    color: black;
+  `
+);
 
 const Home = () => {
   const [url, setUrl] = useState(
@@ -33,7 +40,6 @@ const Home = () => {
   const [search, setSearch] = useState();
   const [error, setError] = useState(null);
   const [newPokemon, setNewPokemon] = useState(null);
-
   const theme = useTheme();
 
   useEffect(() => {
@@ -93,7 +99,7 @@ const Home = () => {
       <StyledContent theme={theme}>
         {newPokemon?.map((element) => {
           return (
-            <PokemonCard key={element.name} pokemon={element} gate={false} />
+            <PokemonCard key={element.id} pokemon={element} gate={false} />
           );
         })}
       </StyledContent>

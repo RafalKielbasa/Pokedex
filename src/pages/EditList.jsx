@@ -5,20 +5,40 @@ import React from "react";
 import axios from "axios";
 import PokemonCard from "../components/PokemonCard";
 
-import { styled, css, Box, useTheme } from "@mui/material";
+import { styled, css, Box } from "@mui/material";
 
-const StyledBox = styled(Box)(css`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`);
+const StyledBox = styled(Box)(
+  ({ theme }) =>
+    css`
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: ${theme.palette.background.contrast};
+    `
+);
+
+const StyledContent = styled(Box)(
+  css`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  `
+);
+
+const Heading = styled("h1")(
+  css`
+    color: black;
+  `
+);
 
 const EditList = () => {
   const [url, setUrl] = useState(
     `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=15`
   );
-  const theme = useTheme();
+
   const [pokedex, setPokedex] = useState([]);
   const [error, setError] = useState(null);
 
@@ -42,20 +62,12 @@ const EditList = () => {
   };
   return (
     <StyledBox>
-      <h1 style={{ color: "black" }}>EDIT PAGE</h1>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <Heading>EDIT PAGE</Heading>
+      <StyledContent>
         {pokedex?.map((item) => {
           return <PokemonCard key={item.name} url={item.url} gate={true} />;
         })}
-      </Box>
+      </StyledContent>
       <Pagination
         count={10}
         color="primary"

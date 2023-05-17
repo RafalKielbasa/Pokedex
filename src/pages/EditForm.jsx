@@ -2,146 +2,151 @@ import { Formik, Form, Field } from "formik";
 import { useLocation } from "react-router-dom";
 import { useTheme } from "@mui/material";
 import { useSnackbar } from "notistack";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useState } from "react";
 import { JsonEditPokemon } from "../api/JsonEditPokemon";
 import { JsonAddPokemon } from "../api/JsonAddPokemon";
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+const Container = styled("div")(
+  ({ theme }) =>
+    css`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: ${theme.palette.background.contrast};
+      transition: 500ms all;
+      padding: 20px;
+    `
+);
 
-const PokemonCard = styled.div`
-  max-width: 80vw;
-  min-height: 50vh;
-  margin: 2rem;
+const PokemonCard = styled("div")(
+  ({ theme }) =>
+    css`
+      max-width: 50vw;
+      min-height: 50vh;
+      margin: 2rem;
+      background-color: ${theme.palette.background.default};
+      padding: 10px;
+      &:hover {
+        transform: scale(1.01);
+      }
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      @media screen and (max-width: 600px) {
+        flex-direction: column;
+      }
+    `
+);
 
-  &:hover {
-    transform: scale(1.01);
-  }
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  @media screen and (max-width: 600px) {
+const ImageContainer = styled("div")(
+  css`
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    @media screen and (max-width: 600px) {
+      width: 100px;
+      height: 100px;
+    }
+  `
+);
+
+const Image = styled("img")(
+  css`
+    width: 200px;
+    height: 200px;
+    @media screen and (max-width: 600px) {
+      width: 100px;
+      height: 100px;
+    }
+  `
+);
+
+const ContentContainer = styled("div")(
+  css`
+    display: flex;
     flex-direction: column;
-  }
-`;
+    align-items: center;
+    justify-content: space-between;
+  `
+);
 
-const ImageContainer = styled.div`
-  width: 100%;
-  height: 200px;
-  display: flex;
-  justify-content: center;
-  @media screen and (max-width: 600px) {
-    width: 100px;
-    height: 100px;
-  }
-`;
-
-const Image = styled.img`
-  width: 200px;
-  height: 200px;
-  @media screen and (max-width: 600px) {
-    width: 100px;
-    height: 100px;
-  }
-`;
-
-const ContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const TitleContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const Title = styled.span`
-  font-size: 3rem;
-  font-weight: bold;
-
-  margin: 0 auto;
-`;
-
-const InfoContainer = styled.div`
-  width: 100%;
-  height: 35%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  @media screen and (max-width: 600px) {
-    margin: 0px;
-    padding: 0px;
-
+const InfoContainer = styled("div")(
+  css`
+    width: 100%;
+    height: 35%;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-`;
+    @media screen and (max-width: 600px) {
+      margin: 0px;
+      padding: 0px;
 
-const InfoBox = styled.div`
-  margin: 0;
-  padding: 0.5rem;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  @media screen and (max-width: 600px) {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+  `
+);
+
+const InfoBox = styled("div")(
+  css`
     margin: 0;
-    padding: 0;
-    width: 50%;
+    padding: 0.5rem;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
-`;
+    @media screen and (max-width: 600px) {
+      margin: 0;
+      padding: 0;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  `
+);
 
-const MiniTitle = styled.span`
-  font-size: 15px;
-  font-family: cursive;
-  font-weight: lighter;
-  @media screen and (max-width: 600px) {
-    font-size: 12px;
-  }
-`;
-const HomeButton = styled.button`
-  border: 1px solid red;
-  margin-left: 40px;
-  width: 30vw;
-  color: red;
+const MiniTitle = styled("span")(
+  css`
+    font-size: 15px;
+    font-family: cursive;
+    font-weight: lighter;
+    @media screen and (max-width: 600px) {
+      font-size: 12px;
+    }
+  `
+);
 
-  cursor: pointer;
-  font-size: 30px;
-`;
+const SubmitButton = styled("button")(
+  css`
+    border: 1px solid red;
+    width: 20vw;
 
-const SubmitButton = styled.button`
-  border: 1px solid red;
-  width: 40vw;
-  margin-right: 5px;
-  color: red;
-  cursor: pointer;
-  font-size: 20px;
-`;
+    color: red;
+    cursor: pointer;
+    font-size: 20px;
+  `
+);
 
-const SaveButton = styled.button`
-  border: 1px solid red;
-  width: 25vw;
-  margin-top: 5px;
-  color: red;
-  cursor: pointer;
-  font-size: 20px;
-`;
+const SaveButton = styled("button")(
+  css`
+    border: 1px solid red;
+    width: 25vw;
+    margin-top: 5px;
+    color: red;
+    cursor: pointer;
+    font-size: 20px;
+  `
+);
 
 const EditForm = () => {
   const location = useLocation();
@@ -178,18 +183,11 @@ const EditForm = () => {
     enqueueSnackbar(text, { variant: type });
   };
   return (
-    <Container
-      style={{
-        backgroundColor: theme.palette.background.contrast,
-        height: "100vh",
-      }}
-    >
+    <Container theme={theme}>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {() => (
           <Form>
-            <PokemonCard
-              style={{ backgroundColor: theme.palette.background.default }}
-            >
+            <PokemonCard theme={theme}>
               <ImageContainer>
                 <Image src={pokemonData?.sprite} />
               </ImageContainer>

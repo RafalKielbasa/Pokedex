@@ -2,59 +2,73 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material";
 import axios from "axios";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import PokemonCard from "../components/PokemonCard";
 
-const Container = styled.div`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: ${({ theme }) => theme.palette.background.contrast};
-`;
+const Container = styled("div")(
+  ({ theme }) =>
+    css`
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: ${theme.palette.background.contrast};
+    `
+);
 
-const CardsContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-`;
+const CardsContainer = styled("div")(
+  css`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  `
+);
 
-const StyledBox = styled.div`
-  width: 300px;
-  height: 400px;
-  margin: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
+const StyledBox = styled("div")(
+  ({ theme }) =>
+    css`
+      width: 300px;
+      height: 400px;
+      margin: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: ${theme.palette.background.default};
+    `
+);
 
-const FightButton = styled.button`
-  border: 1px solid red;
-  width: 40vw;
-  color: red;
-  margin: 1rem auto;
-  cursor: pointer;
-  font-size: 30px;
+const FightButton = styled("button")(
+  ({ theme }) =>
+    css`
+      border: 1px solid red;
+      width: 40vw;
+      color: red;
+      margin: 1rem auto;
+      cursor: pointer;
+      font-size: 30px;
+      background-color: ${theme.palette.background.contrast};
+    `
+);
 
-  background-color: ${({ theme }) => theme.palette.background.contrast};
-`;
-
-const HomeButton = styled.button`
-  border: 1px solid red;
-  width: 40vw;
-  color: red;
-  margin: 1rem auto;
-  cursor: pointer;
-  font-size: 30px;
-  background-color: ${({ theme }) => theme.palette.background.contrast};
-  visibility: ${({ winner }) => (winner !== null ? "visible" : "hidden")};
-`;
+const HomeButton = styled("button")(
+  ({ theme, winner }) =>
+    css`
+      border: 1px solid red;
+      width: 40vw;
+      color: red;
+      margin: 1rem auto;
+      cursor: pointer;
+      font-size: 30px;
+      background-color: ${theme.palette.background.contrast};
+      visibility: ${winner !== undefined ? "visible" : "hidden"};
+    `
+);
 
 const Arena = ({ battle, setBattle }) => {
-  const [winner, setWinner] = useState(null);
+  const [winner, setWinner] = useState(undefined);
   const [listener, setListener] = useState(true);
   const theme = useTheme();
 
@@ -116,8 +130,8 @@ const Arena = ({ battle, setBattle }) => {
       <CardsContainer>
         <StyledBox
           theme={theme}
+          winner={winner}
           style={{
-            backgroundColor: theme.palette.background.default,
             opacity: winner
               ? winner.name === playerOne.name
                 ? "1"
@@ -133,13 +147,13 @@ const Arena = ({ battle, setBattle }) => {
               removeFighter={() => removeFighter(playerOne.id)}
             />
           ) : (
-            <StyledBox></StyledBox>
+            <StyledBox theme={theme}></StyledBox>
           )}
         </StyledBox>
 
         <StyledBox
+          theme={theme}
           style={{
-            backgroundColor: theme.palette.background.default,
             opacity: winner
               ? winner.name === playerTwo.name
                 ? "1"
@@ -155,7 +169,7 @@ const Arena = ({ battle, setBattle }) => {
               removeFighter={() => removeFighter(playerTwo.id)}
             />
           ) : (
-            <StyledBox></StyledBox>
+            <StyledBox theme={theme}></StyledBox>
           )}
         </StyledBox>
       </CardsContainer>

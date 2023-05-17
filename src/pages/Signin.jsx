@@ -7,30 +7,31 @@ import { useTheme } from "@mui/material";
 import axios from "axios";
 import * as Yup from "yup";
 
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-const StyledBox = styled(Box)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid black;
-  margin-top: 30px;
-  background-color: ${({ theme }) => theme.palette.background.default};
-  width: 300px;
-  height: 350px;
+const Container = styled("div")(
+  ({ theme }) =>
+    css`
+      display: flex;
+      justify-content: center;
+      background-color: ${theme.palette.background.contrast};
+      height: 100vh;
+    `
+);
 
-  & h1 {
-    margin-bottom: 16px;
-  }
-`;
-
-const StyledTextField = styled(TextField)`
-  background-color: ${({ theme }) => theme.palette.background.contrast};
-`;
-
-const StyledButton = styled(Button)`
-  margin-top: 8px;
-`;
+const StyledLoginBox = styled("div")(
+  ({ theme }) =>
+    css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid black;
+      margin-top: 30px;
+      background-color: ${theme.palette.background.default};
+      width: 300px;
+      height: 350px;
+    `
+);
 
 const userSchema = Yup.object().shape({
   email: Yup.string()
@@ -85,31 +86,8 @@ const Signin = ({ setUserData }) => {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "felx-start",
-        justifyContent: "center",
-      }}
-      style={{
-        backgroundColor: theme.palette.background.contrast,
-        height: "100vh",
-      }}
-    >
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          border: "3px solid black",
-          marginTop: "30px",
-        }}
-        style={{
-          backgroundColor: theme.palette.background.default,
-          width: "300px",
-          height: "350px",
-        }}
-      >
+    <Container theme={theme}>
+      <StyledLoginBox theme={theme}>
         <Formik
           initialValues={{
             email: "",
@@ -161,8 +139,8 @@ const Signin = ({ setUserData }) => {
             </Form>
           )}
         </Formik>
-      </Box>
-    </Box>
+      </StyledLoginBox>
+    </Container>
   );
 };
 

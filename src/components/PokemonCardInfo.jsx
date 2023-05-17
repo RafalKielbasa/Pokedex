@@ -1,33 +1,41 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-const StyledDetailsBox = styled.div`
-  margin: 0px;
-  padding: 0px;
-  display: flex;
-  flex-wrap: wrap;
-`;
+const StyledDetailsBox = styled("div")(
+  css`
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    flex-wrap: wrap;
+  `
+);
 
-const StyledDetail = styled.div`
-  margin: 0;
-  padding: 0;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
+const StyledDetail = styled("div")(
+  css`
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  `
+);
 
-const StyledMiniTitle = styled.span`
-  font-size: 12px;
-  font-family: cursive;
-  font-weight: lighter;
-`;
+const StyledMiniTitle = styled("span")(
+  css`
+    font-size: 12px;
+    font-family: cursive;
+    font-weight: lighter;
+  `
+);
 
-const StyledBigTitle = styled.span`
-  font-size: 16px;
-  font-family: "Courier New", Courier, monospace;
-  font-weight: bold;
-`;
+const StyledBigTitle = styled("span")(
+  css`
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+  `
+);
 
 const PokemonCardInfo = ({ pokemonData, flag }) => {
   return (

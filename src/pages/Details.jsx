@@ -5,97 +5,120 @@ import { useState, useEffect, useContext } from "react";
 import { useTheme, Tooltip } from "@mui/material";
 import { useSnackbar } from "notistack";
 
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
 import PokemonDetailsInfo from "../components/PokemonDetailsInfo";
 import { JsonPost } from "../api/JsonPost";
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: ${({ theme }) => theme.palette.background.contrast};
-  height: 100vh;
-`;
+const Container = styled("div")(
+  ({ theme }) =>
+    css`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: ${theme.palette.background.contrast};
+      height: 100vh;
+      transition: 500ms all;
+    `
+);
 
-const Card = styled.div`
-  max-width: 80vw;
-  min-height: 50vh;
-  margin: 2rem;
-  background-color: ${({ theme }) => theme.palette.background.default};
+const Card = styled("div")(
+  ({ theme }) =>
+    css`
+      max-width: 80vw;
+      min-height: 50vh;
+      margin: 2rem;
+      background-color: ${theme.palette.background.default};
 
-  &:hover {
-    transform: scale(1.01);
-  }
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  @media screen and (max-width: 600px) {
+      &:hover {
+        transform: scale(1.01);
+      }
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      @media screen and (max-width: 600px) {
+        flex-direction: column;
+      }
+    `
+);
+
+const ImageContainer = styled("div")(
+  css`
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    @media screen and (max-width: 600px) {
+      width: 100px;
+      height: 100px;
+    }
+  `
+);
+
+const Image = styled("img")(
+  css`
+    width: 250px;
+    height: 250px;
+    @media screen and (max-width: 600px) {
+      width: 100px;
+      height: 100px;
+    }
+  `
+);
+
+const ContentContainer = styled("div")(
+  css`
+    display: flex;
     flex-direction: column;
-  }
-`;
+    align-items: center;
+    justify-content: space-between;
+  `
+);
 
-const ImageContainer = styled.div`
-  width: 100%;
-  height: 200px;
-  display: flex;
-  justify-content: center;
-  @media screen and (max-width: 600px) {
-    width: 100px;
-    height: 100px;
-  }
-`;
+const TitleContainer = styled("div")(
+  css`
+    display: flex;
+    align-items: center;
+  `
+);
 
-const Image = styled.img`
-  width: 250px;
-  height: 250px;
-  @media screen and (max-width: 600px) {
-    width: 100px;
-    height: 100px;
-  }
-`;
+const Title = styled("span")(
+  css`
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 0 auto;
+  `
+);
 
-const ContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-`;
+const HeartIcon = styled(FavoriteRoundedIcon)(
+  ({ isToggled }) =>
+    css`
+      margin-left: 5px;
+      cursor: pointer;
+      color: ${isToggled ? "red" : "white"};
+    `
+);
 
-const TitleContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
+const SportsIcon = styled(SportsMmaRoundedIcon)(
+  ({ isToggledBattle }) =>
+    css`
+      margin-left: 5px;
+      cursor: pointer;
+      color: ${isToggledBattle ? "red" : "white"};
+    `
+);
 
-const Title = styled.span`
-  font-size: 3rem;
-  font-weight: bold;
-
-  margin: 0 auto;
-`;
-
-const HeartIcon = styled(FavoriteRoundedIcon)`
-  margin-left: 5px;
-  cursor: pointer;
-  color: ${({ isToggled }) => (isToggled ? "red" : "white")};
-`;
-
-const SportsIcon = styled(SportsMmaRoundedIcon)`
-  color: white;
-  margin-left: 5px;
-  cursor: pointer;
-  color: ${({ isToggledBattle }) => (isToggledBattle ? "red" : "white")};
-`;
-
-const BackButton = styled(Link)`
-  border: 1px solid red;
-  width: 40vw;
-  text-align: center;
-  color: red;
-  margin: 1rem auto;
-`;
+const BackButton = styled(Link)(
+  css`
+    border: 1px solid red;
+    width: 40vw;
+    text-align: center;
+    color: red;
+    margin: 1rem auto;
+  `
+);
 
 const Details = ({ favorites, setFavorites, battle, setBattle }) => {
   const location = useLocation();
