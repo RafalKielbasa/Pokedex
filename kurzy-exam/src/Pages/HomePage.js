@@ -40,6 +40,7 @@ const HomePage = () => {
   const [inputText, setInputText] = useState();
   // const [partialPokemonData, setPartialPokemonData] = useState([]);
   const [fullPokemonData, setFullPokemonData] = useState([]);
+  const [newFullPokemonData, setNewFullPokemonData] = useState([]);
   const [fullPokemonDataFiltered, setFullPokemonDataFiltered] = useState([]);
 
   // const queryPartialData = useQuery([`/`, offset], () =>
@@ -71,15 +72,27 @@ const HomePage = () => {
   fullPokemonData.length > 150 ? window.location.reload() : {};
 
   const pageCount = fullPokemonData.length / 15;
-  const partialPokemonData = fullPokemonData
+  const partialPokemonData = newFullPokemonData
     .slice(offset, offset + 15)
     .sort((a, b) => (a.id > b.id ? 1 : -1));
-  console.log(`partialPokemonData`, partialPokemonData);
 
   const inputHandler = (event) => {
     const textFieldText = event.target.value.toLowerCase();
     setInputText(textFieldText);
   };
+
+  useEffect(() => {
+    const newFullData = fullPokemonData.map((item) => ({
+      ...item,
+      marked: false,
+    }));
+    setNewFullPokemonData(newFullData);
+  }, [fullPokemonData]);
+
+  // console.log(`newFullPokemonData`, newFullPokemonData);
+  // { isMarked: false }
+  // console.log(`fullPokemonData`, fullPokemonData);
+  // console.log(`newFullData`, newFullData);
 
   useEffect(
     () =>
@@ -169,6 +182,7 @@ const HomePage = () => {
                   weight={item.weight}
                   abilitie={item.abilities[0].ability.name}
                   fullPokemonData={fullPokemonData}
+                  newFullPokemonData={newFullPokemonData}
                   // onClick={() => saveToLocalStorage()}
                 />
               ))}
@@ -231,6 +245,7 @@ const HomePage = () => {
                 weight={item.weight}
                 abilitie={item.abilities[0].ability.name}
                 fullPokemonData={fullPokemonData}
+                newFullPokemonData={newFullPokemonData}
                 // onClick={() => saveToLocalStorage()}
               />
             ))}

@@ -1,19 +1,14 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import styled from "styled-components";
-import Checkbox from "@mui/material/Checkbox";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import Favorite from "@mui/icons-material/Favorite";
 import { useNavigate } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { CardActionArea } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import { createPortal } from "react-dom";
 
 const CardsWrapper = styled.div`
   margin: 20px;
@@ -22,8 +17,6 @@ const FavIcon = styled(FavoriteIcon)`
   cursor: pointer;
   color: ${({ isMarked }) => (isMarked ? "red" : "grey")};
 `;
-
-const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 export default function PokemonCard({
   id,
@@ -34,9 +27,12 @@ export default function PokemonCard({
   weight,
   abilitie,
   fullPokemonData,
+  newFullPokemonData,
 }) {
-  const [isMarked, setIsMarked] = useState(false);
+  const { marked } = newFullPokemonData;
+  const [isMarked, setIsMarked] = useState(marked);
   const [favoriteId, setFavoriteId] = useState([]);
+  // const [newFullPokemonData, setNewFullPokemonData] = useState([]);
 
   const navigate = useNavigate();
   const handleClick = () => {
@@ -44,15 +40,20 @@ export default function PokemonCard({
     navigate(path, { state: { id, fullPokemonData } });
   };
 
-  const handleFavorite = (e) => {
+  const handleFavorite = () => {
     setIsMarked((isMarked) => !isMarked);
-    setFavoriteId((resultUrl) => {
-      resultUrl = [...resultUrl, Number(id)];
-      return resultUrl;
-    });
+    // setFavoriteId((resultUrl) => {
+    //   resultUrl = [...resultUrl, Number(id)];
+    //   return resultUrl;
+    // });
   };
 
-  console.log(`favoriteId`, favoriteId);
+  const favoriteData = newFullPokemonData.filter((item) => item.marked);
+  console.log(`favoriteData`, favoriteData);
+
+  console.log(`newFullPokemonData`, newFullPokemonData);
+
+  // console.log(`id`, id);
   // console.log(`isMarked`, isMarked);
   return (
     <CardsWrapper>
@@ -153,10 +154,7 @@ export default function PokemonCard({
             justifyContent: "center",
           }}
         >
-          <FavIcon
-            onClick={(e) => handleFavorite(e.target.id)}
-            isMarked={isMarked}
-          />
+          <FavIcon onClick={handleFavorite} isMarked={isMarked} />
         </CardActions>
       </Card>
     </CardsWrapper>
