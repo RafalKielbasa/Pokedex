@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { DetailedPokemonCard, DetailedPokemonCardConatiner } from "../components";
+import {
+  DetailedPokemonCard,
+  DetailedPokemonCardConatiner,
+} from "../components";
 import { useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteData, postData } from "src/api";
@@ -12,10 +15,15 @@ const DetailedPage = ({
   setFavoriteProp,
   pokemonQueries,
 }) => {
+  console.log(typeof pokemonQueries);
   const { id } = useParams();
   const queryClient = useQueryClient();
-  const [isFavorite, setIsFavorite] = useState(favoriteProp?.includes(id) ? true : false);
-  const detailPokemon = pokemonQueries?.filter(({ data }) => Number(data?.data?.id) === Number(id));
+  const [isFavorite, setIsFavorite] = useState(
+    favoriteProp?.includes(id) ? true : false
+  );
+  const detailPokemon = pokemonQueries?.filter(
+    ({ data }) => Number(data?.data?.id) === Number(id)
+  );
   const createPostMutation = useMutation({
     mutationFn: () => postData("favorite", detailPokemon[0]?.data?.data),
     onSuccess: () => {
@@ -41,7 +49,9 @@ const DetailedPage = ({
   const arenaFightersHandle = () => {
     !firstFighterProp
       ? setFirstFighterProp(id)
-      : !secondFighterProp && firstFighterProp !== id && setSecondFighterProp(id);
+      : !secondFighterProp &&
+        firstFighterProp !== id &&
+        setSecondFighterProp(id);
   };
   return (
     <DetailedPokemonCardConatiner>
