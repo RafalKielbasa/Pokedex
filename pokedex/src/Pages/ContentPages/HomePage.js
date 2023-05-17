@@ -20,7 +20,7 @@ const HomePage = () => {
   });
   const { data: pokemons } = useQuery({
     queryKey: ["pokemons", page],
-    queryFn: () => fetchData((page - 1) * 15),
+    queryFn: () => fetchData((page - 1) * 15, searchedValue),
     enabled: searchedValue === "",
     staleTime: 10 * (60 * 1000),
   });
@@ -44,6 +44,7 @@ const HomePage = () => {
         queryKey: ["pokemon", name],
         queryFn: () => fetchPokemonData(url),
         enabled: !editedList?.includes(name),
+        cacheTime: 0,
         staleTime: 10 * (60 * 1000),
       };
     }),
@@ -51,13 +52,12 @@ const HomePage = () => {
   const allPokemonQueriesStatus =
     pokemonQueries.length > 0 && pokemonQueries?.every((value) => value?.status === "success");
 
-  if (!allPokemonQueriesStatus) return <div> ...LOADIMG</div>;
-
   return (
     <div>
+      <Searcher handleSearcherChange={(e) => setSearchedValue(e.target.value)} />
+
       {editedStatus === "success" && allPokemonQueriesStatus && (
         <>
-          <Searcher handleSearcherChange={(e) => setSearchedValue(e.target.value)} />
           <PokemonCardContainer>
             {pokemonQueries?.length !== 0 ? (
               pokemonQueries?.map(({ data }) => (

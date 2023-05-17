@@ -12,7 +12,6 @@ const MainPage = () => {
   useEffect(() => {
     favoriteList && localStorage.setItem("favoriteList", JSON.stringify(favoriteList));
   }, [favoriteList]);
-  console.log({ favoriteList });
   return (
     <>
       <Navigation />

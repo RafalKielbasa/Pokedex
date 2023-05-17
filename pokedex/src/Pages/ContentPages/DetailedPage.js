@@ -14,16 +14,24 @@ const DetailedPage = () => {
     favoriteList,
     setFavoriteList,
   ] = useOutletContext();
+  const isEdited = true;
   const { name } = useParams();
   const queryClient = useQueryClient();
   const { data: detailPokemon } = useQuery({
     queryKey: ["pokemon", name],
     queryFn: () => fetchPokemonData(`https://pokeapi.co/api/v2/pokemon/${name}`),
+    enabled: !isEdited,
+    staleTime: 10 * (60 * 1000),
+  });
+  const { data: detailPokemonEdited } = useQuery({
+    queryKey: ["pokemon", name],
+    queryFn: () => fetchPokemonData(`http://localhost:3000/edited/${name}`),
+    enabled: isEdited,
     staleTime: 10 * (60 * 1000),
   });
   const [isFavorite, setIsFavorite] = useState(favoriteList?.includes(name) ? true : false);
   const createPostMutation = useMutation({
-    mutationFn: () => postData("favorite", detailPokemon),
+    mutationFn: () => postData("favorite", !isEdited ? detailPokemon : detailPokemonEdited),
     onSuccess: () => {
       queryClient.invalidateQueries(["favorite"]);
     },
