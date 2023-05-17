@@ -11,8 +11,28 @@ export const fetchDataToFilter = async () => {
   return response;
 };
 export const fetchPokemonData = async (url) => {
+  const filteredQueriesKeys = [
+    "abilities",
+    "base_experience",
+    "height",
+    "id",
+    "name",
+    "sprites",
+    "weight",
+  ];
   const response = await axios.get(url);
-  return response;
+  const filteredData = Object.fromEntries(
+    Object.entries(response?.data).filter(([key]) =>
+      filteredQueriesKeys.includes(key)
+    )
+  );
+  const updatedData = {
+    ...filteredData,
+    winCount: 0,
+    lossCount: 0,
+    tieCount: 0,
+  };
+  return updatedData;
 };
 export const fetchFavorite = async () => {
   const response = await axios.get(`http://localhost:3000/favorite/`);
