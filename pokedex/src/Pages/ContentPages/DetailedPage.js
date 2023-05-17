@@ -44,7 +44,7 @@ const DetailedPage = () => {
   });
   const addFavorite = () => {
     setIsFavorite((prev) => !prev);
-    setFavoriteList((prev) => prev.push(name));
+    setFavoriteList((prev) => prev?.push(name));
     createPostMutation.mutate();
   };
   const deleteFavorite = () => {

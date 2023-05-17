@@ -51,7 +51,6 @@ const HomePage = () => {
   });
   const allPokemonQueriesStatus =
     pokemonQueries.length > 0 && pokemonQueries?.every((value) => value?.status === "success");
-
   return (
     <div>
       <Searcher handleSearcherChange={(e) => setSearchedValue(e.target.value)} />
