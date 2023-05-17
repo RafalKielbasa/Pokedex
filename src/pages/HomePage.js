@@ -1,10 +1,9 @@
-import { useGetAllPokemonQuery } from "../hooks/useGetAllPokemon";
 import { DefaultLayout } from "../components/layouts/Default/DefaultLayout";
 import { HomePageWrapper } from "../components/wrappers/HomePageWrapper/HomePageWrapper";
+import { getAllPokemon } from "../services/api";
 
 export const HomePage = () => {
-  useGetAllPokemonQuery();
-
+  getAllPokemon();
   return (
     <DefaultLayout>
       <HomePageWrapper />

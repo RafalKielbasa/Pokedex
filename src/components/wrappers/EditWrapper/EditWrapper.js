@@ -10,7 +10,7 @@ import {
   PropsDiv,
 } from "../PokemonDetailsWrapper/PokemonDetailsWrapper.style";
 import { useFormik } from "formik";
-import { Input, Label } from "./EditWrapper.style";
+import { ButtonWrapper, Input, Label } from "./EditWrapper.style";
 import { Button } from "@mui/material";
 
 const editSchema = Yup.object().shape({
@@ -94,12 +94,26 @@ export const EditWrapper = (props) => {
                 onBlur={formik.handleBlur}
               />
             </PropsDiv>
+
+            <Button
+              variant="contained"
+              type="submit"
+              fullWidth
+              sx={{ marginTop: 12 }}
+            >
+              Save as new!
+            </Button>
+            <Button
+              variant="contained"
+              type="submit"
+              fullWidth
+              sx={{ marginTop: 12 }}
+            >
+              Edit
+            </Button>
           </Container>
         </PokemonInfo>
       </PokemonDetailsWrap>
-      <Button variant="contained" type="submit">
-        Save!
-      </Button>
     </PageWrapper>
   );
 };

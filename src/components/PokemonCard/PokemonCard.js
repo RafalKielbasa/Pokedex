@@ -12,9 +12,7 @@ import { ProjectUrl } from "../../const/ProjectUrl";
 
 export const PokemonCard = (props) => {
   const { name, height, base_experience, weight, ability, img } = props;
-
   const location = useLocation();
-  console.log(location.pathname);
 
   return (
     <WrapperDiv>

@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 const ApiUrl = process.env.REACT_APP_API_URL;
 
-export const instance = axios.create({
+export const fetcher = axios.create({
   baseURL: ApiUrl,
 });
