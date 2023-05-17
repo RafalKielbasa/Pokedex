@@ -6,16 +6,13 @@ const MainPage = () => {
   const dataList = JSON.parse(localList);
   const [arenaFirstFighter, setArenaFirstFighter] = useState(null);
   const [arenaSecondFighter, setArenaSecondFighter] = useState(null);
-  const [favoriteList, setFavoriteList] = useState(
-    dataList?.length > 0 ? dataList : []
-  );
+  const [favoriteList, setFavoriteList] = useState(dataList?.length > 0 ? dataList : []);
   const [page, setPage] = useState(1);
   const [searchedValue, setSearchedValue] = useState("");
   useEffect(() => {
-    favoriteList &&
-      localStorage.setItem("favoriteList", JSON.stringify(favoriteList));
+    favoriteList && localStorage.setItem("favoriteList", JSON.stringify(favoriteList));
   }, [favoriteList]);
-
+  console.log({ favoriteList });
   return (
     <>
       <Navigation />

@@ -21,7 +21,6 @@ const DetailedPage = () => {
     queryFn: () => fetchPokemonData(`https://pokeapi.co/api/v2/pokemon/${name}`),
     staleTime: 10 * (60 * 1000),
   });
-  console.log({ detailPokemon });
   const [isFavorite, setIsFavorite] = useState(favoriteList?.includes(name) ? true : false);
   const createPostMutation = useMutation({
     mutationFn: () => postData("favorite", detailPokemon),
@@ -37,7 +36,7 @@ const DetailedPage = () => {
   });
   const addFavorite = () => {
     setIsFavorite((prev) => !prev);
-    setFavoriteList((prev) => [...prev, name]);
+    setFavoriteList((prev) => prev.push(name));
     createPostMutation.mutate();
   };
   const deleteFavorite = () => {
