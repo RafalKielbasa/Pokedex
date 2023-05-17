@@ -1,69 +1,66 @@
 import React, { useState } from "react";
-import {
-  DetailedPokemonCard,
-  DetailedPokemonCardConatiner,
-} from "../components";
+import { DetailedPokemonCard, DetailedPokemonCardConatiner } from "../components";
 import { useParams } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { deleteData, postData } from "src/api";
-const DetailedPage = ({
-  firstFighterProp,
-  secondFighterProp,
-  setFirstFighterProp,
-  setSecondFighterProp,
-  favoriteProp,
-  setFavoriteProp,
-  pokemonQueries,
-}) => {
-  console.log(typeof pokemonQueries);
-  const { id } = useParams();
+import { useOutletContext } from "react-router-dom";
+import { fetchPokemonData } from "src/api";
+const DetailedPage = () => {
+  const [
+    arenaFirstFighter,
+    setArenaFirstFighter,
+    arenaSecondFighter,
+    setArenaSecondFighter,
+    favoriteList,
+    setFavoriteList,
+  ] = useOutletContext();
+  const { name } = useParams();
   const queryClient = useQueryClient();
-  const [isFavorite, setIsFavorite] = useState(
-    favoriteProp?.includes(id) ? true : false
-  );
-  const detailPokemon = pokemonQueries?.filter(
-    ({ data }) => Number(data?.data?.id) === Number(id)
-  );
+  const { data: detailPokemon } = useQuery({
+    queryKey: ["pokemon", name],
+    queryFn: () => fetchPokemonData(`https://pokeapi.co/api/v2/pokemon/${name}`),
+    staleTime: 10 * (60 * 1000),
+  });
+  console.log({ detailPokemon });
+  const [isFavorite, setIsFavorite] = useState(favoriteList?.includes(name) ? true : false);
   const createPostMutation = useMutation({
-    mutationFn: () => postData("favorite", detailPokemon[0]?.data?.data),
+    mutationFn: () => postData("favorite", detailPokemon),
     onSuccess: () => {
       queryClient.invalidateQueries(["favorite"]);
     },
   });
   const createDeleteMutation = useMutation({
-    mutationFn: () => deleteData(id),
+    mutationFn: () => deleteData(name),
     onSuccess: () => {
       queryClient.invalidateQueries(["favorite"]);
     },
   });
   const addFavorite = () => {
     setIsFavorite((prev) => !prev);
-    setFavoriteProp((prev) => [...prev, id]);
+    setFavoriteList((prev) => [...prev, name]);
     createPostMutation.mutate();
   };
   const deleteFavorite = () => {
     setIsFavorite((prev) => !prev);
-    setFavoriteProp((prev) => prev?.filter((value) => value !== id));
+    setFavoriteList((prev) => prev?.filter((value) => value !== name));
     createDeleteMutation.mutate();
   };
   const arenaFightersHandle = () => {
-    !firstFighterProp
-      ? setFirstFighterProp(id)
-      : !secondFighterProp &&
-        firstFighterProp !== id &&
-        setSecondFighterProp(id);
+    !arenaFirstFighter
+      ? setArenaFirstFighter(name)
+      : !arenaSecondFighter && arenaFirstFighter !== name && setArenaSecondFighter(name);
   };
   return (
     <DetailedPokemonCardConatiner>
-      {detailPokemon[0] && (
+      {detailPokemon && (
         <DetailedPokemonCard
-          value={detailPokemon[0]?.data?.data}
+          value={detailPokemon}
           onClickFavorite={!isFavorite ? addFavorite : deleteFavorite}
           onClickArena={arenaFightersHandle}
           isFavorite={isFavorite}
-          myName={id}
-          firstFighterProp={firstFighterProp}
-          secondFighterProp={secondFighterProp}
+          myName={name}
+          firstFighterProp={arenaFirstFighter}
+          secondFighterProp={arenaSecondFighter}
         />
       )}
     </DetailedPokemonCardConatiner>

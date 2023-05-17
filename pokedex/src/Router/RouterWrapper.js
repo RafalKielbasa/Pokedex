@@ -40,7 +40,7 @@ const RouterWrapper = () => {
           element: <h1>BAD URL</h1>,
         },
         {
-          path: "pokemon/:id",
+          path: "pokemon/:name",
           element: <DetailedPage />,
         },
       ],
@@ -76,7 +76,7 @@ const RouterWrapper = () => {
           element: <h1>BAD URL</h1>,
         },
         {
-          path: "pokemon/:id",
+          path: "pokemon/:name",
           element: <DetailedPage />,
         },
       ],

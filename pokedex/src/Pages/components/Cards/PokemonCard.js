@@ -5,7 +5,7 @@ import { CardImg, CardBoxInfo, HoverCard } from "../cardElements";
 
 const PokemonCard = ({ value }) => {
   const navigate = useNavigate();
-  const dataToPass = value?.data;
+  const dataToPass = value;
 
   return (
     <HoverCard>
@@ -18,7 +18,7 @@ const PokemonCard = ({ value }) => {
           width: 220,
           background: "#E0E0E0",
         }}
-        onClick={() => navigate(`/pokemon/${dataToPass.id}`)}
+        onClick={() => navigate(`/pokemon/${dataToPass.name}`)}
       >
         <CardImg dataToPass={dataToPass}></CardImg>
         <CardBoxInfo dataToPass={dataToPass}></CardBoxInfo>
