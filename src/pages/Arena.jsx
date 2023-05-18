@@ -146,9 +146,7 @@ const Arena = ({ battle, setBattle }) => {
               closebutton={true}
               removeFighter={() => removeFighter(playerOne.id)}
             />
-          ) : (
-            <StyledBox theme={theme}></StyledBox>
-          )}
+          ) : null}
         </StyledBox>
 
         <StyledBox
@@ -168,9 +166,7 @@ const Arena = ({ battle, setBattle }) => {
               closebutton={true}
               removeFighter={() => removeFighter(playerTwo.id)}
             />
-          ) : (
-            <StyledBox theme={theme}></StyledBox>
-          )}
+          ) : null}
         </StyledBox>
       </CardsContainer>
       <FightButton

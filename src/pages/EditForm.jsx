@@ -138,14 +138,16 @@ const SubmitButton = styled("button")(
 );
 
 const SaveButton = styled("button")(
-  css`
-    border: 1px solid red;
-    width: 25vw;
-    margin-top: 5px;
-    color: red;
-    cursor: pointer;
-    font-size: 20px;
-  `
+  ({ disp }) =>
+    css`
+      border: 1px solid red;
+      width: 25vw;
+      margin-top: 5px;
+      color: red;
+      cursor: pointer;
+      font-size: 20px;
+      display: ${disp === true ? null : "none"};
+    `
 );
 
 const EditForm = () => {
@@ -223,18 +225,10 @@ const EditForm = () => {
           </Form>
         )}
       </Formik>
-      <SaveButton
-        onClick={addNewPokemon}
-        type="submit"
-        style={{ display: disp === true ? null : "none" }}
-      >
+      <SaveButton onClick={addNewPokemon} type="submit" disp={disp}>
         save as new
       </SaveButton>
-      <SaveButton
-        onClick={editPokemon}
-        type="submit"
-        style={{ display: disp === true ? null : "none" }}
-      >
+      <SaveButton onClick={editPokemon} type="submit" disp={disp}>
         Edit
       </SaveButton>
     </Container>
