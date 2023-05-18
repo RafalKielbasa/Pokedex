@@ -1,5 +1,4 @@
 import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
 import { ProjectUrl } from "../../../const/ProjectUrl";
 import {
   Container,
@@ -15,38 +14,35 @@ import {
   PropsValue,
 } from "./PokemonDetailsWrapper.style";
 
-export const PokemonDetailsWrapper = ({ props }) => {
-  const { name, height, baseExperience, weight, abilities, image } = props;
+export const PokemonDetailsWrapper = ({ pokemonData }) => {
+  // const { name, height, baseExperience, weight, abilities, image } =
+  //   pokemonData[0];
+  console.log("poke", pokemonData);
 
   return (
     <PageWrapper>
       <DetailsSign>Pokemon Details</DetailsSign>
       <PokedexSign>POKEDEX</PokedexSign>
       <PokemonDetailsWrap>
-        <PokemonImg
-          src={
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"
-          }
-          alt={`${name}`}
-        ></PokemonImg>
+        <PokemonImg alt={`pokemon`}></PokemonImg>
         <PokemonInfo>
-          <PokemonName>Pokemon Name</PokemonName>
+          <PokemonName>{}</PokemonName>
           <Container>
             <PropsDiv>
-              <PropsName>name</PropsName>
-              <PropsValue>100</PropsValue>
+              <PropsName>Height</PropsName>
+              <PropsValue>{}</PropsValue>
             </PropsDiv>
             <PropsDiv>
-              <PropsName>name</PropsName>
-              <PropsValue>100</PropsValue>
+              <PropsName>Base Experience</PropsName>
+              <PropsValue>{}</PropsValue>
             </PropsDiv>
             <PropsDiv>
-              <PropsName>name</PropsName>
-              <PropsValue>100</PropsValue>
+              <PropsName>Weight</PropsName>
+              <PropsValue>{}</PropsValue>
             </PropsDiv>
             <PropsDiv>
-              <PropsName>name</PropsName>
-              <PropsValue>100</PropsValue>
+              <PropsName>Ability</PropsName>
+              <PropsValue>{}</PropsValue>
             </PropsDiv>
           </Container>
         </PokemonInfo>

@@ -6,18 +6,15 @@ import {
   PaginationWrapper,
   PokemonWrapper,
 } from "./HomePageWrapper.styles";
-import { useAllPokemonQuery } from "../../../hooks/useAllPokemon";
 import { useState } from "react";
 
-export const HomePageWrapper = () => {
-  const pokemons = useAllPokemonQuery();
-  const data = pokemons?.data?.data;
+export const HomePageWrapper = ({ pokemonData }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 15;
-  const pageNumber = Math.ceil(data?.length / pageSize);
+  const pageNumber = Math.ceil(pokemonData?.length / pageSize);
   const lastPostIndex = currentPage * pageSize;
   const firstPostIndex = lastPostIndex - pageSize;
-  const currentPost = data.slice(firstPostIndex, lastPostIndex);
+  const currentPost = pokemonData?.slice(firstPostIndex, lastPostIndex);
 
   const handleChange = (_, i) => {
     setCurrentPage(i);

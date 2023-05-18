@@ -34,3 +34,10 @@ export const getAllPokemons = () => {
     method: "GET",
   });
 };
+
+export const getCorrectPokemon = (name) => {
+  return dbFetcher({
+    url: `pokemon?name=${name}`,
+    method: "GET",
+  });
+};

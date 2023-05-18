@@ -30,14 +30,11 @@ export const PokemonCard = ({ props }) => {
       <Body>
         <PokemonName>
           {location.pathname === ProjectUrl.EditAndLogout ? (
-            <Link props={props} to={`${ProjectUrl.Edit}?name=${name}`}>
+            <Link to={`${ProjectUrl.Edit}?name=${name}`}>
               {capitalizeFirstLetter(name)}
             </Link>
           ) : (
-            <Link
-              props={props}
-              to={`${ProjectUrl.PokemonDetails}?name=${name}`}
-            >
+            <Link to={`${ProjectUrl.PokemonDetails}?name=${name}`}>
               {capitalizeFirstLetter(name)}
             </Link>
           )}

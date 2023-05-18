@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { DefaultLayout } from "../components/layouts/Default/DefaultLayout";
 import { HomePageWrapper } from "../components/wrappers/HomePageWrapper/HomePageWrapper";
 import {
@@ -7,8 +6,11 @@ import {
   pokemonMapper,
   saveToDb,
 } from "../services/api";
+import { useAllPokemonQuery } from "../hooks/useAllPokemon";
 
 export const HomePage = () => {
+  const { data } = useAllPokemonQuery();
+
   // useEffect(() => {
   //   fetchAllPokemon().then((res) => {
   //     res.data.results.map((pokemon) => {
@@ -22,7 +24,7 @@ export const HomePage = () => {
 
   return (
     <DefaultLayout>
-      <HomePageWrapper />
+      <HomePageWrapper pokemonData={data?.data} />
     </DefaultLayout>
   );
 };
