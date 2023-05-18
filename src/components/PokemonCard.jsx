@@ -1,9 +1,11 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import { useTheme } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import styled, { css } from "styled-components";
+
 import PokemonCardInfo from "./PokemonCardInfo";
 
 const StyledBox = styled("div")(
@@ -14,6 +16,7 @@ const StyledBox = styled("div")(
       margin: 2rem;
       padding: 20px;
       background-color: ${theme.palette.background.default};
+      border-radius: 10px;
       cursor: pointer;
       display: flex;
       flex-direction: column;

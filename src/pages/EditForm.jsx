@@ -1,9 +1,11 @@
-import { Formik, Form, Field } from "formik";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { Formik, Form, Field } from "formik";
+
 import { useTheme } from "@mui/material";
 import { useSnackbar } from "notistack";
 import styled, { css } from "styled-components";
-import { useState } from "react";
+
 import { JsonEditPokemon } from "../api/JsonEditPokemon";
 import { JsonAddPokemon } from "../api/JsonAddPokemon";
 
@@ -27,6 +29,7 @@ const PokemonCard = styled("div")(
       margin: 2rem;
       background-color: ${theme.palette.background.default};
       padding: 10px;
+      border-radius: 10px;
       &:hover {
         transform: scale(1.01);
       }

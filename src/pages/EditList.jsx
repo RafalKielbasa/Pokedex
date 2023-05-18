@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import Pagination from "@mui/material/Pagination";
-import React from "react";
+import { React, useState, useEffect } from "react";
 import axios from "axios";
+
+import { Pagination, styled, css, Box } from "@mui/material";
+
 import PokemonCard from "../components/PokemonCard";
-import { styled, css, Box } from "@mui/material";
 
 const StyledBox = styled(Box)(
   ({ theme }) =>

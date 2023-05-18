@@ -7,7 +7,26 @@
       "id": 1
     }
   ],
-  "battle": [],
+  "battle": [
+    {
+      "id": 3,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
+      "name": "venusaurRex",
+      "weight": 1000,
+      "ability": "overgrow",
+      "height": 20,
+      "base_experience": 273
+    },
+    {
+      "id": 2,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
+      "name": "ivysaur",
+      "weight": 130,
+      "ability": "overgrow",
+      "height": 10,
+      "base_experience": 152
+    }
+  ],
   "favorites": [
     {
       "id": 1,
@@ -55,6 +74,15 @@
       "ability": "overgrow",
       "height": 7,
       "base_experience": 64
+    },
+    {
+      "id": 5,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
+      "name": "charmeleon",
+      "weight": 190,
+      "ability": "blaze",
+      "height": 11,
+      "base_experience": 142
     }
   ],
   "newPokemon": [

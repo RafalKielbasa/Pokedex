@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import { SnackbarProvider } from "notistack";
 import { useState } from "react";
-import { useMode, ThemeContext } from "./context/ThemeContext";
+
+import { SnackbarProvider } from "notistack";
 import { ThemeProvider } from "@mui/material";
-import ResponsiveAppBar from "./components/ResponsiveAppBar";
+
 import Home from "./pages/Home";
 import Arena from "./pages/Arena";
 import EditList from "./pages/EditList";
@@ -12,8 +12,9 @@ import Register from "./pages/Register";
 import Favorites from "./pages/Favorites";
 import EditForm from "./pages/EditForm";
 import Details from "./pages/Details";
-
+import { useMode, ThemeContext } from "./context/ThemeContext";
 import ContextProvider from "./context/Context";
+import ResponsiveAppBar from "./components/ResponsiveAppBar";
 
 function App() {
   const [favorites, setFavorites] = useState([]);

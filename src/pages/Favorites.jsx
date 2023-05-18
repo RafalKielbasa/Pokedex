@@ -1,9 +1,10 @@
-import { useTheme } from "@mui/material";
 import { useEffect } from "react";
 import axios from "axios";
 
-import PokemonCard from "../components/PokemonCard";
+import { useTheme } from "@mui/material";
 import styled, { css } from "styled-components";
+
+import PokemonCard from "../components/PokemonCard";
 
 const StyledBox = styled("div")(
   ({ theme }) =>

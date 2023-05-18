@@ -1,7 +1,9 @@
-import { useTheme, Box, Pagination } from "@mui/material";
 import { React, useState, useEffect } from "react";
-import styled, { css } from "styled-components";
 import axios from "axios";
+
+import { useTheme, Box, Pagination } from "@mui/material";
+import styled, { css } from "styled-components";
+
 import PokemonCard from "../components/PokemonCard";
 import Textfield from "../components/Textfield";
 

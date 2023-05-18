@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useTheme } from "@mui/material";
 import axios from "axios";
+
+import { useTheme } from "@mui/material";
 import styled, { css } from "styled-components";
+
 import PokemonCard from "../components/PokemonCard";
 
 const Container = styled("div")(

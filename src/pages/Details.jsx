@@ -1,13 +1,14 @@
-import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
-import axios from "axios";
 import { useState, useEffect, useContext } from "react";
+import { useLocation, Link } from "react-router-dom";
+import axios from "axios";
+
 import { useTheme, Tooltip } from "@mui/material";
 import { useSnackbar } from "notistack";
-
 import styled, { css } from "styled-components";
+
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
+
 import PokemonDetailsInfo from "../components/PokemonDetailsInfo";
 import { JsonPost } from "../api/JsonPost";
 
@@ -30,7 +31,7 @@ const Card = styled("div")(
       min-height: 50vh;
       margin: 2rem;
       background-color: ${theme.palette.background.default};
-
+      border-radius: 10px;
       &:hover {
         transform: scale(1.01);
       }
@@ -110,13 +111,15 @@ const SportsIcon = styled(SportsMmaRoundedIcon)(
     `
 );
 
-const BackButton = styled(Link)(
+const BackButton = styled("button")(
   css`
     border: 1px solid red;
     width: 40vw;
-    text-align: center;
+    padding: 5px;
     color: red;
     margin: 1rem auto;
+    cursor: pointer;
+    font-size: 30px;
   `
 );
 
@@ -168,7 +171,7 @@ const Details = ({ favorites, setFavorites, battle, setBattle }) => {
   };
 
   const handleBattleClick = () => {
-    if (battle.includes(pokemonData.id)) {
+    if (battle.length > 1 && !battle.includes(pokemonData.id)) {
       handleClick("Too much players", "error");
     } else if (!isToggledBattle && !battle.includes(pokemonData.id)) {
       JsonPost(pokemonData, "battle");
@@ -193,11 +196,13 @@ const Details = ({ favorites, setFavorites, battle, setBattle }) => {
         <ContentContainer>
           <TitleContainer>
             <Title>{pokemonData?.name}</Title>
+
             <Tooltip
               title={isToggled ? "Remove from favorites" : "Add to favorites"}
             >
               <HeartIcon onClick={handleHeartClick} isToggled={isToggled} />
             </Tooltip>
+
             <Tooltip
               title={isToggledBattle ? "Remove from battle" : "Add to battle"}
             >
@@ -211,7 +216,9 @@ const Details = ({ favorites, setFavorites, battle, setBattle }) => {
           <PokemonDetailsInfo pokemonData={pokemonData} flag={true} />
         </ContentContainer>
       </Card>
-      <BackButton to={"/"}>do strony glownej</BackButton>
+      <Link to={"/"}>
+        <BackButton>BACK HOME</BackButton>
+      </Link>
     </Container>
   );
 };

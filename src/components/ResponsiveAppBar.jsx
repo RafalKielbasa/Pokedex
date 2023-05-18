@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
-import { useTheme } from "@mui/material";
-import { AppBar, Box } from "@mui/material";
-import { useSnackbar } from "notistack";
 import { Link, useNavigate } from "react-router-dom";
 
 import {
+  useTheme,
+  AppBar,
+  Box,
   Toolbar,
   IconButton,
   Typography,
@@ -13,14 +13,15 @@ import {
   Button,
   Tooltip,
   MenuItem,
-} from "@mui/material/";
+} from "@mui/material";
+import { useSnackbar } from "notistack";
 
 import MenuIcon from "@mui/icons-material/Menu";
-
 import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
-import styled from "styled-components";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+
+import styled from "styled-components";
 
 import { ThemeContext } from "../context/ThemeContext";
 
