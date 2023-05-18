@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
-
 import Pagination from "@mui/material/Pagination";
 import React from "react";
 import axios from "axios";
 import PokemonCard from "../components/PokemonCard";
-
 import { styled, css, Box } from "@mui/material";
 
 const StyledBox = styled(Box)(
@@ -41,6 +39,7 @@ const EditList = () => {
 
   const [pokedex, setPokedex] = useState([]);
   const [error, setError] = useState(null);
+  const [editedPokemonList, setEditedPokemonList] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,6 +54,15 @@ const EditList = () => {
     fetchData();
   }, [url]);
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3001/editedPokemon`)
+      .then((response) => {
+        setEditedPokemonList(response.data);
+      })
+      .catch((error) => {});
+  }, []);
+
   const handlePaginationChange = (event, value) => {
     setUrl(
       `https://pokeapi.co/api/v2/pokemon/?offset=${(value - 1) * 15}&limit=15`
@@ -65,7 +73,14 @@ const EditList = () => {
       <Heading>EDIT PAGE</Heading>
       <StyledContent>
         {pokedex?.map((item) => {
-          return <PokemonCard key={item.name} url={item.url} gate={true} />;
+          return (
+            <PokemonCard
+              key={item.name}
+              url={item.url}
+              gate={true}
+              editedPokemonList={editedPokemonList}
+            />
+          );
         })}
       </StyledContent>
       <Pagination

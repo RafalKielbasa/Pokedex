@@ -40,7 +40,26 @@ const Home = () => {
   const [search, setSearch] = useState();
   const [error, setError] = useState(null);
   const [newPokemon, setNewPokemon] = useState(null);
+
+  const [editedPokemonList, setEditedPokemonList] = useState(null);
   const theme = useTheme();
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3001/editedPokemon`)
+      .then((response) => {
+        setEditedPokemonList(response.data);
+      })
+      .catch((error) => {});
+    axios
+      .get(`http://localhost:3001/newPokemon/`)
+      .then((response) => {
+        setNewPokemon(response.data);
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,17 +80,6 @@ const Home = () => {
     fetchData();
   }, [url, search]);
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3001/newPokemon/`)
-      .then((response) => {
-        setNewPokemon(response.data);
-      })
-      .catch((error) => {
-        setError(error);
-      });
-  }, []);
-
   const searchFilter = (data, name) => {
     const filtered = data?.filter((item) => {
       const result = item.name.includes(name);
@@ -91,7 +99,14 @@ const Home = () => {
       <Textfield setSearch={setSearch} setUrl={setUrl} />
       <StyledContent theme={theme}>
         {pokedex?.map((item) => {
-          return <PokemonCard key={item.name} url={item.url} gate={false} />;
+          return (
+            <PokemonCard
+              key={item.name}
+              url={item.url}
+              gate={false}
+              editedPokemonList={editedPokemonList}
+            />
+          );
         })}
       </StyledContent>
 
@@ -99,7 +114,12 @@ const Home = () => {
       <StyledContent theme={theme}>
         {newPokemon?.map((element) => {
           return (
-            <PokemonCard key={element.id} pokemon={element} gate={false} />
+            <PokemonCard
+              key={element.id}
+              pokemon={element}
+              gate={false}
+              editedPokemonList={editedPokemonList}
+            />
           );
         })}
       </StyledContent>

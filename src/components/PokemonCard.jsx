@@ -64,7 +64,14 @@ const StyledCloseIcon = styled(CloseIcon)(
   `
 );
 
-const PokemonCard = ({ url, closebutton, removeFighter, gate, pokemon }) => {
+const PokemonCard = ({
+  url,
+  closebutton,
+  removeFighter,
+  gate,
+  pokemon,
+  editedPokemonList,
+}) => {
   const [pokemonData, setPokemonData] = useState(null);
   const navigate = useNavigate();
   const theme = useTheme();
@@ -73,7 +80,6 @@ const PokemonCard = ({ url, closebutton, removeFighter, gate, pokemon }) => {
     if (!pokemon) {
       const fetchData = async () => {
         const response = await axios.get(url);
-
         const objPokemon = {
           sprite: response.data.sprites.other.dream_world.front_default,
           ability: response.data.abilities?.[0]?.ability?.name,
@@ -85,36 +91,31 @@ const PokemonCard = ({ url, closebutton, removeFighter, gate, pokemon }) => {
         };
 
         setPokemonData(objPokemon);
-        fetchNewData(response);
+        editPokemonData(response);
       };
 
       fetchData();
     } else {
       setPokemonData(pokemon);
     }
-  }, [url]);
+  }, [url, editedPokemonList]);
 
-  const fetchNewData = (oldData) => {
-    axios
-      .get(`http://localhost:3001/editedPokemon`)
-      .then((response) => {
-        const obj = response.data.find((item) => item.id === oldData.data.id);
-        if (obj !== undefined) {
-          const updatedPokemonData = {
-            ...oldData.data,
-            name: obj.name,
-            weight: obj.weight,
-            height: obj.height,
-            base_experience: obj.base_experience,
-            ability: obj?.ability,
-            sprite: obj?.sprite,
-          };
-          setPokemonData(updatedPokemonData);
-        } else {
-          return;
-        }
-      })
-      .catch((error) => {});
+  const editPokemonData = (oldData) => {
+    const obj = editedPokemonList?.find((item) => item.id === oldData.data.id);
+    if (obj !== undefined) {
+      const updatedPokemonData = {
+        ...oldData.data,
+        name: obj.name,
+        weight: obj.weight,
+        height: obj.height,
+        base_experience: obj.base_experience,
+        ability: obj?.ability,
+        sprite: obj?.sprite,
+      };
+      setPokemonData(updatedPokemonData);
+    } else {
+      return;
+    }
   };
 
   const handlePokemonCardClick = () => {
