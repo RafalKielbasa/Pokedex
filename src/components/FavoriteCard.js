@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Button } from "semantic-ui-react";
 import { useFavorite } from "./FavoritesContext";
+import { useContext } from "react";
+import { FightArenaContext } from "./FightArenaContext";
 
 export const typeColor = (type) => {
   switch (type) {
@@ -70,6 +72,7 @@ const TypesGrid = styled.div`
 
 const FavoriteCard = ({ pokemon }) => {
   const { removeFavorite } = useFavorite();
+  const { addPokemonToFightArena } = useContext(FightArenaContext);
 
   return (
     <>
@@ -95,6 +98,25 @@ const FavoriteCard = ({ pokemon }) => {
         >
           <div class="ui button" style={{ background: "transparent" }}>
             <i class="trash icon"></i> Delete
+          </div>
+        </Button>
+        <Button
+          size="small"
+          style={{ border: "1px solid black", background: "transparent" }}
+          onClick={() => addPokemonToFightArena(pokemon)}
+          className="ui labeled button"
+          tabindex="0"
+        >
+          <div
+            class="ui button"
+            style={{
+              background: "transparent",
+              color: "palevioletred",
+              fontWeight: "bolder",
+              fontSize: "20px",
+            }}
+          >
+            ⚔️FIGHT⚔️
           </div>
         </Button>
       </Card>

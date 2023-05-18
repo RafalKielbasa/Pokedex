@@ -12,6 +12,7 @@ import Register from "./components/Register";
 import { LoginProvider } from "./components/LoginContext";
 import PokemonMoreCard from "./components/PokemonMoreCard";
 import UserPanel from "./components/UserPanel";
+import { FightArenaProvider } from "./components/FightArenaContext";
 
 function App() {
   const ErrorPage = () => {
@@ -27,25 +28,27 @@ function App() {
       <LoginProvider>
         <ThemeProvider>
           <SearchProvider>
-            <FavoritesProvider>
-              <header style={{ position: "sticky", top: 0, zIndex: 1000 }}>
-                <Navbar />
-              </header>
+            <FightArenaProvider>
+              <FavoritesProvider>
+                <header style={{ position: "sticky", top: 0, zIndex: 1000 }}>
+                  <Navbar />
+                </header>
 
-              <Routes>
-                <Route path="/" element={<PokemonsCards />} />
-                <Route path="/favorites" element={<Favorites />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/arena" element={<FightArena />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/user" element={<UserPanel />} />
-                <Route
-                  path="/pokemon/:pokemonName"
-                  element={<PokemonMoreCard />}
-                />
-                <Route path="*" element={<ErrorPage />} />
-              </Routes>
-            </FavoritesProvider>
+                <Routes>
+                  <Route path="/" element={<PokemonsCards />} />
+                  <Route path="/favorites" element={<Favorites />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/arena" element={<FightArena />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/user" element={<UserPanel />} />
+                  <Route
+                    path="/pokemon/:pokemonName"
+                    element={<PokemonMoreCard />}
+                  />
+                  <Route path="*" element={<ErrorPage />} />
+                </Routes>
+              </FavoritesProvider>
+            </FightArenaProvider>
           </SearchProvider>
         </ThemeProvider>
       </LoginProvider>
