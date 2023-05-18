@@ -1,4 +1,4 @@
 export const fighterPowerLevel = (fighter) => {
-  const result = fighter?.data?.data?.base_experience * fighter?.data?.data?.weight;
+  const result = fighter?.base_experience * fighter?.weight;
   return result;
 };

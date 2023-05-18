@@ -38,10 +38,11 @@ const HomePage = () => {
       };
     }),
   });
+  const AllSuccess = pokemonQueries.every(({ status }) => status === "success");
   return (
     <div>
       <Searcher handleSearcherChange={(e) => setSearchedValue(e.target.value)} />
-      {pokemonQueries.length > 0 && (
+      {AllSuccess && (
         <>
           <PokemonCardContainer>
             {pokemonQueries?.length !== 0 ? (

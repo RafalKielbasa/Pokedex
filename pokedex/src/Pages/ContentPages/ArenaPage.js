@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { BlankCard, PokemonCard } from "../components";
 import styled from "styled-components";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { useOutletContext } from "react-router-dom";
 import { Stadium, VS, Winner } from "src/img";
 import { arenaFirstOneActionHandle, arenaSecondOneActionHandle } from "src/api";
 import { fighterPowerLevel } from "src/helpers";
+import { fetchOnePokemon } from "src/api";
 const ArenaBody = styled.div`
   background: url(${Stadium});
   height: 80vh;
@@ -26,53 +29,61 @@ const ArenaCardContainer = styled.div`
   align-items: center;
   gap: 10px;
 `;
-const ArenaPage = ({
-  firstPokemonId,
-  secondPokemonId,
-  firstPokemonAction,
-  secondPokemonAction,
-  pokemonQueries,
-}) => {
+const ArenaPage = () => {
+  const {
+    editedList,
+    editedStatus,
+    arenaFirstFighter,
+    arenaSecondFighter,
+    setArenaFirstFighter,
+    setArenaSecondFighter,
+  } = useOutletContext();
   const queryClient = useQueryClient();
   const [fightResult, setFightResult] = useState("");
   const [isFirstPokemonDeleted, setIsFirstPokemonDeleted] = useState(false);
   const [isSecondPokemonDeleted, setIsSecondPokemonDeleted] = useState(false);
 
-  const firstFighter = pokemonQueries?.filter(
-    ({ data }) => Number(data?.data?.id) === Number(firstPokemonId)
-  );
-  const secondFighter = pokemonQueries?.filter(
-    ({ data }) => Number(data?.data?.id) === Number(secondPokemonId)
-  );
+  const { data: firstFighter, status: firstFighterStatus } = useQuery({
+    queryKey: ["pokemon", arenaFirstFighter],
+    queryFn: () => fetchOnePokemon(editedList, arenaFirstFighter),
+    enabled: arenaFirstFighter != null && editedStatus === "success",
+    staleTime: 10 * (60 * 1000),
+  });
+  const { data: secondFighter, status: secondFighterStatus } = useQuery({
+    queryKey: ["pokemon", arenaSecondFighter],
+    queryFn: () => fetchOnePokemon(editedList, arenaSecondFighter),
+    enabled: arenaSecondFighter != null && editedStatus === "success",
+    staleTime: 10 * (60 * 1000),
+  });
   console.log({ firstFighter, secondFighter });
-  const firstFighterPowerLevel = fighterPowerLevel(firstFighter[0]);
-  const secondFighterPowerLevel = fighterPowerLevel(secondFighter[0]);
+  const firstFighterPowerLevel = fighterPowerLevel(firstFighter);
+  const secondFighterPowerLevel = fighterPowerLevel(secondFighter);
 
   const firstFighterMutation = useMutation({
     mutationFn: () =>
       arenaFirstOneActionHandle(
-        firstFighter[0]?.data?.data,
-        firstPokemonId,
+        firstFighter,
+        arenaFirstFighter,
         firstFighterPowerLevel,
         secondFighterPowerLevel
       ),
     onSuccess: (data) => {
-      queryClient.setQueryData(["pokemon", firstFighter[0]?.data?.data?.name], data);
+      queryClient.setQueryData(["pokemon", firstFighter?.name], data?.data);
     },
   });
   const secondFighterMutation = useMutation({
     mutationFn: () =>
       arenaSecondOneActionHandle(
-        secondFighter[0]?.data?.data,
-        secondPokemonId,
+        secondFighter,
+        arenaSecondFighter,
         firstFighterPowerLevel,
         secondFighterPowerLevel
       ),
     onSuccess: (data) => {
-      queryClient.setQueryData(["pokemon", secondFighter[0]?.data?.data?.name], data);
+      queryClient.setQueryData(["pokemon", secondFighter?.name], data?.data);
     },
   });
-
+  console.log({ firstFighter, secondFighter });
   const fightResultFnc = async () => {
     firstFighterPowerLevel === secondFighterPowerLevel
       ? setFightResult("tie")
@@ -82,29 +93,33 @@ const ArenaPage = ({
     await firstFighterMutation.mutateAsync();
     await secondFighterMutation.mutateAsync();
   };
-  const deleteFighter = (action, deletedPokemonState) => {
-    action(null);
+  const deleteFighter = (deltedPokemonId, deletedPokemonState) => {
+    deltedPokemonId(null);
     deletedPokemonState(true);
   };
   return (
     <ArenaBody>
       <ArenaContainer>
-        {firstFighter.length > 0 && !isFirstPokemonDeleted ? (
+        {firstFighterStatus === "success" && !isFirstPokemonDeleted ? (
           <>
             {fightResult === "first" ? (
               <ArenaCardContainer>
                 <img src={Winner} alt="Winner" width={"200px"} height={"200px"} />
-                <button onClick={() => deleteFighter(firstPokemonAction, setIsFirstPokemonDeleted)}>
+                <button
+                  onClick={() => deleteFighter(setArenaFirstFighter, setIsFirstPokemonDeleted)}
+                >
                   USUŃ
                 </button>
-                <PokemonCard value={firstFighter[0]?.data} />
+                <PokemonCard value={firstFighter} />
               </ArenaCardContainer>
             ) : (
               <ArenaCardContainer>
-                <button onClick={() => deleteFighter(firstPokemonAction, setIsFirstPokemonDeleted)}>
+                <button
+                  onClick={() => deleteFighter(setArenaFirstFighter, setIsFirstPokemonDeleted)}
+                >
                   USUŃ
                 </button>
-                <PokemonCard value={firstFighter[0]?.data} />
+                <PokemonCard value={firstFighter} />
               </ArenaCardContainer>
             )}
           </>
@@ -112,26 +127,26 @@ const ArenaPage = ({
           <BlankCard value={"Pierwszy Pokemon"} />
         )}
         <img src={VS} alt="VS" width={"200px"} height={"200px"} />
-        {secondFighter.length > 0 && !isSecondPokemonDeleted ? (
+        {secondFighterStatus === "success" && !isSecondPokemonDeleted ? (
           <>
             {fightResult === "second" ? (
               <ArenaCardContainer>
                 <img src={Winner} alt="Winner" width={"200px"} height={"200px"} />
                 <button
-                  onClick={() => deleteFighter(secondPokemonAction, setIsSecondPokemonDeleted)}
+                  onClick={() => deleteFighter(setArenaSecondFighter, setIsSecondPokemonDeleted)}
                 >
                   USUŃ
                 </button>
-                <PokemonCard value={secondFighter[0]?.data} />
+                <PokemonCard value={secondFighter} />
               </ArenaCardContainer>
             ) : (
               <ArenaCardContainer>
                 <button
-                  onClick={() => deleteFighter(secondPokemonAction, setIsSecondPokemonDeleted)}
+                  onClick={() => deleteFighter(setArenaSecondFighter, setIsSecondPokemonDeleted)}
                 >
                   USUŃ
                 </button>
-                <PokemonCard value={secondFighter[0]?.data} />
+                <PokemonCard value={secondFighter} />
               </ArenaCardContainer>
             )}
           </>

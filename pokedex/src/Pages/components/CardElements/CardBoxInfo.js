@@ -44,7 +44,7 @@ const CardBoxInfo = ({ dataToPass }) => {
         <MyColumn>
           <MyValues>{dataToPass?.base_experience}</MyValues>
           <MyValuesNames>Base Experience</MyValuesNames>
-          <MyValues>{dataToPass?.abilities[0]?.ability?.name}</MyValues>
+          {/* <MyValues>{dataToPass?.abilities[0]?.ability?.name}</MyValues> */}
           <MyValuesNames>Ability</MyValuesNames>
         </MyColumn>
       </ColumnsConatiner>
