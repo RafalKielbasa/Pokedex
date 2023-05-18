@@ -17,14 +17,6 @@ const DetailedPage = () => {
     favoriteList,
     setFavoriteList,
   } = useOutletContext();
-  console.log({
-    arenaFirstFighter,
-    setArenaFirstFighter,
-    arenaSecondFighter,
-    setArenaSecondFighter,
-    favoriteList,
-    setFavoriteList,
-  });
   const isEdited = true;
   const { name } = useParams();
   const queryClient = useQueryClient();

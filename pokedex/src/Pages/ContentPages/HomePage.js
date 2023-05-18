@@ -38,21 +38,16 @@ const HomePage = () => {
     enabled: searchedValue !== "",
     staleTime: 10 * (60 * 1000),
   });
-  editedList?.forEach((value, index) => {
-    queryClient.setQueryData(["pokemon", value], edited[index]);
-  });
   useEffect(() => {
-    pokemons &&
-      searchedValue === "" &&
-      setCreateComponentData(pokemons?.data?.results);
+    pokemons && searchedValue === "" && setCreateComponentData(pokemons);
     pokemonsToFilter &&
       searchedValue !== "" &&
       setCreateComponentData(
         filterFnc(pokemonsToFilter?.data?.results, searchedValue)
       );
   }, [pokemons, pokemonsToFilter, searchedValue]);
-
   const resultList = createComponentData ? createComponentData : [];
+  console.log({ resultList });
   const pokemonQueries = useQueries({
     queries: resultList?.map(({ name, url }) => {
       return {

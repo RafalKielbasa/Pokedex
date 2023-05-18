@@ -1,10 +1,20 @@
 import axios from "axios";
-
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export const fetchData = async (page) => {
+  const editedList = ["butterfree"];
   const response = await axios.get(`${BASE_URL}?offset=${page}&limit=15`);
-  return response;
+  const filteredData = response?.data?.results?.map((value) => {
+    editedList && editedList?.includes(value?.name)
+      ? (value = {
+          name: value?.name,
+          url: `http://localhost:3000/edited/${value?.name}`,
+        })
+      : (value = { name: value?.name, url: value?.url });
+    return value;
+  });
+  console.log({ filteredData, response });
+  return filteredData;
 };
 export const fetchDataToFilter = async () => {
   const response = await axios.get(`${BASE_URL}?offset=0&limit=151`);
@@ -51,7 +61,7 @@ export const fetchUsers = async () => {
   const response = await axios.get(`http://localhost:3000/users/`);
   const filteredResponse = response?.data?.map((value) =>
     Object.fromEntries(
-      Object.entries(value).filter(([key]) => filterKeys.includes(key))
+      Object.entries(value)?.filter(([key]) => filterKeys?.includes(key))
     )
   );
   return filteredResponse;
