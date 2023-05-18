@@ -7,7 +7,7 @@ import  { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 
 const BASE_URL = 'https://pokeapi.co/api/v2/';
-let data;
+
 
 
 
@@ -17,32 +17,55 @@ const [showCardDetails, setshowCardDetails] = useState(props.showCardDetails);
 const [fetchedDatabyID, setDatabyID] = useState([]);
 const [loading, setLoading] = useState(true); 
 const [classofPokemon, setclassofPokemon] = useState("");
+const [isUpdated, setisUpdated] = useState(false);
 
 const arenaPokemon = props.arena;
-useEffect(() => {
-    const fetchDatabyID = async () => {
-    const response = await fetch(`${BASE_URL}pokemon/${props.cardID}`);
-    data = await response.json();
 
-    if(error) {
-      console.log("Test")
-    }
+let localStorageUpdated= []
 
+    useEffect(() => {
+   
+      }, []);
 
+      useEffect(() => {
+        const fetchData = async () => {
+            const fetchedData = [];
+            localStorageUpdated = JSON.parse(localStorage.getItem("updatedPokemons")) || []
 
+       
 
+            if (localStorageUpdated.length >= 1 && localStorageUpdated.find((item) => item.id === props.cardID)) {
+          
+                const pokemonInUpdatedPokemons = localStorageUpdated.find((item) => item.id === props.cardID);
+                console.log(pokemonInUpdatedPokemons, "TEEE")
+
+                setDatabyID(pokemonInUpdatedPokemons);
+                setclassofPokemon(pokemonInUpdatedPokemons.types[0].type.name)
 
         
-      setclassofPokemon(data.types[0].type.name)
-     
-        setDatabyID(data);
-        setLoading(false);
-     
-    };
- 
-    fetchDatabyID();
+              
+              
+            } else {
+              console.log("TEEST", props.cardID)
+              const response = await fetch(`${BASE_URL}pokemon/${props.cardID}`);
+              const data = await response.json();
+              
+              setclassofPokemon(data.types[0].type.name)
+              setDatabyID(data);
+                   
+                  };
 
-}, []);
+
+                     
+              setLoading(false);
+            }
+     
+      
+        fetchData();
+      }, []);
+
+
+
 
 
   const closeCard = () => {

@@ -8,9 +8,8 @@ export const themeSetup = (mode) => {
         mode: mode,
         ...(mode === "dark"
           ? {
-              // palette values for dark mode
               primary: {
-                main: "#141b2d",
+                main: "#E0B420",
                 contrastText: "#FFFFFF",
               },
               secondary: {
@@ -20,14 +19,13 @@ export const themeSetup = (mode) => {
                 dark: "#3d3d3d",
                 main: "#666666",
               },
-              background: {
-                default: "#141b2d",
-              },
+              background: "#141b2d",
+              color: "#FFFFFF",
+            
             }
           : {
-              // palette values for light mode
               primary: {
-                main: "#d0d1d5",
+                main: "#E0B420",
                 contrastText: "#000000",
               },
               secondary: {
@@ -37,9 +35,8 @@ export const themeSetup = (mode) => {
                 dark: "#3d3d3d",
                 main: "#666666",
               },
-              background: {
-                default: "#fcfcfc",
-              },
+              background:"#fcfcfc",
+              color: "#000000",
             }),
       },
     };

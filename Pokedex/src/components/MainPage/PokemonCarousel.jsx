@@ -12,6 +12,7 @@ import {
     Pagination,
     Button,
     TextField,
+    useTheme,
   } from '@mui/material'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
@@ -35,6 +36,7 @@ const [showCardDetails, setshowCardDetails] = useState(false);
 const [page, setPage] = useState(1);
 const [cardsPerPage, setCardsPerPage] = useState(9);
 const [searchValue, setSearchValue] = useState();
+const theme = useTheme()
 
 const types = ["ALL", "FIRE", "WATER", "BUG", "NORMAL", "POISON", "ELECTRIC", "GROUND", "GRASS", "FIGHTING", "ROCK", "GHOST", "DRAGON", "PSYCHIC"];
 
@@ -61,18 +63,12 @@ useEffect(() => {
       updatedDataDetails = updatedDataDetails.concat(newPokemons)
      
 
-      
-
-     console.log(updatedDataDetails)
-
+    
       setData(updatedDataDetails);
       setFilteredData(updatedDataDetails)
 
 
 
-    
-    // setData(dataDetails);
-    // setFilteredData(dataDetails);
   };
   fetchData();
 }, []);
@@ -107,13 +103,13 @@ const filterClickHandle = (e) => {
 
   
   return (
-    <Box sx={{backgroundColor: '#f7f6f6'}}>
+    <Box sx={{bgcolor:`${theme.palette.background}`}}>
 
     <Container sx={{boxSizing: "border-box", p: 1}}>
     <Box sx={{marginBottom: 2}}> 
-      <Typography sx={{width: "100%", textAlign: "center", py:3, fontWeight: 700, fontSize: "39px"}}>OUR POKEMON PORTFOLIO</Typography>
+      <Typography sx={{width: "100%", textAlign: "center", py:3, fontWeight: 700, fontSize: "39px",color: `${theme.palette.color}`}}>OUR POKEMON PORTFOLIO</Typography>
       {types.map((v) => {
-        return <Button key={v} variant="outlined" onClick={filterClickHandle}  sx={{borderRadius: "10px", border: 2, m: "5px", fontWeight: 700, color: "#272D34"}}>{v}</Button>
+        return <Button key={v} variant="outlined" onClick={filterClickHandle}  sx={{borderRadius: "10px", border: 2, m: "5px", fontWeight: 700, color: `${theme.palette.color}`}}>{v}</Button>
       })}
     <Box> </Box>
       <Box>

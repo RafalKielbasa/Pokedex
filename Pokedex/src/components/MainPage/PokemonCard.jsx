@@ -1,13 +1,13 @@
 import { Card, CardContent, CardMedia, IconButton, Typography, Box } from "@mui/material";
 import { useState, useContext, useEffect} from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import PokemonDetails from "./PokemonDetails";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { FavoriteContext } from "../Global/FavoriteContext";
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
-import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepartmentOutlined';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import PinchIcon from '@mui/icons-material/Pinch';
 import { useSnackbar } from 'notistack';
 
 const PokemonCard = ({ item, onArrowClick }) => {
@@ -16,6 +16,8 @@ const PokemonCard = ({ item, onArrowClick }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [addedToArena, setaddedToArena] = useState(false)
+  const [updatedExperience, setupdatedExperience] = useState(0)
+
   const { enqueueSnackbar } = useSnackbar();
 
 
@@ -30,8 +32,16 @@ const PokemonCard = ({ item, onArrowClick }) => {
       if (addedPokemonIds.includes(item.id)) {
           setaddedToArena(true);}
 
-
     }
+
+    const arenaResults = JSON.parse(localStorage.getItem('arenaResults'));
+  
+    if (arenaResults && arenaResults[item.id]) {
+      const numOfWins = arenaResults[item.id]
+    const pokemonPoints = (item.base_experience + (numOfWins * 10))
+    setupdatedExperience(pokemonPoints)} else 
+    setupdatedExperience(item.base_experience)
+ 
 
 
   }, []);
@@ -139,8 +149,11 @@ const PokemonCard = ({ item, onArrowClick }) => {
 
    <Box sx={{display:"flex"}}>
     <Box sx={{display:"flex", flexDirection:"column", width:"99%"}}>
-    <Typography sx={{fontSize: 13, fontWeight: 600}}>{`H:${item.height} | W:${item.weight}`}</Typography>
-    <Typography sx={{fontSize: 13, fontWeight: 600}}> {`Exp:${item.base_experience}`}</Typography>
+    <Typography sx={{fontSize: 18, fontWeight: 600}}> <PinchIcon sx={{fontSize: 20, ml: -0.5}} />  {`${item.height} | `} <FitnessCenterIcon sx={{fontSize: 18, fontWeight: 700, ml: -0.5}}/>{` ${item.weight}`} 
+
+
+</Typography>
+    <Typography sx={{fontSize: 18, fontWeight: 600}}><LocalFireDepartmentIcon sx={{fontSize: 22, mb: -0.5}}/> {`${updatedExperience}`}</Typography>
     </Box>
    <IconButton className={ item.types[0].type.name} onClick ={() => onArrowClick(item.id,item.types[0].type.name )} sx={{justifyContent: "flex-end", color:"black", borderRadius: "0px" }}><ArrowForwardIcon /></IconButton>
 

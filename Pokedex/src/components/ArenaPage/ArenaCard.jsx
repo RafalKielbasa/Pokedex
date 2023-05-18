@@ -12,24 +12,40 @@ let data;
 
 function ArenaCard(props) {
 
-const [showCardDetails, setshowCardDetails] = useState(props.showCardDetails);
 const [fetchedDatabyID, setDatabyID] = useState([]);
 const [loading, setLoading] = useState(true); 
 const [classofPokemon, setclassofPokemon] = useState("");
 const [pokemonStats, setpokemonStats] = useState(0);
 const [numOfWins, setnumOfWins] = useState(0);
 const [numOfExp, setnumOfExp] = useState(0);
-
-
+let updatedDataDetails
 const arenaPokemon = props.arena;
+
 useEffect(() => {
     const fetchDatabyID = async () => {
-    const response = await fetch(`${BASE_URL}pokemon/${props.cardID}`);
-    data = await response.json();
-        
-      setclassofPokemon(data.types[0].type.name)
-      setDatabyID(data);
-      setLoading(false);
+
+    const updatedPokemons = JSON.parse(localStorage.getItem("updatedPokemons")) || []
+    if(!updatedPokemons.find((item) => item.id === props.cardID)){ 
+      console.log("TE",props.cardID)
+
+    const response = (await fetch(`${BASE_URL}pokemon/${props.cardID}` || ''));
+    updatedDataDetails = await response.json();
+    } else {
+
+      updatedDataDetails = updatedPokemons.find((item) => item.id === props.cardID);
+     
+      console.log("1",updatedDataDetails)
+
+    }
+
+      
+ 
+
+
+    
+    setDatabyID(updatedDataDetails);
+    setclassofPokemon(updatedDataDetails.types[0].type.name)
+    setLoading(false);
 
     };
  
@@ -45,12 +61,7 @@ useEffect(() => {
 
 useEffect(() => {
     const arenaResults = JSON.parse(localStorage.getItem('arenaResults'));
-    console.log("TT",arenaResults[props.cardID] )
-    if (arenaResults && arenaResults[props.cardID]) {
-      setnumOfWins(arenaResults[props.cardID])
-   
-
-    }
+    if (arenaResults && arenaResults[props.cardID]) {setnumOfWins(arenaResults[props.cardID])}
     const pokemonPoints = (fetchedDatabyID.base_experience + (numOfWins * 10)) * fetchedDatabyID.weight;
     setnumOfExp(fetchedDatabyID.base_experience + (numOfWins * 10))
     props.setpokemonStats(pokemonPoints)
@@ -59,21 +70,16 @@ useEffect(() => {
 
 
   const removeFromArena = () => {
-    console.log("TEST")
     let arenaPokemonsID = JSON.parse(localStorage.getItem("arenaPokemons"));
-    {console.log(props.cardID)}
-    arenaPokemonsID = arenaPokemonsID.filter((id) => id !== props.cardID)
+    arenaPokemonsID = arenaPokemonsID.filter((id) => id !== props.cardID);
     localStorage.setItem("arenaPokemons", JSON.stringify(arenaPokemonsID));
     props.setpokemonArenaID(arenaPokemonsID)
     props.setisFight(false)
-
-
-
+    props.setisBothPokemon(false)
 
   };
 
 
-  
 
   return (
 <> 

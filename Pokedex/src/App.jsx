@@ -13,15 +13,9 @@ import { FavoriteProvider } from "./components/Global/FavoriteContext";
 import Favourite from './components/FavouritePage/Favourite';
 import { SnackbarProvider } from 'notistack';
 import Arena from './components/ArenaPage/Arena';
+import CardPage from './components/CardPage/CardPage';
+import  ContactPage  from './components/ContactPage/ContactPage'
 
-const theme = createTheme({
-palette: {
-  primary: {
-    main: '#FECA1E',
-    second: '#272D34'
-  }
-}
-})
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,13 +24,26 @@ const router = createBrowserRouter(
     <Route path="/account" element={<LoginWrapper />} />
     <Route path="/favourites" element={<Favourite />} />
     <Route path="/arena" element={<Arena />} />
-    {/* <Route path="/user" element={<UserPage/>} /> */}
+    <Route path="/cards" element={<CardPage/>} />
+    <Route path="/contact" element={<ContactPage/>} />
+
     {/* <Route path="/docs" element={<MainDashboard />} loader={pokemonDataLoader} /> */}
     </Route>
   )
 )
 function App() {
   const [theme, colorMode] = useMode()
+  const { mode } = theme.palette;
+
+
+  const body = document.querySelector("body");
+
+  // Update the body background color based on the current theme mode
+  if (mode === "dark") {
+    body.style.backgroundColor = theme.palette.background;
+  } else {
+    body.style.backgroundColor = theme.palette.background;
+  }
 
   return (
 

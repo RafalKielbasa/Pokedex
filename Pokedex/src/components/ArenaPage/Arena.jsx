@@ -15,26 +15,22 @@ function Arena() {
     const [isWinner1, setIsWinner1] = useState(false);
     const [isWinner2, setIsWinner2] = useState(false);
     const [isFight, setisFight] = useState(false);
-    const [refresh, setRefresh] = useState(false);
 
     let localStorageArenaPokemon = []
     
         useEffect(() => {
-            console.log(isBothPokemon,"TEEET")
-            console.log(isWinner1,"TEEET")
-            console.log(isWinner2,"TEEET")
-            localStorageArenaPokemon = (localStorage.getItem("arenaPokemons") || []);
-            localStorageArenaPokemon = JSON.parse(localStorageArenaPokemon)
+
+            localStorageArenaPokemon = JSON.parse((localStorage.getItem("arenaPokemons")) || []);
+
             if(localStorageArenaPokemon) { 
             setpokemonArenaID(localStorageArenaPokemon)
             if (localStorageArenaPokemon.length === 2) {
+
                 setisBothPokemon(true);
             } }
-            console.log("POK",pokemonArenaID)
           }, [isFight]);
     
-
-     
+    
     
 
          const setshowCardDetails = () => {
@@ -42,23 +38,17 @@ function Arena() {
          }
 
          const handleDeleteButton = (index) => {
-             
-            setpokemonArenaID((prevPokemonArenaID) =>
-              prevPokemonArenaID.filter((id) => id !== index)
-            );
-            localStorage.setItem(
-              "arenaPokemons",
-              JSON.stringify(
-                pokemonArenaID.filter((id) => id !== index)
-              )
-            );
-            setRefresh(!refresh)
+            const filteredIds = pokemonArenaID.filter(id => id !== index);
+            console.log("TEST",filteredIds)
+            setpokemonArenaID(filteredIds);
+            localStorage.setItem("arenaPokemons", JSON.stringify(filteredIds));
+            setisFight(false)
           };
 
          const handleFightButton = () => {
-            if(isBothPokemon) {
-                setisFight(true)
-                let winnerPokemonId;
+
+            setisFight(true)
+            let winnerPokemonId;
 
 
             if (pokemon1Stats === pokemon2Stats)
@@ -66,13 +56,13 @@ function Arena() {
                 console.log("REMIS")
             } else if (pokemon1Stats > pokemon2Stats )
             {
-                console.log("1")
+                console.log("WYGRAL 1")
                 setIsWinner1(true);
                 winnerPokemonId = pokemonArenaID[0];
 
 
             } else {
-                console.log("2")
+                console.log("WYGRAL 2")
                 setIsWinner2(true);
                 winnerPokemonId = pokemonArenaID[1];
 
@@ -92,34 +82,26 @@ function Arena() {
                   winsByPokemon[winnerPokemonId] = 1;
                 }
           
-                localStorage.setItem(
-                  "arenaResults",
-                  JSON.stringify(winsByPokemon)
-                );
+                localStorage.setItem("arenaResults",JSON.stringify(winsByPokemon));
               }
 
 
+              setisBothPokemon(false)
 
-            } 
-
-
-      
          }
     
       return (
         <>
-        <Typography> 
-        {isBothPokemon ? "YES" : "NON"}
-        </Typography>
+  
     {pokemonArenaID && <Box sx={{display:"flex",justifyContent: "center", flexWrap: "wrap", alignContent: "center", flexDirection: {xs: "column", md: "row"}}}> 
 
-    {pokemonArenaID[0] ? <ArenaCard showCardDetails={true} setshowCardDetails={setshowCardDetails} cardID={pokemonArenaID[0]} arena={true} setpokemonStats={setpokemon1Stats} isWinner={isWinner1} setpokemonArenaID={setpokemonArenaID} setIsWinner={setIsWinner1} isFight={isFight} setisFight={setisFight} onDeleteButton={() => handleDeleteButton(pokemonArenaID[0], 0) } pokemonArenaID={pokemonArenaID}
+    {pokemonArenaID[0] ? <ArenaCard  cardID={pokemonArenaID[0]} arena={true} setpokemonStats={setpokemon1Stats} isWinner={isWinner1} setpokemonArenaID={setpokemonArenaID} setIsWinner={setIsWinner1} isFight={isFight} setisFight={setisFight} onDeleteButton={() => handleDeleteButton(pokemonArenaID[0], 0) } pokemonArenaID={pokemonArenaID} setisBothPokemon={setisBothPokemon} 
  /> : 
-    <Box sx={{width: "300px", height: "500px", bgcolor: "grey", borderRadius: "10px"}}> Dodaj 1 pokemona </Box>}
-    <Button sx={{m: 2, borderRadius: "58px", border: 2, height: "28px", width: "28px", p: 5, alignSelf: "center"}} onClick={handleFightButton} >Fight</Button>
+ <Box sx={{width: "300px", height: "600px", bgcolor: "grey", borderRadius: "10px", display: "flex", justifyContent: "center", alignItems: "center"}}><Typography sx={{fontWeight: 700}}>Dodaj 1 pokemona</Typography>  </Box>}
+    <Button sx={{m: 2, borderRadius: "58px", border: 2, height: "28px", width: "28px", p: 5, alignSelf: "center"}} onClick={handleFightButton} disabled={!isBothPokemon}>Fight</Button>
 
-    {pokemonArenaID[1] ? <ArenaCard showCardDetails={true} setshowCardDetails={setshowCardDetails} cardID={pokemonArenaID[1]} arena={true} setpokemonStats={setpokemon2Stats} isWinner={isWinner2} setpokemonArenaID={setpokemonArenaID} setIsWinner={setIsWinner2} isFight={isFight} setisFight={setisFight} onDeleteButton={() => handleDeleteButton(pokemonArenaID[1], 1)} pokemonArenaID={pokemonArenaID}/> : 
-    <Box sx={{width: "300px", height: "500px", bgcolor: "grey", borderRadius: "10px"}}> Dodaj 2 pokemona </Box>}
+    {pokemonArenaID[1] ? <ArenaCard cardID={pokemonArenaID[1]} arena={true} setpokemonStats={setpokemon2Stats} isWinner={isWinner2} setpokemonArenaID={setpokemonArenaID} setIsWinner={setIsWinner2} isFight={isFight} setisFight={setisFight} onDeleteButton={() => handleDeleteButton(pokemonArenaID[1], 1)} pokemonArenaID={pokemonArenaID} setisBothPokemon={setisBothPokemon} /> : 
+    <Box sx={{width: "300px", height: "600px", bgcolor: "grey", borderRadius: "10px", display: "flex", justifyContent: "center", alignItems: "center"}}><Typography sx={{fontWeight: 700}}>Dodaj 2 pokemona</Typography>  </Box>}
 
 </Box>}
 
