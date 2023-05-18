@@ -9,20 +9,16 @@ import {
 } from "../services/api";
 
 export const HomePage = () => {
-  const [allPokemon, setAllPokemon] = useState([]);
-  console.log(allPokemon);
-
-  useEffect(() => {
-    fetchAllPokemon().then((res) => {
-      res.data.results.map(async (pokemon) => {
-        return await fetchEachPokemon(pokemon.url).then((res) => {
-          const pokemon = pokemonMapper(res);
-          setAllPokemon(pokemon);
-          saveToDb(allPokemon);
-        });
-      });
-    });
-  }, [allPokemon]);
+  // useEffect(() => {
+  //   fetchAllPokemon().then((res) => {
+  //     res.data.results.map((pokemon) => {
+  //       return fetchEachPokemon(pokemon.url).then((res) => {
+  //         const pokemon = pokemonMapper(res);
+  //         saveToDb(pokemon);
+  //       });
+  //     });
+  //   });
+  // }, []);
 
   return (
     <DefaultLayout>

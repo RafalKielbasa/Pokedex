@@ -1,8 +1,8 @@
 import axios from "axios";
-import { fetcher } from "../libs/axios";
+import { dbFetcher, fetcher } from "../libs/axios";
 
 export const fetchAllPokemon = async () => {
-  const response = await fetcher("pokemon?limit=150");
+  const response = await fetcher("pokemon?limit=10&offset=150");
   return response;
 };
 
@@ -27,3 +27,10 @@ export const pokemonMapper = (pokemon) => ({
   abilities: pokemon?.abilities?.map((ability) => ability.ability.name),
   baseExperience: pokemon.base_experience,
 });
+
+export const getAllPokemons = () => {
+  return dbFetcher({
+    url: "pokemon",
+    method: "GET",
+  });
+};

@@ -15,8 +15,8 @@ import {
   PropsValue,
 } from "./PokemonDetailsWrapper.style";
 
-export const PokemonDetailsWrapper = (props) => {
-  const { name, height, base_experience, weight, ability, img } = props;
+export const PokemonDetailsWrapper = ({ props }) => {
+  const { name, height, baseExperience, weight, abilities, image } = props;
 
   return (
     <PageWrapper>

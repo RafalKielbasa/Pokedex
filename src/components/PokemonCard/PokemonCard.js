@@ -10,45 +10,54 @@ import {
 } from "./PokemonCard.styles";
 import { ProjectUrl } from "../../const/ProjectUrl";
 
-export const PokemonCard = (props) => {
-  const { name, height, base_experience, weight, ability, img } = props;
+export const PokemonCard = ({ props }) => {
+  const { name, height, baseExperience, weight, abilities, image } = props;
   const location = useLocation();
+
+  const capitalizeFirstLetter = (name) => {
+    const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
+    return capitalized;
+  };
 
   return (
     <WrapperDiv>
       <img
-        src={
-          "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"
-        }
+        style={{ width: 200, margin: "auto" }}
+        src={image}
         alt={`${name} pokemon`}
       ></img>
 
       <Body>
         <PokemonName>
           {location.pathname === ProjectUrl.EditAndLogout ? (
-            <Link to={`${ProjectUrl.Edit}?name=${name}`}>Pokemon</Link>
+            <Link props={props} to={`${ProjectUrl.Edit}?name=${name}`}>
+              {capitalizeFirstLetter(name)}
+            </Link>
           ) : (
-            <Link to={`${ProjectUrl.PokemonDetails}?name=${name}`}>
-              Pokemon
+            <Link
+              props={props}
+              to={`${ProjectUrl.PokemonDetails}?name=${name}`}
+            >
+              {capitalizeFirstLetter(name)}
             </Link>
           )}
         </PokemonName>
         <Container>
           <PropsDiv>
             <PokemonPropName>Height</PokemonPropName>
-            <PokemonPropValue>100</PokemonPropValue>
+            <PokemonPropValue>{height}</PokemonPropValue>
           </PropsDiv>
           <PropsDiv>
             <PokemonPropName>Base Experience</PokemonPropName>
-            <PokemonPropValue>100</PokemonPropValue>
+            <PokemonPropValue>{baseExperience}</PokemonPropValue>
           </PropsDiv>
           <PropsDiv>
             <PokemonPropName>Weight</PokemonPropName>
-            <PokemonPropValue>100</PokemonPropValue>
+            <PokemonPropValue>{weight}</PokemonPropValue>
           </PropsDiv>
           <PropsDiv>
             <PokemonPropName>Ability</PokemonPropName>
-            <PokemonPropValue>100</PokemonPropValue>
+            <PokemonPropValue>{abilities[0]}</PokemonPropValue>
           </PropsDiv>
         </Container>
       </Body>
