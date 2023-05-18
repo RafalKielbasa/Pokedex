@@ -84,7 +84,10 @@ const ResponsiveAppBar = () => {
   return (
     <AppBar
       position="static"
-      style={{ backgroundColor: theme.palette.background.default }}
+      style={{
+        backgroundColor: theme.palette.background.default,
+        marginBottom: "20px",
+      }}
     >
       <Container maxWidth="x">
         <Toolbar disableGutters>
