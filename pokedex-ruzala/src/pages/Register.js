@@ -1,3 +1,123 @@
+import { Box, TextField, Button } from "@mui/material";
+import { useFormik } from "formik";
+import { basicSchema } from "../schemas";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
+
 export default function Register() {
-  return <div>Register</div>;
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const onSubmit = async (values, actions) => {
+    axios
+      .post("http://localhost:5000/users", { id: 5, ...values })
+      .then((response) => {
+        console.log(response);
+      });
+    actions.resetForm();
+    enqueueSnackbar("Zarejestrowano pomyślnie! Proszę się zalogować", {
+      variant: "success",
+    });
+    navigate("/login");
+  };
+  const {
+    values,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    errors,
+    touched,
+    isSubmitting,
+  } = useFormik({
+    initialValues: {
+      userName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: basicSchema,
+    onSubmit,
+  });
+
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        width: "100%",
+        height: "100%",
+        justifyContent: "center",
+      }}
+    >
+      <Box sx={{ marginTop: "50px", width: "50%", height: "100%" }}>
+        <form autoComplete="off" onSubmit={handleSubmit}>
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <TextField
+              margin="normal"
+              error={touched.userName && errors.userName && true}
+              id="userName"
+              name="userName"
+              label="Nazwa użytkownika"
+              value={values.userName}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              helperText={
+                touched.userName && errors.userName && `${errors.userName}`
+              }
+            />
+            <TextField
+              margin="normal"
+              error={touched.email && errors.email && true}
+              id="email"
+              name="email"
+              label="E-Mail"
+              type="email"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              helperText={touched.email && errors.email && `${errors.email}`}
+            />
+            <TextField
+              margin="normal"
+              error={touched.password && errors.password && true}
+              id="password"
+              name="password"
+              label="Hasło"
+              type="password"
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              helperText={
+                touched.password && errors.password && `${errors.password}`
+              }
+            />
+            <TextField
+              margin="normal"
+              error={touched.confirmPassword && errors.confirmPassword && true}
+              id="confirmPassword"
+              name="confirmPassword"
+              label="Potwierdź Hasło"
+              type="password"
+              value={values.confirmPassword}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              helperText={
+                touched.confirmPassword &&
+                errors.confirmPassword &&
+                `${errors.confirmPassword}`
+              }
+            />
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              variant={isSubmitting ? "outlined" : "contained"}
+              color="warning"
+            >
+              Zarejestruj się
+            </Button>
+          </Box>
+        </form>
+      </Box>
+    </Box>
+  );
 }

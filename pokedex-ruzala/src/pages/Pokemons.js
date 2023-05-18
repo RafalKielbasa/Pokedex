@@ -4,7 +4,7 @@ import fetchPokeLinks from "../fetching/fetchPokeLinks";
 import fetchArray from "../fetching/fetchArray";
 import PokemonTile from "../components/PokemonTile";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ArrowButton from "../components/ArrowButton";
 import TableProperties from "../components/TableProperties";
 import fetchData from "../fetching/fetchData";

@@ -12,14 +12,13 @@ import { useSnackbar } from "notistack";
 export default function TableProperties({
   pokemons,
   itemsPerPage,
-  currentPage,
   currentPageSetter,
   itemsPerPageSetter,
   currentArraySetter,
   currentArray,
   pokemonTypes,
 }) {
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [itemsPerPageArray, setItemsPerPageArray] = useState([]);
   const [goToPage, setGoToPage] = useState();
