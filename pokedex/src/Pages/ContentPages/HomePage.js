@@ -1,72 +1,47 @@
 import React, { useState, useEffect } from "react";
 import { filterFnc } from "src/helpers";
-import { useQuery, useQueries, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueries } from "@tanstack/react-query";
 import { useOutletContext } from "react-router-dom";
-import {
-  fetchData,
-  fetchPokemonData,
-  fetchDataToFilter,
-  fetchEdited,
-} from "src/api";
-import {
-  MyPagination,
-  PokemonCard,
-  PokemonCardContainer,
-  Searcher,
-} from "../components";
+import { fetchData, fetchPokemonData, fetchDataToFilter } from "src/api";
+import { MyPagination, PokemonCard, PokemonCardContainer, Searcher } from "../components";
 
 const HomePage = () => {
-  const { page, setPage, searchedValue, setSearchedValue } = useOutletContext();
+  const { page, setPage, searchedValue, setSearchedValue, editedList, editedStatus } =
+    useOutletContext();
   const [createComponentData, setCreateComponentData] = useState(null);
-  const queryClient = useQueryClient();
-
-  const { data: edited, status: editedStatus } = useQuery({
-    queryKey: ["editedPokemons"],
-    queryFn: () => fetchEdited(editedList),
-    staleTime: 10 * (60 * 1000),
-  });
-  const editedList = edited?.map((value) => value.name);
+  const actualPage = (page - 1) * 15;
   const { data: pokemons } = useQuery({
     queryKey: ["pokemons", page],
-    queryFn: () => fetchData((page - 1) * 15),
-    enabled: searchedValue === "",
+    enabled: editedStatus === "success" && searchedValue === "",
+    queryFn: () => fetchData(actualPage, editedList),
     staleTime: 10 * (60 * 1000),
   });
   const { data: pokemonsToFilter } = useQuery({
     queryKey: ["pokemonsToFilter"],
-    queryFn: () => fetchDataToFilter(),
-    enabled: searchedValue !== "",
+    queryFn: () => fetchDataToFilter(editedList),
+    enabled: editedStatus === "success" && searchedValue !== "",
     staleTime: 10 * (60 * 1000),
   });
   useEffect(() => {
     pokemons && searchedValue === "" && setCreateComponentData(pokemons);
     pokemonsToFilter &&
       searchedValue !== "" &&
-      setCreateComponentData(
-        filterFnc(pokemonsToFilter?.data?.results, searchedValue)
-      );
+      setCreateComponentData(filterFnc(pokemonsToFilter, searchedValue));
   }, [pokemons, pokemonsToFilter, searchedValue]);
   const resultList = createComponentData ? createComponentData : [];
-  console.log({ resultList });
   const pokemonQueries = useQueries({
     queries: resultList?.map(({ name, url }) => {
       return {
         queryKey: ["pokemon", name],
         queryFn: () => fetchPokemonData(url),
-        enabled: !editedList?.includes(name),
         staleTime: 10 * (60 * 1000),
       };
     }),
   });
-  const allPokemonQueriesStatus =
-    pokemonQueries.length > 0 &&
-    pokemonQueries?.every((value) => value?.status === "success");
   return (
     <div>
-      <Searcher
-        handleSearcherChange={(e) => setSearchedValue(e.target.value)}
-      />
-      {editedStatus === "success" && allPokemonQueriesStatus && (
+      <Searcher handleSearcherChange={(e) => setSearchedValue(e.target.value)} />
+      {pokemonQueries.length > 0 && (
         <>
           <PokemonCardContainer>
             {pokemonQueries?.length !== 0 ? (

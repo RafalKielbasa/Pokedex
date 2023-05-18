@@ -1,24 +1,32 @@
 import axios from "axios";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-
-export const fetchData = async (page) => {
-  const editedList = ["butterfree"];
+export const fetchData = async (page, editedList) => {
   const response = await axios.get(`${BASE_URL}?offset=${page}&limit=15`);
-  const filteredData = response?.data?.results?.map((value) => {
-    editedList && editedList?.includes(value?.name)
+  const filteredData = response?.data?.results?.map(({ name, url }) => {
+    let value = null;
+    editedList && editedList?.includes(name)
       ? (value = {
-          name: value?.name,
-          url: `http://localhost:3000/edited/${value?.name}`,
+          name,
+          url: `http://localhost:3000/edited/${name}`,
         })
-      : (value = { name: value?.name, url: value?.url });
+      : (value = { name, url });
     return value;
   });
-  console.log({ filteredData, response });
   return filteredData;
 };
-export const fetchDataToFilter = async () => {
+export const fetchDataToFilter = async (editedList) => {
   const response = await axios.get(`${BASE_URL}?offset=0&limit=151`);
-  return response;
+  const filteredData = response?.data?.results?.map(({ name, url }) => {
+    let value = null;
+    editedList && editedList?.includes(name)
+      ? (value = {
+          name,
+          url: `http://localhost:3000/edited/${name}`,
+        })
+      : (value = { name, url });
+    return value;
+  });
+  return filteredData;
 };
 export const fetchPokemonData = async (url) => {
   const filteredQueriesKeys = [
@@ -32,9 +40,7 @@ export const fetchPokemonData = async (url) => {
   ];
   const response = await axios.get(url);
   const filteredData = Object.fromEntries(
-    Object.entries(response?.data).filter(([key]) =>
-      filteredQueriesKeys.includes(key)
-    )
+    Object.entries(response?.data).filter(([key]) => filteredQueriesKeys.includes(key))
   );
   const updatedData = {
     ...filteredData,
@@ -46,23 +52,27 @@ export const fetchPokemonData = async (url) => {
 };
 export const fetchFavorite = async () => {
   const response = await axios.get(`http://localhost:3000/favorite/`);
-  return response;
+  const filteredData = response?.data.map(({ name }) => name);
+  return filteredData;
 };
-export const fetchEdited = async () => {
-  const response = await axios.get(`http://localhost:3000/edited/`);
+export const fetchOnePokemon = async (editedList, name) => {
+  const PokemonUrl =
+    editedList && editedList?.includes(name)
+      ? `http://localhost:3000/edited/${name}`
+      : `https://pokeapi.co/api/v2/pokemon/${name}`;
+  const response = await axios.get(PokemonUrl);
   return response?.data;
 };
 export const fetchEditedList = async () => {
   const response = await axios.get(`http://localhost:3000/edited/`);
-  return response?.data;
+  const EditedList = response?.data.map(({ name }) => name);
+  return EditedList;
 };
 export const fetchUsers = async () => {
   const filterKeys = ["userName", "password"];
   const response = await axios.get(`http://localhost:3000/users/`);
   const filteredResponse = response?.data?.map((value) =>
-    Object.fromEntries(
-      Object.entries(value)?.filter(([key]) => filterKeys?.includes(key))
-    )
+    Object.fromEntries(Object.entries(value)?.filter(([key]) => filterKeys?.includes(key)))
   );
   return filteredResponse;
 };

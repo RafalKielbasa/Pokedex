@@ -3,8 +3,9 @@ export {
   fetchPokemonData,
   fetchFavorite,
   fetchDataToFilter,
-  fetchEdited,
+  fetchEditedList,
   fetchUsers,
+  fetchOnePokemon,
 } from "./fetchData";
 export { postData } from "./postData";
 export { deleteData } from "./deleteData";

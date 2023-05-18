@@ -1,13 +1,9 @@
-import React, { useState } from "react";
-import {
-  DetailedPokemonCard,
-  DetailedPokemonCardConatiner,
-} from "../components";
+import React, { useEffect, useState } from "react";
+import { DetailedPokemonCard, DetailedPokemonCardConatiner } from "../components";
 import { useParams } from "react-router-dom";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
-import { deleteData, postData } from "src/api";
+import { deleteData, fetchOnePokemon, postData } from "src/api";
 import { useOutletContext } from "react-router-dom";
-import { fetchPokemonData } from "src/api";
 const DetailedPage = () => {
   const {
     arenaFirstFighter,
@@ -16,33 +12,24 @@ const DetailedPage = () => {
     setArenaSecondFighter,
     favoriteList,
     setFavoriteList,
+    editedStatus,
+    editedList,
+    favoriteStatus,
   } = useOutletContext();
-  const isEdited = true;
   const { name } = useParams();
   const queryClient = useQueryClient();
   const { data: detailPokemon } = useQuery({
     queryKey: ["pokemon", name],
-    queryFn: () =>
-      fetchPokemonData(`https://pokeapi.co/api/v2/pokemon/${name}`),
+    queryFn: () => fetchOnePokemon(editedList, name),
+    enabled: editedStatus === "success" && favoriteStatus === "success",
     staleTime: 10 * (60 * 1000),
   });
-  const { data: detailPokemonEdited } = useQuery({
-    queryKey: ["pokemon", name],
-    queryFn: () => fetchPokemonData(`http://localhost:3000/edited/${name}`),
-    staleTime: 10 * (60 * 1000),
-  });
-  const [isFavorite, setIsFavorite] = useState(
-    favoriteList?.includes(name) ? true : false
-  );
+  const [isFavorite, setIsFavorite] = useState(false);
+  useEffect(() => {
+    Array.isArray(favoriteList) && favoriteList?.includes(name) && setIsFavorite(true);
+  }, [favoriteList, name]);
   const createPostMutation = useMutation({
-    mutationFn: () =>
-      postData("favorite", !isEdited ? detailPokemon : detailPokemonEdited),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["favorite"]);
-    },
-  });
-  const createDeleteMutation = useMutation({
-    mutationFn: () => deleteData(name),
+    mutationFn: () => postData("favorite", detailPokemon?.name),
     onSuccess: () => {
       queryClient.invalidateQueries(["favorite"]);
     },
@@ -52,6 +39,13 @@ const DetailedPage = () => {
     setFavoriteList((prev) => prev?.push(name));
     createPostMutation.mutate();
   };
+
+  const createDeleteMutation = useMutation({
+    mutationFn: () => deleteData(name),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["favorite"]);
+    },
+  });
   const deleteFavorite = () => {
     setIsFavorite((prev) => !prev);
     setFavoriteList((prev) => prev?.filter((value) => value !== name));
@@ -60,9 +54,7 @@ const DetailedPage = () => {
   const arenaFightersHandle = () => {
     !arenaFirstFighter
       ? setArenaFirstFighter(name)
-      : !arenaSecondFighter &&
-        arenaFirstFighter !== name &&
-        setArenaSecondFighter(name);
+      : !arenaSecondFighter && arenaFirstFighter !== name && setArenaSecondFighter(name);
   };
   return (
     <DetailedPokemonCardConatiner>

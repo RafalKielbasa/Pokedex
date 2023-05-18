@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Navigation } from "../Navigation";
+import { useQuery } from "@tanstack/react-query";
+import { fetchEditedList, fetchFavorite } from "src/api";
 const MainPage = () => {
-  const localList = localStorage.getItem("favoriteList");
-  const dataList = JSON.parse(localList);
+  const { data: editedList, status: editedStatus } = useQuery({
+    queryKey: ["editedPokemons"],
+    queryFn: () => fetchEditedList(),
+  });
+  const { data: favorite, status: favoriteStatus } = useQuery({
+    queryKey: ["favorite"],
+    queryFn: () => fetchFavorite(),
+  });
   const [arenaFirstFighter, setArenaFirstFighter] = useState(null);
   const [arenaSecondFighter, setArenaSecondFighter] = useState(null);
-  const [favoriteList, setFavoriteList] = useState(
-    dataList?.length > 0 ? dataList : []
-  );
+  const [favoriteList, setFavoriteList] = useState([]);
   const [page, setPage] = useState(1);
   const [searchedValue, setSearchedValue] = useState("");
   useEffect(() => {
-    favoriteList &&
-      localStorage.setItem("favoriteList", JSON.stringify(favoriteList));
-  }, [favoriteList]);
+    favoriteStatus === "success" && setFavoriteList(favorite);
+  }, [favoriteStatus, favorite]);
   return (
     <>
       <Navigation />
@@ -30,6 +35,9 @@ const MainPage = () => {
           setArenaSecondFighter,
           favoriteList,
           setFavoriteList,
+          editedList,
+          editedStatus,
+          favoriteStatus,
         }}
       />
     </>
