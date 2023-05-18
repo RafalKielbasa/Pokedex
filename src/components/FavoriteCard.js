@@ -70,6 +70,16 @@ const TypesGrid = styled.div`
   gap: 10px;
 `;
 
+const StyledButton = styled(Button)`
+  background-color: transparent !important;
+  color: black !important;
+  font-weight: bolder !important;
+  font-size: 20px !important;
+  &:hover {
+    transform: translateX(10px);
+  }
+`;
+
 const FavoriteCard = ({ pokemon }) => {
   const { removeFavorite } = useFavorite();
   const { addPokemonToFightArena } = useContext(FightArenaContext);
@@ -100,25 +110,15 @@ const FavoriteCard = ({ pokemon }) => {
             <i class="trash icon"></i> Delete
           </div>
         </Button>
-        <Button
-          size="small"
-          style={{ border: "1px solid black", background: "transparent" }}
+        <StyledButton
+          //size="small"
+          //style={{ border: "1px solid black", background: "transparent" }}
           onClick={() => addPokemonToFightArena(pokemon)}
-          className="ui labeled button"
-          tabindex="0"
+          // className="ui labeled button"
+          //tabindex="0"
         >
-          <div
-            class="ui button"
-            style={{
-              background: "transparent",
-              color: "palevioletred",
-              fontWeight: "bolder",
-              fontSize: "20px",
-            }}
-          >
-            ⚔️FIGHT⚔️
-          </div>
-        </Button>
+          ⚔️FIGHT⚔️
+        </StyledButton>
       </Card>
     </>
   );

@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Button } from "semantic-ui-react";
 import styled from "styled-components";
 import { FightArenaContext } from "./FightArenaContext";
-import { typeColor } from "./FavoriteCard"; // Importujemy funkcję typeColor z pliku FavoriteCard.js
+import { typeColor } from "./FavoriteCard";
 
 const Card = styled.div`
   margin: 10px;
@@ -45,6 +45,13 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
 `;
+
+const Info = styled.h2`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+`;
 const calculateStats = (pokemon) => {
   let total = 0;
   pokemon.stats.forEach((stat) => {
@@ -81,30 +88,41 @@ const FightArena = () => {
   return (
     <>
       <Header>
-        <Button onClick={fight}>COMBAT</Button>
+        <Button disabled={fightArena.length < 2 ? true : false} onClick={fight}>
+          COMBAT
+        </Button>
         {winner && <h2>🏆Wygrał: {winner}🏆</h2>}
-        <Button onClick={clearArena}>Wyczyść arenę</Button>
+        <Button
+          disabled={fightArena.length === 0 ? true : false}
+          onClick={clearArena}
+        >
+          Clear Arena
+        </Button>
       </Header>
-      <Wrapper>
-        {fightArena.map((pokemon) => (
-          <Card key={pokemon.id} type={pokemon?.types[0].type.name}>
-            <img
-              style={{ width: "150px", height: "150px" }}
-              src={pokemon.sprites.other["official-artwork"].front_default}
-              alt={pokemon.name}
-            />
-            <h2>
-              {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
-            </h2>
-            <TypesGrid>
-              <p>🆔 {pokemon.id}</p>
-              <p>❤️ {pokemon.stats[0].base_stat}</p>
-              <p>⚔️ {pokemon.stats[1].base_stat}</p>
-              <p>🛡️ {pokemon.stats[2].base_stat}</p>
-            </TypesGrid>
-          </Card>
-        ))}
-      </Wrapper>
+      {fightArena.length === 0 ? (
+        <Info>No pokemon in fight arena.</Info>
+      ) : (
+        <Wrapper>
+          {fightArena.map((pokemon) => (
+            <Card key={pokemon.id} type={pokemon?.types[0].type.name}>
+              <img
+                style={{ width: "150px", height: "150px" }}
+                src={pokemon.sprites.other["official-artwork"].front_default}
+                alt={pokemon.name}
+              />
+              <h2>
+                {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+              </h2>
+              <TypesGrid>
+                <p>🆔 {pokemon.id}</p>
+                <p>❤️ {pokemon.stats[0].base_stat}</p>
+                <p>⚔️ {pokemon.stats[1].base_stat}</p>
+                <p>🛡️ {pokemon.stats[2].base_stat}</p>
+              </TypesGrid>
+            </Card>
+          ))}
+        </Wrapper>
+      )}
     </>
   );
 };
