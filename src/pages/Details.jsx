@@ -135,14 +135,13 @@ const Details = ({ favorites, setFavorites, battle, setBattle }) => {
     function fetchData() {
       axios
         .get("http://localhost:3001/favorites")
-        .then((response) =>
-          setFavorites(response?.data?.map((item) => item.name))
-        )
+        .then((response) => setFavorites(response.data?.map((item) => item.id)))
+
         .catch((error) => console.log(error));
 
       axios
         .get("http://localhost:3001/battle")
-        .then((response) => setBattle(response.data?.map((item) => item.name)))
+        .then((response) => setBattle(response.data?.map((item) => item.id)))
         .catch((error) => console.log(error));
     }
 
@@ -150,8 +149,8 @@ const Details = ({ favorites, setFavorites, battle, setBattle }) => {
   }, []);
 
   useEffect(() => {
-    setIsToggled(favorites?.includes(pokemonData?.name));
-    setIsToggledBattle(battle?.includes(pokemonData?.name));
+    setIsToggled(favorites?.includes(pokemonData?.id));
+    setIsToggledBattle(battle?.includes(pokemonData?.id));
   }, [favorites, battle]);
 
   const handleClick = (text, type) => {
