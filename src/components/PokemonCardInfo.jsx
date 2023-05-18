@@ -24,7 +24,7 @@ const StyledDetail = styled("div")(
 const StyledMiniTitle = styled("span")(
   css`
     font-size: 12px;
-    font-family: cursive;
+    font-family: sans-serif;
     font-weight: lighter;
   `
 );
@@ -37,7 +37,7 @@ const StyledBigTitle = styled("span")(
   `
 );
 
-const PokemonCardInfo = ({ pokemonData, flag }) => {
+const PokemonCardInfo = ({ pokemonData }) => {
   return (
     <StyledDetailsBox>
       <StyledDetail>

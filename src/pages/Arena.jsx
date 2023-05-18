@@ -33,7 +33,7 @@ const StyledBox = styled("div")(
     css`
       width: 300px;
       height: 400px;
-      margin: 2rem;
+      margin: 40px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -42,11 +42,18 @@ const StyledBox = styled("div")(
     `
 );
 
+const WinnerInfo = styled("h1")(
+  css`
+    color: black;
+    font-size: 50px;
+  `
+);
+
 const FightButton = styled("button")(
   ({ theme }) =>
     css`
       border: 1px solid red;
-      width: 40vw;
+      width: 20vw;
       color: red;
       margin: 1rem auto;
       cursor: pointer;
@@ -59,7 +66,7 @@ const HomeButton = styled("button")(
   ({ theme, winner }) =>
     css`
       border: 1px solid red;
-      width: 40vw;
+      width: 20vw;
       color: red;
       margin: 1rem auto;
       cursor: pointer;
@@ -121,7 +128,9 @@ const Arena = ({ battle, setBattle }) => {
 
   return (
     <Container theme={theme}>
-      {winner ? <h1>winner {winner.name.toUpperCase()} !</h1> : null}
+      {winner ? (
+        <WinnerInfo>winner {winner.name.toUpperCase()} !</WinnerInfo>
+      ) : null}
       <CardsContainer>
         <StyledBox
           theme={theme}

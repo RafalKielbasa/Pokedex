@@ -12,7 +12,6 @@ const InfoContainer = styled("div")(
     @media screen and (max-width: 600px) {
       margin: 0px;
       padding: 0px;
-
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
@@ -24,7 +23,7 @@ const InfoContainer = styled("div")(
 const InfoBox = styled("div")(
   css`
     margin: 0;
-    padding: 0.5rem;
+    padding: 10px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -45,7 +44,7 @@ const InfoBox = styled("div")(
 const MiniTitle = styled("span")(
   css`
     font-size: 15px;
-    font-family: cursive;
+    font-family: sans-serif;
     font-weight: lighter;
     @media screen and (max-width: 600px) {
       font-size: 12px;
@@ -56,7 +55,7 @@ const MiniTitle = styled("span")(
 const BigTitle = styled("span")(
   css`
     font-size: 20px;
-    font-family: "Courier New", Courier, monospace;
+    font-family: "Courier New";
     font-weight: bold;
     @media screen and (max-width: 600px) {
       font-size: 15px;

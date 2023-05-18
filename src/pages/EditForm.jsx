@@ -26,9 +26,9 @@ const PokemonCard = styled("div")(
     css`
       max-width: 50vw;
       min-height: 50vh;
-      margin: 2rem;
+      margin: 20px;
       background-color: ${theme.palette.background.default};
-      padding: 10px;
+      padding: 20px;
       border-radius: 10px;
       &:hover {
         transform: scale(1.01);
@@ -88,7 +88,6 @@ const InfoContainer = styled("div")(
     @media screen and (max-width: 600px) {
       margin: 0px;
       padding: 0px;
-
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
@@ -100,7 +99,7 @@ const InfoContainer = styled("div")(
 const InfoBox = styled("div")(
   css`
     margin: 0;
-    padding: 0.5rem;
+    padding: 10px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -133,7 +132,6 @@ const SubmitButton = styled("button")(
   css`
     border: 1px solid red;
     width: 20vw;
-
     color: red;
     cursor: pointer;
     font-size: 20px;
@@ -144,7 +142,7 @@ const SaveButton = styled("button")(
   ({ disp }) =>
     css`
       border: 1px solid red;
-      width: 25vw;
+      width: 20vw;
       margin-top: 5px;
       color: red;
       cursor: pointer;

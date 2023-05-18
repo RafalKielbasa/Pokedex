@@ -13,7 +13,7 @@ const StyledBox = styled("div")(
     css`
       width: 300px;
       height: 400px;
-      margin: 2rem;
+      margin: 25px;
       padding: 20px;
       background-color: ${theme.palette.background.default};
       border-radius: 10px;
@@ -49,7 +49,7 @@ const Image = styled("img")(
 
 const StyledTitleBox = styled("div")(
   css`
-    margin-bottom: 1rem;
+    margin-bottom: 10px;
   `
 );
 

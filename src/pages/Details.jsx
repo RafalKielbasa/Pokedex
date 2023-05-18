@@ -29,7 +29,7 @@ const Card = styled("div")(
     css`
       max-width: 80vw;
       min-height: 50vh;
-      margin: 2rem;
+      margin: 20px;
       background-color: ${theme.palette.background.default};
       border-radius: 10px;
       &:hover {
@@ -87,7 +87,7 @@ const TitleContainer = styled("div")(
 
 const Title = styled("span")(
   css`
-    font-size: 3rem;
+    font-size: 40px;
     font-weight: bold;
     margin: 0 auto;
   `
@@ -114,10 +114,10 @@ const SportsIcon = styled(SportsMmaRoundedIcon)(
 const BackButton = styled("button")(
   css`
     border: 1px solid red;
-    width: 40vw;
+    width: 20vw;
     padding: 5px;
     color: red;
-    margin: 1rem auto;
+    margin: 20px;
     cursor: pointer;
     font-size: 30px;
   `

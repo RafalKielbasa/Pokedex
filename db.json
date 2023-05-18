@@ -54,7 +54,7 @@
       "weight": 130,
       "ability": "overgrow",
       "height": 10,
-      "base_experience": 162
+      "base_experience": 172
     },
     {
       "id": 35,
@@ -72,7 +72,7 @@
       "weight": 225,
       "ability": "torrent",
       "height": 10,
-      "base_experience": 162
+      "base_experience": 172
     },
     {
       "id": "9387169426858503843113306",
@@ -82,6 +82,15 @@
       "ability": "overgrow",
       "height": 10,
       "base_experience": 110
+    },
+    {
+      "id": 1,
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
+      "name": "bulbasaur",
+      "weight": 69,
+      "ability": "overgrow",
+      "height": 7,
+      "base_experience": 64
     }
   ],
   "newPokemon": [
