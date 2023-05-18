@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import { useTheme } from "@mui/material";
+import { css, styled } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import styled, { css } from "styled-components";
 
 import PokemonCardInfo from "./PokemonCardInfo";
 
@@ -67,6 +66,18 @@ const StyledCloseIcon = styled(CloseIcon)(
   `
 );
 
+class Pokemon {
+  constructor(data) {
+    this.sprite = data.sprites.other.dream_world.front_default;
+    this.ability = data.abilities?.[0]?.ability?.name;
+    this.name = data.name;
+    this.weight = data.weight;
+    this.height = data.height;
+    this.id = data.id;
+    this.base_experience = data.base_experience;
+  }
+}
+
 const PokemonCard = ({
   url,
   closebutton,
@@ -77,46 +88,28 @@ const PokemonCard = ({
 }) => {
   const [pokemonData, setPokemonData] = useState(null);
   const navigate = useNavigate();
-  const theme = useTheme();
 
   useEffect(() => {
     if (!pokemon) {
       const fetchData = async () => {
         const response = await axios.get(url);
-        const objPokemon = {
-          sprite: response.data.sprites.other.dream_world.front_default,
-          ability: response.data.abilities?.[0]?.ability?.name,
-          name: response.data.name,
-          weight: response.data.weight,
-          height: response.data.height,
-          id: response.data.id,
-          base_experience: response.data.base_experience,
-        };
+        const poke = new Pokemon(response?.data);
 
-        setPokemonData(objPokemon);
-        editPokemonData(objPokemon);
+        setPokemonData(poke);
+        editPokemonData(poke);
       };
 
       fetchData();
     } else {
       editPokemonData(pokemon);
-      console.log(pokemon.id);
     }
   }, [url, editedPokemonList]);
 
   const editPokemonData = (oldData) => {
     const obj = editedPokemonList?.find((item) => item.id === oldData.id);
+
     if (obj !== undefined) {
-      const updatedPokemonData = {
-        ...oldData,
-        name: obj.name,
-        weight: obj.weight,
-        height: obj.height,
-        base_experience: obj.base_experience,
-        ability: obj?.ability,
-        sprite: obj?.sprite,
-      };
-      setPokemonData(updatedPokemonData);
+      setPokemonData(obj);
     } else {
       setPokemonData(oldData);
     }
@@ -130,10 +123,7 @@ const PokemonCard = ({
   };
 
   return (
-    <StyledBox
-      onClick={closebutton ? null : handlePokemonCardClick}
-      theme={theme}
-    >
+    <StyledBox onClick={closebutton ? null : handlePokemonCardClick}>
       {closebutton ? <StyledCloseIcon onClick={removeFighter} /> : null}
       <StyledImgBox>
         <Image src={pokemonData?.sprite} />

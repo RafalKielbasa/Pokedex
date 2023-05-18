@@ -4,6 +4,7 @@ import axios from "axios";
 import { Pagination, styled, css, Box } from "@mui/material";
 
 import PokemonCard from "../components/PokemonCard";
+import { useFetchLocalApi } from "../hooks/useFetchLocalApi";
 
 const StyledBox = styled(Box)(
   ({ theme }) =>
@@ -34,13 +35,10 @@ const Heading = styled("h1")(
 );
 
 const EditList = () => {
+  const [pokedex, setPokedex] = useState([]);
   const [url, setUrl] = useState(
     `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=15`
   );
-
-  const [pokedex, setPokedex] = useState([]);
-  const [error, setError] = useState(null);
-  const [editedPokemonList, setEditedPokemonList] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,14 +53,8 @@ const EditList = () => {
     fetchData();
   }, [url]);
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3001/editedPokemon`)
-      .then((response) => {
-        setEditedPokemonList(response.data);
-      })
-      .catch((error) => {});
-  }, []);
+  const { items: editedPokemonList, error: editedPokemonListError } =
+    useFetchLocalApi("editedPokemon");
 
   const handlePaginationChange = (event, value) => {
     setUrl(

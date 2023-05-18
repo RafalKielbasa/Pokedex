@@ -19,71 +19,6 @@
       "base_experience": 142
     },
     {
-      "id": 35,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/35.svg",
-      "name": "clefairy",
-      "weight": 75,
-      "ability": "cute-charm",
-      "height": 6,
-      "base_experience": 113
-    },
-    {
-      "id": 8,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/8.svg",
-      "name": "wartortle",
-      "weight": 225,
-      "ability": "torrent",
-      "height": 10,
-      "base_experience": 142
-    },
-    {
-      "id": "9387169426858503843113306",
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
-      "name": "new",
-      "weight": 130,
-      "ability": "overgrow",
-      "height": 10,
-      "base_experience": 100
-    }
-  ],
-  "editedPokemon": [
-    {
-      "id": 2,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
-      "name": "edited",
-      "weight": 130,
-      "ability": "overgrow",
-      "height": 10,
-      "base_experience": 172
-    },
-    {
-      "id": 35,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/35.svg",
-      "name": "clefairy",
-      "weight": 75,
-      "ability": "cute-charm",
-      "height": 6,
-      "base_experience": 113
-    },
-    {
-      "id": 8,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/8.svg",
-      "name": "wartortle",
-      "weight": 225,
-      "ability": "torrent",
-      "height": 10,
-      "base_experience": 172
-    },
-    {
-      "id": "9387169426858503843113306",
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
-      "name": "new",
-      "weight": 130,
-      "ability": "overgrow",
-      "height": 10,
-      "base_experience": 120
-    },
-    {
       "id": 1,
       "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
       "name": "bulbasaur",
@@ -91,35 +26,8 @@
       "ability": "overgrow",
       "height": 7,
       "base_experience": 64
-    },
-    {
-      "id": 3,
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
-      "name": "venusaur",
-      "weight": 1000,
-      "ability": "overgrow",
-      "height": 20,
-      "base_experience": 273
     }
   ],
-  "newPokemon": [
-    {
-      "id": "9387169426858503843113306",
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
-      "name": "new",
-      "weight": 130,
-      "ability": "overgrow",
-      "height": 10,
-      "base_experience": 100
-    },
-    {
-      "id": "907360457048606353518",
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
-      "name": "eryk michowski",
-      "weight": 1000,
-      "ability": "overgrow",
-      "height": 20,
-      "base_experience": 273
-    }
-  ]
+  "editedPokemon": [],
+  "newPokemon": []
 }

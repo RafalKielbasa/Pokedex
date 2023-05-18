@@ -1,10 +1,7 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-
-import { useTheme } from "@mui/material";
-import styled, { css } from "styled-components";
+import { styled, css } from "@mui/material";
 
 import PokemonCard from "../components/PokemonCard";
+import { useFetchLocalApi } from "../hooks/useFetchLocalApi";
 
 const StyledBox = styled("div")(
   ({ theme }) =>
@@ -32,38 +29,24 @@ const Heading = styled("h1")(
   `
 );
 
-const Favorites = ({ favorites, setFavorites }) => {
-  const [editedPokemonList, setEditedPokemonList] = useState(null);
-  const theme = useTheme();
+const Favorites = ({}) => {
+  const { items: favorites, error: favoritesError } =
+    useFetchLocalApi("favorites");
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/favorites")
-      .then((response) => setFavorites(response?.data))
-      .catch((error) => console.log("ulub", error));
-
-    axios
-      .get(`http://localhost:3001/editedPokemon`)
-      .then((response) => {
-        setEditedPokemonList(response.data);
-      })
-      .catch((error) => {});
-  }, []);
+  const { items: editedPokemonList, error: editedPokemonListError } =
+    useFetchLocalApi("editedPokemon");
 
   return (
-    <StyledBox theme={theme}>
+    <StyledBox>
       <StyledList>
-        {favorites.length >= 1 ? (
-          favorites.map((item) => {
-            return (
-              <PokemonCard
-                key={item.id}
-                pokemon={item}
-                gate={false}
-                editedPokemonList={editedPokemonList}
-              />
-            );
-          })
+        {favorites?.length > 0 ? (
+          favorites.map((item) => (
+            <PokemonCard
+              key={item.id}
+              pokemon={item}
+              editedPokemonList={editedPokemonList}
+            />
+          ))
         ) : (
           <Heading>no favorite pokemon</Heading>
         )}

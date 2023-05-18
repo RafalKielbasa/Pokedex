@@ -6,8 +6,9 @@ import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 
 import { useSnackbar } from "notistack";
-import { Box, Button, TextField, useTheme } from "@mui/material";
-import styled, { css } from "styled-components";
+import { Box, Button, TextField, useTheme, css, styled } from "@mui/material";
+
+import { useFetchLocalApi } from "../hooks/useFetchLocalApi";
 
 const Container = styled("div")(
   ({ theme }) =>
@@ -41,28 +42,18 @@ const userSchema = Yup.object().shape({
 });
 
 const Signin = ({ setUserData }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [userInfo, setUserInfo] = useState([]);
-  const [usersFromData, setUsersFromData] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const theme = useTheme();
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/user")
-      .then((response) => setUsersFromData(response.data))
-      .catch((error) => console.log(error));
-  }, []);
+  const { items: usersFromData, error: usersFromDataError } =
+    useFetchLocalApi("user");
 
   const handleClick = (text, type) => {
     enqueueSnackbar(text, { variant: type });
   };
 
   const handleOnSubmit = (values, actions) => {
-    setIsSubmitting(true);
-    actions.setSubmitting(false);
-    setUserInfo(values);
     checkLogin(values);
   };
 
@@ -86,8 +77,8 @@ const Signin = ({ setUserData }) => {
   };
 
   return (
-    <Container theme={theme}>
-      <StyledLoginBox theme={theme}>
+    <Container>
+      <StyledLoginBox>
         <Formik
           initialValues={{
             email: "",
@@ -107,7 +98,7 @@ const Signin = ({ setUserData }) => {
                   type="email"
                   name="email"
                   label="Adres e-mail"
-                  error={touched.email && errors.email ? true : false}
+                  error={touched.email && errors.email}
                   helperText={touched.email && errors.email ? errors.email : ""}
                   style={{ background: theme.palette.background.contrast }}
                 />
@@ -119,7 +110,7 @@ const Signin = ({ setUserData }) => {
                   name="password"
                   label="Hasło"
                   fullWidth
-                  error={touched.password && errors.password ? true : false}
+                  error={touched.password && errors.password}
                   helperText={
                     touched.password && errors.password ? errors.password : ""
                   }

@@ -2,15 +2,15 @@ import { useState, useEffect, useContext } from "react";
 import { useLocation, Link } from "react-router-dom";
 import axios from "axios";
 
-import { useTheme, Tooltip } from "@mui/material";
+import { Tooltip, css, styled } from "@mui/material";
 import { useSnackbar } from "notistack";
-import styled, { css } from "styled-components";
 
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
 
 import PokemonDetailsInfo from "../components/PokemonDetailsInfo";
 import { JsonPost } from "../api/JsonPost";
+import { useFetchLocalApi } from "../hooks/useFetchLocalApi";
 
 const Container = styled("div")(
   ({ theme }) =>
@@ -124,34 +124,23 @@ const BackButton = styled("button")(
   `
 );
 
-const Details = ({ favorites, setFavorites, battle, setBattle }) => {
+const Details = ({}) => {
   const location = useLocation();
   const pokemonData = location.state?.pokemonData;
   const [isToggled, setIsToggled] = useState(false);
   const [isToggledBattle, setIsToggledBattle] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
-  const theme = useTheme();
+
+  const { items: favorites, error: favoritesError } =
+    useFetchLocalApi("favorites");
+  const favoritesIds = favorites?.map((item) => item.id);
+
+  const { items: battle, error: battleError } = useFetchLocalApi("battle");
+  const battleIds = battle?.map((item) => item.id);
 
   useEffect(() => {
-    function fetchData() {
-      axios
-        .get("http://localhost:3001/favorites")
-        .then((response) => setFavorites(response.data?.map((item) => item.id)))
-
-        .catch((error) => console.log(error));
-
-      axios
-        .get("http://localhost:3001/battle")
-        .then((response) => setBattle(response.data?.map((item) => item.id)))
-        .catch((error) => console.log(error));
-    }
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    setIsToggled(favorites?.includes(pokemonData?.id));
-    setIsToggledBattle(battle?.includes(pokemonData?.id));
+    setIsToggled(favoritesIds?.includes(pokemonData?.id));
+    setIsToggledBattle(battleIds?.includes(pokemonData?.id));
   }, [favorites, battle]);
 
   const handleClick = (text, type) => {
@@ -187,8 +176,8 @@ const Details = ({ favorites, setFavorites, battle, setBattle }) => {
   };
 
   return (
-    <Container theme={theme}>
-      <Card theme={theme}>
+    <Container>
+      <Card>
         <ImageContainer>
           <Image src={pokemonData?.sprite} />
         </ImageContainer>
@@ -213,7 +202,7 @@ const Details = ({ favorites, setFavorites, battle, setBattle }) => {
             </Tooltip>
           </TitleContainer>
 
-          <PokemonDetailsInfo pokemonData={pokemonData} flag={true} />
+          <PokemonDetailsInfo pokemonData={pokemonData} />
         </ContentContainer>
       </Card>
       <Link to={"/"}>

@@ -1,11 +1,9 @@
-import { useState } from "react";
 import axios from "axios";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 
-import { Box, Button, TextField, useTheme } from "@mui/material";
+import { Box, Button, TextField, useTheme, css, styled } from "@mui/material";
 import { useSnackbar } from "notistack";
-import styled, { css } from "styled-components";
 
 const Container = styled("div")(
   ({ theme }) =>
@@ -24,7 +22,7 @@ const StyledRegisterBox = styled("div")(
       justify-content: center;
       border: 3px solid black;
       margin-top: 30px;
-      background-color: ${theme.palette.background.login};
+      background-color: ${theme.palette.background.default};
       width: 300px;
       max-height: 550px;
     `
@@ -47,12 +45,10 @@ const userSchema = Yup.object().shape({
 });
 
 const Register = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const theme = useTheme();
 
   const handleOnSubmit = (values, actions) => {
-    setIsSubmitting(true);
     console.log(values);
     actions.setSubmitting(false);
     axios.post(`http://localhost:3001/user/`, {
@@ -68,8 +64,8 @@ const Register = () => {
   };
 
   return (
-    <Container theme={theme}>
-      <StyledRegisterBox theme={theme}>
+    <Container>
+      <StyledRegisterBox>
         <Formik
           initialValues={{
             name: "",
@@ -90,8 +86,9 @@ const Register = () => {
                   as={TextField}
                   name="name"
                   label="Imię"
-                  error={touched.name && errors.name ? true : false}
+                  error={touched.name && errors.name}
                   helperText={touched.name && errors.name ? errors.name : ""}
+                  style={{ background: theme.palette.background.contrast }}
                 />
               </Box>
               <Box marginBottom={2}>
@@ -100,8 +97,9 @@ const Register = () => {
                   type="email"
                   name="email"
                   label="Adres e-mail"
-                  error={touched.email && errors.email ? true : false}
+                  error={touched.email && errors.email}
                   helperText={touched.email && errors.email ? errors.email : ""}
+                  style={{ background: theme.palette.background.contrast }}
                 />
               </Box>
               <Box marginBottom={2}>
@@ -111,10 +109,11 @@ const Register = () => {
                   name="password"
                   label="Hasło"
                   fullWidth
-                  error={touched.password && errors.password ? true : false}
+                  error={touched.password && errors.password}
                   helperText={
                     touched.password && errors.password ? errors.password : ""
                   }
+                  style={{ background: theme.palette.background.contrast }}
                 />
               </Box>
               <Box marginBottom={2}>
@@ -124,16 +123,13 @@ const Register = () => {
                   name="confirmPassword"
                   label="Potwierdź hasło"
                   fullWidth
-                  error={
-                    touched.confirmPassword && errors.confirmPassword
-                      ? true
-                      : false
-                  }
+                  error={touched.confirmPassword && errors.confirmPassword}
                   helperText={
                     touched.confirmPassword && errors.confirmPassword
                       ? errors.confirmPassword
                       : ""
                   }
+                  style={{ background: theme.palette.background.contrast }}
                 />
               </Box>
               <Box display="flex" justifyContent="center" marginBottom={2}>

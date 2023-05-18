@@ -1,11 +1,11 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
 
-import { useTheme, Box, Pagination } from "@mui/material";
-import styled, { css } from "styled-components";
+import { Pagination, styled, css } from "@mui/material";
 
 import PokemonCard from "../components/PokemonCard";
 import Textfield from "../components/Textfield";
+import { useFetchLocalApi } from "../hooks/useFetchLocalApi";
 
 const StyledContainer = styled("div")(
   ({ theme }) =>
@@ -39,32 +39,16 @@ const Home = () => {
     `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=15`
   );
   const [pokedex, setPokedex] = useState([]);
-  const [search, setSearch] = useState();
-  const [error, setError] = useState(null);
-  const [newPokemon, setNewPokemon] = useState(null);
+  const [search, setSearch] = useState("");
 
-  const [editedPokemonList, setEditedPokemonList] = useState(null);
-  const theme = useTheme();
+  const { items: newPokemon, error: newPokemonError } =
+    useFetchLocalApi("newPokemon");
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3001/editedPokemon`)
-      .then((response) => {
-        setEditedPokemonList(response.data);
-      })
-      .catch((error) => {});
-    axios
-      .get(`http://localhost:3001/newPokemon/`)
-      .then((response) => {
-        setNewPokemon(response.data);
-      })
-      .catch((error) => {
-        setError(error);
-      });
-  }, []);
+  const { items: editedPokemonList, error: editedPokemonListError } =
+    useFetchLocalApi("editedPokemon");
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (url, search) => {
       try {
         const response = await axios.get(
           search ? "https://pokeapi.co/api/v2/pokemon/?limit=150&offset=0" : url
@@ -78,17 +62,11 @@ const Home = () => {
         setError(error);
       }
     };
-
-    fetchData();
+    fetchData(url, search);
   }, [url, search]);
 
-  const searchFilter = (data, name) => {
-    const filtered = data?.filter((item) => {
-      const result = item.name.includes(name);
-      return result;
-    });
-    return filtered;
-  };
+  const searchFilter = (data, name) =>
+    data?.filter(({ name: pokemonName }) => pokemonName.includes(name));
 
   const handlePaginationChange = (event, value) => {
     setUrl(
@@ -97,34 +75,36 @@ const Home = () => {
   };
 
   return (
-    <StyledContainer theme={theme}>
+    <StyledContainer>
       <Textfield setSearch={setSearch} setUrl={setUrl} />
-      <StyledContent theme={theme}>
+      <StyledContent>
         {pokedex?.map((item) => {
           return (
             <PokemonCard
               key={item.name}
               url={item.url}
-              gate={false}
               editedPokemonList={editedPokemonList}
             />
           );
         })}
       </StyledContent>
 
-      <Heading>Added Pokemons:</Heading>
-      <StyledContent theme={theme}>
-        {newPokemon?.map((element) => {
-          return (
-            <PokemonCard
-              key={element.id}
-              pokemon={element}
-              gate={false}
-              editedPokemonList={editedPokemonList}
-            />
-          );
-        })}
-      </StyledContent>
+      {newPokemon?.length > 0 && (
+        <>
+          <Heading>Added Pokemons:</Heading>
+          <StyledContent>
+            {newPokemon?.map((element) => {
+              return (
+                <PokemonCard
+                  key={element.id}
+                  pokemon={element}
+                  editedPokemonList={editedPokemonList}
+                />
+              );
+            })}
+          </StyledContent>
+        </>
+      )}
 
       <Pagination
         count={10}

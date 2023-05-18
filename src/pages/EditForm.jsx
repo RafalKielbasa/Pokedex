@@ -2,9 +2,8 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 
-import { useTheme } from "@mui/material";
+import { css, styled } from "@mui/material";
 import { useSnackbar } from "notistack";
-import styled, { css } from "styled-components";
 
 import { JsonEditPokemon } from "../api/JsonEditPokemon";
 import { JsonAddPokemon } from "../api/JsonAddPokemon";
@@ -155,7 +154,6 @@ const EditForm = () => {
   const location = useLocation();
   const pokemonData = location.state?.pokemonData;
   const { enqueueSnackbar } = useSnackbar();
-  const theme = useTheme();
   const [newValues, setNewValues] = useState(null);
   const [disp, setDisp] = useState(false);
 
@@ -186,11 +184,11 @@ const EditForm = () => {
     enqueueSnackbar(text, { variant: type });
   };
   return (
-    <Container theme={theme}>
+    <Container>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {() => (
           <Form>
-            <PokemonCard theme={theme}>
+            <PokemonCard>
               <ImageContainer>
                 <Image src={pokemonData?.sprite} />
               </ImageContainer>

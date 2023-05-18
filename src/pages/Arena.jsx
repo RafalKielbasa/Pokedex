@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import { useTheme } from "@mui/material";
-import styled, { css } from "styled-components";
+import { css, styled } from "@mui/material";
 
 import PokemonCard from "../components/PokemonCard";
 
@@ -76,10 +75,10 @@ const HomeButton = styled("button")(
     `
 );
 
-const Arena = ({ battle, setBattle }) => {
+const Arena = () => {
+  const [battle, setBattle] = useState([]);
   const [winner, setWinner] = useState(undefined);
   const [listener, setListener] = useState(true);
-  const theme = useTheme();
 
   useEffect(() => {
     axios
@@ -89,9 +88,6 @@ const Arena = ({ battle, setBattle }) => {
 
   const playerOne = battle[0];
   const playerTwo = battle[1];
-
-  const playerOneName = playerOne?.name;
-  const playerTwoName = playerTwo?.name;
 
   const playerOneForce = playerOne?.base_experience * playerOne?.height;
   const playerTwoForce = playerTwo?.base_experience * playerTwo?.height;
@@ -127,13 +123,10 @@ const Arena = ({ battle, setBattle }) => {
   };
 
   return (
-    <Container theme={theme}>
-      {winner ? (
-        <WinnerInfo>winner {winner.name.toUpperCase()} !</WinnerInfo>
-      ) : null}
+    <Container>
+      {winner && <WinnerInfo>winner {winner.name.toUpperCase()} !</WinnerInfo>}
       <CardsContainer>
         <StyledBox
-          theme={theme}
           winner={winner}
           style={{
             opacity: winner
@@ -143,18 +136,16 @@ const Arena = ({ battle, setBattle }) => {
               : null,
           }}
         >
-          {playerOne?.id !== undefined ? (
+          {playerOne && (
             <PokemonCard
               pokemon={playerOne}
-              key={playerOneName}
               closebutton={true}
               removeFighter={() => removeFighter(playerOne.id)}
             />
-          ) : null}
+          )}
         </StyledBox>
 
         <StyledBox
-          theme={theme}
           style={{
             opacity: winner
               ? winner.name === playerTwo.name
@@ -163,25 +154,20 @@ const Arena = ({ battle, setBattle }) => {
               : null,
           }}
         >
-          {playerTwo?.id !== undefined ? (
+          {playerTwo && (
             <PokemonCard
               pokemon={playerTwo}
-              key={playerTwoName}
               closebutton={true}
               removeFighter={() => removeFighter(playerTwo.id)}
             />
-          ) : null}
+          )}
         </StyledBox>
       </CardsContainer>
-      <FightButton
-        onClick={handleFight}
-        theme={theme}
-        disabled={battle.length > 1 ? false : true}
-      >
+      <FightButton onClick={handleFight} disabled={battle.length < 1}>
         FIGHT
       </FightButton>
       <Link to={"/"}>
-        <HomeButton onClick={backHome} winner={winner?.name} theme={theme}>
+        <HomeButton onClick={backHome} winner={winner?.name}>
           Back Home
         </HomeButton>
       </Link>
