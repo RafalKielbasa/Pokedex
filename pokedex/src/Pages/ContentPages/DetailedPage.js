@@ -36,7 +36,7 @@ const DetailedPage = () => {
   });
   const addFavorite = () => {
     setIsFavorite((prev) => !prev);
-    setFavoriteList((prev) => prev?.push(name));
+    setFavoriteList((prev) => Array.isArray(prev) && prev?.push(name));
     createPostMutation.mutate();
   };
 
@@ -48,7 +48,7 @@ const DetailedPage = () => {
   });
   const deleteFavorite = () => {
     setIsFavorite((prev) => !prev);
-    setFavoriteList((prev) => prev?.filter((value) => value !== name));
+    setFavoriteList((prev) => Array.isArray(prev) && prev?.filter((value) => value !== name));
     createDeleteMutation.mutate();
   };
   const arenaFightersHandle = () => {

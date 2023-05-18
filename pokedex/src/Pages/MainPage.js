@@ -7,10 +7,12 @@ const MainPage = () => {
   const { data: editedList, status: editedStatus } = useQuery({
     queryKey: ["editedPokemons"],
     queryFn: () => fetchEditedList(),
+    staleTime: 10 * (60 * 1000),
   });
   const { data: favorite, status: favoriteStatus } = useQuery({
     queryKey: ["favorite"],
     queryFn: () => fetchFavorite(),
+    staleTime: 10 * (60 * 1000),
   });
   const [arenaFirstFighter, setArenaFirstFighter] = useState(null);
   const [arenaSecondFighter, setArenaSecondFighter] = useState(null);

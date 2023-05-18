@@ -1,44 +1,10 @@
 {
   "favorite": [
     {
-      "name": "metapod",
-      "id": 1
+      "name": "charmander"
     },
     {
-      "name": "caterpie",
-      "id": 2
-    },
-    {
-      "name": "caterpie",
-      "id": 3
-    },
-    {
-      "name": "caterpie",
-      "id": 4
-    },
-    {
-      "name": "caterpie",
-      "id": 5
-    },
-    {
-      "name": "caterpie",
-      "id": 6
-    },
-    {
-      "name": "charmander",
-      "id": 7
-    },
-    {
-      "name": "charmander",
-      "id": 8
-    },
-    {
-      "name": "charmander",
-      "id": 9
-    },
-    {
-      "name": "charmeleon",
-      "id": 10
+      "name": "charizard"
     }
   ],
   "edited": [],
