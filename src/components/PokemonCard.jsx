@@ -94,20 +94,21 @@ const PokemonCard = ({
         };
 
         setPokemonData(objPokemon);
-        editPokemonData(response);
+        editPokemonData(objPokemon);
       };
 
       fetchData();
     } else {
-      setPokemonData(pokemon);
+      editPokemonData(pokemon);
+      console.log(pokemon.id);
     }
   }, [url, editedPokemonList]);
 
   const editPokemonData = (oldData) => {
-    const obj = editedPokemonList?.find((item) => item.id === oldData.data.id);
+    const obj = editedPokemonList?.find((item) => item.id === oldData.id);
     if (obj !== undefined) {
       const updatedPokemonData = {
-        ...oldData.data,
+        ...oldData,
         name: obj.name,
         weight: obj.weight,
         height: obj.height,
@@ -117,7 +118,7 @@ const PokemonCard = ({
       };
       setPokemonData(updatedPokemonData);
     } else {
-      return;
+      setPokemonData(oldData);
     }
   };
 

@@ -17,10 +17,12 @@ import ContextProvider from "./context/Context";
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
 
 function App() {
+  const test = localStorage.getItem("userData");
   const [favorites, setFavorites] = useState([]);
   const [battle, setBattle] = useState([]);
-  const [userData, setUserData] = useState([]);
+  const [userData, setUserData] = useState(test);
   const [theme, colorMode] = useMode();
+  console.log("userdata", userData);
 
   return (
     <>
@@ -67,17 +69,19 @@ function App() {
                     <Route path="/EditList" element={<EditList />} />
                   ) : null}
 
-                  <Route
-                    path="/EditForm/:id/"
-                    element={
-                      <EditForm
-                        setFavorites={setFavorites}
-                        favorites={favorites}
-                        battle={battle}
-                        setBattle={setBattle}
-                      />
-                    }
-                  />
+                  {userData ? (
+                    <Route
+                      path="/EditForm/:id/"
+                      element={
+                        <EditForm
+                          setFavorites={setFavorites}
+                          favorites={favorites}
+                          battle={battle}
+                          setBattle={setBattle}
+                        />
+                      }
+                    />
+                  ) : null}
                 </Routes>
               </div>
             </ContextProvider>

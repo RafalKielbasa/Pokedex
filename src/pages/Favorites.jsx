@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 import { useTheme } from "@mui/material";
@@ -33,6 +33,7 @@ const Heading = styled("h1")(
 );
 
 const Favorites = ({ favorites, setFavorites }) => {
+  const [editedPokemonList, setEditedPokemonList] = useState(null);
   const theme = useTheme();
 
   useEffect(() => {
@@ -40,6 +41,13 @@ const Favorites = ({ favorites, setFavorites }) => {
       .get("http://localhost:3001/favorites")
       .then((response) => setFavorites(response?.data))
       .catch((error) => console.log("ulub", error));
+
+    axios
+      .get(`http://localhost:3001/editedPokemon`)
+      .then((response) => {
+        setEditedPokemonList(response.data);
+      })
+      .catch((error) => {});
   }, []);
 
   return (
@@ -47,7 +55,14 @@ const Favorites = ({ favorites, setFavorites }) => {
       <StyledList>
         {favorites.length >= 1 ? (
           favorites.map((item) => {
-            return <PokemonCard key={item} pokemon={item} gate={false} />;
+            return (
+              <PokemonCard
+                key={item.id}
+                pokemon={item}
+                gate={false}
+                editedPokemonList={editedPokemonList}
+              />
+            );
           })
         ) : (
           <Heading>no favorite pokemon</Heading>

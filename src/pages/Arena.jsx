@@ -102,17 +102,10 @@ const Arena = ({ battle, setBattle }) => {
   };
 
   const updateData = (winner) => {
-    if (winner?.id < 1500) {
-      axios.put(`http://localhost:3001/editedPokemon/${winner.id}`, {
-        ...winner,
-        base_experience: winner.base_experience + 10,
-      });
-    } else {
-      axios.put(`http://localhost:3001/newPokemon/${winner.id}`, {
-        ...winner,
-        base_experience: winner.base_experience + 10,
-      });
-    }
+    axios.put(`http://localhost:3001/editedPokemon/${winner.id}`, {
+      ...winner,
+      base_experience: winner.base_experience + 10,
+    });
   };
 
   const removeFighter = (index) => {
