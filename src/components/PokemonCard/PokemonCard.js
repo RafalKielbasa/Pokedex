@@ -14,11 +14,6 @@ export const PokemonCard = ({ props }) => {
   const { name, height, baseExperience, weight, abilities, image } = props;
   const location = useLocation();
 
-  const capitalizeFirstLetter = (name) => {
-    const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
-    return capitalized;
-  };
-
   return (
     <WrapperDiv>
       <img
@@ -30,13 +25,9 @@ export const PokemonCard = ({ props }) => {
       <Body>
         <PokemonName>
           {location.pathname === ProjectUrl.EditAndLogout ? (
-            <Link to={`${ProjectUrl.Edit}?name=${name}`}>
-              {capitalizeFirstLetter(name)}
-            </Link>
+            <Link to={`${ProjectUrl.Edit}?name=${name}`}>{name}</Link>
           ) : (
-            <Link to={`${ProjectUrl.PokemonDetails}?name=${name}`}>
-              {capitalizeFirstLetter(name)}
-            </Link>
+            <Link to={`${ProjectUrl.PokemonDetails}?name=${name}`}>{name}</Link>
           )}
         </PokemonName>
         <Container>

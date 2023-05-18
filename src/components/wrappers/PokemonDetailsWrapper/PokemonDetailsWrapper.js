@@ -15,34 +15,33 @@ import {
 } from "./PokemonDetailsWrapper.style";
 
 export const PokemonDetailsWrapper = ({ pokemonData }) => {
-  // const { name, height, baseExperience, weight, abilities, image } =
-  //   pokemonData[0];
-  console.log("poke", pokemonData);
+  const { name, height, baseExperience, weight, abilities, image } =
+    pokemonData[0];
 
   return (
     <PageWrapper>
       <DetailsSign>Pokemon Details</DetailsSign>
       <PokedexSign>POKEDEX</PokedexSign>
       <PokemonDetailsWrap>
-        <PokemonImg alt={`pokemon`}></PokemonImg>
+        <PokemonImg src={image} alt={`pokemon ${name}`}></PokemonImg>
         <PokemonInfo>
-          <PokemonName>{}</PokemonName>
+          <PokemonName>{name}</PokemonName>
           <Container>
             <PropsDiv>
               <PropsName>Height</PropsName>
-              <PropsValue>{}</PropsValue>
+              <PropsValue>{height}</PropsValue>
             </PropsDiv>
             <PropsDiv>
               <PropsName>Base Experience</PropsName>
-              <PropsValue>{}</PropsValue>
+              <PropsValue>{baseExperience}</PropsValue>
             </PropsDiv>
             <PropsDiv>
               <PropsName>Weight</PropsName>
-              <PropsValue>{}</PropsValue>
+              <PropsValue>{weight}</PropsValue>
             </PropsDiv>
             <PropsDiv>
               <PropsName>Ability</PropsName>
-              <PropsValue>{}</PropsValue>
+              <PropsValue>{abilities[0]}</PropsValue>
             </PropsDiv>
           </Container>
         </PokemonInfo>

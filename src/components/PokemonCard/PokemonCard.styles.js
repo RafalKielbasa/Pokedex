@@ -37,6 +37,7 @@ export const PokemonName = styled.div`
   padding-bottom: 24px;
   font-size: 32px;
   font-weight: 900;
+  text-transform: capitalize;
 
   a {
     color: inherit;

@@ -5,5 +5,7 @@ export const useCorrectPokemonQuery = (name) => {
   return useQuery({
     queryKey: ["correctPokemonData"],
     queryFn: () => getCorrectPokemon(name),
+    enabled: !!name,
+    //select: (data) => data,
   });
 };

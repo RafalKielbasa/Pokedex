@@ -5,8 +5,11 @@ import { useCorrectPokemonQuery } from "../hooks/useCorrecrtPokemon";
 
 export const PokemonDetailsPage = () => {
   const [searchParams] = useSearchParams();
-  const { data } = useCorrectPokemonQuery(searchParams.get("name"));
+  const { data, isLoading } = useCorrectPokemonQuery(searchParams.get("name"));
 
+  if (isLoading) {
+    return;
+  }
   return (
     <DefaultLayout>
       <PokemonDetailsWrapper pokemonData={data?.data} />

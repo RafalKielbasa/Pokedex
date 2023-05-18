@@ -21,9 +21,10 @@ export const PokedexSign = styled.h1`
   justify-content: center;
 `;
 
-export const PokemonName = styled.h2`
+export const PokemonName = styled.h1`
   display: flex;
   justify-content: center;
+  text-transform: capitalize;
 `;
 
 export const PokemonDetailsWrap = styled.div`
