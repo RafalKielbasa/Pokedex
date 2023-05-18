@@ -16,15 +16,16 @@ import {
 } from "../components";
 
 const HomePage = () => {
-  const [page, setPage, searchedValue, setSearchedValue] = useOutletContext();
+  const { page, setPage, searchedValue, setSearchedValue } = useOutletContext();
   const [createComponentData, setCreateComponentData] = useState(null);
   const queryClient = useQueryClient();
 
   const { data: edited, status: editedStatus } = useQuery({
     queryKey: ["editedPokemons"],
-    queryFn: () => fetchEdited(),
+    queryFn: () => fetchEdited(editedList),
     staleTime: 10 * (60 * 1000),
   });
+  const editedList = edited?.map((value) => value.name);
   const { data: pokemons } = useQuery({
     queryKey: ["pokemons", page],
     queryFn: () => fetchData((page - 1) * 15),
@@ -37,8 +38,6 @@ const HomePage = () => {
     enabled: searchedValue !== "",
     staleTime: 10 * (60 * 1000),
   });
-
-  const editedList = edited?.map((value) => value.name);
   editedList?.forEach((value, index) => {
     queryClient.setQueryData(["pokemon", value], edited[index]);
   });
@@ -60,7 +59,6 @@ const HomePage = () => {
         queryKey: ["pokemon", name],
         queryFn: () => fetchPokemonData(url),
         enabled: !editedList?.includes(name),
-        cacheTime: 0,
         staleTime: 10 * (60 * 1000),
       };
     }),

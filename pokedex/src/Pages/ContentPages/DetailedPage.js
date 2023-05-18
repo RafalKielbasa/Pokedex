@@ -9,14 +9,22 @@ import { deleteData, postData } from "src/api";
 import { useOutletContext } from "react-router-dom";
 import { fetchPokemonData } from "src/api";
 const DetailedPage = () => {
-  const [
+  const {
     arenaFirstFighter,
     setArenaFirstFighter,
     arenaSecondFighter,
     setArenaSecondFighter,
     favoriteList,
     setFavoriteList,
-  ] = useOutletContext();
+  } = useOutletContext();
+  console.log({
+    arenaFirstFighter,
+    setArenaFirstFighter,
+    arenaSecondFighter,
+    setArenaSecondFighter,
+    favoriteList,
+    setFavoriteList,
+  });
   const isEdited = true;
   const { name } = useParams();
   const queryClient = useQueryClient();
@@ -24,13 +32,11 @@ const DetailedPage = () => {
     queryKey: ["pokemon", name],
     queryFn: () =>
       fetchPokemonData(`https://pokeapi.co/api/v2/pokemon/${name}`),
-    enabled: !isEdited,
     staleTime: 10 * (60 * 1000),
   });
   const { data: detailPokemonEdited } = useQuery({
     queryKey: ["pokemon", name],
     queryFn: () => fetchPokemonData(`http://localhost:3000/edited/${name}`),
-    enabled: isEdited,
     staleTime: 10 * (60 * 1000),
   });
   const [isFavorite, setIsFavorite] = useState(
