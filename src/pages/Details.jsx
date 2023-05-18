@@ -30,6 +30,7 @@ const Card = styled("div")(
       max-width: 80vw;
       min-height: 50vh;
       margin: 20px;
+      padding: 20px;
       background-color: ${theme.palette.background.default};
       border-radius: 10px;
       &:hover {
