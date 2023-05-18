@@ -2,11 +2,8 @@ import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-export const fetchData = async (page, searchedValue) => {
-  const response =
-    searchedValue === ""
-      ? await axios.get(`${BASE_URL}?offset=${page}&limit=15`)
-      : await axios.get(`${BASE_URL}?offset=0&limit=151`);
+export const fetchData = async (page) => {
+  const response = await axios.get(`${BASE_URL}?offset=${page}&limit=15`);
   return response;
 };
 export const fetchDataToFilter = async () => {
@@ -25,7 +22,9 @@ export const fetchPokemonData = async (url) => {
   ];
   const response = await axios.get(url);
   const filteredData = Object.fromEntries(
-    Object.entries(response?.data).filter(([key]) => filteredQueriesKeys.includes(key))
+    Object.entries(response?.data).filter(([key]) =>
+      filteredQueriesKeys.includes(key)
+    )
   );
   const updatedData = {
     ...filteredData,
@@ -43,11 +42,17 @@ export const fetchEdited = async () => {
   const response = await axios.get(`http://localhost:3000/edited/`);
   return response?.data;
 };
+export const fetchEditedList = async () => {
+  const response = await axios.get(`http://localhost:3000/edited/`);
+  return response?.data;
+};
 export const fetchUsers = async () => {
   const filterKeys = ["userName", "password"];
   const response = await axios.get(`http://localhost:3000/users/`);
   const filteredResponse = response?.data?.map((value) =>
-    Object.fromEntries(Object.entries(value).filter(([key]) => filterKeys.includes(key)))
+    Object.fromEntries(
+      Object.entries(value).filter(([key]) => filterKeys.includes(key))
+    )
   );
   return filteredResponse;
 };

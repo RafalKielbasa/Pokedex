@@ -1,26 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { filterFnc } from "src/helpers";
 import { useQuery, useQueries, useQueryClient } from "@tanstack/react-query";
-import { fetchData, fetchPokemonData, fetchDataToFilter, fetchEdited } from "src/api";
-import { MyPagination, PokemonCard, PokemonCardContainer, Searcher } from "../components";
 import { useOutletContext } from "react-router-dom";
+import {
+  fetchData,
+  fetchPokemonData,
+  fetchDataToFilter,
+  fetchEdited,
+} from "src/api";
+import {
+  MyPagination,
+  PokemonCard,
+  PokemonCardContainer,
+  Searcher,
+} from "../components";
 
 const HomePage = () => {
   const [page, setPage, searchedValue, setSearchedValue] = useOutletContext();
   const [createComponentData, setCreateComponentData] = useState(null);
   const queryClient = useQueryClient();
+
   const { data: edited, status: editedStatus } = useQuery({
     queryKey: ["editedPokemons"],
     queryFn: () => fetchEdited(),
     staleTime: 10 * (60 * 1000),
   });
-  const editedList = edited?.map((value) => value.name);
-  editedList?.forEach((value, index) => {
-    queryClient.setQueryData(["pokemon", value], edited[index]);
-  });
   const { data: pokemons } = useQuery({
     queryKey: ["pokemons", page],
-    queryFn: () => fetchData((page - 1) * 15, searchedValue),
+    queryFn: () => fetchData((page - 1) * 15),
     enabled: searchedValue === "",
     staleTime: 10 * (60 * 1000),
   });
@@ -30,11 +37,20 @@ const HomePage = () => {
     enabled: searchedValue !== "",
     staleTime: 10 * (60 * 1000),
   });
+
+  const editedList = edited?.map((value) => value.name);
+  editedList?.forEach((value, index) => {
+    queryClient.setQueryData(["pokemon", value], edited[index]);
+  });
   useEffect(() => {
-    pokemons && searchedValue === "" && setCreateComponentData(pokemons?.data?.results);
+    pokemons &&
+      searchedValue === "" &&
+      setCreateComponentData(pokemons?.data?.results);
     pokemonsToFilter &&
       searchedValue !== "" &&
-      setCreateComponentData(filterFnc(pokemonsToFilter?.data?.results, searchedValue));
+      setCreateComponentData(
+        filterFnc(pokemonsToFilter?.data?.results, searchedValue)
+      );
   }, [pokemons, pokemonsToFilter, searchedValue]);
 
   const resultList = createComponentData ? createComponentData : [];
@@ -50,11 +66,13 @@ const HomePage = () => {
     }),
   });
   const allPokemonQueriesStatus =
-    pokemonQueries.length > 0 && pokemonQueries?.every((value) => value?.status === "success");
+    pokemonQueries.length > 0 &&
+    pokemonQueries?.every((value) => value?.status === "success");
   return (
     <div>
-      <Searcher handleSearcherChange={(e) => setSearchedValue(e.target.value)} />
-
+      <Searcher
+        handleSearcherChange={(e) => setSearchedValue(e.target.value)}
+      />
       {editedStatus === "success" && allPokemonQueriesStatus && (
         <>
           <PokemonCardContainer>
