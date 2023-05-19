@@ -19,8 +19,11 @@ const EditPage = () => {
   const [chosedPokemon, setChosedPokemon] = useState("");
   const [initialValues, setInitialValues] = useState({
     abilities: [
-      { ability: { name: "", url: "" }, is_hidden: "", slot: "" },
-      { ability: { name: "", url: "" }, is_hidden: "", slot: "" },
+      {
+        ability: {
+          name: "pusty string",
+        },
+      },
     ],
     base_experience: "",
     height: "",
@@ -50,7 +53,6 @@ const EditPage = () => {
       });
     }
   }, [status, chosedPokemon, detailPokemon]);
-  console.log({ initialValues });
   return (
     <>
       <div>
@@ -82,9 +84,6 @@ const EditPage = () => {
             .integer()
             .positive()
             .required("Required"),
-          ability_name: Yup.string()
-            .max(15, "Must be 15 characters or less")
-            .required("Required"),
           height: Yup.number().integer().positive().required("Required"),
           weight: Yup.number().integer().positive().required("Required"),
         })}
@@ -99,6 +98,7 @@ const EditPage = () => {
       >
         {({ isSubmitting, values }) => (
           <>
+            {console.log(values?.abilities[0]?.ability?.name)}
             <Form>
               <div>
                 <label htmlFor="name">Nazwa Pokemona</label>
@@ -117,11 +117,11 @@ const EditPage = () => {
               <div>
                 <label htmlFor="abilities">Ability name</label>
                 <Field
-                  name="abilities"
+                  name="abilities[0]?.ability?.name"
                   type="text"
-                  value={values?.abilities[0]?.ability?.name || "zmiana"}
+                  value={values?.abilities[0]?.ability?.name}
                 />
-                <ErrorMessage name="abilities" />
+                <ErrorMessage name="abilities[0]?.ability?.name" />
               </div>
               <div>
                 <label htmlFor="height">Wysokość pokemona</label>
