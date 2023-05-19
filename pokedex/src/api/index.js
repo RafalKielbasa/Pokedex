@@ -8,7 +8,7 @@ export {
   fetchOnePokemon,
   allPokemonNamesList,
 } from "./fetchData";
-export { postData } from "./postData";
+export { postData, editedCreatedPostData } from "./postData";
 export { deleteData } from "./deleteData";
 export {
   arenaFirstOneActionHandle,

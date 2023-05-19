@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Form, Formik, Field, ErrorMessage } from "formik";
-import { allPokemonNamesList, fetchOnePokemon } from "src/api";
+import {
+  allPokemonNamesList,
+  fetchOnePokemon,
+  editedCreatedPostData,
+} from "src/api";
 import { useOutletContext } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-
+import * as Yup from "yup";
+import { enqueueSnackbar } from "notistack";
 const EditPage = () => {
   const { editedList, editedStatus } = useOutletContext();
   const { data: pokemonDataToEdit } = useQuery({
@@ -13,9 +18,16 @@ const EditPage = () => {
   });
   const [chosedPokemon, setChosedPokemon] = useState("");
   const [initialValues, setInitialValues] = useState({
-    name: "",
+    abilities: [
+      { ability: { name: "", url: "" }, is_hidden: "", slot: "" },
+      { ability: { name: "", url: "" }, is_hidden: "", slot: "" },
+    ],
     base_experience: "",
-    ability_name: "",
+    height: "",
+    id: "",
+    name: "",
+    sprites: "",
+    weight: "",
   });
   const { data: detailPokemon, status } = useQuery({
     queryKey: ["pokemon", chosedPokemon],
@@ -23,23 +35,22 @@ const EditPage = () => {
     enabled: editedStatus === "success" && chosedPokemon !== "",
     staleTime: 10 * (60 * 1000),
   });
-  console.log({ detailPokemon });
   useEffect(() => {
     if (status === "success" && chosedPokemon !== "") {
+      const { abilities, base_experience, height, id, name, sprites, weight } =
+        detailPokemon;
       setInitialValues({
-        name: detailPokemon?.name,
-        base_experience: detailPokemon?.base_experience,
-        ability_name: detailPokemon?.abilities[0]?.ability?.name,
+        abilities,
+        base_experience,
+        height,
+        id,
+        name,
+        sprites,
+        weight,
       });
     }
-  }, [
-    status,
-    chosedPokemon,
-    detailPokemon?.base_experience,
-    detailPokemon?.abilities,
-    detailPokemon?.name,
-  ]);
-
+  }, [status, chosedPokemon, detailPokemon]);
+  console.log({ initialValues });
   return (
     <>
       <div>
@@ -60,10 +71,34 @@ const EditPage = () => {
           </>
         </select>
       </div>
-      <Formik initialValues={initialValues} enableReinitialize={true}>
+      <Formik
+        initialValues={initialValues}
+        enableReinitialize={true}
+        validationSchema={Yup.object({
+          name: Yup.string()
+            .max(15, "Must be 15 characters or less")
+            .required("Required"),
+          base_experience: Yup.number()
+            .integer()
+            .positive()
+            .required("Required"),
+          ability_name: Yup.string()
+            .max(15, "Must be 15 characters or less")
+            .required("Required"),
+          height: Yup.number().integer().positive().required("Required"),
+          weight: Yup.number().integer().positive().required("Required"),
+        })}
+        onSubmit={(values, { setSubmitting }) => {
+          console.log("Jestem Kliknięty");
+          editedCreatedPostData(values, values?.name);
+          setSubmitting(false);
+          enqueueSnackbar("Operacja zakończona sukcesem", {
+            variant: "success",
+          });
+        }}
+      >
         {({ isSubmitting, values }) => (
           <>
-            {console.log(values)}
             <Form>
               <div>
                 <label htmlFor="name">Nazwa Pokemona</label>
@@ -80,36 +115,34 @@ const EditPage = () => {
                 <ErrorMessage name="base_experience" />
               </div>
               <div>
-                <label htmlFor="ability">Ability name</label>
+                <label htmlFor="abilities">Ability name</label>
                 <Field
-                  name="ability"
+                  name="abilities"
                   type="text"
-                  value={values?.ability_name}
+                  value={values?.abilities[0]?.ability?.name || "zmiana"}
                 />
-                <ErrorMessage name="email" />
+                <ErrorMessage name="abilities" />
               </div>
               <div>
-                <label htmlFor="password">Hasło</label>
-                <Field
-                  name="password"
-                  type="password"
-                  placeholder="Wprowadź hasło"
-                />
-                <ErrorMessage name="password" />
+                <label htmlFor="height">Wysokość pokemona</label>
+                <Field name="height" type="number" />
+                <ErrorMessage name="height" />
               </div>
               <div>
-                <label htmlFor="repeatPassword">Powtórz Hasło</label>
-                <Field
-                  name="repeatPassword"
-                  type="password"
-                  placeholder="Powtórz hasło"
-                />
-                <ErrorMessage name="repeatPassword" />
+                <label htmlFor="weight">Waga Pokemona</label>
+                <Field name="weight" type="number" />
+                <ErrorMessage name="weight" />
               </div>
-              <button type="submit" disabled={isSubmitting}>
-                Edytuj
+              <button
+                type="submit"
+                disabled={values?.name !== chosedPokemon || isSubmitting}
+              >
+                Edytuj Pokemona
               </button>
-              <button type="submit" disabled={isSubmitting}>
+              <button
+                type="submit"
+                disabled={values?.name === chosedPokemon || isSubmitting}
+              >
                 Stwórz Nowego Pokemona
               </button>
             </Form>
