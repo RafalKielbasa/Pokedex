@@ -1,4 +1,5 @@
 import * as React from "react";
+import axios from "axios";
 import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -9,13 +10,14 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { CardActionArea } from "@mui/material";
+import { postData } from "src/api/postData";
 
 const CardsWrapper = styled.div`
   margin: 20px;
 `;
 const FavIcon = styled(FavoriteIcon)`
   cursor: pointer;
-  color: ${({ isMarked }) => (isMarked ? "red" : "grey")};
+  color: ${({ isFavorite }) => (isFavorite ? "red" : "grey")};
 `;
 
 export default function PokemonCard({
@@ -27,11 +29,9 @@ export default function PokemonCard({
   weight,
   abilitie,
   fullPokemonData,
-  newFullPokemonData,
 }) {
-  const { marked } = newFullPokemonData;
-  const [isMarked, setIsMarked] = useState(marked);
-  const [favoriteId, setFavoriteId] = useState([]);
+  const [isMarked, setIsMarked] = useState();
+  const [isFavorite, setIsFavorite] = useState(false);
   // const [newFullPokemonData, setNewFullPokemonData] = useState([]);
 
   const navigate = useNavigate();
@@ -39,19 +39,33 @@ export default function PokemonCard({
     const path = "/details";
     navigate(path, { state: { id, fullPokemonData } });
   };
+  const pokemonId = fullPokemonData.map((item) => item.id);
+  // console.log(`pokemonId`, pokemonId);
 
   const handleFavorite = () => {
-    setIsMarked((isMarked) => !isMarked);
+    // axios.delete(`http://localhost:3001/favoriteData/${id}`);
+    // setIsFavorite((isFavorite) => !isFavorite);
+    if (!isFavorite) {
+      console.log(`pokemonId`, pokemonId);
+      postData("favoriteData", pokemonId);
+      setIsFavorite((isFavorite) => !isFavorite);
+    } else {
+      // console.log(`id`, id);
+      // axios.delete(`http://localhost:3001/favoriteData/1`);
+      // setIsFavorite((isFavorite) => !isFavorite);
+    }
+
+    // const sendCollection = async () => postData(`queryFullData`, queryData);
     // setFavoriteId((resultUrl) => {
     //   resultUrl = [...resultUrl, Number(id)];
     //   return resultUrl;
     // });
   };
 
-  const favoriteData = newFullPokemonData.filter((item) => item.marked);
-  console.log(`favoriteData`, favoriteData);
+  const favoriteData = fullPokemonData.filter((item) => item.marked);
+  // console.log(`favoriteData`, favoriteData);
 
-  console.log(`newFullPokemonData`, newFullPokemonData);
+  // console.log(`expFullPokemonData`, expFullPokemonData);
 
   // console.log(`id`, id);
   // console.log(`isMarked`, isMarked);
@@ -61,7 +75,7 @@ export default function PokemonCard({
         sx={{
           width: 320,
           "&:hover": {
-            transform: "scale(1.15)",
+            transform: "scale(1.10)",
           },
         }}
       >
@@ -154,7 +168,7 @@ export default function PokemonCard({
             justifyContent: "center",
           }}
         >
-          <FavIcon onClick={handleFavorite} isMarked={isMarked} />
+          <FavIcon onClick={() => handleFavorite()} isFavorite={isFavorite} />
         </CardActions>
       </Card>
     </CardsWrapper>

@@ -9,15 +9,23 @@ import {
   MainPage,
   DetailsPage,
 } from "src/Pages";
-import { getFullResults } from "src/api/source";
+import { getFullResults, getFavorites } from "src/api/source";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainPage />,
     children: [
-      { path: "/", element: <HomePage />, loader: () => getFullResults() },
-      { path: "favorites", element: <FavoritesPage /> },
+      {
+        path: "/",
+        element: <HomePage />,
+        loader: () => getFullResults(),
+      },
+      {
+        path: "favorites",
+        element: <FavoritesPage />,
+        loader: () => getFavorites(),
+      },
       { path: "arena", element: <ArenaPage /> },
       { path: "login", element: <LoginPage /> },
       { path: "registration", element: <RegistrationPage /> },
@@ -26,3 +34,4 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
+//

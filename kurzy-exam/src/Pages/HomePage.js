@@ -8,7 +8,6 @@ import Stack from "@mui/material/Stack";
 import PokemonCard from "../Components/PokemonCards";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { getPartialResults } from "src/api/source";
 import { getFullResults } from "src/api/source";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -38,20 +37,20 @@ const HomePage = () => {
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
   const [inputText, setInputText] = useState();
+  const [localResults, setLocalResults] = useState();
   // const [partialPokemonData, setPartialPokemonData] = useState([]);
   const [fullPokemonData, setFullPokemonData] = useState([]);
-  const [newFullPokemonData, setNewFullPokemonData] = useState([]);
+  const [expFullPokemonData, setExpFullPokemonData] = useState([]);
   const [fullPokemonDataFiltered, setFullPokemonDataFiltered] = useState([]);
 
-  // const queryPartialData = useQuery([`/`, offset], () =>
-  //   getPartialResults(`${offset}`)
-  // );
   const queryFullData = useQuery([`/`], () => getFullResults());
+  // const { data } = queryFullData;
+  // const queryFavoriteData = useQuery([`/`], () => fetchFavorite());
+  // console.log(`queryFavoriteData`, queryFavoriteData.data.data[0].queryData);
 
+  // console.log(`expFullPokemonData`, expFullPokemonData);
   // console.log(`fullPokemonData`, fullPokemonData);
-  // console.log(`fullPokemonDataFiltered`, fullPokemonDataFiltered);
   // console.log(`offset`, offset);
-  // console.log(`page`, page);
 
   useEffect(() => {
     async function getPokemonData() {
@@ -69,10 +68,17 @@ const HomePage = () => {
     getPokemonData();
   }, [queryFullData.status === "success", page]);
 
+  // const queryData = queryFullData?.data?.map((item, index) => ({
+  //   name: item.name,
+  //   id: index + 1,
+  //   favorite: false,
+  //   battle: false,
+  // }));
+
   fullPokemonData.length > 150 ? window.location.reload() : {};
 
   const pageCount = fullPokemonData.length / 15;
-  const partialPokemonData = newFullPokemonData
+  const partialPokemonData = fullPokemonData
     .slice(offset, offset + 15)
     .sort((a, b) => (a.id > b.id ? 1 : -1));
 
@@ -81,18 +87,13 @@ const HomePage = () => {
     setInputText(textFieldText);
   };
 
-  useEffect(() => {
-    const newFullData = fullPokemonData.map((item) => ({
-      ...item,
-      marked: false,
-    }));
-    setNewFullPokemonData(newFullData);
-  }, [fullPokemonData]);
-
-  // console.log(`newFullPokemonData`, newFullPokemonData);
-  // { isMarked: false }
-  // console.log(`fullPokemonData`, fullPokemonData);
-  // console.log(`newFullData`, newFullData);
+  // useEffect(() => {
+  //   const expFullData = data.map((item) => ({
+  //     ...item,
+  //     favorite: false,
+  //   }));
+  //   setExpFullPokemonData(expFullData);
+  // }, [queryFullData]);
 
   useEffect(
     () =>
@@ -109,14 +110,19 @@ const HomePage = () => {
     [inputText]
   );
 
-  // useEffect(() => {
-  //   const reloadPage = () => {
-  //     window.location.reload();
-  //   };
-  //   reloadPage();
-  // }, [inputText]);
+  // const responseLocal = axios.get(`http://localhost:3000/queryFullData`);
 
-  //
+  // const fetchFavorite = async () => {
+  //   const response = await axios.get(`http://localhost:3000/queryFullData/`);
+  //   // const filteredData = response?.data.map(({ name }) => name);
+  //   return response;
+  // };
+
+  // useEffect(() => {
+  //   const sendCollection = async () => postData(`queryFullData`, queryData);
+  //   sendCollection();
+  // }, [queryFullData.status === "success"]);
+
   // // useEffect(() => {
   // //   const pagefromLS = localStorage.getItem("page");
   // //   if (pagefromLS) {
@@ -182,7 +188,6 @@ const HomePage = () => {
                   weight={item.weight}
                   abilitie={item.abilities[0].ability.name}
                   fullPokemonData={fullPokemonData}
-                  newFullPokemonData={newFullPokemonData}
                   // onClick={() => saveToLocalStorage()}
                 />
               ))}
@@ -245,7 +250,6 @@ const HomePage = () => {
                 weight={item.weight}
                 abilitie={item.abilities[0].ability.name}
                 fullPokemonData={fullPokemonData}
-                newFullPokemonData={newFullPokemonData}
                 // onClick={() => saveToLocalStorage()}
               />
             ))}
