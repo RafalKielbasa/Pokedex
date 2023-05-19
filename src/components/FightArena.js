@@ -91,7 +91,7 @@ const FightArena = () => {
         <Button disabled={fightArena.length < 2 ? true : false} onClick={fight}>
           COMBAT
         </Button>
-        {winner && <h2>🏆Wygrał: {winner}🏆</h2>}
+        {winner && <h2>🏆Winner: {winner.toUpperCase()}🏆</h2>}
         <Button
           disabled={fightArena.length === 0 ? true : false}
           onClick={clearArena}

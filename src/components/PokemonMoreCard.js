@@ -2,18 +2,42 @@ import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import React from "react";
 import styled from "styled-components";
+import { Icon } from "semantic-ui-react";
+import { useNavigate } from "react-router-dom";
 
 const Wprapper = styled.div`
   display: flex;
-  flex-direction: column;
+  gap: 40px;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   margin-top: 30px;
 `;
 
+const LeftDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  float: left;
+`;
+
+const RightDiv = styled.div`
+  display: flex;
+  padding: 20px;
+  margin: 20px;
+  flex-direction: column;
+  float: right;
+`;
+
+const StyledIcon = styled(Icon)`
+  &:hover {
+    cursor: pointer;
+    opacity: 0.5;
+  }
+`;
 const PokemonMoreCard = () => {
   const [pokemon, setPokemon] = useState(null);
   const { pokemonName } = useParams();
+  const nav = useNavigate();
 
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
@@ -23,16 +47,54 @@ const PokemonMoreCard = () => {
 
   if (!pokemon || !pokemon.sprites) return <div>Pokemon not found :C</div>;
 
+  const specialAttack = pokemon.stats.find(
+    (stat) => stat.stat.name === "special-attack"
+  );
+  const specialDefense = pokemon.stats.find(
+    (stat) => stat.stat.name === "special-defense"
+  );
+  const speed = pokemon.stats.find((stat) => stat.stat.name === "speed");
+
+  const navToHome = () => {
+    nav("/");
+  };
+
   return (
     <Wprapper>
-      <h1>{pokemon.name}</h1>
-      <img
-        src={pokemon.sprites.other["official-artwork"].front_default}
-        alt={pokemon.name}
+      <StyledIcon
+        onClick={navToHome}
+        size="huge"
+        className="fast backward icon"
       />
-      <p>Height: {pokemon.height}</p>
-      <p>Weight: {pokemon.weight}</p>
-      {/* ...and so on, for other details */}
+      <LeftDiv>
+        <div>
+          {" "}
+          <img
+            style={{ width: "450px", height: "450px" }}
+            src={pokemon.sprites.other["official-artwork"].front_default}
+            alt={pokemon.name}
+          />
+        </div>
+      </LeftDiv>
+      <RightDiv>
+        <h1
+          style={{
+            fontSize: "50px",
+          }}
+        >
+          {pokemon.name.toUpperCase()}
+        </h1>
+        <p>Height: {pokemon.height} 📏</p>
+        <p>Weight: {pokemon.weight} 🏋️</p>
+        <p>
+          Special Attack: {specialAttack ? specialAttack.base_stat : "N/A"} 👊
+        </p>
+        <p>
+          Special Defense: {specialDefense ? specialDefense.base_stat : "N/A"}{" "}
+          ❗
+        </p>
+        <p>Speed: {speed ? speed.base_stat : "N/A"} 🏎️ </p>
+      </RightDiv>
     </Wprapper>
   );
 };

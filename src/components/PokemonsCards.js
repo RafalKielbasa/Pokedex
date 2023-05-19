@@ -36,7 +36,7 @@ const PokemonsCards = () => {
   const [type, setType] = useState("");
 
   const fetchPokemons = async () => {
-    const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=500");
+    const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=150");
     const data = await response.json();
     const results = await Promise.all(
       data.results.map(async (result) => {
