@@ -3,11 +3,22 @@ import { filterFnc } from "src/helpers";
 import { useQuery, useQueries } from "@tanstack/react-query";
 import { useOutletContext } from "react-router-dom";
 import { fetchData, fetchPokemonData, fetchDataToFilter } from "src/api";
-import { MyPagination, PokemonCard, PokemonCardContainer, Searcher } from "../components";
+import {
+  MyPagination,
+  PokemonCard,
+  PokemonCardContainer,
+  Searcher,
+} from "../components";
 
 const HomePage = () => {
-  const { page, setPage, searchedValue, setSearchedValue, editedList, editedStatus } =
-    useOutletContext();
+  const {
+    page,
+    setPage,
+    searchedValue,
+    setSearchedValue,
+    editedList,
+    editedStatus,
+  } = useOutletContext();
   const [createComponentData, setCreateComponentData] = useState(null);
   const actualPage = (page - 1) * 15;
   const { data: pokemons } = useQuery({
@@ -41,7 +52,9 @@ const HomePage = () => {
   const AllSuccess = pokemonQueries.every(({ status }) => status === "success");
   return (
     <div>
-      <Searcher handleSearcherChange={(e) => setSearchedValue(e.target.value)} />
+      <Searcher
+        handleSearcherChange={(e) => setSearchedValue(e.target.value)}
+      />
       {AllSuccess && (
         <>
           <PokemonCardContainer>

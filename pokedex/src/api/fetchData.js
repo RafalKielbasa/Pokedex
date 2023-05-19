@@ -14,6 +14,11 @@ export const fetchData = async (page, editedList) => {
   });
   return filteredData;
 };
+export const allPokemonNamesList = async () => {
+  const response = await axios.get(`${BASE_URL}?offset=0&limit=151`);
+  const filteredData = response?.data?.results?.map(({ name }) => name);
+  return filteredData;
+};
 export const fetchDataToFilter = async (editedList) => {
   const response = await axios.get(`${BASE_URL}?offset=0&limit=151`);
   const filteredData = response?.data?.results?.map(({ name, url }) => {
@@ -40,7 +45,9 @@ export const fetchPokemonData = async (url) => {
   ];
   const response = await axios.get(url);
   const filteredData = Object.fromEntries(
-    Object.entries(response?.data).filter(([key]) => filteredQueriesKeys.includes(key))
+    Object.entries(response?.data).filter(([key]) =>
+      filteredQueriesKeys.includes(key)
+    )
   );
   const updatedData = {
     ...filteredData,
@@ -56,12 +63,26 @@ export const fetchFavorite = async () => {
   return filteredData;
 };
 export const fetchOnePokemon = async (editedList, name) => {
+  const filteredQueriesKeys = [
+    "abilities",
+    "base_experience",
+    "height",
+    "id",
+    "name",
+    "sprites",
+    "weight",
+  ];
   const PokemonUrl =
     editedList && editedList?.includes(name)
       ? `http://localhost:3000/edited/${name}`
       : `https://pokeapi.co/api/v2/pokemon/${name}`;
   const response = await axios.get(PokemonUrl);
-  return response?.data;
+  const filteredData = Object.fromEntries(
+    Object.entries(response?.data).filter(([key]) =>
+      filteredQueriesKeys.includes(key)
+    )
+  );
+  return filteredData;
 };
 export const fetchEditedList = async () => {
   const response = await axios.get(`http://localhost:3000/edited/`);
@@ -72,7 +93,9 @@ export const fetchUsers = async () => {
   const filterKeys = ["userName", "password"];
   const response = await axios.get(`http://localhost:3000/users/`);
   const filteredResponse = response?.data?.map((value) =>
-    Object.fromEntries(Object.entries(value)?.filter(([key]) => filterKeys?.includes(key)))
+    Object.fromEntries(
+      Object.entries(value)?.filter(([key]) => filterKeys?.includes(key))
+    )
   );
   return filteredResponse;
 };
