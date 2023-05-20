@@ -29,12 +29,11 @@ export default function Favorites() {
         display: "flex",
         width: "100%",
         flexWrap: "wrap",
-        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
       }}
     >
-      {arrayOfFavPokemon.length > 0 ? (
+      {favoritesArray.length > 0 ? (
         arrayOfFavPokemon.data.map((element) => {
           return (
             <PokemonTile

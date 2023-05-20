@@ -19,6 +19,7 @@ export const GlobalContext = React.createContext();
 function App() {
   const [loginState, setLoginState] = useState(false);
   const [favoritesArray, setFavoritesArray] = useState([]);
+  const [arenaArray, setArenaArray] = useState([]);
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -30,7 +31,6 @@ function App() {
         <Route path="favorites" element={<Favorites />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route path="favor" element={<FavoritesButton />} />
       </Route>
     )
   );
@@ -38,7 +38,14 @@ function App() {
   return (
     <Box>
       <GlobalContext.Provider
-        value={{ loginState, setLoginState, favoritesArray, setFavoritesArray }}
+        value={{
+          loginState,
+          setLoginState,
+          favoritesArray,
+          setFavoritesArray,
+          arenaArray,
+          setArenaArray,
+        }}
       >
         <SnackbarProvider>
           <RouterProvider router={router} />

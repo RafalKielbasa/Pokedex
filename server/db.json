@@ -61,6 +61,13 @@
       "email": "ruzi1996@gmail.com",
       "password": "Max1996-1996",
       "confirmPassword": "Max1996-1996"
+    },
+    {
+      "id": 9,
+      "userName": "matruz1903",
+      "email": "adawdwad@dadaw.com",
+      "password": "Max1996-1996",
+      "confirmPassword": "Max1996-1996"
     }
   ]
 }

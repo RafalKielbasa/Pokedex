@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import FavoritesButton from "./FavoritesButton";
+import ArenaButton from "./ArenaButton";
 import { useNavigate } from "react-router-dom";
 
 export default function PokemonTile({ pokemon }) {
@@ -60,9 +61,7 @@ export default function PokemonTile({ pokemon }) {
       id="box"
     >
       <FavoritesButton pokemon={pokemon} />
-      <Box
-        sx={{ position: "absolute", top: "30px", left: "30px" }}
-      >{`#${pokemon.id}`}</Box>
+      <ArenaButton pokemon={pokemon} />
       <Box
         sx={pokemon.types[1] ? dualTypePokemonTile : singleTypePokemonTile}
         onClick={() => {
