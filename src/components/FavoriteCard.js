@@ -110,13 +110,7 @@ const FavoriteCard = ({ pokemon }) => {
             <i class="trash icon"></i> Delete
           </div>
         </Button>
-        <StyledButton
-          //size="small"
-          //style={{ border: "1px solid black", background: "transparent" }}
-          onClick={() => addPokemonToFightArena(pokemon)}
-          // className="ui labeled button"
-          //tabindex="0"
-        >
+        <StyledButton onClick={() => addPokemonToFightArena(pokemon)}>
           ⚔️FIGHT⚔️
         </StyledButton>
       </Card>

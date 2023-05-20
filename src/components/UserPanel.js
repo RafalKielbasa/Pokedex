@@ -19,11 +19,15 @@ const UserPanel = () => {
 
   return (
     <Wrapper>
-      <Info>
-        <p> {`User: ${userData.name}`}</p>
-        <p> {`E-mail: ${userData.email}`}</p>
-        <p>{`Status: normal user`}</p>
-      </Info>
+      {userData ? (
+        <Info>
+          <p> {`User: ${userData.name}`}</p>
+          <p> {`E-mail: ${userData.email}`}</p>
+          <p>{`Status: normal user`}</p>
+        </Info>
+      ) : (
+        <p>Please log in.</p>
+      )}
     </Wrapper>
   );
 };
