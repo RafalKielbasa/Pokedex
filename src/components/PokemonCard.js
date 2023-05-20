@@ -80,18 +80,13 @@ const PokemonCard = ({ pokemon }) => {
   };
 
   return (
-    <Card
-      //onClick={() => alert(pokemon.name)}
-      type={pokemon?.types[0].type.name}
-      // onClick={() => alert("click")}
-    >
+    <Card type={pokemon?.types[0].type.name}>
       <img
         style={{ width: "150px", height: "150px" }}
         src={pokemon.sprites.other["official-artwork"].front_default}
         alt={pokemon.name}
       />
       <Popup
-        //style={{ background: "palevioletred", border: "none" }}
         content="More info"
         trigger={<i onClick={navToPokemoMoreInfo} class="info icon"></i>}
       />

@@ -6,12 +6,14 @@ export const FightArenaProvider = ({ children }) => {
   const [fightArena, setFightArena] = useState([]);
   const [winner, setWinner] = useState(null);
   const [alert, setAlert] = useState(false);
+  const [error, setError] = useState(false);
 
   const addPokemonToFightArena = (pokemon) => {
     if (ifExistFightPokemon(pokemon.id)) {
-      return false;
+      setAlert(true);
     } else if (fightArena.length === 2) {
-      window.alert("Arena is full like your mom");
+      // window.alert("Arena is full like your mom");
+      setError(true);
     } else {
       setFightArena([...fightArena, pokemon]);
     }
@@ -26,6 +28,14 @@ export const FightArenaProvider = ({ children }) => {
     setWinner(null);
   };
 
+  const closeError = () => {
+    setError(false);
+  };
+
+  const closeAlert = () => {
+    setAlert(false);
+  };
+
   return (
     <FightArenaContext.Provider
       value={{
@@ -35,6 +45,9 @@ export const FightArenaProvider = ({ children }) => {
         winner,
         setWinner,
         alert,
+        closeAlert,
+        error,
+        closeError,
       }}
     >
       {children}

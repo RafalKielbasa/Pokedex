@@ -5,6 +5,7 @@ import { SearchContext } from "./SearchContext";
 import { useFavorite } from "./FavoritesContext";
 import { Message } from "semantic-ui-react";
 import { Button, Modal } from "semantic-ui-react";
+import { ThemeContext } from "./ThemeContext";
 
 const PokemonsGrid = styled.div`
   display: flex;
@@ -29,11 +30,17 @@ const Select = styled.select`
   border-radius: 6px;
 `;
 
+const Wrapper = styled.body`
+  background-color: ${(props) => (props.theme ? "papayawhip" : "black")};
+  height: 100vh;
+`;
+
 const PokemonsCards = () => {
   const [pokemons, setPokemons] = useState([]);
   const { search } = useContext(SearchContext);
   const { error, closeError } = useFavorite();
   const [type, setType] = useState("");
+  const { theme } = useContext(ThemeContext);
 
   const fetchPokemons = async () => {
     const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=150");
@@ -69,36 +76,38 @@ const PokemonsCards = () => {
 
   return (
     <>
-      <SelectWrapper>
-        <Select onChange={handleChangeType}>
-          <option value="">choose your type...</option>
-          <option value="grass">Grass</option>
-          <option value="fire">Fire</option>
-          <option value="water">Water</option>
-          <option value="electric">Electric</option>
-        </Select>
-      </SelectWrapper>
+      <Wrapper theme={theme}>
+        <SelectWrapper>
+          <Select onChange={handleChangeType}>
+            <option value="">choose your type...</option>
+            <option value="grass">Grass</option>
+            <option value="fire">Fire</option>
+            <option value="water">Water</option>
+            <option value="electric">Electric</option>
+          </Select>
+        </SelectWrapper>
 
-      {error && (
-        <Message
-          negative
-          className="ui huge message"
-          onDismiss={closeError}
-          header="This pokemon is already in your favorites !   "
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            zIndex: 1000,
-          }}
-        />
-      )}
-      <PokemonsGrid>
-        {filteredByTypeAndSearch.map((pokemon) => (
-          <PokemonCard key={pokemon.id} pokemon={pokemon} />
-        ))}
-      </PokemonsGrid>
+        {error && (
+          <Message
+            negative
+            className="ui huge message"
+            onDismiss={closeError}
+            header="This pokemon is already in your favorites !   "
+            style={{
+              position: "fixed",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              zIndex: 1000,
+            }}
+          />
+        )}
+        <PokemonsGrid>
+          {filteredByTypeAndSearch.map((pokemon) => (
+            <PokemonCard key={pokemon.id} pokemon={pokemon} />
+          ))}
+        </PokemonsGrid>
+      </Wrapper>
     </>
   );
 };
