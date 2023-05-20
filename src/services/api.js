@@ -37,7 +37,22 @@ export const getAllPokemons = () => {
 
 export const getCorrectPokemon = (name) => {
   return dbFetcher({
-    url: `pokemon?name=${name}`,
+    url: "pokemon",
     method: "GET",
+    params: {
+      name,
+    },
+  });
+};
+
+export const getSearchPokemon = (key) => {
+  console.log(key);
+  return dbFetcher({
+    url: `pokemon?_sort=name`,
+    method: "GET",
+    params: {
+      q: key,
+      _limit: 5,
+    },
   });
 };
