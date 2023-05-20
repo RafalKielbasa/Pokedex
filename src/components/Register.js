@@ -1,11 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Input, Button } from "@mui/material";
+import { Input, Button, Icon } from "@mui/material";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginContext } from "./LoginContext";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { TextField, IconButton, InputAdornment } from "@mui/material";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Person from "@mui/icons-material/Person";
+import Mail from "@mui/icons-material/Mail";
 
 const Wrapper = styled.div`
   display: flex;
@@ -59,6 +64,7 @@ const Register = () => {
   });
   const { userData } = useContext(LoginContext);
   const nav = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleRegistration = (data) => {
     const { confirmPassword, ...user } = data;
@@ -73,21 +79,67 @@ const Register = () => {
       ) : (
         <Wrapper>
           <FormWraper onSubmit={handleSubmit(handleRegistration)}>
-            <Input type="text" placeholder="Username" {...register("name")} />
+            <TextField
+              type="text"
+              placeholder="Username"
+              {...register("name")}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Person />
+                  </InputAdornment>
+                ),
+              }}
+            />
             {errors.name && <p>{errors.name.message}</p>}
-            <Input type="email" placeholder="Email" {...register("email")} />
+            <TextField
+              type="email"
+              placeholder="Email"
+              {...register("email")}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Mail />
+                  </InputAdornment>
+                ),
+              }}
+            />
             {errors.email && <p>{errors.email.message}</p>}
 
-            <Input
-              type="password"
+            <TextField
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               {...register("password")}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             {errors.password && <p>{errors.password.message}</p>}
-            <Input
-              type="password"
-              placeholder="confirm password"
+            <TextField
+              type={showPassword ? "text" : "password"}
+              placeholder="Confirm Password"
               {...register("confirmPassword")}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
 
