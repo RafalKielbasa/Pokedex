@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { CardActionArea } from "@mui/material";
 import { postData } from "src/api/postData";
+import { useQuery } from "react-query";
 
 const CardsWrapper = styled.div`
   margin: 20px;
@@ -29,31 +30,97 @@ export default function PokemonCard({
   weight,
   abilitie,
   fullPokemonData,
+  favoritesData,
 }) {
-  const [isMarked, setIsMarked] = useState();
   const [isFavorite, setIsFavorite] = useState(false);
+  const [favorite, setFavorite] = useState([]);
+  // const [fullPokemonDataIds, setFullPokemonDataIds] = useState([]);
+  // const [favoritesIds, setFavoritesIds] = useState([]);
+
   // const [newFullPokemonData, setNewFullPokemonData] = useState([]);
+
+  // const queryFavoritesData = useQuery(["pokemoncards"], () => getFavorites());
 
   const navigate = useNavigate();
   const handleClick = () => {
     const path = "/details";
     navigate(path, { state: { id, fullPokemonData } });
   };
-  const pokemonId = fullPokemonData.map((item) => item.id);
-  // console.log(`pokemonId`, pokemonId);
+
+  const getFavorites = async () => {
+    const response = await axios.get(`http://localhost:3000/favoriteData/`);
+    console.log(response.id);
+    setFavorite(response);
+  };
+
+  useEffect(() => {
+    getFavorites();
+  }, []);
+
+  const favoritesIds = favorite?.data?.map((item) => item.id);
+
+  const fullPokemonDataFiltered = fullPokemonData.filter(({ id }) =>
+    [id].find((element) => element === 10, 11)
+  );
+
+  useEffect(() => {
+    setIsFavorite(favoritesIds?.includes(fullPokemonData?.id));
+    console.log(`isFavorite`, isFavorite);
+  }, [favorite]);
+
+  // useEffect(() => {
+
+  //   setFavoritesIds(favoritesIds);
+  // }, [favorite]);
+  // if (fullPokemonData) {
+  //   const fullPokemonDataIds = fullPokemonData?.map((item) => item.id);
+  //   const favoritesIds = favorite?.data?.map((item) => item.id);
+  //   console.log(`fullPokemonDataIds`, fullPokemonDataIds.includes(2, 5));
+  // }
+
+  // const favoriteFromJson = fullPokemonDataIds?.filter(({ id }) =>
+  //   id?.includes(`5`)
+  // );
+
+  // }
+  // const favoriteFromJson = fullPokemonData?.filter(
+  //   (item) => item.id === favoritesIds
+  // );
+
+  // useEffect(
+  //   () =>
+  //     setFavorite(
+  //       fullPokemonData?.filter(({ fullPokemonDataIds }) =>
+  //         fullPokemonDataIds?.includes(favoritesIds)
+  //       )
+  //     ),
+  //   []
+  // );
+
+  // console.log(`{ fullPokemonDataIds }`, { fullPokemonDataIds });
+
+  // const { name, id } = fullPokemonData;
+  // const pokemonId = fullPokemonData.map((item) => item.id);
+
+  // const dataToFavorite = fullPokemonData.map((item) => ({
+  //   id: item.id,
+  //   pic: item.sprites.front_default,
+  //   name: item.name,
+  //   height: item.height,
+  // }));
+  // console.log(`dataToFavorite;`, dataToFavorite);
 
   const handleFavorite = () => {
-    // axios.delete(`http://localhost:3001/favoriteData/${id}`);
+    // console.log(`id`, id);
+    // axios.delete(`http://localhost:3001/favoriteData/${favoritesIds}`);
     // setIsFavorite((isFavorite) => !isFavorite);
-    if (!isFavorite) {
-      console.log(`pokemonId`, pokemonId);
-      postData("favoriteData", pokemonId);
-      setIsFavorite((isFavorite) => !isFavorite);
-    } else {
-      // console.log(`id`, id);
-      // axios.delete(`http://localhost:3001/favoriteData/1`);
-      // setIsFavorite((isFavorite) => !isFavorite);
-    }
+
+    postData("favoriteData", id, pic, name, height, baseexp, weight, abilitie);
+    setIsFavorite((isFavorite) => !isFavorite);
+    // } else {
+    // console.log(`id`, id);
+    // axios.delete(`http://localhost:3001/favoriteData/1`);
+    // setIsFavorite((isFavorite) => !isFavorite);
 
     // const sendCollection = async () => postData(`queryFullData`, queryData);
     // setFavoriteId((resultUrl) => {
@@ -62,7 +129,7 @@ export default function PokemonCard({
     // });
   };
 
-  const favoriteData = fullPokemonData.filter((item) => item.marked);
+  // const favoriteData = fullPokemonData.filter((item) => item.marked);
   // console.log(`favoriteData`, favoriteData);
 
   // console.log(`expFullPokemonData`, expFullPokemonData);

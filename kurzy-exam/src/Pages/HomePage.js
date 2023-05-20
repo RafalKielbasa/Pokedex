@@ -87,6 +87,16 @@ const HomePage = () => {
     setInputText(textFieldText);
   };
 
+  // if (fullPokemonData) {
+  //   const dataToFavorite = fullPokemonData.map((item) => ({
+  //     id: item.id,
+  //     pic: item.sprites.front_default,
+  //     name: item.name,
+  //     height: item.height,
+  //   }));
+  //   console.log(`dataToFavorite;`, dataToFavorite);
+  // }
+
   // useEffect(() => {
   //   const expFullData = data.map((item) => ({
   //     ...item,
@@ -109,6 +119,8 @@ const HomePage = () => {
       ),
     [inputText]
   );
+
+  //console.log(`fullPokemonData`, fullPokemonData.name);
 
   // const responseLocal = axios.get(`http://localhost:3000/queryFullData`);
 

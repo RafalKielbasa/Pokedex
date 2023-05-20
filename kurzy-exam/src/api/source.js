@@ -16,6 +16,5 @@ export const getFullResults = async () => {
 
 export const getFavorites = async () => {
   const response = await axios.get(`http://localhost:3000/favoriteData/`);
-  // const filteredData = response?.data.map(({ name }) => name);
   return response;
 };
