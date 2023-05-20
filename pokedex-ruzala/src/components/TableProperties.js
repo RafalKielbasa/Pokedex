@@ -126,7 +126,12 @@ export default function TableProperties({
         onChange={handleItemPerPageChange}
       >
         {itemsPerPageArray.map((item) => {
-          return <MenuItem value={item}>{`${item}`}</MenuItem>;
+          return (
+            <MenuItem
+              key={`${item} items per page`}
+              value={item}
+            >{`${item}`}</MenuItem>
+          );
         })}
       </Select>
       <Box
@@ -156,7 +161,9 @@ export default function TableProperties({
           </MenuItem>
           {pokemonTypes.map((type) => {
             return (
-              <MenuItem value={type.name}>{type.name.toUpperCase()}</MenuItem>
+              <MenuItem key={`${type} type pokemons`} value={type.name}>
+                {type.name.toUpperCase()}
+              </MenuItem>
             );
           })}
         </Select>

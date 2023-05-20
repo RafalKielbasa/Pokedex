@@ -6,7 +6,7 @@ import { useContext } from "react";
 
 export default function NavBar() {
   const navigate = useNavigate();
-  const { loginState } = useContext(GlobalContext);
+  const { loginState, setLoginState } = useContext(GlobalContext);
   return (
     <Box
       sx={{
@@ -74,7 +74,7 @@ export default function NavBar() {
         {loginState && (
           <Button
             onClick={() => {
-              navigate("/");
+              setLoginState(false);
             }}
           >
             Wyloguj

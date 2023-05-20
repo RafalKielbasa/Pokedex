@@ -40,6 +40,27 @@
       "email": "awdawd@dawdaw.com",
       "password": "Max1996-1996",
       "confirmPassword": "Max1996-1996"
+    },
+    {
+      "id": 6,
+      "userName": "adwdawd",
+      "email": "dawdawa@dawdwad.pl",
+      "password": "Max1996-1996",
+      "confirmPassword": "Max1996-1996"
+    },
+    {
+      "id": 7,
+      "userName": "ffwaoadd",
+      "email": "awjdawdj@wpdoakwd.pl",
+      "password": "Max1996-1996",
+      "confirmPassword": "Max1996-1996"
+    },
+    {
+      "id": 8,
+      "userName": "ruzi1996",
+      "email": "ruzi1996@gmail.com",
+      "password": "Max1996-1996",
+      "confirmPassword": "Max1996-1996"
     }
   ]
 }

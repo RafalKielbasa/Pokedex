@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useContext, useEffect } from "react";
 import PokemonTile from "../components/PokemonTile";
 import fetchArray from "../fetching/fetchArray";
@@ -7,7 +7,6 @@ import { GlobalContext } from "../App";
 
 export default function Favorites() {
   const { favoritesArray } = useContext(GlobalContext);
-  console.log(favoritesArray);
   const arrayOfFavPokemon = useQuery({
     queryKey: ["favorites"],
     queryFn: () => fetchArray(favoritesArray),
@@ -25,15 +24,33 @@ export default function Favorites() {
     return <Box>{JSON.stringify(arrayOfFavPokemon.error)};</Box>;
   }
   return (
-    <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
-      {arrayOfFavPokemon.data.map((element) => {
-        return (
-          <PokemonTile
-            key={`${element.name}_favorites_tile`}
-            pokemon={element}
-          />
-        );
-      })}
+    <Box
+      sx={{
+        display: "flex",
+        width: "100%",
+        flexWrap: "wrap",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {arrayOfFavPokemon.length > 0 ? (
+        arrayOfFavPokemon.data.map((element) => {
+          return (
+            <PokemonTile
+              key={`${element.name}_favorites_tile`}
+              pokemon={element}
+            />
+          );
+        })
+      ) : (
+        <Typography
+          component="div"
+          sx={{ display: "flex", alignSelf: "center" }}
+        >
+          Nie dodałeś żadnego pokemona do listy ulubionych.
+        </Typography>
+      )}
     </Box>
   );
 }

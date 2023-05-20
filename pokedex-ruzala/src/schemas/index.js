@@ -3,7 +3,7 @@ import * as yup from "yup";
 const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$&+,:;=?@#|'<>.-^*()%!]).{8,24}$/;
 
-export const basicSchema = yup.object().shape({
+export const registerSchema = yup.object().shape({
   userName: yup
     .string()
     .min(3, "Nazwa użytkownika musi zawierać conajmniej 3 znaki")
@@ -20,5 +20,17 @@ export const basicSchema = yup.object().shape({
   confirmPassword: yup
     .string()
     .oneOf([yup.ref("password"), null], "Hasła muszą być takie same.")
+    .required("Pole wymagane"),
+});
+
+export const loginSchema = yup.object().shape({
+  userName: yup.string().required("Pole wymagane"),
+  password: yup
+    .string()
+    .min(8, "Hasło musi zawierać minimum 8 znaków")
+    .matches(
+      PASSWORD_REGEX,
+      "Hasło musi zawierać dużą literę, cyfrę i znak specjalny."
+    )
     .required("Pole wymagane"),
 });

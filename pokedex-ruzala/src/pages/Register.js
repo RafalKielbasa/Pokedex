@@ -1,17 +1,21 @@
 import { Box, TextField, Button } from "@mui/material";
 import { useFormik } from "formik";
-import { basicSchema } from "../schemas";
+import { registerSchema } from "../schemas";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { useEffect, useState } from "react";
+import fetchData from "../fetching/fetchData";
 
 export default function Register() {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
+  const [usersLength, setUsersLength] = useState(0);
+
   const onSubmit = async (values, actions) => {
     axios
-      .post("http://localhost:5000/users", { id: 5, ...values })
+      .post("http://localhost:5000/users", { id: usersLength + 1, ...values })
       .then((response) => {
         console.log(response);
       });
@@ -36,9 +40,14 @@ export default function Register() {
       password: "",
       confirmPassword: "",
     },
-    validationSchema: basicSchema,
+    validationSchema: registerSchema,
     onSubmit,
   });
+
+  useEffect(() => {
+    const users = fetchData("http://localhost:5000/users");
+    setUsersLength(users.length);
+  }, []);
 
   return (
     <Box
