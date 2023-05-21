@@ -4,41 +4,39 @@ import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { GlobalContext } from "../App";
 
-const baseURL = process.env.REACT_APP_BASE_URL;
-
 export default function ArenaButton({ pokemon }) {
   const { arenaArray, setArenaArray } = useContext(GlobalContext);
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    if (arenaArray.includes(`${baseURL}pokemon/${pokemon.id}`)) {
+    if (arenaArray.some((pokemonInArray) => pokemonInArray.id === pokemon.id)) {
       setIsActive(true);
     } else {
       setIsActive(false);
     }
   }, [arenaArray]);
 
+  const handleToggleFavorite = () => {
+    if (!isActive) {
+      setArenaArray([...arenaArray, pokemon]);
+    } else if (isActive) {
+      setArenaArray(
+        arenaArray.filter((pokemonInArray) => pokemonInArray.id !== pokemon.id)
+      );
+    }
+  };
+
   return (
     <Fab
-      onClick={async () => {
+      onClick={() => {
         setIsActive(!isActive);
-        handleToggleFavorite(isActive, arenaArray, setArenaArray, pokemon);
+        handleToggleFavorite();
       }}
       disabled={arenaArray.length === 2 && !isActive}
       size="small"
-      sx={{ position: "absolute", top: "30px", left: "220px" }}
+      sx={{ position: "absolute", top: "30px", left: "270px" }}
     >
       {isActive ? <Castle /> : <CastleOutlined />}
     </Fab>
   );
 }
-
-const handleToggleFavorite = (isActive, arenaArray, setArenaArray, pokemon) => {
-  if (!isActive) {
-    setArenaArray([...arenaArray, `${baseURL}pokemon/${pokemon.id}`]);
-  } else if (isActive) {
-    setArenaArray(
-      arenaArray.filter((url) => url !== `${baseURL}pokemon/${pokemon.id}`)
-    );
-  }
-};

@@ -1,9 +1,9 @@
 import { Box, TextField, Button } from "@mui/material";
 import { useFormik } from "formik";
 import { loginSchema } from "../schemas";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import fetchData from "../fetching/fetchData";
 import { GlobalContext } from "../App";
 
@@ -40,19 +40,28 @@ export default function Login() {
       onSubmit: onSubmitto,
     });
 
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.children[1].children[0].focus();
+  }, []);
+
   return (
     <Box
       sx={{
         display: "flex",
+        flexDirection: "column",
         width: "100%",
         height: "100%",
         justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <Box sx={{ marginTop: "50px", width: "50%", height: "100%" }}>
         <form autoComplete="off" onSubmit={handleSubmit}>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <TextField
+              ref={inputRef}
               margin="normal"
               error={touched.userName && errors.userName && true}
               id="userName"
@@ -81,12 +90,18 @@ export default function Login() {
               }
             />
 
-            <Button type="submit" color="warning" variant="contained">
+            <Button
+              sx={{ marginY: "30px" }}
+              type="submit"
+              color="warning"
+              variant="contained"
+            >
               Zaloguj się
             </Button>
           </Box>
         </form>
       </Box>
+      <Link to="/register">Nie masz konta? Zarejestruj się.</Link>
     </Box>
   );
 }

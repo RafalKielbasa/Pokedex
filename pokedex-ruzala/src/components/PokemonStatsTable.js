@@ -51,7 +51,7 @@ export default function PokemonStatsTable({ sx, pokemonData }) {
             <TableCell>{pokemonData.data.stats[0].base_stat}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>EXP</TableCell>
+            <TableCell>Base Experience</TableCell>
             <TableCell>{pokemonData.data.base_experience}</TableCell>
           </TableRow>
         </TableBody>

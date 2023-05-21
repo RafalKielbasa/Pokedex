@@ -3,40 +3,50 @@ import FavoritesButton from "./FavoritesButton";
 import ArenaButton from "./ArenaButton";
 import { useNavigate } from "react-router-dom";
 
-export default function PokemonTile({ pokemon }) {
+export default function PokemonTile({
+  pokemon,
+  disableZoom = false,
+  opacityDown = false,
+}) {
   const navigate = useNavigate();
+
+  const shadow =
+    disableZoom === true ? "5px 5px 5px black" : "1px 1px 5px black";
+
   const dataBoxStyle = {
     display: "flex",
     alignItems: "center",
     width: "40%",
+    height: "25%",
     flexDirection: "column",
     margin: "0px 10px 20px 10px",
     background: "rgba(0, 0, 0, 0.2)",
     border: "3px solid lightblue",
     borderRadius: "10px",
+    overflow: "hidden",
   };
 
   const singleTypePokemonTile = {
     display: "flex",
     flexDirection: "column",
     flexWrap: "wrap",
-    height: "300px",
-    width: "250px",
+    height: "350px",
+    width: "300px",
     color: "white",
     margin: 2,
     boxShadow: "5px 5px 5px black",
     border: "5px solid lightblue",
     borderRadius: "10px",
     background: `${backgroundColorChecker(pokemon.types[0].type.name)}`,
-    "&:hover": { boxShadow: "1px 1px 5px black" },
+    "&:hover": { boxShadow: `${shadow}` },
   };
 
   const dualTypePokemonTile = {
     display: "flex",
     flexDirection: "column",
     flexWrap: "wrap",
-    height: "300px",
-    width: "250px",
+    height: "350px",
+    width: "300px",
     backgroundColor: "black",
     color: "white",
     margin: 2,
@@ -48,22 +58,29 @@ export default function PokemonTile({ pokemon }) {
       `linear-gradient(to right, ${backgroundColorChecker(
         pokemon.types[1].type.name
       )} 40%,${backgroundColorChecker(pokemon.types[0].type.name)} 55%)`,
-    "&:hover": { boxShadow: "1px 1px 5px black" },
+    "&:hover": { boxShadow: `${shadow}` },
   };
 
   const scaling = 0.5;
   return (
     <Box
-      sx={{
-        position: "relative",
-        "&:hover": { transform: "scale(1.07)" },
-      }}
+      sx={
+        disableZoom === false
+          ? {
+              position: "relative",
+              "&:hover": { transform: "scale(1.07)" },
+            }
+          : { position: "relative" }
+      }
       id="box"
     >
       <FavoritesButton pokemon={pokemon} />
       <ArenaButton pokemon={pokemon} />
       <Box
-        sx={pokemon.types[1] ? dualTypePokemonTile : singleTypePokemonTile}
+        sx={[
+          pokemon.types[1] ? dualTypePokemonTile : singleTypePokemonTile,
+          opacityDown === false ? { opacity: "1" } : { opacity: "0.5" },
+        ]}
         onClick={() => {
           navigate(`/pokemon/${pokemon.id}`);
         }}
@@ -96,19 +113,21 @@ export default function PokemonTile({ pokemon }) {
             marginTop: 2,
           }}
         >
+          <Box sx={[dataBoxStyle, { width: "100%", height: "15% " }]}>
+            {pokemon.name.toUpperCase()}
+          </Box>
           <Box sx={dataBoxStyle}>
-            <Typography sx={{ fontSize: "10px" }}>NAME</Typography>
-            <Typography
-              sx={{ fontSize: pokemon.name.length < 15 ? "15px" : "10px" }}
-            >
-              {pokemon.name.toUpperCase()}
-            </Typography>
+            <Typography sx={{ fontSize: "10px" }}>Base Experience</Typography>
+            <Typography>{pokemon.base_experience}</Typography>
           </Box>
           <Box sx={dataBoxStyle}>
             <Typography sx={{ fontSize: "10px" }}>Type(s)</Typography>
             {pokemon.types.map((element) => {
               return (
-                <Typography key={`type ${element.type.name} ${pokemon.name}`}>
+                <Typography
+                  key={`type ${element.type.name} ${pokemon.name}`}
+                  sx={{ fontSize: "10px" }}
+                >
                   {element.type.name.toUpperCase()}
                 </Typography>
               );

@@ -9,7 +9,6 @@ import MainLayout from "./layouts/MainLayout";
 import { Box } from "@mui/material";
 import { Pokemons, Arena, Favorites, Login, Register, HomePage } from "./pages";
 import { useState } from "react";
-import FavoritesButton from "./components/FavoritesButton";
 import React from "react";
 import PokemonPreview from "./pages/PokemonPreview";
 import { SnackbarProvider } from "notistack";
@@ -20,6 +19,7 @@ function App() {
   const [loginState, setLoginState] = useState(false);
   const [favoritesArray, setFavoritesArray] = useState([]);
   const [arenaArray, setArenaArray] = useState([]);
+  const [arrayOfModifiedPokemon, setArrayOfModifiedPokemon] = useState([]);
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -45,6 +45,8 @@ function App() {
           setFavoritesArray,
           arenaArray,
           setArenaArray,
+          arrayOfModifiedPokemon,
+          setArrayOfModifiedPokemon,
         }}
       >
         <SnackbarProvider>

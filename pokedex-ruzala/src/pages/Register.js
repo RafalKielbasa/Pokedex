@@ -2,7 +2,7 @@ import { Box, TextField, Button } from "@mui/material";
 import { useFormik } from "formik";
 import { registerSchema } from "../schemas";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import fetchData from "../fetching/fetchData";
@@ -53,9 +53,11 @@ export default function Register() {
     <Box
       sx={{
         display: "flex",
+        flexDirection: "column",
         width: "100%",
         height: "100%",
         justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <Box sx={{ marginTop: "50px", width: "50%", height: "100%" }}>
@@ -117,6 +119,7 @@ export default function Register() {
               }
             />
             <Button
+              sx={{ marginY: "30px" }}
               type="submit"
               disabled={isSubmitting}
               variant={isSubmitting ? "outlined" : "contained"}
@@ -127,6 +130,7 @@ export default function Register() {
           </Box>
         </form>
       </Box>
+      <Link to="/register">Masz konto? Zaloguj się.</Link>
     </Box>
   );
 }

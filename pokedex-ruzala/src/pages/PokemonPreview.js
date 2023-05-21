@@ -49,7 +49,14 @@ export default function PokemonPreview() {
         ) : (
           <Box sx={{ width: "5%" }} />
         )}
-        <Box sx={{ display: "flex", width: "90%", flexDirection: "column" }}>
+        <Box
+          sx={{
+            display: "flex",
+            width: "90%",
+            flexDirection: "column",
+            marginTop: "5%",
+          }}
+        >
           <Box sx={[baseBoxStyle, { border: "10px double lightblue" }]}>
             <img
               src={
