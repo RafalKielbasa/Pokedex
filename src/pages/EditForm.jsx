@@ -171,16 +171,16 @@ const EditForm = () => {
   };
 
   const editPokemon = () => {
-    handleClick("Edited old Card", "success");
+    handleSnackBar("Edited old Card", "success");
     JsonEditPokemon(pokemonData, newValues);
   };
 
   const addNewPokemon = () => {
-    handleClick("added new Card", "success");
+    handleSnackBar("added new Card", "success");
     JsonAddPokemon(pokemonData, newValues);
   };
 
-  const handleClick = (text, type) => {
+  const handleSnackBar = (text, type) => {
     enqueueSnackbar(text, { variant: type });
   };
   return (

@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
@@ -49,11 +47,11 @@ const Signin = ({ setUserData }) => {
   const { items: usersFromData, error: usersFromDataError } =
     useFetchLocalApi("user");
 
-  const handleClick = (text, type) => {
+  const handleSnackBar = (text, type) => {
     enqueueSnackbar(text, { variant: type });
   };
 
-  const handleOnSubmit = (values, actions) => {
+  const handleOnSubmit = (values) => {
     checkLogin(values);
   };
 
@@ -69,10 +67,10 @@ const Signin = ({ setUserData }) => {
     if (passwordCheck && emailCheck) {
       localStorage.setItem("userData", JSON.stringify(userData));
       setUserData(userData);
-      handleClick("Login succes", "success");
+      handleSnackBar("Login succes", "success");
       navigate("/EditList");
     } else {
-      handleClick("Login faild, wrong password or email", "error");
+      handleSnackBar("Login faild, wrong password or email", "error");
     }
   };
 

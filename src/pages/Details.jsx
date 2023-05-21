@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import axios from "axios";
 
@@ -124,18 +124,17 @@ const BackButton = styled("button")(
   `
 );
 
-const Details = ({}) => {
+const Details = () => {
   const location = useLocation();
   const pokemonData = location.state?.pokemonData;
   const [isToggled, setIsToggled] = useState(false);
   const [isToggledBattle, setIsToggledBattle] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
-  const { items: favorites, error: favoritesError } =
-    useFetchLocalApi("favorites");
+  const { items: favorites } = useFetchLocalApi("favorites");
   const favoritesIds = favorites?.map((item) => item.id);
 
-  const { items: battle, error: battleError } = useFetchLocalApi("battle");
+  const { items: battle } = useFetchLocalApi("battle");
   const battleIds = battle?.map((item) => item.id);
 
   useEffect(() => {
@@ -143,7 +142,7 @@ const Details = ({}) => {
     setIsToggledBattle(battleIds?.includes(pokemonData?.id));
   }, [favorites, battle]);
 
-  const handleClick = (text, type) => {
+  const handleSnackBar = (text, type) => {
     enqueueSnackbar(text, { variant: type });
   };
 
@@ -151,27 +150,27 @@ const Details = ({}) => {
     if (!isToggled && !favorites.includes(pokemonData?.id)) {
       JsonPost(pokemonData, "favorites");
       setIsToggled((prev) => !prev);
-      handleClick("Added to favorites", "success");
+      handleSnackBar("Added to favorites", "success");
     } else {
       axios.delete(`http://localhost:3001/favorites/${pokemonData.id}`);
       setIsToggled((prev) => !prev);
-      handleClick("Deleted from favorites", "error");
+      handleSnackBar("Deleted from favorites", "error");
     }
   };
 
   const handleBattleClick = () => {
     if (battle.length > 1 && !battle.includes(pokemonData.id)) {
-      handleClick("Too much players", "error");
+      handleSnackBar("Too much players", "error");
     } else if (!isToggledBattle && !battle.includes(pokemonData.id)) {
       JsonPost(pokemonData, "battle");
       JsonPost(pokemonData, "editedPokemon");
 
       setIsToggledBattle((prev) => !prev);
-      handleClick("Added to battle", "success");
+      handleSnackBar("Added to battle", "success");
     } else {
       axios.delete(`http://localhost:3001/battle/${pokemonData.id}`);
       setIsToggledBattle((prev) => !prev);
-      handleClick("Removed from battle", "error");
+      handleSnackBar("Removed from battle", "error");
     }
   };
 

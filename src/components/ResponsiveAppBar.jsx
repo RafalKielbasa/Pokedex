@@ -88,6 +88,7 @@ const ResponsiveAppBar = () => {
         backgroundColor: theme.palette.background.default,
         marginBottom: "20px",
       }}
+      n
     >
       <Container maxWidth="x">
         <Toolbar disableGutters>
