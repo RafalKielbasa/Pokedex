@@ -6,21 +6,26 @@ import {
   PaginationWrapper,
   PokemonWrapper,
 } from "./HomePageWrapper.styles";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useSearchPokemonQuery } from "../../../hooks/useSearchPokemon";
 import { useDebounce } from "../../../hooks/useDebounce";
+import { usePaginationQuery } from "../../../hooks/usePagination";
 
 export const HomePageWrapper = ({ pokemonData }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 15;
-  const pageNumber = Math.ceil(pokemonData?.length / pageSize);
-  const lastPostIndex = currentPage * pageSize;
-  const firstPostIndex = lastPostIndex - pageSize;
-  const currentPost = pokemonData?.slice(firstPostIndex, lastPostIndex);
-
   const [value, setValue] = useState("");
   const debouncedSearch = useDebounce(value);
   const { data } = useSearchPokemonQuery(debouncedSearch);
+  const pagination = usePaginationQuery(currentPage);
+  const pageNumber = Math.ceil(pokemonData?.length / 15);
+
+  const pokemon = useMemo(() => {
+    if (debouncedSearch) {
+      return data?.data;
+    } else {
+      return pagination?.data?.data;
+    }
+  });
 
   const handleChange = (_, i) => {
     setCurrentPage(i);
@@ -35,12 +40,9 @@ export const HomePageWrapper = ({ pokemonData }) => {
           onChange={(e) => setValue(e.target.value)}
           value={value}
         />
-        {data?.data?.map((props) => {
-          return <PokemonCard props={props} />;
-        })}
       </Header>
       <PokemonWrapper>
-        {currentPost?.map((props) => {
+        {pokemon?.map((props) => {
           return <PokemonCard props={props} />;
         })}
       </PokemonWrapper>

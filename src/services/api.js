@@ -45,14 +45,24 @@ export const getCorrectPokemon = (name) => {
   });
 };
 
-export const getSearchPokemon = (key) => {
-  console.log(key);
+export const getSearchPokemon = (key, limit = 5) => {
   return dbFetcher({
     url: `pokemon?_sort=name`,
     method: "GET",
     params: {
       q: key,
-      _limit: 5,
+      _limit: limit,
+    },
+  });
+};
+
+export const getPaginatedPokemon = (currentPage, limit = 15) => {
+  return dbFetcher({
+    url: "pokemon",
+    method: "GET",
+    params: {
+      _page: currentPage,
+      _limit: limit,
     },
   });
 };
