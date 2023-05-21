@@ -21,10 +21,24 @@ Home:
 Favorites:
 ![favorites](https://github.com/mr-fox93/pokemon-api/assets/112568901/c56d243b-3ef0-43e7-8ab8-a65d795c45ab)
 
+Choose pokemon type:
+![chose type](https://github.com/mr-fox93/pokemon-api/assets/112568901/fd19c2a5-3572-413c-81ed-078cb7679111)
+
+
 Confirm delete Pokemon's from Favorites:
 ![deleteall](https://github.com/mr-fox93/pokemon-api/assets/112568901/5430b0f0-19ab-4ac8-bf67-7c1e97cee6d0)
 
 More Pokemon info, click on 'i' icon on Card: 
 ![morepokemoninfo](https://github.com/mr-fox93/pokemon-api/assets/112568901/ee5b5a5e-c709-4fe5-9d32-f0d46aed6130)
 
+
+Register Panel using Hook Form and Yup, save to local Storage:
+![register](https://github.com/mr-fox93/pokemon-api/assets/112568901/771b4976-1a22-4aac-b57b-387e6d7930dc)
+
+Navbar Login Context:
+![navbarLogIn](https://github.com/mr-fox93/pokemon-api/assets/112568901/f602994b-a13c-4484-a551-da7885f9dca0)
+![navbarLogout](https://github.com/mr-fox93/pokemon-api/assets/112568901/ffd085e8-1b87-480e-90fb-605b6776df65)
+
+Fight Arena, Pokemon with more stats win: 
+![fightarena](https://github.com/mr-fox93/pokemon-api/assets/112568901/9acbece7-3e4c-472d-8424-5e63c27e3ef9)
 
