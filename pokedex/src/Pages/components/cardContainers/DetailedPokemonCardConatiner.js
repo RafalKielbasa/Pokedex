@@ -5,7 +5,6 @@ import styled from "styled-components";
 const MyDetailedCardContaner = styled.div`
 background:${(prop) => prop.theme.bgColor};
 display: flex;
-height: 450px;
 justify-content: center;
 align-items: center;
 margin-bottom 30px;`;

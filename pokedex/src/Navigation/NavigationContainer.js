@@ -10,7 +10,6 @@ const NavWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 30px;
-  margin-bottom: 20px;
   flex-wrap: wrap;
 `;
 const NavButtonWrapper = styled.div`

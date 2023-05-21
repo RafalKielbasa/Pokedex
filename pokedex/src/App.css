@@ -1,16 +1,4 @@
-.Navbar {
-  display: flex;
-  gap: 20px;
-}
-.RowForcards {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 50px;
-}
-.card {
-  height: 30px;
-  background-color: aquamarine;
-}
-.card:hover {
-  transform: translate3D(0, -1px, 0) scale(1.03);
+body {
+  margin: 0%;
+  padding: 0%;
 }

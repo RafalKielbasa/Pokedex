@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { DetailedPokemonCard, DetailedPokemonCardConatiner } from "../components";
+import {
+  DetailedPokemonCard,
+  DetailedPokemonCardConatiner,
+  DetailedPokemonLayout,
+} from "../components";
 import { useParams } from "react-router-dom";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
-import { deleteData, fetchOnePokemon, postData } from "src/api";
+import { fetchOnePokemon } from "src/api/fetchDataFunctions";
+import { postData } from "src/api/postDataFunctions";
+import { deleteData } from "src/api/deleteData";
 import { useOutletContext } from "react-router-dom";
 const DetailedPage = () => {
   const {
@@ -57,19 +63,21 @@ const DetailedPage = () => {
       : !arenaSecondFighter && arenaFirstFighter !== name && setArenaSecondFighter(name);
   };
   return (
-    <DetailedPokemonCardConatiner>
-      {detailPokemon && (
-        <DetailedPokemonCard
-          value={detailPokemon}
-          onClickFavorite={!isFavorite ? addFavorite : deleteFavorite}
-          onClickArena={arenaFightersHandle}
-          isFavorite={isFavorite}
-          myName={name}
-          firstFighterProp={arenaFirstFighter}
-          secondFighterProp={arenaSecondFighter}
-        />
-      )}
-    </DetailedPokemonCardConatiner>
+    <DetailedPokemonLayout>
+      <DetailedPokemonCardConatiner>
+        {detailPokemon && (
+          <DetailedPokemonCard
+            value={detailPokemon}
+            onClickFavorite={!isFavorite ? addFavorite : deleteFavorite}
+            onClickArena={arenaFightersHandle}
+            isFavorite={isFavorite}
+            myName={name}
+            firstFighterProp={arenaFirstFighter}
+            secondFighterProp={arenaSecondFighter}
+          />
+        )}
+      </DetailedPokemonCardConatiner>
+    </DetailedPokemonLayout>
   );
 };
 

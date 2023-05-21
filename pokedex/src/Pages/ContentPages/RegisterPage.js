@@ -1,12 +1,11 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { enqueueSnackbar } from "notistack";
 import React from "react";
-import { postData } from "src/api";
+import { postData } from "src/api/postDataFunctions";
 import * as Yup from "yup";
 
 const RegisterPage = () => {
-  const regPasword =
-    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+  const regPasword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
   return (
     <Formik
       initialValues={{
@@ -16,9 +15,7 @@ const RegisterPage = () => {
         repeatPassword: "",
       }}
       validationSchema={Yup.object({
-        userName: Yup.string()
-          .max(15, "Must be 15 characters or less")
-          .required("Required"),
+        userName: Yup.string().max(15, "Must be 15 characters or less").required("Required"),
         email: Yup.string().email("Invalid email address").required("Required"),
         password: Yup.string()
           .matches(
@@ -40,11 +37,7 @@ const RegisterPage = () => {
         <Form>
           <div>
             <label htmlFor="userName">Nazwa Użytkownika</label>
-            <Field
-              name="userName"
-              type="text"
-              placeholder="Wprowadź nazwę użytkownika"
-            ></Field>
+            <Field name="userName" type="text" placeholder="Wprowadź nazwę użytkownika"></Field>
             <ErrorMessage name="userName" />
           </div>
           <div>
@@ -54,20 +47,12 @@ const RegisterPage = () => {
           </div>
           <div>
             <label htmlFor="password">Hasło</label>
-            <Field
-              name="password"
-              type="password"
-              placeholder="Wprowadź hasło"
-            />
+            <Field name="password" type="password" placeholder="Wprowadź hasło" />
             <ErrorMessage name="password" />
           </div>
           <div>
             <label htmlFor="repeatPassword">Powtórz Hasło</label>
-            <Field
-              name="repeatPassword"
-              type="password"
-              placeholder="Powtórz hasło"
-            />
+            <Field name="repeatPassword" type="password" placeholder="Powtórz hasło" />
             <ErrorMessage name="repeatPassword" />
           </div>
           <button type="submit" disabled={isSubmitting}>

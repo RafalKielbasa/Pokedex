@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useContext } from "react";
-import { fetchUsers } from "src/api";
+import { fetchUsers } from "src/api/fetchDataFunctions";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { enqueueSnackbar } from "notistack";
@@ -25,9 +25,7 @@ const LogInPage = () => {
         password: Yup.string().required("Required"),
       })}
       onSubmit={(values, { setSubmitting }) => {
-        const filteredUsers = users?.filter(
-          ({ userName }) => userName === values?.userName
-        );
+        const filteredUsers = users?.filter(({ userName }) => userName === values?.userName);
         if (values?.password === filteredUsers[0]?.password) {
           setSubmitting(false);
           setLoggedIn(true);
@@ -46,20 +44,12 @@ const LogInPage = () => {
         <Form>
           <div>
             <label htmlFor="userName">Nazwa Użytkownika</label>
-            <Field
-              name="userName"
-              type="text"
-              placeholder="Nazwa Użwytkownika"
-            ></Field>
+            <Field name="userName" type="text" placeholder="Nazwa Użwytkownika"></Field>
             <ErrorMessage name="userName" />
           </div>
           <div>
             <label htmlFor="password">E-mail</label>
-            <Field
-              name="password"
-              type="password"
-              placeholder="Wprowadź Hasło"
-            />
+            <Field name="password" type="password" placeholder="Wprowadź Hasło" />
             <ErrorMessage name="password" />
           </div>
           <button type="submit" disabled={isSubmitting}>

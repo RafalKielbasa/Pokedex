@@ -6,6 +6,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 30px;
+  margin-top: 20px;
 `;
 
 const Searcher = ({ handleSearcherChange }) => {

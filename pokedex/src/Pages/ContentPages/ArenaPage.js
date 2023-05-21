@@ -5,9 +5,9 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 import { useOutletContext } from "react-router-dom";
 import { Stadium, VS, Winner } from "src/img";
-import { arenaFirstOneActionHandle, arenaSecondOneActionHandle } from "src/api";
+import { arenaFirstOneActionHandle, arenaSecondOneActionHandle } from "src/api/postDataFunctions";
 import { fighterPowerLevel } from "src/helpers";
-import { fetchOnePokemon } from "src/api";
+import { fetchOnePokemon } from "src/api/fetchDataFunctions";
 const ArenaBody = styled.div`
   background: url(${Stadium});
   height: 80vh;
@@ -55,7 +55,6 @@ const ArenaPage = () => {
     enabled: arenaSecondFighter != null && editedStatus === "success",
     staleTime: 10 * (60 * 1000),
   });
-  console.log({ firstFighter, secondFighter });
   const firstFighterPowerLevel = fighterPowerLevel(firstFighter);
   const secondFighterPowerLevel = fighterPowerLevel(secondFighter);
 
@@ -65,9 +64,11 @@ const ArenaPage = () => {
         firstFighter,
         arenaFirstFighter,
         firstFighterPowerLevel,
-        secondFighterPowerLevel
+        secondFighterPowerLevel,
+        editedList
       ),
     onSuccess: (data) => {
+      queryClient.invalidateQueries(["editedPokemons"]);
       queryClient.setQueryData(["pokemon", firstFighter?.name], data?.data);
     },
   });
@@ -77,9 +78,11 @@ const ArenaPage = () => {
         secondFighter,
         arenaSecondFighter,
         firstFighterPowerLevel,
-        secondFighterPowerLevel
+        secondFighterPowerLevel,
+        editedList
       ),
     onSuccess: (data) => {
+      queryClient.invalidateQueries(["editedPokemons"]);
       queryClient.setQueryData(["pokemon", secondFighter?.name], data?.data);
     },
   });
