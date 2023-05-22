@@ -36,8 +36,10 @@ const FormInfo = styled.div`
 `;
 const StyledButton = styled.button`
   background: green;
-  width: 200px;
-  height: 50px;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  width: 45%;
+  height: 12%;
   font-size: 24px;
 `;
 const RegisterPage = () => {
