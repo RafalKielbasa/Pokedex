@@ -44,9 +44,6 @@ const HomePage = () => {
   const [fullPokemonDataFiltered, setFullPokemonDataFiltered] = useState([]);
 
   const queryFullData = useQuery([`/`], () => getFullResults());
-  // const { data } = queryFullData;
-  // const queryFavoriteData = useQuery([`/`], () => fetchFavorite());
-  // console.log(`queryFavoriteData`, queryFavoriteData.data.data[0].queryData);
 
   // console.log(`expFullPokemonData`, expFullPokemonData);
   // console.log(`fullPokemonData`, fullPokemonData);
@@ -200,7 +197,8 @@ const HomePage = () => {
                   weight={item.weight}
                   abilitie={item.abilities[0].ability.name}
                   fullPokemonData={fullPokemonData}
-                  // onClick={() => saveToLocalStorage()}
+                  partialPokemonData={partialPokemonData}
+                  fullPokemonDataFiltered={fullPokemonDataFiltered}
                 />
               ))}
             </PokemonWrapper>
@@ -262,7 +260,8 @@ const HomePage = () => {
                 weight={item.weight}
                 abilitie={item.abilities[0].ability.name}
                 fullPokemonData={fullPokemonData}
-                // onClick={() => saveToLocalStorage()}
+                partialPokemonData={partialPokemonData}
+                fullPokemonDataFiltered={fullPokemonDataFiltered}
               />
             ))}
           </PokemonWrapper>

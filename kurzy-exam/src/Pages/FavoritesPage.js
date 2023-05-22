@@ -32,7 +32,7 @@ const InfoWrapper = styled.h1`
   margin-top: 100px;
 `;
 
-const FavoritesPage = () => {
+const FavoritesPage = ({ isFavorite }) => {
   const [page, setPage] = useState(1);
 
   const queryFavoritesData = useQuery(["favorites"], () => getFavorites());
@@ -88,6 +88,7 @@ const FavoritesPage = () => {
               weight={item.weight}
               abilitie={item.abilitie}
               favoritesData={favoritesData}
+              isFavorite={isFavorite}
               // onClick={() => saveToLocalStorage()}
             />
           ))}

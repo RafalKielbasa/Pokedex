@@ -1,6 +1,15 @@
 {
   "favoriteData": [
     {
+      "id": 1,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+      "name": "bulbasaur",
+      "height": 7,
+      "baseexp": 64,
+      "weight": 69,
+      "abilitie": "overgrow"
+    },
+    {
       "id": 3,
       "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
       "name": "venusaur",
@@ -10,40 +19,13 @@
       "abilitie": "overgrow"
     },
     {
-      "id": 5,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
-      "name": "charmeleon",
-      "height": 11,
-      "baseexp": 142,
-      "weight": 190,
-      "abilitie": "blaze"
-    },
-    {
-      "id": 6,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
-      "name": "charizard",
-      "height": 17,
-      "baseexp": 267,
-      "weight": 905,
-      "abilitie": "blaze"
-    },
-    {
-      "id": 2,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
-      "name": "ivysaur",
+      "id": 8,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/8.png",
+      "name": "wartortle",
       "height": 10,
       "baseexp": 142,
-      "weight": 130,
-      "abilitie": "overgrow"
-    },
-    {
-      "id": 14,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/14.png",
-      "name": "kakuna",
-      "height": 6,
-      "baseexp": 72,
-      "weight": 100,
-      "abilitie": "shed-skin"
+      "weight": 225,
+      "abilitie": "torrent"
     }
   ]
 }
