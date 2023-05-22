@@ -1,12 +1,15 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+
 import Card from "@mui/material/Card";
 import { CardImg, CardBoxInfo, HoverCard } from "../cardElements";
+
+import GlobalContext from "src/context/GlobalContext";
 
 const PokemonCard = ({ value }) => {
   const navigate = useNavigate();
   const dataToPass = value;
-
+  const { theme } = useContext(GlobalContext);
   return (
     <HoverCard>
       <Card
@@ -16,7 +19,8 @@ const PokemonCard = ({ value }) => {
           justifyContent: "center",
           alignItems: "center",
           width: 220,
-          background: "#E0E0E0",
+          background: theme.bgCardColor,
+          color: theme.textColor,
         }}
         onClick={() => navigate(`/pokemon/${dataToPass.name}`)}
       >

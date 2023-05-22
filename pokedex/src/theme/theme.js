@@ -1,9 +1,13 @@
 export const lightTheme = {
-  bgColor: "#a2a8d3",
-  bgCardColor: "#e7eaf6",
+  bgColor: "#d5eeff",
+  bgCardColor: "#e3f6f5",
+  textColor: "black",
+  searcherBorder: "2px solid black",
 };
 
 export const darkTheme = {
-  bgColor: "#113f67",
-  bgCardColor: "#38598b",
+  bgColor: "#272343",
+  bgCardColor: "#007cb9",
+  textColor: "white",
+  searcherBorder: "2px solid white",
 };

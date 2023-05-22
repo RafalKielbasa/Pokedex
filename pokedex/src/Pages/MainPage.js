@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
-import { Navigation } from "../Navigation";
 import { useQuery } from "@tanstack/react-query";
+
+import { Navigation } from "../Navigation";
 import { fetchLocalList } from "src/api/fetchDataFunctions";
 import { Loader, ErrorMsg } from "./components";
+
 const MainPage = () => {
   const {
     data: editedList,
@@ -23,14 +25,17 @@ const MainPage = () => {
     queryFn: () => fetchLocalList("favorite"),
     staleTime: 10 * (60 * 1000),
   });
+
   const [arenaFirstFighter, setArenaFirstFighter] = useState(null);
   const [arenaSecondFighter, setArenaSecondFighter] = useState(null);
+
   if (editedStatus === "loading" || favoriteStatus === "loading")
     return <Loader />;
   if (editedStatus === "error")
     return <ErrorMsg errorMsg={editedError.message} />;
   if (favoriteStatus === "error")
     return <ErrorMsg errorMsg={favoriteError.message} />;
+
   return (
     <>
       <Navigation />

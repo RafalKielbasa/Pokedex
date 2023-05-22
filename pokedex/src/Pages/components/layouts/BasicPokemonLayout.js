@@ -2,14 +2,14 @@ import React, { useContext } from "react";
 import GlobalContext from "src/context/GlobalContext";
 import styled from "styled-components";
 
-const MyDetailedPokemonLayout = styled.div`
+const MyBasicPokemonLayout = styled.div`
   background: ${(prop) => prop.theme.bgColor};
-  height: 100vh;
+  padding: 20px;
 `;
 
-const DetailedPokemonLayout = ({ children }) => {
+const BasicPokemonLayout = ({ children }) => {
   const { theme } = useContext(GlobalContext);
-  return <MyDetailedPokemonLayout theme={theme}>{children}</MyDetailedPokemonLayout>;
+  return <MyBasicPokemonLayout theme={theme}>{children}</MyBasicPokemonLayout>;
 };
 
-export default DetailedPokemonLayout;
+export default BasicPokemonLayout;

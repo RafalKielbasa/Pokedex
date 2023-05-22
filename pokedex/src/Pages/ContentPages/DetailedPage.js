@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   DetailedPokemonCard,
   DetailedPokemonCardConatiner,
-  DetailedPokemonLayout,
+  BasicPokemonLayout,
 } from "../components";
 import { useParams } from "react-router-dom";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
@@ -64,7 +64,7 @@ const DetailedPage = () => {
         setArenaSecondFighter(name);
   };
   return (
-    <DetailedPokemonLayout>
+    <BasicPokemonLayout>
       <DetailedPokemonCardConatiner>
         {detailPokemon && (
           <DetailedPokemonCard
@@ -78,7 +78,7 @@ const DetailedPage = () => {
           />
         )}
       </DetailedPokemonCardConatiner>
-    </DetailedPokemonLayout>
+    </BasicPokemonLayout>
   );
 };
 
