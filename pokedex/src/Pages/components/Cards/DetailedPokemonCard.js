@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { CardImg, CardBoxInfo, HoverCard } from "../cardElements";
+
 import { Card, Button, IconButton } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ColorizeIcon from "@mui/icons-material/Colorize";
+
 import styled from "styled-components";
+
+import GlobalContext from "src/context/GlobalContext";
+import { CardImg, CardBoxInfo, HoverCard } from "../cardElements";
+
 const DetailedConatiner = styled.div` 
 display: flex;
 width: 700px;
@@ -48,6 +53,7 @@ const DetailedPokemonCard = ({
 }) => {
   const navigate = useNavigate();
   const dataToPass = value;
+  const { theme } = useContext(GlobalContext);
   return (
     <DetailedConatiner>
       <HoverCard>
@@ -57,7 +63,8 @@ const DetailedPokemonCard = ({
             flexDirection: "column",
             width: 700,
             justifyContent: "center",
-            background: "#e7eaf6",
+            background: theme.bgCardColor,
+            color: theme.textColor,
           }}
         >
           <InfoHeader>Strona szczegółów pokemona</InfoHeader>
@@ -73,7 +80,9 @@ const DetailedPokemonCard = ({
             <IconButton
               aria-label="favorite"
               onClick={onClickFavorite}
-              sx={{ color: isFavorite ? "red" : "grey" }}
+              sx={{
+                color: isFavorite ? theme.heartActive : theme.heartDisabled,
+              }}
             >
               <FavoriteIcon />
             </IconButton>
@@ -98,7 +107,11 @@ const DetailedPokemonCard = ({
           <Button
             variant="outlined"
             color="error"
-            sx={{ width: 700, borderColor: " #ff66a3", color: " #ff66a3" }}
+            sx={{
+              width: 700,
+              borderColor: theme.borderColor,
+              color: theme.borderColor,
+            }}
             onClick={() => navigate(`/`)}
           >
             Strona Główna
