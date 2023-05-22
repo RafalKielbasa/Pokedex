@@ -1,18 +1,17 @@
 import * as Yup from "yup";
-const regPasword =
-  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+const regPasword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 export const registerValidationSchema = Yup.object({
   userName: Yup.string()
-    .max(15, "Must be 15 characters or less")
-    .required("Required"),
-  email: Yup.string().email("Invalid email address").required("Required"),
+    .max(15, "nazwa użytkownika musi się składać z maksymalnie 15 znaków")
+    .required("to pole jest wymagane"),
+  email: Yup.string().email("Pole musi zawierać adress email").required("to pole jest wymagane"),
   password: Yup.string()
     .matches(
       regPasword,
-      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character "
+      "hasło musi zawierać co najmnie 8 znaków w tym : 1 dużą literę, 1 małą, 1 cyfrę i jeden znak specjalny"
     )
-    .required("Required"),
+    .required("to pole jest wymagane"),
   repeatPassword: Yup.string()
-    .oneOf([Yup.ref("password")], "Passwords must match")
-    .required("Required"),
+    .oneOf([Yup.ref("password")], "hasła muszą się zgadzać")
+    .required("to pole jest wymagane"),
 });

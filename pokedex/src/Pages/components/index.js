@@ -10,3 +10,5 @@ export { default as BlankCard } from "./cards/BlankCard";
 export { default as BasicPokemonLayout } from "./layouts/BasicPokemonLayout";
 export { default as Loader } from "./loaders/Loader";
 export { default as ErrorMsg } from "./loaders/ErrorMsg";
+export { default as StyledValidationError } from "./formComponents/StyledValidationError";
+export { default as StyledFormField } from "./formComponents/StyledFormField";
