@@ -7,7 +7,13 @@ import {
   fetchPokemonQueriesData,
   fetchDataToFilter,
 } from "src/api/fetchDataFunctions";
-import { MyPagination, PokemonCard, PokemonCardContainer, Searcher } from "../components";
+import {
+  MyPagination,
+  PokemonCard,
+  PokemonCardContainer,
+  Searcher,
+  Loader,
+} from "../components";
 
 const HomePage = () => {
   const { editedList, editedStatus } = useOutletContext();
@@ -50,17 +56,22 @@ const HomePage = () => {
     (searchedValue === "" && pokemonsStatus === "loading") ||
     (searchedValue !== "" && pokemonsToFilterStatus === "loading")
   )
-    return <div>... LOADING</div>;
+    return <Loader />;
   return (
     <div>
-      {(pokemonsStatus === "success" || pokemonsToFilterStatus === "success") && (
+      {(pokemonsStatus === "success" ||
+        pokemonsToFilterStatus === "success") && (
         <>
-          <Searcher handleSearcherChange={(e) => setSearchedValue(e.target.value)} />
+          <Searcher
+            handleSearcherChange={(e) => setSearchedValue(e.target.value)}
+          />
           <PokemonCardContainer>
             {pokemonQueries && pokemonQueries?.length > 0 ? (
               pokemonQueries?.map(
                 ({ data, status }) =>
-                  status === "success" && <PokemonCard key={data?.id} id={data?.id} value={data} />
+                  status === "success" && (
+                    <PokemonCard key={data?.id} id={data?.id} value={data} />
+                  )
               )
             ) : (
               <h1> BRAK DOPASOWAŃ</h1>

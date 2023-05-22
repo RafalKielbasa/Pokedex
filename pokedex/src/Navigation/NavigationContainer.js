@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Switch from "@mui/material/Switch";
 import GlobalContext from "src/context/GlobalContext";
 const NavWrapper = styled.div`
-  background: #d7e5f3;
+  background: #e7eaf6;
   display: flex;
   justify-content: space-between;
   align-items: center;

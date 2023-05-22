@@ -17,7 +17,6 @@ const DetailedPage = () => {
     arenaSecondFighter,
     setArenaSecondFighter,
     favoriteList,
-    setFavoriteList,
     editedStatus,
     editedList,
     favoriteStatus,
@@ -32,7 +31,9 @@ const DetailedPage = () => {
   });
   const [isFavorite, setIsFavorite] = useState(false);
   useEffect(() => {
-    Array.isArray(favoriteList) && favoriteList?.includes(name) && setIsFavorite(true);
+    Array.isArray(favoriteList) &&
+      favoriteList?.includes(name) &&
+      setIsFavorite(true);
   }, [favoriteList, name]);
   const createPostMutation = useMutation({
     mutationFn: () => postData("favorite", detailPokemon?.name),
@@ -42,7 +43,6 @@ const DetailedPage = () => {
   });
   const addFavorite = () => {
     setIsFavorite((prev) => !prev);
-    setFavoriteList((prev) => Array.isArray(prev) && prev?.push(name));
     createPostMutation.mutate();
   };
 
@@ -54,13 +54,14 @@ const DetailedPage = () => {
   });
   const deleteFavorite = () => {
     setIsFavorite((prev) => !prev);
-    setFavoriteList((prev) => Array.isArray(prev) && prev?.filter((value) => value !== name));
     createDeleteMutation.mutate();
   };
   const arenaFightersHandle = () => {
     !arenaFirstFighter
       ? setArenaFirstFighter(name)
-      : !arenaSecondFighter && arenaFirstFighter !== name && setArenaSecondFighter(name);
+      : !arenaSecondFighter &&
+        arenaFirstFighter !== name &&
+        setArenaSecondFighter(name);
   };
   return (
     <DetailedPokemonLayout>

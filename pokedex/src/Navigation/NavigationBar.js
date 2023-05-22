@@ -6,7 +6,7 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 const NavButton = styled.button`
    {
     padding: 25px 30px;
-    background-color: #9cc1e1;
+    background-color: #a2a8d3;
     color: #050801;
     font-weight: bold;
     border: none;
@@ -19,13 +19,15 @@ const NavButton = styled.button`
   :hover {
     background: #3d85c6;
     color: white;
-    box-shadow: 0 0 5px #3d85c6 0 0 25px #3d85c6, 0 0 50px #3d85c6, 0 0 200px #3d85c6;
+    box-shadow: 0 0 5px #3d85c6 0 0 25px #3d85c6, 0 0 50px #3d85c6,
+      0 0 200px #3d85c6;
     -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
   }
   :focus {
     background: #3d85c6;
     color: white;
-    box-shadow: 0 0 5px #3d85c6, 0 0 25px #3d85c6, 0 0 50px #3d85c6, 0 0 200px #3d85c6;
+    box-shadow: 0 0 5px #3d85c6, 0 0 25px #3d85c6, 0 0 50px #3d85c6,
+      0 0 200px #3d85c6;
     -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
   }
 `;

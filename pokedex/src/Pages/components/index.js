@@ -7,3 +7,5 @@ export { default as DetailedPokemonCardConatiner } from "./cardContainers/Detail
 export { default as FavoriteCard } from "./cards/FavoriteCard";
 export { default as BlankCard } from "./cards/BlankCard";
 export { default as DetailedPokemonLayout } from "./layouts/DetailedPokemonLayout";
+export { default as Loader } from "./loaders/Loader";
+export { default as ErrorMsg } from "./loaders/ErrorMsg";

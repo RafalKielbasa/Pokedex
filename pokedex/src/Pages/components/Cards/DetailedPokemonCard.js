@@ -57,7 +57,7 @@ const DetailedPokemonCard = ({
             flexDirection: "column",
             width: 700,
             justifyContent: "center",
-            background: "white",
+            background: "#e7eaf6",
           }}
         >
           <InfoHeader>Strona szczegółów pokemona</InfoHeader>
@@ -67,7 +67,9 @@ const DetailedPokemonCard = ({
             <CardBoxInfo dataToPass={dataToPass}></CardBoxInfo>
           </InfoContainer>
           <FavoriteWrapper>
-            <span>{isFavorite ? "USUŃ Z ULUBIONYCH" : "DODAJ DO ULUBIONYCH"}</span>
+            <span>
+              {isFavorite ? "USUŃ Z ULUBIONYCH" : "DODAJ DO ULUBIONYCH"}
+            </span>
             <IconButton
               aria-label="favorite"
               onClick={onClickFavorite}
@@ -80,7 +82,10 @@ const DetailedPokemonCard = ({
             {firstFighterProp === myName || secondFighterProp === myName ? (
               <div>POKEMON ZOSTAŁ WYSŁANY NA ARENĘ</div>
             ) : firstFighterProp && secondFighterProp ? (
-              <div>MAKSYMALNA LICZBA POKEMONÓW NA ARENIE, NIE MOŻESZ DODAĆ KOLEJNEGO</div>
+              <div>
+                MAKSYMALNA LICZBA POKEMONÓW NA ARENIE, NIE MOŻESZ DODAĆ
+                KOLEJNEGO
+              </div>
             ) : (
               <div>
                 <span>DODAJ DO ARENY</span>

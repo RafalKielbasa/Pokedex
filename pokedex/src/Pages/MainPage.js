@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Navigation } from "../Navigation";
 import { useQuery } from "@tanstack/react-query";
 import { fetchLocalList } from "src/api/fetchDataFunctions";
+import { Loader, ErrorMsg } from "./components";
 const MainPage = () => {
   const {
     data: editedList,
@@ -14,7 +15,7 @@ const MainPage = () => {
     staleTime: 10 * (60 * 1000),
   });
   const {
-    data: favorite,
+    data: favoriteList,
     status: favoriteStatus,
     error: favoriteError,
   } = useQuery({
@@ -24,14 +25,12 @@ const MainPage = () => {
   });
   const [arenaFirstFighter, setArenaFirstFighter] = useState(null);
   const [arenaSecondFighter, setArenaSecondFighter] = useState(null);
-  const [favoriteList, setFavoriteList] = useState([]);
-  console.log({ favoriteStatus });
-  useEffect(() => {
-    favoriteStatus === "success" && setFavoriteList(favorite);
-  }, [favoriteStatus, favorite]);
-  if (editedStatus === "error" || favoriteStatus === "error")
-    return <div>{editedError.message}</div>;
-  if (favoriteStatus === "error") return <div>{favoriteError.message}</div>;
+  if (editedStatus === "loading" || favoriteStatus === "loading")
+    return <Loader />;
+  if (editedStatus === "error")
+    return <ErrorMsg errorMsg={editedError.message} />;
+  if (favoriteStatus === "error")
+    return <ErrorMsg errorMsg={favoriteError.message} />;
   return (
     <>
       <Navigation />
@@ -42,7 +41,6 @@ const MainPage = () => {
           arenaSecondFighter,
           setArenaSecondFighter,
           favoriteList,
-          setFavoriteList,
           editedList,
           editedStatus,
           favoriteStatus,
