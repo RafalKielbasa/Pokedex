@@ -9,8 +9,11 @@ import { Button, Input } from "semantic-ui-react";
 import { LoginContext } from "./LoginContext";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useFavorite } from "./FavoritesContext";
 
 const StyledNavLink = styled(NavLink)`
+  font-weight: bold !important;
+
   &.active {
     color: palevioletred !important;
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
@@ -29,6 +32,9 @@ export const Navbar = () => {
   const { search, setSearch } = useContext(SearchContext);
   const { userData, setUserData } = useContext(LoginContext);
   const navigate = useNavigate();
+  //
+  const { favorites, count } = useFavorite();
+  //
 
   const toggleTheme = () => {
     setTheme(!theme);
@@ -73,7 +79,7 @@ export const Navbar = () => {
           to="/favorites"
           className="item"
         >
-          Favorites
+          Favorites {favorites.length > 0 ? ` ❤️ ${count}` : null}
         </StyledNavLink>
         <StyledNavLink
           style={{ color: theme ? "white" : "black" }}

@@ -9,6 +9,7 @@ export const useFavorite = () => {
 export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
   const [error, setError] = useState(false);
+  const [count, setCount] = useState(0);
 
   const closeError = () => {
     setError(false);
@@ -18,6 +19,7 @@ export const FavoritesProvider = ({ children }) => {
       setError(true);
     } else {
       setFavorites([...favorites, addNew]);
+      setCount((prev) => prev + 1);
     }
   };
 
@@ -27,10 +29,12 @@ export const FavoritesProvider = ({ children }) => {
 
   const removeFavorite = (id) => {
     setFavorites(favorites.filter((item) => item.id !== id));
+    setCount((prev) => prev - 1);
   };
 
   const removeAll = () => {
     setFavorites([]);
+    setCount(0);
   };
   return (
     <FavoriteContext.Provider
@@ -41,6 +45,7 @@ export const FavoritesProvider = ({ children }) => {
         error,
         closeError,
         removeAll,
+        count,
       }}
     >
       {children}

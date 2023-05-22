@@ -12,7 +12,6 @@ export const FightArenaProvider = ({ children }) => {
     if (ifExistFightPokemon(pokemon.id)) {
       setAlert(true);
     } else if (fightArena.length === 2) {
-      // window.alert("Arena is full like your mom");
       setError(true);
     } else {
       setFightArena([...fightArena, pokemon]);

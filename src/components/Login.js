@@ -41,7 +41,7 @@ const Login = () => {
       setUserData(user);
       nav("/");
     } else {
-      alert("blablabla");
+      alert("Empty fields");
     }
   };
 

@@ -39,7 +39,13 @@ const Info = styled.div`
 
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
-  email: yup.string().required("Email is required").email(),
+  email: yup
+    .string()
+    .required("Email is required")
+    .matches(
+      /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-,]+$/,
+      `Email is not valid`
+    ),
   password: yup
     .string()
     .required()
