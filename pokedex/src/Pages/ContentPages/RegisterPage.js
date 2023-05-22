@@ -2,10 +2,25 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { enqueueSnackbar } from "notistack";
 import React from "react";
 import { postData } from "src/api/postDataFunctions";
-import * as Yup from "yup";
+import { registerValidationSchema } from "src/validationSchemas";
+import styled from "styled-components";
+const FormRowContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+`;
+const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 75vh;
+`;
 
 const RegisterPage = () => {
-  const regPasword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
   return (
     <Formik
       initialValues={{
@@ -14,19 +29,7 @@ const RegisterPage = () => {
         password: "",
         repeatPassword: "",
       }}
-      validationSchema={Yup.object({
-        userName: Yup.string().max(15, "Must be 15 characters or less").required("Required"),
-        email: Yup.string().email("Invalid email address").required("Required"),
-        password: Yup.string()
-          .matches(
-            regPasword,
-            "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character "
-          )
-          .required("Required"),
-        repeatPassword: Yup.string()
-          .oneOf([Yup.ref("password")], "Passwords must match")
-          .required("Required"),
-      })}
+      validationSchema={registerValidationSchema}
       onSubmit={(values, { setSubmitting }) => {
         postData("users", values);
         setSubmitting(false);
@@ -34,31 +37,53 @@ const RegisterPage = () => {
       }}
     >
       {({ isSubmitting }) => (
-        <Form>
-          <div>
-            <label htmlFor="userName">Nazwa Użytkownika</label>
-            <Field name="userName" type="text" placeholder="Wprowadź nazwę użytkownika"></Field>
-            <ErrorMessage name="userName" />
-          </div>
-          <div>
-            <label htmlFor="email">E-mail</label>
-            <Field name="email" type="email" placeholder="Wprowadź email" />
-            <ErrorMessage name="email" />
-          </div>
-          <div>
-            <label htmlFor="password">Hasło</label>
-            <Field name="password" type="password" placeholder="Wprowadź hasło" />
-            <ErrorMessage name="password" />
-          </div>
-          <div>
-            <label htmlFor="repeatPassword">Powtórz Hasło</label>
-            <Field name="repeatPassword" type="password" placeholder="Powtórz hasło" />
-            <ErrorMessage name="repeatPassword" />
-          </div>
-          <button type="submit" disabled={isSubmitting}>
-            Wyślij
-          </button>
-        </Form>
+        <FormContainer>
+          <Form
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              fontSize: "24px",
+            }}
+          >
+            <FormRowContainer>
+              <label htmlFor="userName">Nazwa Użytkownika</label>
+              <Field
+                name="userName"
+                type="text"
+                placeholder="Wprowadź nazwę użytkownika"
+              ></Field>
+              <ErrorMessage name="userName" />
+            </FormRowContainer>
+            <FormRowContainer>
+              <label htmlFor="email">E-mail</label>
+              <Field name="email" type="email" placeholder="Wprowadź email" />
+              <ErrorMessage name="email" />
+            </FormRowContainer>
+            <FormRowContainer>
+              <label htmlFor="password">Hasło</label>
+              <Field
+                name="password"
+                type="password"
+                placeholder="Wprowadź hasło"
+              />
+              <ErrorMessage name="password" />
+            </FormRowContainer>
+            <FormRowContainer>
+              <label htmlFor="repeatPassword">Powtórz Hasło</label>
+              <Field
+                name="repeatPassword"
+                type="password"
+                placeholder="Powtórz hasło"
+              />
+              <ErrorMessage name="repeatPassword" />
+            </FormRowContainer>
+            <FormRowContainer>
+              <button type="submit" disabled={isSubmitting}>
+                Wyślij
+              </button>
+            </FormRowContainer>
+          </Form>
+        </FormContainer>
       )}
     </Formik>
   );

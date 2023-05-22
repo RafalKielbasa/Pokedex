@@ -89,7 +89,7 @@ const ArenaPage = () => {
       queryClient.setQueryData(["pokemon", secondFighter?.name], data?.data);
     },
   });
-  console.log({ firstFighter, secondFighter });
+
   const fightResultFnc = async () => {
     firstFighterPowerLevel === secondFighterPowerLevel
       ? setFightResult("tie")
@@ -99,10 +99,12 @@ const ArenaPage = () => {
     await firstFighterMutation.mutateAsync();
     await secondFighterMutation.mutateAsync();
   };
+
   const deleteFighter = (deltedPokemonId, deletedPokemonState) => {
     deltedPokemonId(null);
     deletedPokemonState(true);
   };
+
   return (
     <ArenaBody>
       <ArenaContainer>
