@@ -5,12 +5,15 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 import { useOutletContext } from "react-router-dom";
 import { Stadium, VS, Winner } from "src/img";
-import { arenaFirstOneActionHandle, arenaSecondOneActionHandle } from "src/api/postDataFunctions";
+import {
+  arenaFirstOneActionHandle,
+  arenaSecondOneActionHandle,
+} from "src/api/postDataFunctions";
 import { fighterPowerLevel } from "src/helpers";
 import { fetchOnePokemon } from "src/api/fetchDataFunctions";
 const ArenaBody = styled.div`
   background: url(${Stadium});
-  height: 80vh;
+  height: 85vh;
 `;
 const ArenaContainer = styled.div`
   display: flex;
@@ -107,9 +110,19 @@ const ArenaPage = () => {
           <>
             {fightResult === "first" ? (
               <ArenaCardContainer>
-                <img src={Winner} alt="Winner" width={"200px"} height={"200px"} />
+                <img
+                  src={Winner}
+                  alt="Winner"
+                  width={"200px"}
+                  height={"200px"}
+                />
                 <button
-                  onClick={() => deleteFighter(setArenaFirstFighter, setIsFirstPokemonDeleted)}
+                  onClick={() =>
+                    deleteFighter(
+                      setArenaFirstFighter,
+                      setIsFirstPokemonDeleted
+                    )
+                  }
                 >
                   USUŃ
                 </button>
@@ -118,7 +131,12 @@ const ArenaPage = () => {
             ) : (
               <ArenaCardContainer>
                 <button
-                  onClick={() => deleteFighter(setArenaFirstFighter, setIsFirstPokemonDeleted)}
+                  onClick={() =>
+                    deleteFighter(
+                      setArenaFirstFighter,
+                      setIsFirstPokemonDeleted
+                    )
+                  }
                 >
                   USUŃ
                 </button>
@@ -134,9 +152,19 @@ const ArenaPage = () => {
           <>
             {fightResult === "second" ? (
               <ArenaCardContainer>
-                <img src={Winner} alt="Winner" width={"200px"} height={"200px"} />
+                <img
+                  src={Winner}
+                  alt="Winner"
+                  width={"200px"}
+                  height={"200px"}
+                />
                 <button
-                  onClick={() => deleteFighter(setArenaSecondFighter, setIsSecondPokemonDeleted)}
+                  onClick={() =>
+                    deleteFighter(
+                      setArenaSecondFighter,
+                      setIsSecondPokemonDeleted
+                    )
+                  }
                 >
                   USUŃ
                 </button>
@@ -145,7 +173,12 @@ const ArenaPage = () => {
             ) : (
               <ArenaCardContainer>
                 <button
-                  onClick={() => deleteFighter(setArenaSecondFighter, setIsSecondPokemonDeleted)}
+                  onClick={() =>
+                    deleteFighter(
+                      setArenaSecondFighter,
+                      setIsSecondPokemonDeleted
+                    )
+                  }
                 >
                   USUŃ
                 </button>

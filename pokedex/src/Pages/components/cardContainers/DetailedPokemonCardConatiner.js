@@ -7,7 +7,8 @@ background:${(prop) => prop.theme.bgColor};
 display: flex;
 justify-content: center;
 align-items: center;
-margin-bottom 30px;`;
+margin-bottom 30px;
+`;
 
 const DetailedPokemonCardConatiner = ({ children }) => {
   const { theme } = useContext(GlobalContext);

@@ -7,6 +7,8 @@ import {
   DetailedPokemonCard,
   DetailedPokemonCardConatiner,
   BasicPokemonLayout,
+  Loader,
+  ErrorMsg,
 } from "../components";
 import { fetchOnePokemon } from "src/api/fetchDataFunctions";
 import { postData } from "src/api/postDataFunctions";
@@ -33,7 +35,11 @@ const DetailedPage = () => {
       setIsFavorite(true);
   }, [favoriteList, name]);
 
-  const { data: detailPokemon } = useQuery({
+  const {
+    data: detailPokemon,
+    status,
+    error,
+  } = useQuery({
     queryKey: ["pokemon", name],
     queryFn: () => fetchOnePokemon(editedList, name),
     enabled: editedStatus === "success" && favoriteStatus === "success",
@@ -69,6 +75,8 @@ const DetailedPage = () => {
         arenaFirstFighter !== name &&
         setArenaSecondFighter(name);
   };
+  if (status === "loading") return <Loader />;
+  if (status === "error") return <ErrorMsg errorMsg={error.message} />;
   return (
     <BasicPokemonLayout>
       <DetailedPokemonCardConatiner>
