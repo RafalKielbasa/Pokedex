@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import SportsMmaIcon from "@mui/icons-material/SportsMma";
 
 export const PageWrapper = styled.div`
   display: flex;
@@ -66,4 +68,28 @@ export const PropsValue = styled.span`
 
 export const PokemonImg = styled.img`
   width: 25%;
+`;
+
+export const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+export const IconsDiv = styled.div`
+  display: flex;
+  gap: 12px;
+`;
+
+export const FavIcon = styled(FavoriteIcon)`
+  color: ${(props) => props.defaultColor};
+  transition: 0.1s all ease-in;
+
+  &:hover {
+    transform: scale(1.3);
+  }
+`;
+
+export const FightIcon = styled(SportsMmaIcon)`
+  &:hover {
+    transform: scale(1.3);
+  }
 `;

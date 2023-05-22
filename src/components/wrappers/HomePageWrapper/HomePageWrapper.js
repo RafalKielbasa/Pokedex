@@ -42,9 +42,13 @@ export const HomePageWrapper = ({ pokemonData }) => {
         />
       </Header>
       <PokemonWrapper>
-        {pokemon?.map((props) => {
-          return <PokemonCard props={props} />;
-        })}
+        {pokemon?.length > 0 ? (
+          pokemon?.map((props) => {
+            return <PokemonCard props={props} />;
+          })
+        ) : (
+          <h1>Can't find {value}</h1>
+        )}
       </PokemonWrapper>
       <PaginationWrapper>
         <Pagination count={pageNumber} size="large" onChange={handleChange} />

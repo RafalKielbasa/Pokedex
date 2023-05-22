@@ -3,6 +3,10 @@ import { ProjectUrl } from "../../../const/ProjectUrl";
 import {
   Container,
   DetailsSign,
+  FavIcon,
+  FightIcon,
+  Header,
+  IconsDiv,
   PageWrapper,
   PokedexSign,
   PokemonDetailsWrap,
@@ -13,14 +17,35 @@ import {
   PropsName,
   PropsValue,
 } from "./PokemonDetailsWrapper.style";
+import { useState } from "react";
+import { addToFavorites, deleteToFavorites } from "../../../services/api";
+import { useFavoritesQuery } from "../../../hooks/useFavorites";
+import { useCorrectFavPokemonQuery } from "../../../hooks/useCorrectFavPokemon";
 
 export const PokemonDetailsWrapper = ({ pokemonData }) => {
-  const { name, height, baseExperience, weight, abilities, image } =
+  const { name, height, baseExperience, weight, abilities, image, id } =
     pokemonData[0];
+  const [defaultColor, setDefaultColor] = useState("black");
+  const { data } = useCorrectFavPokemonQuery(name);
+
+  console.log("favorites", data?.data);
+  const handleFavClick = () => {
+    if (data?.data.length === 0) {
+      addToFavorites(pokemonData[0]);
+    } else {
+      deleteToFavorites(pokemonData[0], id);
+    }
+  };
 
   return (
     <PageWrapper>
-      <DetailsSign>Pokemon Details</DetailsSign>
+      <Header>
+        <DetailsSign>Pokemon Details</DetailsSign>
+        <IconsDiv>
+          <FavIcon defaultColor={defaultColor} onClick={handleFavClick} />
+          <FightIcon />
+        </IconsDiv>
+      </Header>
       <PokedexSign>POKEDEX</PokedexSign>
       <PokemonDetailsWrap>
         <PokemonImg src={image} alt={`pokemon ${name}`}></PokemonImg>

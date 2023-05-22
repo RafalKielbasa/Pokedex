@@ -1,5 +1,38 @@
 {
-  "users": {},
+  "favorites": [
+    {
+      "name": "charizard",
+      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
+      "weight": 905,
+      "height": 17,
+      "types": [
+        "fire",
+        "flying"
+      ],
+      "abilities": [
+        "blaze",
+        "solar-power"
+      ],
+      "baseExperience": 267,
+      "id": 3
+    },
+    {
+      "name": "bulbasaur",
+      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+      "weight": 69,
+      "height": 7,
+      "types": [
+        "grass",
+        "poison"
+      ],
+      "abilities": [
+        "overgrow",
+        "chlorophyll"
+      ],
+      "baseExperience": 64,
+      "id": 1
+    }
+  ],
   "pokemon": [
     {
       "name": "bulbasaur",

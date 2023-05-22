@@ -66,3 +66,40 @@ export const getPaginatedPokemon = (currentPage, limit = 15) => {
     },
   });
 };
+
+export const addToFavorites = (pokemon) => {
+  return dbFetcher({
+    url: "favorites",
+    method: "POST",
+    data: pokemon,
+  });
+};
+
+export const deleteToFavorites = (pokemon, id) => {
+  return dbFetcher({
+    url: `favorites/${id}`,
+    method: "DELETE",
+    data: pokemon,
+  });
+};
+
+export const getCorrectFavorites = (name) => {
+  return dbFetcher({
+    url: `favorites`,
+    method: "GET",
+    params: {
+      name,
+    },
+  });
+};
+
+export const getFavorites = (limit = 15, currentPage) => {
+  return dbFetcher({
+    url: "favorites",
+    method: "GET",
+    params: {
+      _page: currentPage,
+      _limit: limit,
+    },
+  });
+};
