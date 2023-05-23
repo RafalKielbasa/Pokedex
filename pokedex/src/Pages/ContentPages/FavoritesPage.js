@@ -1,28 +1,38 @@
 import React from "react";
 import { useQueries } from "@tanstack/react-query";
 import { useOutletContext } from "react-router-dom";
-import { fetchPokemonQueriesData } from "src/api/fetchDataFunctions";
-import { FavoriteCard, PokemonCardContainer } from "../components";
+import { fetchOnePokemon } from "src/api/fetchDataFunctions";
+import {
+  PokemonCard,
+  PokemonCardContainer,
+  BasicPokemonLayout,
+} from "../components";
 const FavoritesPage = () => {
-  const { favoriteList } = useOutletContext();
+  const { favoriteList, editedList } = useOutletContext();
 
-  const { data: favorite } = useQueries({
-    queries: favoriteList?.map(({ name, url }) => {
+  const favoritePokemons = useQueries({
+    queries: favoriteList?.map((name) => {
       return {
         queryKey: ["pokemon", name],
-        queryFn: () => fetchPokemonQueriesData(url),
+        queryFn: () => fetchOnePokemon(editedList, name),
         enabled: favoriteList.length > 0,
         staleTime: 10 * (60 * 1000),
       };
     }),
   });
+  console.log({ favoriteList, favoritePokemons });
   return (
-    <PokemonCardContainer>
-      {Array.isArray(favorite?.data) &&
-        favorite?.data?.map((value) => (
-          <FavoriteCard key={value?.id} id={value?.id} value={value} />
-        ))}
-    </PokemonCardContainer>
+    <BasicPokemonLayout>
+      <PokemonCardContainer>
+        {favoritePokemons &&
+          favoritePokemons?.map(
+            ({ data, status }) =>
+              status === "success" && (
+                <PokemonCard key={data?.id} id={data?.id} value={data} />
+              )
+          )}
+      </PokemonCardContainer>
+    </BasicPokemonLayout>
   );
 };
 

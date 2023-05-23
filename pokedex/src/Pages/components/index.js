@@ -5,7 +5,6 @@ export { default as MyPagination } from "./ExlusiveHomePageComponents/MyPaginati
 export { default as NoMatch } from "./ExlusiveHomePageComponents/NoMatch";
 export { default as DetailedPokemonCard } from "./cards/DetailedPokemonCard";
 export { default as DetailedPokemonCardConatiner } from "./cardContainers/DetailedPokemonCardConatiner";
-export { default as FavoriteCard } from "./cards/FavoriteCard";
 export { default as BlankCard } from "./cards/BlankCard";
 export { default as BasicPokemonLayout } from "./layouts/BasicPokemonLayout";
 export { default as Loader } from "./loaders/Loader";
