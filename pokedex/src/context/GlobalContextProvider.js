@@ -4,7 +4,7 @@ import { darkTheme, lightTheme } from "src/theme/theme";
 
 const GlobalContextProvider = ({ children }) => {
   const [user, setUser] = useState();
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
   const toggleDarkMode = () => setDarkMode((prev) => !prev);
   return (

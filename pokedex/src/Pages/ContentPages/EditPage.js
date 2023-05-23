@@ -1,12 +1,51 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { editedCreatedPostData } from "src/api/postDataFunctions";
-import { fetchPokemonNamesList, fetchOnePokemon } from "src/api/fetchDataFunctions";
+import {
+  fetchPokemonNamesList,
+  fetchOnePokemon,
+} from "src/api/fetchDataFunctions";
+import { StyledFormField, StyledValidationError } from "src/Pages/components";
 import { useOutletContext } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import * as Yup from "yup";
+import styled from "styled-components";
 import { enqueueSnackbar } from "notistack";
+import { editValidationSchema } from "src/validationSchemas";
+import GlobalContext from "src/context/GlobalContext";
+const FormRowContainer = styled.div`
+  display: flex;
+  width: 600px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+`;
+const FormHeader = styled.h1`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+`;
+const FormContainer = styled.div`
+  min-height: 82.5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: url(${(prop) => prop.theme.bgColor});
+  color: ${(prop) => prop.theme.textColor};
+`;
+const StyledButton = styled.button`
+  margin-top: 30px;
+  margin-bottom: 15px;
+  width: 45%;
+  height: 12%;
+  font-size: 24px;
+`;
 const EditPage = () => {
+  const { theme } = useContext(GlobalContext);
   const { editedList, editedStatus } = useOutletContext();
   const { data: pokemonDataToEdit } = useQuery({
     queryKey: ["AllPokemonsNamesList"],
@@ -37,7 +76,8 @@ const EditPage = () => {
   });
   useEffect(() => {
     if (status === "success" && chosedPokemon !== "") {
-      const { abilities, base_experience, height, id, name, sprites, weight } = detailPokemon;
+      const { abilities, base_experience, height, id, name, sprites, weight } =
+        detailPokemon;
       setInitialValues({
         abilities,
         base_experience,
@@ -50,92 +90,114 @@ const EditPage = () => {
     }
   }, [status, chosedPokemon, detailPokemon]);
   return (
-    <>
-      <div>
-        <label htmlFor="chooseEditPokemon">Wybierz pokemona do edycji</label>
-        <select
-          name="chooseEditPokemon"
-          type="text"
-          defaultValue={""}
-          onChange={(e) => setChosedPokemon(e.target.value)}
-        >
-          <>
-            <option value=""></option>
-            {pokemonDataToEdit?.map((name, index) => (
-              <option key={index} value={name}>
-                {name}
-              </option>
-            ))}
-          </>
-        </select>
-      </div>
-      <Formik
-        initialValues={initialValues}
-        enableReinitialize={true}
-        validationSchema={Yup.object({
-          name: Yup.string().max(15, "Must be 15 characters or less").required("Required"),
-          base_experience: Yup.number().integer().positive().required("Required"),
-          height: Yup.number().integer().positive().required("Required"),
-          weight: Yup.number().integer().positive().required("Required"),
-        })}
-        onSubmit={(values, { setSubmitting }) => {
-          console.log("Jestem Kliknięty");
-          editedCreatedPostData(values, values?.name);
-          setSubmitting(false);
-          enqueueSnackbar("Operacja zakończona sukcesem", {
-            variant: "success",
-          });
-        }}
-      >
-        {({ isSubmitting, values }) => (
-          <>
-            <Form>
-              <div>
-                <label htmlFor="name">Nazwa Pokemona</label>
-                <Field name="name" type="text" value={values?.name}></Field>
-                <ErrorMessage name="name" />
-              </div>
-              <div>
-                <label htmlFor="base_experience">Doświadczenie bazowe</label>
-                <Field name="base_experience" type="number" value={values?.base_experience}></Field>
-                <ErrorMessage name="base_experience" />
-              </div>
-              <div>
-                <label htmlFor="abilities">Ability name</label>
-                <Field
-                  name="abilities[0].ability.name"
-                  type="text"
-                  value={values?.abilities[0]?.ability?.name}
-                />
-                <ErrorMessage name="abilities[0].ability.name" />
-              </div>
-              <div>
-                <label htmlFor="height">Wysokość pokemona</label>
-                <Field name="height" type="number" />
-                <ErrorMessage name="height" />
-              </div>
-              <div>
-                <label htmlFor="weight">Waga Pokemona</label>
-                <Field name="weight" type="number" />
-                <ErrorMessage name="weight" />
-              </div>
-              <button
+    <Formik
+      initialValues={initialValues}
+      enableReinitialize={true}
+      validationSchema={editValidationSchema}
+      onSubmit={(values, { setSubmitting }) => {
+        console.log("Jestem Kliknięty");
+        editedCreatedPostData(values, values?.name);
+        setSubmitting(false);
+        enqueueSnackbar("Operacja zakończona sukcesem", {
+          variant: "success",
+        });
+      }}
+    >
+      {({ isSubmitting, values }) => (
+        <FormContainer theme={theme}>
+          <FormHeader>
+            <label htmlFor="chooseEditPokemon">
+              Wybierz pokemona do edycji/ lub stwórz nowego
+            </label>
+            <select
+              name="chooseEditPokemon"
+              type="text"
+              defaultValue={""}
+              onChange={(e) => setChosedPokemon(e.target.value)}
+            >
+              <>
+                <option value=""></option>
+                {pokemonDataToEdit?.map((name, index) => (
+                  <option key={index} value={name}>
+                    {name}
+                  </option>
+                ))}
+              </>
+            </select>
+          </FormHeader>
+          <Form>
+            <FormRowContainer>
+              <label htmlFor="name">Nazwa Pokemona</label>
+              <Field
+                name="name"
+                type="text"
+                value={values?.name}
+                as={StyledFormField}
+              ></Field>
+              <ErrorMessage name="name" component={StyledValidationError} />
+            </FormRowContainer>
+            <FormRowContainer>
+              <label htmlFor="base_experience">Doświadczenie bazowe</label>
+              <Field
+                name="base_experience"
+                type="number"
+                value={values?.base_experience}
+                as={StyledFormField}
+              ></Field>
+              <ErrorMessage
+                name="base_experience"
+                component={StyledValidationError}
+              />
+            </FormRowContainer>
+            <FormRowContainer>
+              <label htmlFor="abilities">Ability name</label>
+              <Field
+                name="abilities[0].ability.name"
+                type="text"
+                value={values?.abilities[0]?.ability?.name}
+                as={StyledFormField}
+              />
+              <ErrorMessage
+                name="abilities[0].ability.name"
+                component={StyledValidationError}
+              />
+            </FormRowContainer>
+            <FormRowContainer>
+              <label htmlFor="height">Wysokość pokemona</label>
+              <Field name="height" type="number" as={StyledFormField} />
+              <ErrorMessage name="height" />
+            </FormRowContainer>
+            <FormRowContainer>
+              <label htmlFor="weight">Waga Pokemona</label>
+              <Field name="weight" type="number" as={StyledFormField} />
+              <ErrorMessage name="weight" component={StyledValidationError} />
+            </FormRowContainer>
+            <FormRowContainer>
+              <StyledButton
                 type="submit"
-                disabled={isSubmitting || (values?.name !== "" && values?.name !== chosedPokemon)}
+                disabled={
+                  values?.name === "" ||
+                  isSubmitting ||
+                  (values?.name !== "" && values?.name !== chosedPokemon)
+                }
               >
                 Edytuj Pokemona
-              </button>
-              <button
+              </StyledButton>
+              <StyledButton
                 type="submit"
-                disabled={isSubmitting || (values?.name !== "" && values?.name === chosedPokemon)}
+                disabled={
+                  values?.name === "" ||
+                  isSubmitting ||
+                  (values?.name !== "" && values?.name === chosedPokemon)
+                }
               >
                 Stwórz Nowego Pokemona
-              </button>
-            </Form>
-          </>
-        )}
-      </Formik>
-    </>
+              </StyledButton>
+            </FormRowContainer>
+          </Form>
+        </FormContainer>
+      )}
+    </Formik>
   );
 };
 
