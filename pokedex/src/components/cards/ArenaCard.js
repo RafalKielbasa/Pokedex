@@ -32,7 +32,7 @@ const ArenaCard = ({ value, deleteFighter }) => {
         }}
       >
         <ButtonContainer>
-          <IconButton aria-label="fight" onClick={deleteFighter}>
+          <IconButton aria-label="fight" onClick={deleteFighter} sx={{ color: theme.textColor }}>
             <ClearIcon />
           </IconButton>
         </ButtonContainer>
