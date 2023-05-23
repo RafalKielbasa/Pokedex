@@ -1,19 +1,20 @@
-import React, { useState } from "react";
-import { BlankCard, PokemonCard } from "../components";
+import React, { useState, useContext } from "react";
+import { BlankCard, ArenaCard } from "../components";
 import styled from "styled-components";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 import { useOutletContext } from "react-router-dom";
-import { Stadium, VS, Winner } from "src/img";
+import { VS, Winner } from "src/img";
 import {
   arenaFirstOneActionHandle,
   arenaSecondOneActionHandle,
 } from "src/api/postDataFunctions";
 import { fighterPowerLevel } from "src/helpers";
 import { fetchOnePokemon } from "src/api/fetchDataFunctions";
+import GlobalContext from "src/context/GlobalContext";
 const ArenaBody = styled.div`
-  background: url(${Stadium});
-  height: 85vh;
+  background: url(${(prop) => prop.theme.arenaBgImg});
+  min-height: 82.5vh;
 `;
 const ArenaContainer = styled.div`
   display: flex;
@@ -33,6 +34,7 @@ const ArenaCardContainer = styled.div`
   gap: 10px;
 `;
 const ArenaPage = () => {
+  const { theme } = useContext(GlobalContext);
   const {
     editedList,
     editedStatus,
@@ -106,7 +108,7 @@ const ArenaPage = () => {
   };
 
   return (
-    <ArenaBody>
+    <ArenaBody theme={theme}>
       <ArenaContainer>
         {firstFighterStatus === "success" && !isFirstPokemonDeleted ? (
           <>
@@ -118,38 +120,34 @@ const ArenaPage = () => {
                   width={"200px"}
                   height={"200px"}
                 />
-                <button
-                  onClick={() =>
+                <ArenaCard
+                  value={firstFighter}
+                  deleteFighter={() =>
                     deleteFighter(
                       setArenaFirstFighter,
                       setIsFirstPokemonDeleted
                     )
                   }
-                >
-                  USUŃ
-                </button>
-                <PokemonCard value={firstFighter} />
+                />
               </ArenaCardContainer>
             ) : (
               <ArenaCardContainer>
-                <button
-                  onClick={() =>
+                <ArenaCard
+                  value={firstFighter}
+                  deleteFighter={() =>
                     deleteFighter(
                       setArenaFirstFighter,
                       setIsFirstPokemonDeleted
                     )
                   }
-                >
-                  USUŃ
-                </button>
-                <PokemonCard value={firstFighter} />
+                />
               </ArenaCardContainer>
             )}
           </>
         ) : (
           <BlankCard value={"Pierwszy Pokemon"} />
         )}
-        <img src={VS} alt="VS" width={"200px"} height={"200px"} />
+        <img src={VS} alt="VS" width={"250px"} height={"250px"} />
         {secondFighterStatus === "success" && !isSecondPokemonDeleted ? (
           <>
             {fightResult === "second" ? (
@@ -160,31 +158,27 @@ const ArenaPage = () => {
                   width={"200px"}
                   height={"200px"}
                 />
-                <button
-                  onClick={() =>
+                <ArenaCard
+                  value={secondFighter}
+                  deleteFighter={() =>
                     deleteFighter(
                       setArenaSecondFighter,
                       setIsSecondPokemonDeleted
                     )
                   }
-                >
-                  USUŃ
-                </button>
-                <PokemonCard value={secondFighter} />
+                />
               </ArenaCardContainer>
             ) : (
               <ArenaCardContainer>
-                <button
-                  onClick={() =>
+                <ArenaCard
+                  value={secondFighter}
+                  deleteFighter={() =>
                     deleteFighter(
                       setArenaSecondFighter,
                       setIsSecondPokemonDeleted
                     )
                   }
-                >
-                  USUŃ
-                </button>
-                <PokemonCard value={secondFighter} />
+                />
               </ArenaCardContainer>
             )}
           </>

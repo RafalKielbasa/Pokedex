@@ -5,7 +5,8 @@ const MyCardContaner = styled.div`
   gap: 20px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom 30px;
+  margin-bottom: 30px;
+  margin-top: 30px;
 `;
 
 const PokemonCardContainer = ({ children }) => {

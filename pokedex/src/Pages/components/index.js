@@ -11,3 +11,4 @@ export { default as Loader } from "./loaders/Loader";
 export { default as ErrorMsg } from "./loaders/ErrorMsg";
 export { default as StyledValidationError } from "./formComponents/StyledValidationError";
 export { default as StyledFormField } from "./formComponents/StyledFormField";
+export { default as ArenaCard } from "./cards/ArenaCard";

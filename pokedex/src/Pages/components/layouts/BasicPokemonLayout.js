@@ -3,8 +3,9 @@ import GlobalContext from "src/context/GlobalContext";
 import styled from "styled-components";
 
 const MyBasicPokemonLayout = styled.div`
-  background: ${(prop) => prop.theme.bgColor};
+  background: url(${(prop) => prop.theme.bgColor});
   padding: 20px;
+  min-height: 100vh;
 `;
 
 const BasicPokemonLayout = ({ children }) => {

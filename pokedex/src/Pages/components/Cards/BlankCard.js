@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+
 import Card from "@mui/material/Card";
+
+import GlobalContext from "src/context/GlobalContext";
 function BlankCard({ value }) {
+  const { theme } = useContext(GlobalContext);
   return (
     <Card
       sx={{
@@ -10,7 +14,8 @@ function BlankCard({ value }) {
         alignItems: "center",
         width: 220,
         height: 300,
-        background: "#E0E0E0",
+        background: theme.bgCardColor,
+        color: theme.textColor,
         fontSize: 24,
         fontWeight: "bold",
       }}

@@ -31,20 +31,21 @@ const CardBoxConatiner = styled.div`
   width: 90%;
 `;
 const CardBoxInfo = ({ dataToPass }) => {
+  const { name, height, weight, base_experience, abilities } = dataToPass;
   return (
     <CardBoxConatiner>
-      <MyName>{dataToPass?.name?.toUpperCase()}</MyName>
+      <MyName>{name?.toUpperCase()}</MyName>
       <ColumnsConatiner>
         <MyColumn>
-          <MyValues>{dataToPass?.height}</MyValues>
+          <MyValues>{height}</MyValues>
           <MyValuesNames>Height </MyValuesNames>
-          <MyValues>{dataToPass?.weight}</MyValues>
+          <MyValues>{weight}</MyValues>
           <MyValuesNames> Weight</MyValuesNames>
         </MyColumn>
         <MyColumn>
-          <MyValues>{dataToPass?.base_experience}</MyValues>
+          <MyValues>{base_experience}</MyValues>
           <MyValuesNames>Base Experience</MyValuesNames>
-          <MyValues>{dataToPass?.abilities[0]?.ability?.name}</MyValues>
+          <MyValues>{abilities[0]?.ability?.name}</MyValues>
           <MyValuesNames>Ability</MyValuesNames>
         </MyColumn>
       </ColumnsConatiner>

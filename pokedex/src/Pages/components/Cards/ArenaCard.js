@@ -1,13 +1,21 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 
-import Card from "@mui/material/Card";
+import { Card, IconButton } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
+
+import styled from "styled-components";
+
 import { CardImg, CardBoxInfo, HoverCard } from "../cardElements";
 
 import GlobalContext from "src/context/GlobalContext";
 
-const PokemonCard = ({ value }) => {
-  const navigate = useNavigate();
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+`;
+const ArenaCard = ({ value, deleteFighter }) => {
   const dataToPass = value;
   const { theme } = useContext(GlobalContext);
   return (
@@ -18,12 +26,16 @@ const PokemonCard = ({ value }) => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          width: 220,
+          width: 250,
           background: theme.bgCardColor,
           color: theme.textColor,
         }}
-        onClick={() => navigate(`/pokemon/${dataToPass?.name}`)}
       >
+        <ButtonContainer>
+          <IconButton aria-label="fight" onClick={deleteFighter}>
+            <ClearIcon />
+          </IconButton>
+        </ButtonContainer>
         <CardImg dataToPass={dataToPass}></CardImg>
         <CardBoxInfo dataToPass={dataToPass}></CardBoxInfo>
       </Card>
@@ -31,4 +43,4 @@ const PokemonCard = ({ value }) => {
   );
 };
 
-export default PokemonCard;
+export default ArenaCard;
