@@ -16,7 +16,6 @@ const FavoritesPage = () => {
       };
     }),
   });
-  console.log({ favoriteList, favoritePokemons });
   return (
     <BasicPokemonLayout>
       <PokemonCardContainer>

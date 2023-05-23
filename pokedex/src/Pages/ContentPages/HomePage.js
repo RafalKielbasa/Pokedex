@@ -45,7 +45,6 @@ const HomePage = () => {
     enabled: editedStatus === "success" && searchedValue !== "",
     staleTime: 10 * (60 * 1000),
   });
-  console.log({ pokemons, pokemonsToFilter });
   useEffect(() => {
     pokemons && searchedValue === "" && setCreateComponentData(pokemons);
     pokemonsToFilter &&
