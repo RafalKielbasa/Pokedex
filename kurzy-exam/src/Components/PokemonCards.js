@@ -41,10 +41,6 @@ export default function PokemonCard({
   // const [fullPokemonDataIds, setFullPokemonDataIds] = useState([]);
   // const [favoritesIds, setFavoritesIds] = useState([]);
 
-  // const [newFullPokemonData, setNewFullPokemonData] = useState([]);
-
-  // const queryFavoritesData = useQuery(["pokemoncards"], () => getFavorites());
-
   const navigate = useNavigate();
   const handleClick = () => {
     const path = "/details";
@@ -68,7 +64,9 @@ export default function PokemonCard({
         return elem.id === ele;
       });
     });
-    setIsFavorite(array.id);
+    // setIsFavorite(array.includes(fullPokemonData));
+
+    array?.includes(fullPokemonData) && setIsFavorite(true);
 
     // array.forEach((item) => {
     //   item ? setIsFavorite(false) : setIsFavorite(true);
