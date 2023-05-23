@@ -2,11 +2,7 @@ import React from "react";
 import { useQueries } from "@tanstack/react-query";
 import { useOutletContext } from "react-router-dom";
 import { fetchOnePokemon } from "src/api/fetchDataFunctions";
-import {
-  PokemonCard,
-  PokemonCardContainer,
-  BasicPokemonLayout,
-} from "../components";
+import { PokemonCard, PokemonCardContainer, BasicPokemonLayout } from "src/components";
 const FavoritesPage = () => {
   const { favoriteList, editedList } = useOutletContext();
 
@@ -27,9 +23,7 @@ const FavoritesPage = () => {
         {favoritePokemons &&
           favoritePokemons?.map(
             ({ data, status }) =>
-              status === "success" && (
-                <PokemonCard key={data?.id} id={data?.id} value={data} />
-              )
+              status === "success" && <PokemonCard key={data?.id} id={data?.id} value={data} />
           )}
       </PokemonCardContainer>
     </BasicPokemonLayout>

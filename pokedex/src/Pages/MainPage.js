@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { Navigation } from "../Navigation";
 import { fetchLocalList } from "src/api/fetchDataFunctions";
-import { Loader, ErrorMsg } from "./components";
+import { Loader, ErrorMsg } from "src/components";
 
 const MainPage = () => {
   const {
@@ -29,12 +29,9 @@ const MainPage = () => {
   const [arenaFirstFighter, setArenaFirstFighter] = useState(null);
   const [arenaSecondFighter, setArenaSecondFighter] = useState(null);
 
-  if (editedStatus === "loading" || favoriteStatus === "loading")
-    return <Loader />;
-  if (editedStatus === "error")
-    return <ErrorMsg errorMsg={editedError.message} />;
-  if (favoriteStatus === "error")
-    return <ErrorMsg errorMsg={favoriteError.message} />;
+  if (editedStatus === "loading" || favoriteStatus === "loading") return <Loader />;
+  if (editedStatus === "error") return <ErrorMsg errorMsg={editedError.message} />;
+  if (favoriteStatus === "error") return <ErrorMsg errorMsg={favoriteError.message} />;
 
   return (
     <>

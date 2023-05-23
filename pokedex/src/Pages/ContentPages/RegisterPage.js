@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import { postData } from "src/api/postDataFunctions";
 import { registerValidationSchema } from "src/validationSchemas";
 import styled from "styled-components";
-import { StyledFormField, StyledValidationError } from "src/Pages/components";
+import { StyledFormField, StyledValidationError } from "src/components";
 import GlobalContext from "src/context/GlobalContext";
 const FormRowContainer = styled.div`
   display: flex;
@@ -87,12 +87,7 @@ const RegisterPage = () => {
             </FormRowContainer>
             <FormRowContainer>
               <label htmlFor="email">E-mail</label>
-              <Field
-                name="email"
-                type="email"
-                placeholder="Wprowadź email"
-                as={StyledFormField}
-              />
+              <Field name="email" type="email" placeholder="Wprowadź email" as={StyledFormField} />
               <ErrorMessage name="email" component={StyledValidationError} />
             </FormRowContainer>
             <FormRowContainer>
@@ -113,10 +108,7 @@ const RegisterPage = () => {
                 placeholder="Powtórz hasło"
                 as={StyledFormField}
               />
-              <ErrorMessage
-                name="repeatPassword"
-                component={StyledValidationError}
-              />
+              <ErrorMessage name="repeatPassword" component={StyledValidationError} />
             </FormRowContainer>
             <FormRowContainer>
               <StyledButton type="submit" disabled={isSubmitting}>

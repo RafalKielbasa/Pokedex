@@ -9,7 +9,7 @@ import {
   BasicPokemonLayout,
   Loader,
   ErrorMsg,
-} from "../components";
+} from "src/components";
 import { fetchOnePokemon } from "src/api/fetchDataFunctions";
 import { postData } from "src/api/postDataFunctions";
 import { deleteData } from "src/api/deleteData";
@@ -30,9 +30,7 @@ const DetailedPage = () => {
   const queryClient = useQueryClient();
   const [isFavorite, setIsFavorite] = useState(false);
   useEffect(() => {
-    Array.isArray(favoriteList) &&
-      favoriteList?.includes(name) &&
-      setIsFavorite(true);
+    Array.isArray(favoriteList) && favoriteList?.includes(name) && setIsFavorite(true);
   }, [favoriteList, name]);
 
   const {
@@ -71,9 +69,7 @@ const DetailedPage = () => {
   const arenaFightersHandle = () => {
     !arenaFirstFighter
       ? setArenaFirstFighter(name)
-      : !arenaSecondFighter &&
-        arenaFirstFighter !== name &&
-        setArenaSecondFighter(name);
+      : !arenaSecondFighter && arenaFirstFighter !== name && setArenaSecondFighter(name);
   };
   if (status === "loading") return <Loader />;
   if (status === "error") return <ErrorMsg errorMsg={error.message} />;

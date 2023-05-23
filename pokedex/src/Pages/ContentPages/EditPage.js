@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { editedCreatedPostData } from "src/api/postDataFunctions";
 import { fetchPokemonNamesList, fetchOnePokemon } from "src/api/fetchDataFunctions";
-import { StyledFormField, StyledValidationError } from "src/Pages/components";
+import { StyledFormField, StyledValidationError } from "src/components";
 import { useOutletContext } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";

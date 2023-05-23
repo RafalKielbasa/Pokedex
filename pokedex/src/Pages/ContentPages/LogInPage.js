@@ -7,7 +7,7 @@ import { enqueueSnackbar } from "notistack";
 import styled from "styled-components";
 import GlobalContext from "src/context/GlobalContext";
 import { loginValidationSchema } from "src/validationSchemas";
-import { StyledFormField, StyledValidationError } from "src/Pages/components";
+import { StyledFormField, StyledValidationError } from "src/components";
 const FormRowContainer = styled.div`
   display: flex;
   width: 600px;
@@ -64,9 +64,7 @@ const LogInPage = () => {
       }}
       validationSchema={loginValidationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        const filteredUsers = users?.filter(
-          ({ userName }) => userName === values?.userName
-        );
+        const filteredUsers = users?.filter(({ userName }) => userName === values?.userName);
         if (values?.password === filteredUsers[0]?.password) {
           setSubmitting(false);
           setLoggedIn(true);
@@ -93,9 +91,7 @@ const LogInPage = () => {
             }}
           >
             <FormHeader>Zaloguj się</FormHeader>
-            <FormInfo>
-              Wypełnij poniższe pola aby zalogować się na konto
-            </FormInfo>
+            <FormInfo>Wypełnij poniższe pola aby zalogować się na konto</FormInfo>
             <FormRowContainer>
               <label htmlFor="userName">Nazwa Użytkownika</label>
               <Field

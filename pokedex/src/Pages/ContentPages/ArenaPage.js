@@ -1,14 +1,11 @@
 import React, { useState, useContext } from "react";
-import { BlankCard, ArenaCard } from "../components";
+import { BlankCard, ArenaCard } from "src/components";
 import styled from "styled-components";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 import { useOutletContext } from "react-router-dom";
 import { VS, Winner } from "src/img";
-import {
-  arenaFirstOneActionHandle,
-  arenaSecondOneActionHandle,
-} from "src/api/postDataFunctions";
+import { arenaFirstOneActionHandle, arenaSecondOneActionHandle } from "src/api/postDataFunctions";
 import { fighterPowerLevel } from "src/helpers";
 import { fetchOnePokemon } from "src/api/fetchDataFunctions";
 import GlobalContext from "src/context/GlobalContext";
@@ -114,19 +111,11 @@ const ArenaPage = () => {
           <>
             {fightResult === "first" ? (
               <ArenaCardContainer>
-                <img
-                  src={Winner}
-                  alt="Winner"
-                  width={"200px"}
-                  height={"200px"}
-                />
+                <img src={Winner} alt="Winner" width={"200px"} height={"200px"} />
                 <ArenaCard
                   value={firstFighter}
                   deleteFighter={() =>
-                    deleteFighter(
-                      setArenaFirstFighter,
-                      setIsFirstPokemonDeleted
-                    )
+                    deleteFighter(setArenaFirstFighter, setIsFirstPokemonDeleted)
                   }
                 />
               </ArenaCardContainer>
@@ -135,10 +124,7 @@ const ArenaPage = () => {
                 <ArenaCard
                   value={firstFighter}
                   deleteFighter={() =>
-                    deleteFighter(
-                      setArenaFirstFighter,
-                      setIsFirstPokemonDeleted
-                    )
+                    deleteFighter(setArenaFirstFighter, setIsFirstPokemonDeleted)
                   }
                 />
               </ArenaCardContainer>
@@ -152,19 +138,11 @@ const ArenaPage = () => {
           <>
             {fightResult === "second" ? (
               <ArenaCardContainer>
-                <img
-                  src={Winner}
-                  alt="Winner"
-                  width={"200px"}
-                  height={"200px"}
-                />
+                <img src={Winner} alt="Winner" width={"200px"} height={"200px"} />
                 <ArenaCard
                   value={secondFighter}
                   deleteFighter={() =>
-                    deleteFighter(
-                      setArenaSecondFighter,
-                      setIsSecondPokemonDeleted
-                    )
+                    deleteFighter(setArenaSecondFighter, setIsSecondPokemonDeleted)
                   }
                 />
               </ArenaCardContainer>
@@ -173,10 +151,7 @@ const ArenaPage = () => {
                 <ArenaCard
                   value={secondFighter}
                   deleteFighter={() =>
-                    deleteFighter(
-                      setArenaSecondFighter,
-                      setIsSecondPokemonDeleted
-                    )
+                    deleteFighter(setArenaSecondFighter, setIsSecondPokemonDeleted)
                   }
                 />
               </ArenaCardContainer>

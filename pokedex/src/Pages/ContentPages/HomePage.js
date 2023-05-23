@@ -17,7 +17,7 @@ import {
   ErrorMsg,
   BasicPokemonLayout,
   NoMatch,
-} from "../components";
+} from "src/components";
 
 const HomePage = () => {
   const { editedList, editedStatus } = useOutletContext();
@@ -70,26 +70,20 @@ const HomePage = () => {
   )
     return <Loader />;
 
-  if (pokemonsStatus === "error")
-    return <ErrorMsg errorMsg={pokemonsError.message} />;
+  if (pokemonsStatus === "error") return <ErrorMsg errorMsg={pokemonsError.message} />;
   if (pokemonsToFilterStatus === "error")
     return <ErrorMsg errorMsg={pokemonsToFilterError.message} />;
 
   return (
     <BasicPokemonLayout>
-      {(pokemonsStatus === "success" ||
-        pokemonsToFilterStatus === "success") && (
+      {(pokemonsStatus === "success" || pokemonsToFilterStatus === "success") && (
         <>
-          <Searcher
-            handleSearcherChange={(e) => setSearchedValue(e.target.value)}
-          />
+          <Searcher handleSearcherChange={(e) => setSearchedValue(e.target.value)} />
           <PokemonCardContainer>
             {pokemonQueries && pokemonQueries?.length > 0 ? (
               pokemonQueries?.map(
                 ({ data, status }) =>
-                  status === "success" && (
-                    <PokemonCard key={data?.id} id={data?.id} value={data} />
-                  )
+                  status === "success" && <PokemonCard key={data?.id} id={data?.id} value={data} />
               )
             ) : (
               <NoMatch />
