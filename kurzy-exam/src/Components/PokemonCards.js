@@ -11,17 +11,13 @@ import { useNavigate } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { CardActionArea } from "@mui/material";
 import { postData } from "src/api/postData";
-import { useQuery } from "react-query";
 
 const CardsWrapper = styled.div`
   margin: 20px;
 `;
-const FavIcon = styled(FavoriteIcon)(
-  ({ isFavorite }) => `
-    cursor: pointer;
-    color: ${isFavorite ? "red" : "grey"};
-  `
-);
+const FavIcon = styled(FavoriteIcon)`
+  cursor: pointer;
+`;
 
 export default function PokemonCard({
   id,
@@ -32,14 +28,10 @@ export default function PokemonCard({
   weight,
   abilitie,
   fullPokemonData,
-  partialPokemonData,
-  fullPokemonDataFiltered,
 }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [favorites, setFavorites] = useState([]);
-  const [favoritesArray, setFavoritesArray] = useState([]);
-  // const [fullPokemonDataIds, setFullPokemonDataIds] = useState([]);
-  // const [favoritesIds, setFavoritesIds] = useState([]);
+  const [favoritesIds, setFavoritesIds] = useState([]);
 
   const navigate = useNavigate();
   const handleClick = () => {
@@ -50,81 +42,34 @@ export default function PokemonCard({
   const getFavorites = async () => {
     const response = await axios.get(`http://localhost:3000/favoriteData/`);
     setFavorites(response.data);
+    const getFavoritesIds = response?.data?.map((item) => item.id);
+    setFavoritesIds(getFavoritesIds);
   };
 
   useEffect(() => {
     getFavorites();
   }, []);
 
-  const favoritesIds = favorites?.map((item) => item.id);
-
   useEffect(() => {
-    const array = fullPokemonData.filter((elem) => {
-      return favoritesIds.some((ele) => {
-        return elem.id === ele;
-      });
-    });
-    // setIsFavorite(array.includes(fullPokemonData));
-
-    array?.includes(fullPokemonData) && setIsFavorite(true);
-
-    // array.forEach((item) => {
-    //   item ? setIsFavorite(false) : setIsFavorite(true);
-    // });
-    console.log(`array`, array);
-  }, [favorites]);
-
-  // const fullPokemonDataIds = fullPokemonData?.map((item) => item.id);
-
-  // console.log(`favorites`, favorites);
-  // console.log(`fullPokemonData`, fullPokemonData);
-
-  // const fullPokemonDataFiltered = fullPokemonData.filter(({ id }) =>
-  //   [id].find((element) => element === 10, 11)
-  // );
+    const getFavoritesIds = favorites?.map((item) => item.id);
+    setFavoritesIds(getFavoritesIds);
+  }, [favorites.length]);
 
   // useEffect(() => {
-  //   // setIsFavorite(favoritesIds?.includes(fullPokemonData?.id));
-  //   // !favoritesIds?.includes(fullPokemonDataIds) && setIsFavorite(true);
-  //   // console.log(`isFavorite`, isFavorite);
-  //   // fullPokemonData[0].isFavorite = "true";
+  //   const array = fullPokemonData.filter((elem) => {
+  //     return favoritesIds.some((ele) => {
+  //       return elem.id === ele;
+  //     });
+  //   });
+  //   setFavoritesArray(array);
   // }, [favorites]);
 
-  // const test2 = [test].filter((item) => item);
+  // const fullPokemonDataIds = fullPokemonData?.map((item) => item.id);
+  // console.log(`favoritesIds`, favoritesIds);
+  // console.log(`favorites`, favorites);
 
-  // console.log(`fullPokemonDataIds`, fullPokemonDataIds);
-
-  // const test = fullPokemonData.filter(function (item) {
-  //   // console.log(`item`, item.id);
-  //   return [item.id].includes(favoritesIds);
-  // });
-
-  // const favoriteFromJson = fullPokemonDataIds?.filter(({ id }) =>
-  //   id?.includes(`5`)
-  // );
-
-  // }
-  // const favoriteFromJson = fullPokemonData?.filter(
-  //   (item) => item.id === favoritesIds
-  // );
-
-  // useEffect(
-  //   () =>
-  //     setFavorite(
-  //       fullPokemonData?.filter(({ fullPokemonDataIds }) =>
-  //         fullPokemonDataIds?.includes(favoritesIds)
-  //       )
-  //     ),
-  //   []
-  // );
-
-  // console.log(`{ fullPokemonDataIds }`, { fullPokemonDataIds });
-
-  // const { name, id } = fullPokemonData;
-  // const pokemonId = fullPokemonData.map((item) => item.id);
-  //
   const handleFavorite = () => {
-    if (!isFavorite && !favorites.includes(fullPokemonData?.id)) {
+    if (!favoritesIds.includes(id)) {
       postData(
         "favoriteData",
         id,
@@ -135,25 +80,15 @@ export default function PokemonCard({
         weight,
         abilitie
       );
-      setIsFavorite((isFavorite) => !isFavorite);
+      // setIsFavorite((isFavorite) => !isFavorite);
       getFavorites();
+      window.location.reload(false);
     } else {
       axios.delete(`http://localhost:3000/favoriteData/${id}`);
-      setIsFavorite((isFavorite) => !isFavorite);
+      // setIsFavorite((isFavorite) => !isFavorite);
+      getFavorites();
+      window.location.reload(false);
     }
-
-    // } else {
-    // console.log(`fullPokemonData[id - 1]`, fullPokemonData[id - 1]);
-    // console.log(`id`, id);
-
-    //
-    // setIsFavorite((isFavorite) => !isFavorite);
-
-    // const sendCollection = async () => postData(`queryFullData`, queryData);
-    // setFavoriteId((resultUrl) => {
-    //   resultUrl = [...resultUrl, Number(id)];
-    //   return resultUrl;
-    // });
   };
 
   return (
@@ -255,7 +190,13 @@ export default function PokemonCard({
             justifyContent: "center",
           }}
         >
-          <FavIcon onClick={(e) => handleFavorite()} isFavorite={isFavorite} />
+          <FavIcon
+            onClick={() => handleFavorite()}
+            // isFavorite={isFavorite}
+            sx={{
+              color: favoritesIds.includes(id) ? "red" : "grey",
+            }}
+          />
         </CardActions>
       </Card>
     </CardsWrapper>
