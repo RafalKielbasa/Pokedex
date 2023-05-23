@@ -824,7 +824,7 @@
         }
       },
       "weight": 90,
-      "winCount": 1,
+      "winCount": 0,
       "lossCount": 1,
       "tieCount": 0
     },
@@ -1663,7 +1663,7 @@
           "slot": 3
         }
       ],
-      "base_experience": 283,
+      "base_experience": 293,
       "height": 20,
       "id": 3,
       "name": "venusaur",
@@ -1844,7 +1844,7 @@
         }
       },
       "weight": 1000,
-      "winCount": 1
+      "winCount": null
     },
     {
       "abilities": [

@@ -6,5 +6,11 @@ export const fetchOnePokemon = async (editedList, name) => {
     : `https://pokeapi.co/api/v2/pokemon/${name}`;
   const { data } = await axios.get(PokemonUrl);
   const filteredData = filterOnlyNeedData(data);
-  return filteredData;
+  const updatedData = {
+    ...filteredData,
+    winCount: 0,
+    lossCount: 0,
+    tieCount: 0,
+  };
+  return updatedData;
 };
