@@ -6,7 +6,7 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 const NavButton = styled.button`
    {
     padding: 25px 30px;
-    background-color: #a2a8d3;
+    background-color: ${(prop) => prop.theme.navButtonsColor};
     color: #050801;
     font-weight: bold;
     border: none;
@@ -17,48 +17,41 @@ const NavButton = styled.button`
     font-size: 24px;
   }
   :hover {
-    background: #3d85c6;
+    background: ${(prop) => prop.theme.hoverButtonColor};
     color: white;
-    box-shadow: 0 0 5px #3d85c6 0 0 25px #3d85c6, 0 0 50px #3d85c6,
-      0 0 200px #3d85c6;
-    -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
-  }
-  :focus {
-    background: #3d85c6;
-    color: white;
-    box-shadow: 0 0 5px #3d85c6, 0 0 25px #3d85c6, 0 0 50px #3d85c6,
-      0 0 200px #3d85c6;
+    box-shadow: 0 0 5px #3d85c6 0 0 25px #3d85c6, 0 0 50px #3d85c6, 0 0 200px #3d85c6;
     -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
   }
 `;
 const NavigationBar = () => {
-  const { loggedIn, setLoggedIn, setUser } = useContext(GlobalContext);
+  const { loggedIn, setLoggedIn, setUser, theme } = useContext(GlobalContext);
   return (
     <ButtonGroup variant="contained" sx={{ display: "flex", flexWrap: "wrap" }}>
       <Link to="favourites">
-        <NavButton className="active">Ulubione</NavButton>
+        <NavButton theme={theme}>Ulubione</NavButton>
       </Link>
       <Link to="arena">
-        <NavButton>Arena</NavButton>
+        <NavButton theme={theme}>Arena</NavButton>
       </Link>
       {!loggedIn && (
         <Link Link to="logIn">
-          <NavButton>Logowanie</NavButton>
+          <NavButton theme={theme}>Logowanie</NavButton>
         </Link>
       )}
       {!loggedIn && (
         <Link to="register">
-          <NavButton>Rejestracja</NavButton>
+          <NavButton theme={theme}>Rejestracja</NavButton>
         </Link>
       )}
       {loggedIn && (
         <Link to="edit">
-          <NavButton>Edytowanie</NavButton>{" "}
+          <NavButton theme={theme}>Edytowanie</NavButton>{" "}
         </Link>
       )}
       {loggedIn && (
         <Link to="/">
           <NavButton
+            theme={theme}
             onClick={() => {
               setLoggedIn(false);
               setUser(null);

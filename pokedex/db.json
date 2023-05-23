@@ -8,6 +8,9 @@
     },
     {
       "name": "ivysaur"
+    },
+    {
+      "name": "charizard"
     }
   ],
   "edited": [
@@ -231,7 +234,7 @@
           "slot": 3
         }
       ],
-      "base_experience": 267,
+      "base_experience": 277,
       "height": 17,
       "id": 6,
       "name": "charizard",
@@ -411,7 +414,10 @@
           }
         }
       },
-      "weight": 905
+      "weight": 905,
+      "winCount": 1,
+      "lossCount": 0,
+      "tieCount": 0
     },
     {
       "abilities": [
@@ -1223,8 +1229,8 @@
         }
       },
       "weight": 320,
-      "winCount": 2,
-      "lossCount": 0,
+      "winCount": 0,
+      "lossCount": 1,
       "tieCount": 0
     },
     {
