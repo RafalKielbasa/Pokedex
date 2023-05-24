@@ -96,7 +96,8 @@ const PokemonCard = ({ pokemon }) => {
       stats: [
         { ...editablePokemon.stats[0], base_stat: parseInt(data.hp) },
         { ...editablePokemon.stats[1], base_stat: parseInt(data.attack) },
-        ...editablePokemon.stats.slice(2),
+        { ...editablePokemon.stats[2], base_stat: parseInt(data.defense) },
+        ...editablePokemon.stats.slice(3),
       ],
     };
     setEditablePokemon(updatedPokemon);
@@ -144,12 +145,21 @@ const PokemonCard = ({ pokemon }) => {
           />
           {errors.attack && <div>{errors.attack.message}</div>}
         </label>
+        <label>
+          Deffense
+          <input
+            type="number"
+            {...register("defense", { required: "Required" })}
+            defaultValue={editablePokemon.stats[2].base_stat}
+          />
+          {errors.attack && <div>{errors.attack.message}</div>}
+        </label>
         <button type="submit">Save</button>
       </form>
       <Button
         size="small"
         style={{ border: "1px solid black", background: "transparent" }}
-        onClick={() => addFavorite(pokemon)}
+        onClick={() => addFavorite(editablePokemon)}
         class="ui labeled button"
         tabindex="0"
       >
