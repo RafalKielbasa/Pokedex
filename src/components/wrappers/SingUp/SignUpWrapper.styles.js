@@ -19,20 +19,10 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 80%;
-  gap: 24px;
-`;
-
-export const Input = styled.input`
-  border: 1px #808080 solid;
-  border-radius: 10px;
-  font-size: 18px;
-
-  &:focus {
-    transition: 1s all ease-in;
-    box-shadow: 0px 0px 10px 1px rgba(8, 0, 243, 0.8);
-  }
+  gap: 12px;
 `;
 
 export const ErrorMessage = styled.p`
+  margin: 0px;
   color: #ff0000;
 `;

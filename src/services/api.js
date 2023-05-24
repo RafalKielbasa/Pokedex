@@ -56,9 +56,9 @@ export const getSearchPokemon = (key, limit = 5) => {
   });
 };
 
-export const getPaginatedPokemon = (currentPage, limit = 15) => {
+export const getPaginatedPokemon = (url, currentPage, limit = 15) => {
   return dbFetcher({
-    url: "pokemon",
+    url: url,
     method: "GET",
     params: {
       _page: currentPage,
@@ -75,7 +75,7 @@ export const addToFavorites = (pokemon) => {
   });
 };
 
-export const deleteToFavorites = (pokemon, id) => {
+export const deleteFromFavorites = (pokemon, id) => {
   return dbFetcher({
     url: `favorites/${id}`,
     method: "DELETE",

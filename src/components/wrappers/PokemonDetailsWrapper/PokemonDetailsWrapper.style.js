@@ -80,7 +80,7 @@ export const IconsDiv = styled.div`
 `;
 
 export const FavIcon = styled(FavoriteIcon)`
-  color: ${(props) => props.defaultColor};
+  color: ${(props) => props.color};
   transition: 0.1s all ease-in;
 
   &:hover {

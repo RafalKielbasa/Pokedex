@@ -10,14 +10,14 @@ import { useMemo, useState } from "react";
 import { useSearchPokemonQuery } from "../../../hooks/useSearchPokemon";
 import { useDebounce } from "../../../hooks/useDebounce";
 import { usePaginationQuery } from "../../../hooks/usePagination";
+import { PagePagination } from "../../PagePagination";
 
 export const HomePageWrapper = ({ pokemonData }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [value, setValue] = useState("");
   const debouncedSearch = useDebounce(value);
   const { data } = useSearchPokemonQuery(debouncedSearch);
-  const pagination = usePaginationQuery(currentPage);
-  const pageNumber = Math.ceil(pokemonData?.length / 15);
+  const pagination = usePaginationQuery("pokemon", currentPage);
 
   const pokemon = useMemo(() => {
     if (debouncedSearch) {
@@ -26,10 +26,6 @@ export const HomePageWrapper = ({ pokemonData }) => {
       return pagination?.data?.data;
     }
   });
-
-  const handleChange = (_, i) => {
-    setCurrentPage(i);
-  };
 
   return (
     <PageWrapper>
@@ -51,7 +47,10 @@ export const HomePageWrapper = ({ pokemonData }) => {
         )}
       </PokemonWrapper>
       <PaginationWrapper>
-        <Pagination count={pageNumber} size="large" onChange={handleChange} />
+        <PagePagination
+          setCurrentPage={setCurrentPage}
+          pokemonData={pokemonData}
+        />
       </PaginationWrapper>
     </PageWrapper>
   );

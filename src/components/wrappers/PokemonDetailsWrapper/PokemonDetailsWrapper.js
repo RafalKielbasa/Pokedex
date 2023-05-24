@@ -18,31 +18,37 @@ import {
   PropsValue,
 } from "./PokemonDetailsWrapper.style";
 import { useState } from "react";
-import { addToFavorites, deleteToFavorites } from "../../../services/api";
-import { useFavoritesQuery } from "../../../hooks/useFavorites";
+import { addToFavorites, deleteFromFavorites } from "../../../services/api";
 import { useCorrectFavPokemonQuery } from "../../../hooks/useCorrectFavPokemon";
 
 export const PokemonDetailsWrapper = ({ pokemonData }) => {
   const { name, height, baseExperience, weight, abilities, image, id } =
     pokemonData[0];
-  const [defaultColor, setDefaultColor] = useState("black");
-  const { data } = useCorrectFavPokemonQuery(name);
+  const { data, refetch } = useCorrectFavPokemonQuery(name);
+  const [isFav, setIsFav] = useState();
 
-  console.log("favorites", data?.data);
   const handleFavClick = () => {
-    if (data?.data.length === 0) {
-      addToFavorites(pokemonData[0]);
+    if (data?.data?.length > 0) {
+      setIsFav(false);
+      deleteFromFavorites(pokemonData[0], id);
     } else {
-      deleteToFavorites(pokemonData[0], id);
+      setIsFav(true);
+      addToFavorites(pokemonData[0]);
     }
+    refetch();
   };
+
+  console.log(data?.data);
 
   return (
     <PageWrapper>
       <Header>
         <DetailsSign>Pokemon Details</DetailsSign>
         <IconsDiv>
-          <FavIcon defaultColor={defaultColor} onClick={handleFavClick} />
+          <FavIcon
+            color={isFav ? "red" : "black"}
+            onClick={() => handleFavClick()}
+          />
           <FightIcon />
         </IconsDiv>
       </Header>

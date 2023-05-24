@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { ErrorMessage, Form, Input, Wrapper } from "./SignUpWrapper.styles";
-import { Button } from "@mui/material";
+import { ErrorMessage, Form, Wrapper } from "./SignUpWrapper.styles";
+import { Button, TextField } from "@mui/material";
 
 const passwordRegexp =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -17,7 +17,7 @@ const signUpSchema = Yup.object().shape({
     .required("required"),
   repeatPassword: Yup.string()
     .oneOf([Yup.ref("password"), null], "Password must match")
-    .required(),
+    .required("Required"),
 });
 
 export const SignUpWrapper = () => {
@@ -29,9 +29,7 @@ export const SignUpWrapper = () => {
       repeatPassword: "",
     },
     validationSchema: signUpSchema,
-    onSubmit: () => {
-      console.log("submited");
-    },
+    onSubmit: () => {},
   });
 
   console.log(formik.values);
@@ -40,46 +38,53 @@ export const SignUpWrapper = () => {
   return (
     <Wrapper>
       <Form onSubmit={formik.handleSubmit}>
-        <Input
+        <TextField
+          label="Enter your first name"
+          variant="outlined"
           name="name"
           type="text"
-          placeholder="Enter your first name"
           value={formik.values.name}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
+
         {formik.errors.name && formik.touched?.name ? (
           <ErrorMessage>{formik.errors.name}</ErrorMessage>
         ) : null}
 
-        <Input
+        <TextField
+          label="Enter your email"
+          variant="outlined"
           name="email"
           type="email"
-          placeholder="Enter your email"
           value={formik.values.email}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
+
         {formik.errors.email && formik.touched?.email ? (
           <ErrorMessage>{formik.errors.email}</ErrorMessage>
         ) : null}
 
-        <Input
+        <TextField
+          label="Enter your password"
+          variant="outlined"
           name="password"
           type="password"
-          placeholder="Enter your password"
           value={formik.values.password}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
+
         {formik.errors.password && formik.touched?.password ? (
           <ErrorMessage>{formik.errors.password}</ErrorMessage>
         ) : null}
 
-        <Input
+        <TextField
+          label="Repeat your password"
+          variant="outlined"
           name="repeatPassword"
           type="password"
-          placeholder="Repeat your password"
           value={formik.values.repeatPassword}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}

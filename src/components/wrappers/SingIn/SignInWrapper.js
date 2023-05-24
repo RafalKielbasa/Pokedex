@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { Form, Input, Wrapper } from "../SingUp/SignUpWrapper.styles";
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 export const SignInWrapper = () => {
   const formik = useFormik({
@@ -16,19 +16,21 @@ export const SignInWrapper = () => {
   return (
     <Wrapper>
       <Form onSubmit={formik.handleSubmit}>
-        <Input
+        <TextField
+          variant="outlined"
           name="email"
           type="email"
-          placeholder="Enter your email"
+          label="Enter your email"
           value={formik.values.email}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
 
-        <Input
+        <TextField
+          variant="outlined"
           name="password"
           type="password"
-          placeholder="Enter your password"
+          label="Enter your password"
           value={formik.values.password}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
