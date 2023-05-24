@@ -13,7 +13,6 @@ export const fetchOnePokemon = async (editedList, name) => {
       winCount: 0,
       lossCount: 0,
       tieCount: 0,
-      localCreated: false,
     };
   } else {
     updatedData = filteredData;
