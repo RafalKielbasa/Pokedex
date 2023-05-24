@@ -107,6 +107,7 @@ const PokemonCard = ({ pokemon }) => {
   } = useForm();
 
   const onSubmit = (data) => {
+    setShowEditFields(false);
     const updatedPokemon = {
       ...editablePokemon,
       stats: [
@@ -187,7 +188,9 @@ const PokemonCard = ({ pokemon }) => {
                   {errors.attack && <div>{errors.attack.message}</div>}
                 </LabelledInput>
               </EditFields>
-              <button type="submit">Save</button>
+              <Button style={{ background: "transparent" }} type="submit">
+                <Icon name="save icon" /> SAVE
+              </Button>
             </form>
           )}
         </>
