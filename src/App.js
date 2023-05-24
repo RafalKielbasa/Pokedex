@@ -13,6 +13,7 @@ import { LoginProvider } from "./components/LoginContext";
 import PokemonMoreCard from "./components/PokemonMoreCard";
 import UserPanel from "./components/UserPanel";
 import { FightArenaProvider } from "./components/FightArenaContext";
+import EditPokemons from "./components/EditPokemons";
 
 function App() {
   const ErrorPage = () => {
@@ -23,6 +24,7 @@ function App() {
       </div>
     );
   };
+
   return (
     <>
       <LoginProvider>
@@ -41,6 +43,8 @@ function App() {
                   <Route path="/arena" element={<FightArena />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/user" element={<UserPanel />} />
+                  <Route path="/edit" element={<EditPokemons />} />
+
                   <Route
                     path="/pokemon/:pokemonName"
                     element={<PokemonMoreCard />}

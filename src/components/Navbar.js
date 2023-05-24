@@ -88,6 +88,15 @@ export const Navbar = () => {
         >
           Fight Arena
         </StyledNavLink>
+        {userData ? (
+          <StyledNavLink
+            style={{ color: theme ? "white" : "black" }}
+            to="/edit"
+            className="item"
+          >
+            Edit Pokemon's{" "}
+          </StyledNavLink>
+        ) : null}
 
         <div
           class="right menu"

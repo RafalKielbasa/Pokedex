@@ -3,6 +3,7 @@ import { Button } from "semantic-ui-react";
 import styled from "styled-components";
 import { FightArenaContext } from "./FightArenaContext";
 import { typeColor } from "./FavoriteCard";
+import { css } from "styled-components";
 
 const Card = styled.div`
   margin: 10px;
@@ -21,6 +22,8 @@ const Card = styled.div`
     transform: scale(1.05);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   }
+
+  ${({ defeted }) => defeted && DefeatedCardStyle}
 `;
 
 const TypesGrid = styled.div`
@@ -52,6 +55,15 @@ const Info = styled.h2`
   align-items: center;
   margin-top: 20px;
 `;
+
+///
+
+const DefeatedCardStyle = css`
+  opacity: 0.5;
+  filter: grayscale(100%);
+`;
+
+///
 const calculateStats = (pokemon) => {
   let total = 0;
   pokemon.stats.forEach((stat) => {
@@ -61,6 +73,7 @@ const calculateStats = (pokemon) => {
 };
 
 const FightArena = () => {
+  const [defetedPokemon, setDefeted] = useState(null);
   const { fightArena, clearArena, winner, setWinner } =
     useContext(FightArenaContext);
 
@@ -78,10 +91,13 @@ const FightArena = () => {
 
     if (pokemon1Stats > pokemon2Stats) {
       setWinner(pokemon1.name);
+      setDefeted(pokemon2.name);
     } else if (pokemon1Stats < pokemon2Stats) {
       setWinner(pokemon2.name);
+      setDefeted(pokemon1.name);
     } else {
       setWinner("Remis");
+      setDefeted(null);
     }
   };
 
@@ -104,7 +120,11 @@ const FightArena = () => {
       ) : (
         <Wrapper>
           {fightArena.map((pokemon) => (
-            <Card key={pokemon.id} type={pokemon?.types[0].type.name}>
+            <Card
+              key={pokemon.id}
+              type={pokemon?.types[0].type.name}
+              defeted={defetedPokemon === pokemon.name}
+            >
               <img
                 style={{ width: "150px", height: "150px" }}
                 src={pokemon.sprites.other["official-artwork"].front_default}
