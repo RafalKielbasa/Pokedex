@@ -1,13 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { editedCreatedPostData } from "src/api/postDataFunctions";
-import {
-  fetchPokemonNamesList,
-  fetchOnePokemon,
-} from "src/api/fetchDataFunctions";
+import { fetchPokemonNamesList, fetchOnePokemon } from "src/api/fetchDataFunctions";
 import { StyledFormField, StyledValidationError } from "src/components";
 import { useOutletContext } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import styled from "styled-components";
 import { enqueueSnackbar } from "notistack";
 import { editValidationSchema } from "src/validationSchemas";
@@ -49,7 +46,7 @@ const EditPage = () => {
   const { editedList, editedStatus } = useOutletContext();
   const { data: pokemonDataToEdit } = useQuery({
     queryKey: ["AllPokemonsNamesList"],
-    queryFn: () => fetchPokemonNamesList(),
+    queryFn: () => fetchPokemonNamesList(editedList),
     staleTime: 10 * (60 * 1000),
   });
   const [action, setAction] = useState(null);
@@ -75,10 +72,10 @@ const EditPage = () => {
     enabled: editedStatus === "success" && chosedPokemon !== "",
     staleTime: 10 * (60 * 1000),
   });
+  const queryClient = useQueryClient();
   useEffect(() => {
     if (status === "success" && chosedPokemon !== "") {
-      const { abilities, base_experience, height, id, name, sprites, weight } =
-        detailPokemon;
+      const { abilities, base_experience, height, id, name, sprites, weight } = detailPokemon;
       setInitialValues({
         abilities,
         base_experience,
@@ -123,9 +120,7 @@ const EditPage = () => {
       {({ isSubmitting, values }) => (
         <FormContainer theme={theme}>
           <FormHeader>
-            <label htmlFor="chooseEditPokemon">
-              Wybierz pokemona do edycji/ lub stwórz nowego
-            </label>
+            <label htmlFor="chooseEditPokemon">Wybierz pokemona do edycji/ lub stwórz nowego</label>
             <select
               name="chooseEditPokemon"
               type="text"
@@ -145,12 +140,7 @@ const EditPage = () => {
           <Form>
             <FormRowContainer>
               <label htmlFor="name">Nazwa Pokemona</label>
-              <Field
-                name="name"
-                type="text"
-                value={values?.name}
-                as={StyledFormField}
-              ></Field>
+              <Field name="name" type="text" value={values?.name} as={StyledFormField}></Field>
               <ErrorMessage name="name" component={StyledValidationError} />
             </FormRowContainer>
             <FormRowContainer>
@@ -161,10 +151,7 @@ const EditPage = () => {
                 value={values?.base_experience}
                 as={StyledFormField}
               ></Field>
-              <ErrorMessage
-                name="base_experience"
-                component={StyledValidationError}
-              />
+              <ErrorMessage name="base_experience" component={StyledValidationError} />
             </FormRowContainer>
             <FormRowContainer>
               <label htmlFor="abilities">Ability name</label>
@@ -174,10 +161,7 @@ const EditPage = () => {
                 value={values?.abilities[0]?.ability?.name}
                 as={StyledFormField}
               />
-              <ErrorMessage
-                name="abilities[0].ability.name"
-                component={StyledValidationError}
-              />
+              <ErrorMessage name="abilities[0].ability.name" component={StyledValidationError} />
             </FormRowContainer>
             <FormRowContainer>
               <label htmlFor="height">Wysokość pokemona</label>
@@ -196,7 +180,7 @@ const EditPage = () => {
                 disabled={
                   values?.name === "" ||
                   isSubmitting ||
-                  (values?.name !== "" && values?.name !== chosedPokemon)
+                  (values?.name !== "" && !pokemonDataToEdit.includes(values?.name))
                 }
               >
                 Edytuj Pokemona
@@ -207,7 +191,7 @@ const EditPage = () => {
                 disabled={
                   values?.name === "" ||
                   isSubmitting ||
-                  (values?.name !== "" && values?.name === chosedPokemon)
+                  (values?.name !== "" && pokemonDataToEdit.includes(values?.name))
                 }
               >
                 Stwórz Nowego Pokemona
