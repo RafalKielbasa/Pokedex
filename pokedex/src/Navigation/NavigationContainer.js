@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { Pokedex } from "../img";
-import Switch from "@mui/material/Switch";
+
 import GlobalContext from "src/context/GlobalContext";
 import { Link } from "react-router-dom";
+import { MySwitch } from "src/components";
 
 const NavWrapper = styled.div`
   background: ${(prop) => prop.theme.navContainerColor};
@@ -17,17 +18,6 @@ const NavButtonWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-`;
-const ThemeName = styled.span`
-  color: ${(prop) => prop.theme.textColor};
-  font-size: 18px;
-  font-weight: bold;
-`;
-const ThemeConatiner = styled.span`
-  border: 2px solid ${(prop) => prop.theme.textColor};
-  background: ${(prop) => prop.theme.navButtonsColor};
-  padding: 5px;
-  border-radius: 25px;
 `;
 
 const NavigationContainer = ({ children }) => {
@@ -44,10 +34,7 @@ const NavigationContainer = ({ children }) => {
         />
       </Link>
       <NavButtonWrapper>{children}</NavButtonWrapper>
-      <ThemeConatiner theme={theme}>
-        <ThemeName theme={theme}>Dark Theme</ThemeName>
-        <Switch onClick={() => toggleDarkMode()} />
-      </ThemeConatiner>
+      <MySwitch title={"DARK MODE"} onClickAction={() => toggleDarkMode()} />
     </NavWrapper>
   );
 };

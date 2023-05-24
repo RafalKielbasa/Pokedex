@@ -1031,7 +1031,7 @@
       },
       "weight": 85,
       "winCount": 0,
-      "lossCount": 2,
+      "lossCount": null,
       "tieCount": 0
     },
     {
@@ -1053,7 +1053,7 @@
           "slot": 3
         }
       ],
-      "base_experience": 287,
+      "base_experience": 297,
       "height": 17,
       "id": 6,
       "name": "charizard",
@@ -1234,7 +1234,7 @@
         }
       },
       "weight": 905,
-      "winCount": 2,
+      "winCount": null,
       "lossCount": 0,
       "tieCount": 0
     }
