@@ -45,7 +45,7 @@ const HomePage = () => {
 
   const queryFullData = useQuery([`/`], () => getFullResults());
 
-  // console.log(`expFullPokemonData`, expFullPokemonData);
+  // console.log(`fullPokemonData`, fullPokemonData);
   // console.log(`fullPokemonData`, fullPokemonData);
   // console.log(`offset`, offset);
 
@@ -191,6 +191,7 @@ const HomePage = () => {
                   key={index}
                   id={item.id}
                   pic={item.sprites.front_default}
+                  picDet={item.sprites.other.dream_world}
                   name={item.name}
                   height={item.height}
                   baseexp={item.base_experience}
@@ -254,6 +255,7 @@ const HomePage = () => {
                 key={index}
                 id={item.id}
                 pic={item.sprites.front_default}
+                picDet={item.sprites.other.dream_world.front_default}
                 name={item.name}
                 height={item.height}
                 baseexp={item.base_experience}

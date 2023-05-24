@@ -22,6 +22,7 @@ const FavIcon = styled(FavoriteIcon)`
 export default function PokemonCard({
   id,
   pic,
+  picDet,
   name,
   height,
   baseexp,
@@ -36,7 +37,7 @@ export default function PokemonCard({
   const navigate = useNavigate();
   const handleClick = () => {
     const path = "/details";
-    navigate(path, { state: { id, fullPokemonData } });
+    navigate(path, { state: { id, fullPokemonData, favorites } });
   };
 
   const getFavorites = async () => {
@@ -74,6 +75,7 @@ export default function PokemonCard({
         "favoriteData",
         id,
         pic,
+        picDet,
         name,
         height,
         baseexp,

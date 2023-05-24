@@ -3,6 +3,7 @@
     {
       "id": 1,
       "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
       "name": "bulbasaur",
       "height": 7,
       "baseexp": 64,
@@ -10,17 +11,9 @@
       "abilitie": "overgrow"
     },
     {
-      "id": 8,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/8.png",
-      "name": "wartortle",
-      "height": 10,
-      "baseexp": 142,
-      "weight": 225,
-      "abilitie": "torrent"
-    },
-    {
       "id": 3,
       "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
       "name": "venusaur",
       "height": 20,
       "baseexp": 263,
@@ -28,17 +21,9 @@
       "abilitie": "overgrow"
     },
     {
-      "id": 6,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
-      "name": "charizard",
-      "height": 17,
-      "baseexp": 267,
-      "weight": 905,
-      "abilitie": "blaze"
-    },
-    {
       "id": 15,
       "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/15.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/15.svg",
       "name": "beedrill",
       "height": 10,
       "baseexp": 178,

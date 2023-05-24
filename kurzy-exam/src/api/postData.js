@@ -4,6 +4,7 @@ export const postData = (
   catalog,
   id,
   pic,
+  picDet,
   name,
   height,
   baseexp,
@@ -14,6 +15,7 @@ export const postData = (
     axios.post(`http://localhost:3000/${catalog}`, {
       id,
       pic,
+      picDet,
       name,
       height,
       baseexp,
