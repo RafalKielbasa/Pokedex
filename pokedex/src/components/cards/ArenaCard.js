@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { CardImg, CardBoxInfo, HoverCard } from "../cardElements";
 
 import GlobalContext from "src/context/GlobalContext";
+import ArenaCardContainer from "../cardContainers/ArenaCardContainer";
 
 const ButtonContainer = styled.div`
   width: 100%;
@@ -15,31 +16,39 @@ const ButtonContainer = styled.div`
   align-items: flex-end;
   justify-content: flex-end;
 `;
-const ArenaCard = ({ value, deleteFighter }) => {
+const ArenaCard = ({ value, deleteFighter, opacity }) => {
   const dataToPass = value;
   const { theme } = useContext(GlobalContext);
   return (
-    <HoverCard>
-      <Card
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          width: 250,
-          background: theme.bgCardColor,
-          color: theme.textColor,
-        }}
-      >
-        <ButtonContainer>
-          <IconButton aria-label="fight" onClick={deleteFighter} sx={{ color: theme.textColor }}>
-            <ClearIcon />
-          </IconButton>
-        </ButtonContainer>
-        <CardImg dataToPass={dataToPass}></CardImg>
-        <CardBoxInfo dataToPass={dataToPass}></CardBoxInfo>
-      </Card>
-    </HoverCard>
+    <ArenaCardContainer>
+      {" "}
+      <HoverCard>
+        <Card
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            width: 250,
+            background: theme.bgCardColor,
+            color: theme.textColor,
+            opacity: 1,
+          }}
+        >
+          <ButtonContainer>
+            <IconButton
+              aria-label="fight"
+              onClick={deleteFighter}
+              sx={{ color: theme.textColor }}
+            >
+              <ClearIcon />
+            </IconButton>
+          </ButtonContainer>
+          <CardImg dataToPass={dataToPass}></CardImg>
+          <CardBoxInfo dataToPass={dataToPass}></CardBoxInfo>
+        </Card>
+      </HoverCard>
+    </ArenaCardContainer>
   );
 };
 

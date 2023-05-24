@@ -13,3 +13,6 @@ export { default as StyledValidationError } from "./formComponents/StyledValidat
 export { default as StyledFormField } from "./formComponents/StyledFormField";
 export { default as ArenaCard } from "./cards/ArenaCard";
 export { default as MySwitch } from "./MySwitch";
+export { default as ArenaCardContainer } from "./cardContainers/ArenaCardContainer";
+export { default as WinnerCard } from "./cards/WinnerCard";
+export { default as FightActionButtons } from "./exlusiveArenaPageComponents/FightActionButtons";
