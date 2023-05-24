@@ -3,9 +3,12 @@ import { BlankCard, ArenaCard } from "src/components";
 import styled from "styled-components";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import { VS, Winner } from "src/img";
-import { arenaFirstOneActionHandle, arenaSecondOneActionHandle } from "src/api/postDataFunctions";
+import {
+  arenaFirstOneActionHandle,
+  arenaSecondOneActionHandle,
+} from "src/api/postDataFunctions";
 import { fighterPowerLevel } from "src/helpers";
 import { fetchOnePokemon } from "src/api/fetchDataFunctions";
 import GlobalContext from "src/context/GlobalContext";
@@ -30,8 +33,17 @@ const ArenaCardContainer = styled.div`
   align-items: center;
   gap: 10px;
 `;
+const FightButton = styled.button`
+   {
+    padding: 25px 30px;
+    background-color: ${(prop) => prop.theme.navButtonsColor};
+    color: #050801;
+    font-size: 24px;
+  }
+`;
 const ArenaPage = () => {
-  const { theme } = useContext(GlobalContext);
+  const navigate = useNavigate();
+  const { theme, ActiveBtnHandle } = useContext(GlobalContext);
   const {
     editedList,
     editedStatus,
@@ -111,11 +123,19 @@ const ArenaPage = () => {
           <>
             {fightResult === "first" ? (
               <ArenaCardContainer>
-                <img src={Winner} alt="Winner" width={"200px"} height={"200px"} />
+                <img
+                  src={Winner}
+                  alt="Winner"
+                  width={"200px"}
+                  height={"200px"}
+                />
                 <ArenaCard
                   value={firstFighter}
                   deleteFighter={() =>
-                    deleteFighter(setArenaFirstFighter, setIsFirstPokemonDeleted)
+                    deleteFighter(
+                      setArenaFirstFighter,
+                      setIsFirstPokemonDeleted
+                    )
                   }
                 />
               </ArenaCardContainer>
@@ -124,7 +144,10 @@ const ArenaPage = () => {
                 <ArenaCard
                   value={firstFighter}
                   deleteFighter={() =>
-                    deleteFighter(setArenaFirstFighter, setIsFirstPokemonDeleted)
+                    deleteFighter(
+                      setArenaFirstFighter,
+                      setIsFirstPokemonDeleted
+                    )
                   }
                 />
               </ArenaCardContainer>
@@ -138,11 +161,19 @@ const ArenaPage = () => {
           <>
             {fightResult === "second" ? (
               <ArenaCardContainer>
-                <img src={Winner} alt="Winner" width={"200px"} height={"200px"} />
+                <img
+                  src={Winner}
+                  alt="Winner"
+                  width={"200px"}
+                  height={"200px"}
+                />
                 <ArenaCard
                   value={secondFighter}
                   deleteFighter={() =>
-                    deleteFighter(setArenaSecondFighter, setIsSecondPokemonDeleted)
+                    deleteFighter(
+                      setArenaSecondFighter,
+                      setIsSecondPokemonDeleted
+                    )
                   }
                 />
               </ArenaCardContainer>
@@ -151,7 +182,10 @@ const ArenaPage = () => {
                 <ArenaCard
                   value={secondFighter}
                   deleteFighter={() =>
-                    deleteFighter(setArenaSecondFighter, setIsSecondPokemonDeleted)
+                    deleteFighter(
+                      setArenaSecondFighter,
+                      setIsSecondPokemonDeleted
+                    )
                   }
                 />
               </ArenaCardContainer>
@@ -163,7 +197,21 @@ const ArenaPage = () => {
       </ArenaContainer>
       {firstFighter && secondFighter && (
         <ButtonContainer>
-          <button onClick={fightResultFnc}>WALKA</button>
+          {fightResult === "" ? (
+            <FightButton theme={theme} onClick={fightResultFnc}>
+              WALKA
+            </FightButton>
+          ) : (
+            <FightButton
+              theme={theme}
+              onClick={() => {
+                navigate(`/`);
+                ActiveBtnHandle("Home");
+              }}
+            >
+              Opuść Arenę
+            </FightButton>
+          )}
         </ButtonContainer>
       )}
     </ArenaBody>

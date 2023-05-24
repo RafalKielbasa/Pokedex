@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { Pokedex } from "../img";
-import { Link } from "react-router-dom";
 import Switch from "@mui/material/Switch";
 import GlobalContext from "src/context/GlobalContext";
+import { Link } from "react-router-dom";
+
 const NavWrapper = styled.div`
   background: ${(prop) => prop.theme.navContainerColor};
   display: flex;
@@ -20,19 +21,33 @@ const NavButtonWrapper = styled.div`
 const ThemeName = styled.span`
   color: ${(prop) => prop.theme.textColor};
   font-size: 18px;
+  font-weight: bold;
 `;
+const ThemeConatiner = styled.span`
+  border: 2px solid ${(prop) => prop.theme.textColor};
+  background: ${(prop) => prop.theme.navButtonsColor};
+  padding: 5px;
+  border-radius: 25px;
+`;
+
 const NavigationContainer = ({ children }) => {
-  const { toggleDarkMode, theme } = useContext(GlobalContext);
+  const { toggleDarkMode, theme, ActiveBtnHandle } = useContext(GlobalContext);
   return (
     <NavWrapper theme={theme}>
       <Link to="/">
-        <img src={Pokedex} alt="POKEDEX" width={"300px"} height={"100px"} />
+        <img
+          src={Pokedex}
+          alt="POKEDEX"
+          width={"300px"}
+          height={"100px"}
+          onClick={() => ActiveBtnHandle("Home")}
+        />
       </Link>
       <NavButtonWrapper>{children}</NavButtonWrapper>
-      <span>
+      <ThemeConatiner theme={theme}>
         <ThemeName theme={theme}>Dark Theme</ThemeName>
         <Switch onClick={() => toggleDarkMode()} />
-      </span>
+      </ThemeConatiner>
     </NavWrapper>
   );
 };
