@@ -23,7 +23,6 @@ const UserPanel = () => {
         <Info>
           <p> {`User: ${userData.name}`}</p>
           <p> {`E-mail: ${userData.email}`}</p>
-          <p>{`Status: normal user`}</p>
         </Info>
       ) : (
         <p>Please log in.</p>

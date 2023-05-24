@@ -87,11 +87,12 @@ const LabelledInput = styled.label`
 `;
 
 const PokemonCard = ({ pokemon }) => {
-  const { addFavorite } = useFavorite();
+  //const { addFavorite } = useFavorite();
   const { userData } = useContext(LoginContext);
   const nav = useNavigate();
   const [editablePokemon, setEditablePokemon] = useState(pokemon);
   const [showEditFields, setShowEditFields] = useState(false);
+  const { addFavorite, updateFavorite } = useFavorite();
 
   useEffect(() => {
     const savedData = localStorage.getItem(pokemon.name);
@@ -118,6 +119,10 @@ const PokemonCard = ({ pokemon }) => {
       ],
     };
     setEditablePokemon(updatedPokemon);
+    //
+    updateFavorite(updatedPokemon);
+    //
+
     localStorage.setItem(editablePokemon.name, JSON.stringify(updatedPokemon));
   };
 

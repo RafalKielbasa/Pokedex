@@ -64,6 +64,17 @@ const DefeatedCardStyle = css`
 `;
 
 ///
+
+const CardShadow = styled.div`
+  margin: 10px;
+  border-radius: 6px;
+  width: 300px;
+  height: 400px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  opacity: 0.5;
+  filter: grayscale(100%);
+  background-color: lightgray;
+`;
 const calculateStats = (pokemon) => {
   let total = 0;
   pokemon.stats.forEach((stat) => {
@@ -116,7 +127,10 @@ const FightArena = () => {
         </Button>
       </Header>
       {fightArena.length === 0 ? (
-        <Info>No pokemon in fight arena.</Info>
+        <Wrapper>
+          <CardShadow />
+          <CardShadow />
+        </Wrapper>
       ) : (
         <Wrapper>
           {fightArena.map((pokemon) => (

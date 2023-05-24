@@ -76,7 +76,7 @@ const StyledButton = styled(Button)`
   font-weight: bolder !important;
   font-size: 20px !important;
   &:hover {
-    transform: translateX(10px);
+    transform: translateY(2px);
   }
 `;
 

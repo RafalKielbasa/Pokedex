@@ -36,6 +36,20 @@ export const FavoritesProvider = ({ children }) => {
     setFavorites([]);
     setCount(0);
   };
+
+  const updateFavorite = (updatedPokemon) => {
+    setFavorites((prev) => {
+      const index = prev.findIndex((item) => item.id === updatedPokemon.id);
+      if (index !== -1) {
+        const newFavorites = [...prev];
+        newFavorites[index] = updatedPokemon;
+        return newFavorites;
+      } else {
+        return [...prev, updatedPokemon];
+      }
+    });
+  };
+
   return (
     <FavoriteContext.Provider
       value={{
@@ -46,6 +60,7 @@ export const FavoritesProvider = ({ children }) => {
         closeError,
         removeAll,
         count,
+        updateFavorite,
       }}
     >
       {children}
