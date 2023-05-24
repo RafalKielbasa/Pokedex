@@ -32,15 +32,11 @@ const ArenaCard = ({ value, deleteFighter, opacity }) => {
             width: 250,
             background: theme.bgCardColor,
             color: theme.textColor,
-            opacity: 1,
+            opacity: opacity || 1,
           }}
         >
           <ButtonContainer>
-            <IconButton
-              aria-label="fight"
-              onClick={deleteFighter}
-              sx={{ color: theme.textColor }}
-            >
+            <IconButton aria-label="fight" onClick={deleteFighter} sx={{ color: theme.textColor }}>
               <ClearIcon />
             </IconButton>
           </ButtonContainer>

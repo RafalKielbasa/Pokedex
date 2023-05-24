@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import GlobalContext from "src/context/GlobalContext";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 const ButtonContainer = styled.div`
   display: flex;
@@ -15,29 +14,17 @@ const FightButton = styled.button`
     font-size: 24px;
   }
 `;
-const FightActionButtons = ({
-  fightResult,
-  fightResultFnc,
-  setFightResult,
-}) => {
-  const { theme, ActiveBtnHandle } = useContext(GlobalContext);
-  const navigate = useNavigate();
+const FightActionButtons = ({ fightResult, fightResultFnc, ClickHandle }) => {
+  const { theme } = useContext(GlobalContext);
 
   return (
     <ButtonContainer>
       {fightResult === "" ? (
-        <FightButton theme={theme} onClick={() => fightResultFnc()}>
+        <FightButton theme={theme} onClick={fightResultFnc}>
           WALKA
         </FightButton>
       ) : (
-        <FightButton
-          theme={theme}
-          onClick={() => {
-            navigate(`/`);
-            ActiveBtnHandle("Home");
-            setFightResult("");
-          }}
-        >
+        <FightButton theme={theme} onClick={ClickHandle}>
           Opuść Arenę
         </FightButton>
       )}

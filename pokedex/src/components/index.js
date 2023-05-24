@@ -16,3 +16,4 @@ export { default as MySwitch } from "./MySwitch";
 export { default as ArenaCardContainer } from "./cardContainers/ArenaCardContainer";
 export { default as WinnerCard } from "./cards/WinnerCard";
 export { default as FightActionButtons } from "./exlusiveArenaPageComponents/FightActionButtons";
+export { default as FightResultCardContainer } from "./exlusiveArenaPageComponents/FightResultCardContainer";
