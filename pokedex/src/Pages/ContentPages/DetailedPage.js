@@ -47,7 +47,7 @@ const DetailedPage = () => {
   });
 
   const createPostMutation = useMutation({
-    mutationFn: () => postData("favorite", detailPokemon),
+    mutationFn: () => postData("favorite", detailPokemon.name),
     onSuccess: () => {
       queryClient.invalidateQueries(["favorite"]);
     },
