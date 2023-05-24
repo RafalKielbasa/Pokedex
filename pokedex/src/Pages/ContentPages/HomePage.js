@@ -58,7 +58,7 @@ const HomePage = () => {
     queries: resultList?.map(({ name, url }) => {
       return {
         queryKey: ["pokemon", name],
-        queryFn: () => fetchPokemonQueriesData(url),
+        queryFn: () => fetchPokemonQueriesData(url, editedList, name),
         staleTime: 10 * (60 * 1000),
       };
     }),
@@ -69,20 +69,26 @@ const HomePage = () => {
   )
     return <Loader />;
 
-  if (pokemonsStatus === "error") return <ErrorMsg errorMsg={pokemonsError.message} />;
+  if (pokemonsStatus === "error")
+    return <ErrorMsg errorMsg={pokemonsError.message} />;
   if (pokemonsToFilterStatus === "error")
     return <ErrorMsg errorMsg={pokemonsToFilterError.message} />;
 
   return (
     <BasicPokemonLayout>
-      {(pokemonsStatus === "success" || pokemonsToFilterStatus === "success") && (
+      {(pokemonsStatus === "success" ||
+        pokemonsToFilterStatus === "success") && (
         <>
-          <Searcher handleSearcherChange={(e) => setSearchedValue(e.target.value)} />
+          <Searcher
+            handleSearcherChange={(e) => setSearchedValue(e.target.value)}
+          />
           <PokemonCardContainer>
             {pokemonQueries && pokemonQueries?.length > 0 ? (
               pokemonQueries?.map(
                 ({ data, status }) =>
-                  status === "success" && <PokemonCard key={data?.id} id={data?.id} value={data} />
+                  status === "success" && (
+                    <PokemonCard key={data?.id} id={data?.id} value={data} />
+                  )
               )
             ) : (
               <NoMatch />

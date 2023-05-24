@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { editedCreatedPostData } from "src/api/postDataFunctions";
-import { fetchPokemonNamesList, fetchOnePokemon } from "src/api/fetchDataFunctions";
+import {
+  fetchPokemonNamesList,
+  fetchOnePokemon,
+} from "src/api/fetchDataFunctions";
 import { StyledFormField, StyledValidationError } from "src/components";
 import { useOutletContext } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -49,6 +52,7 @@ const EditPage = () => {
     queryFn: () => fetchPokemonNamesList(),
     staleTime: 10 * (60 * 1000),
   });
+  const [action, setAction] = useState(null);
   const [chosedPokemon, setChosedPokemon] = useState("");
   const [initialValues, setInitialValues] = useState({
     abilities: [
@@ -73,7 +77,8 @@ const EditPage = () => {
   });
   useEffect(() => {
     if (status === "success" && chosedPokemon !== "") {
-      const { abilities, base_experience, height, id, name, sprites, weight } = detailPokemon;
+      const { abilities, base_experience, height, id, name, sprites, weight } =
+        detailPokemon;
       setInitialValues({
         abilities,
         base_experience,
@@ -90,10 +95,26 @@ const EditPage = () => {
       initialValues={initialValues}
       enableReinitialize={true}
       validationSchema={editValidationSchema}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={(values, { setSubmitting, resetForm }) => {
         console.log("Jestem Kliknięty");
-        editedCreatedPostData(values, values?.name);
+        editedCreatedPostData(values, values?.name, editedList, action);
         setSubmitting(false);
+        setAction(null);
+        resetForm({
+          abilities: [
+            {
+              ability: {
+                name: "",
+              },
+            },
+          ],
+          base_experience: "",
+          height: "",
+          id: "",
+          name: "",
+          sprites: "",
+          weight: "",
+        });
         enqueueSnackbar("Operacja zakończona sukcesem", {
           variant: "success",
         });
@@ -102,7 +123,9 @@ const EditPage = () => {
       {({ isSubmitting, values }) => (
         <FormContainer theme={theme}>
           <FormHeader>
-            <label htmlFor="chooseEditPokemon">Wybierz pokemona do edycji/ lub stwórz nowego</label>
+            <label htmlFor="chooseEditPokemon">
+              Wybierz pokemona do edycji/ lub stwórz nowego
+            </label>
             <select
               name="chooseEditPokemon"
               type="text"
@@ -122,7 +145,12 @@ const EditPage = () => {
           <Form>
             <FormRowContainer>
               <label htmlFor="name">Nazwa Pokemona</label>
-              <Field name="name" type="text" value={values?.name} as={StyledFormField}></Field>
+              <Field
+                name="name"
+                type="text"
+                value={values?.name}
+                as={StyledFormField}
+              ></Field>
               <ErrorMessage name="name" component={StyledValidationError} />
             </FormRowContainer>
             <FormRowContainer>
@@ -133,7 +161,10 @@ const EditPage = () => {
                 value={values?.base_experience}
                 as={StyledFormField}
               ></Field>
-              <ErrorMessage name="base_experience" component={StyledValidationError} />
+              <ErrorMessage
+                name="base_experience"
+                component={StyledValidationError}
+              />
             </FormRowContainer>
             <FormRowContainer>
               <label htmlFor="abilities">Ability name</label>
@@ -143,7 +174,10 @@ const EditPage = () => {
                 value={values?.abilities[0]?.ability?.name}
                 as={StyledFormField}
               />
-              <ErrorMessage name="abilities[0].ability.name" component={StyledValidationError} />
+              <ErrorMessage
+                name="abilities[0].ability.name"
+                component={StyledValidationError}
+              />
             </FormRowContainer>
             <FormRowContainer>
               <label htmlFor="height">Wysokość pokemona</label>
@@ -158,6 +192,7 @@ const EditPage = () => {
             <FormRowContainer>
               <StyledButton
                 type="submit"
+                onClick={() => setAction("edit")}
                 disabled={
                   values?.name === "" ||
                   isSubmitting ||
@@ -168,6 +203,7 @@ const EditPage = () => {
               </StyledButton>
               <StyledButton
                 type="submit"
+                onClick={() => setAction("create")}
                 disabled={
                   values?.name === "" ||
                   isSubmitting ||
