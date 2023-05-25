@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useQueries } from "@tanstack/react-query";
 import { useOutletContext } from "react-router-dom";
 
-import { filterFnc } from "src/helpers";
+import { filterFnc, filterOnlyLocalValues } from "src/helpers";
 import {
   fetchDataFromPage,
   fetchPokemonQueriesData,
@@ -12,15 +12,16 @@ import {
   MyPagination,
   PokemonCard,
   PokemonCardContainer,
-  Searcher,
   Loader,
   ErrorMsg,
   BasicPokemonLayout,
   NoMatch,
+  PageHeader,
 } from "src/components";
 
 const HomePage = () => {
   const { editedList, editedStatus } = useOutletContext();
+  const [showOnlyLocalPokemons, setShowLocalPokemons] = useState(false);
   const [createComponentData, setCreateComponentData] = useState(null);
   const [page, setPage] = useState(1);
   const [searchedValue, setSearchedValue] = useState("");
@@ -46,23 +47,36 @@ const HomePage = () => {
     staleTime: 10 * (60 * 1000),
   });
   useEffect(() => {
-    pokemons && searchedValue === "" && setCreateComponentData(pokemons);
+    pokemons &&
+      searchedValue === "" &&
+      !showOnlyLocalPokemons &&
+      setCreateComponentData(pokemons);
     pokemonsToFilter &&
       searchedValue !== "" &&
-      setCreateComponentData(filterFnc(pokemonsToFilter, searchedValue));
-  }, [pokemons, pokemonsToFilter, searchedValue]);
+      setCreateComponentData(filterFnc(pokemonsToFilter, searchedValue)) &&
+      setShowLocalPokemons(false);
+    showOnlyLocalPokemons &&
+      setCreateComponentData(filterOnlyLocalValues(pokemons, editedList));
+  }, [
+    pokemons,
+    pokemonsToFilter,
+    searchedValue,
+    showOnlyLocalPokemons,
+    editedList,
+  ]);
 
   const resultList = createComponentData ? createComponentData : [];
+  console.log({ showOnlyLocalPokemons, resultList });
 
   const pokemonQueries = useQueries({
     queries: resultList?.map(({ name, url }) => {
       return {
         queryKey: ["pokemon", name],
         queryFn: () => fetchPokemonQueriesData(url, editedList, name),
-        staleTime: 10 * (60 * 1000),
       };
     }),
   });
+
   if (
     (searchedValue === "" && pokemonsStatus === "loading") ||
     (searchedValue !== "" && pokemonsToFilterStatus === "loading")
@@ -79,8 +93,11 @@ const HomePage = () => {
       {(pokemonsStatus === "success" ||
         pokemonsToFilterStatus === "success") && (
         <>
-          <Searcher
+          <PageHeader
             handleSearcherChange={(e) => setSearchedValue(e.target.value)}
+            toggleOnlyLocalPokemonsHandle={() =>
+              setShowLocalPokemons((prev) => !prev)
+            }
           />
           <PokemonCardContainer>
             {pokemonQueries && pokemonQueries?.length > 0 ? (

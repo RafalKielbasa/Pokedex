@@ -12,6 +12,7 @@ const ThemeConatiner = styled.span`
   background: ${(prop) => prop.theme.navButtonsColor};
   padding: 5px;
   border-radius: 25px;
+  max-width: 320px;
 `;
 const MySwitch = ({ onClickAction, title }) => {
   const { theme } = useContext(GlobalContext);
