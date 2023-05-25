@@ -1,120 +1,78 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { ConditionalNavbarBtn } from "src/components";
 import GlobalContext from "src/context/GlobalContext";
-import styled from "styled-components";
-const NavButton = styled.button`
-   {
-    padding: 25px 30px;
-    background-color: ${(prop) => prop.theme.navButtonsColor};
-    color: #050801;
-    font-weight: bold;
-    border: none;
-    border-radius: 50px;
-    letter-spacing: 4px;
-    overflow: hidden;
-    transition: 0.5s;
-    font-size: 24px;
-    @media (max-width: 992px) {
-      width: 300px;
-    }
-  }
-  :hover {
-    background: ${(prop) => prop.theme.hoverButtonColor};
-    color: white;
-  }
-`;
-const ActiveNavButton = styled(NavButton)`
-  background: ${(prop) => prop.theme.hoverButtonColor};
-  color: white;
-`;
+
 const NavigationBar = () => {
   const { loggedIn, setLoggedIn, setUser, theme, activeBtn, ActiveBtnHandle } =
     useContext(GlobalContext);
   return (
     <>
       <Link to="/">
-        {activeBtn === "Home" ? (
-          <ActiveNavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
-            Home
-          </ActiveNavButton>
-        ) : (
-          <NavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
-            Home
-          </NavButton>
-        )}
+        <ConditionalNavbarBtn
+          activeBtn={activeBtn}
+          value={"Home"}
+          clickHandle={(e) => ActiveBtnHandle(e.target.innerHTML)}
+          theme={theme}
+        />
       </Link>
       <Link to="favourites">
-        {activeBtn === "Ulubione" ? (
-          <ActiveNavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
-            Ulubione
-          </ActiveNavButton>
-        ) : (
-          <NavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
-            Ulubione
-          </NavButton>
-        )}
+        <ConditionalNavbarBtn
+          activeBtn={activeBtn}
+          value={"Ulubione"}
+          clickHandle={(e) => ActiveBtnHandle(e.target.innerHTML)}
+          theme={theme}
+        />
       </Link>
       <Link to="arena">
-        {activeBtn === "Arena" ? (
-          <ActiveNavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
-            Arena
-          </ActiveNavButton>
-        ) : (
-          <NavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
-            Arena
-          </NavButton>
-        )}
+        <ConditionalNavbarBtn
+          activeBtn={activeBtn}
+          value={"Arena"}
+          clickHandle={(e) => ActiveBtnHandle(e.target.innerHTML)}
+          theme={theme}
+        />
       </Link>
       {!loggedIn && (
         <Link Link to="logIn">
-          {activeBtn === "Logowanie" ? (
-            <ActiveNavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
-              Logowanie
-            </ActiveNavButton>
-          ) : (
-            <NavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
-              Logowanie
-            </NavButton>
-          )}
+          <ConditionalNavbarBtn
+            activeBtn={activeBtn}
+            value={"Logowanie"}
+            clickHandle={(e) => ActiveBtnHandle(e.target.innerHTML)}
+            theme={theme}
+          />
         </Link>
       )}
       {!loggedIn && (
         <Link to="register">
-          {activeBtn === "Rejestracja" ? (
-            <ActiveNavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
-              Rejestracja
-            </ActiveNavButton>
-          ) : (
-            <NavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
-              Rejestracja
-            </NavButton>
-          )}
+          <ConditionalNavbarBtn
+            activeBtn={activeBtn}
+            value={"Rejestracja"}
+            clickHandle={(e) => ActiveBtnHandle(e.target.innerHTML)}
+            theme={theme}
+          />
         </Link>
       )}
       {loggedIn && (
         <Link to="edit">
-          {activeBtn === "Edytowanie" ? (
-            <ActiveNavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
-              Edytowanie
-            </ActiveNavButton>
-          ) : (
-            <NavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
-              Edytowanie
-            </NavButton>
-          )}
+          <ConditionalNavbarBtn
+            activeBtn={activeBtn}
+            value={"Edytowanie"}
+            clickHandle={(e) => ActiveBtnHandle(e.target.innerHTML)}
+            theme={theme}
+          />
         </Link>
       )}
       {loggedIn && (
         <Link to="/">
-          <NavButton
-            theme={theme}
-            onClick={() => {
+          <ConditionalNavbarBtn
+            activeBtn={activeBtn}
+            value={"Wyloguj"}
+            clickHandle={() => {
               setLoggedIn(false);
               setUser(null);
             }}
-          >
-            Wyloguj
-          </NavButton>
+            theme={theme}
+          />
         </Link>
       )}
     </>

@@ -18,3 +18,4 @@ export { default as WinnerCard } from "./cards/WinnerCard";
 export { default as FightActionButtons } from "./exlusiveArenaPageComponents/FightActionButtons";
 export { default as FightResultCardContainer } from "./exlusiveArenaPageComponents/FightResultCardContainer";
 export { default as PageHeader } from "./ExlusiveHomePageComponents/PageHeader";
+export { default as ConditionalNavbarBtn } from "./ConditionalNavbarBtn";
