@@ -30,7 +30,7 @@ export default function PokemonCard({
   abilitie,
   fullPokemonData,
 }) {
-  const [isFavorite, setIsFavorite] = useState(false);
+  // const [isFavorite, setIsFavorite] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [favoritesIds, setFavoritesIds] = useState([]);
 
@@ -56,18 +56,27 @@ export default function PokemonCard({
     setFavoritesIds(getFavoritesIds);
   }, [favorites.length]);
 
-  // useEffect(() => {
-  //   const array = fullPokemonData.filter((elem) => {
-  //     return favoritesIds.some((ele) => {
-  //       return elem.id === ele;
-  //     });
+  useEffect(() => {
+    const array = fullPokemonData.filter((fPDelem) => {
+      return favoritesIds.some((fIele) => {
+        return fPDelem.id === fIele;
+      });
+    });
+    // const test = fullPokemonData.splice(array);
+    // console.log(`test`, test);
+    // console.log(`array`, array);
+  }, [favorites]);
+
+  // const array = fullPokemonData.map((item) => {
+  //   return favoritesIds.map((fitem) => {
+  //     // console.log(`fitem`, fitem);
+  //     return [item.id].width(fitem);
   //   });
-  //   setFavoritesArray(array);
-  // }, [favorites]);
+  // });
 
   // const fullPokemonDataIds = fullPokemonData?.map((item) => item.id);
-  // console.log(`favoritesIds`, favoritesIds);
   // console.log(`favorites`, favorites);
+  // console.log(`fullPokemonData`, fullPokemonData);
 
   const handleFavorite = () => {
     if (!favoritesIds.includes(id)) {

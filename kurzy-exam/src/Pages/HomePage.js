@@ -37,7 +37,7 @@ const HomePage = () => {
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
   const [inputText, setInputText] = useState();
-  const [localResults, setLocalResults] = useState();
+  // const [localResults, setLocalResults] = useState();
   // const [partialPokemonData, setPartialPokemonData] = useState([]);
   const [fullPokemonData, setFullPokemonData] = useState([]);
   const [expFullPokemonData, setExpFullPokemonData] = useState([]);

@@ -21,14 +21,14 @@
       "abilitie": "overgrow"
     },
     {
-      "id": 15,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/15.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/15.svg",
-      "name": "beedrill",
-      "height": 10,
-      "baseexp": 178,
-      "weight": 295,
-      "abilitie": "swarm"
+      "id": 6,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/6.svg",
+      "name": "charizard",
+      "height": 17,
+      "baseexp": 267,
+      "weight": 905,
+      "abilitie": "blaze"
     }
   ]
 }

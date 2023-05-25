@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
         element: <FavoritesPage />,
         loader: () => getFavorites(),
       },
-      { path: "arena", element: <ArenaPage /> },
+      { path: "arena", element: <ArenaPage />, loader: () => getFullResults() },
       { path: "login", element: <LoginPage /> },
       { path: "registration", element: <RegistrationPage /> },
       { path: "edition", element: <EditionPage /> },
