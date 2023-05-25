@@ -10,11 +10,13 @@ const HeaderConatiner = styled.div`
 const PageHeader = ({
   handleSearcherChange,
   toggleOnlyLocalPokemonsHandle,
+  checkedValue,
 }) => {
   return (
     <HeaderConatiner>
       <Searcher handleSearcherChange={handleSearcherChange} />
       <MySwitch
+        checkedValue={checkedValue}
         onClickAction={toggleOnlyLocalPokemonsHandle}
         title={"Pokaż tylko edytowane/stworzone"}
       />
