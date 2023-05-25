@@ -80,7 +80,6 @@ const HomePage = () => {
       };
     }),
   });
-  console.log({ showOnlyLocalPokemons, resultList, pokemonQueries });
   if (searchedValue === "" && pokemonsStatus === "loading") return <Loader />;
 
   if (pokemonsStatus === "error") return <ErrorMsg errorMsg={pokemonsError.message} />;

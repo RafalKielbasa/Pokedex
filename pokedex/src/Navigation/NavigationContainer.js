@@ -13,11 +13,19 @@ const NavWrapper = styled.div`
   align-items: center;
   padding: 30px;
   flex-wrap: wrap;
+  gap: 20px;
+  @media (max-width: 992px) {
+    flex-direction: column;
+  }
 `;
 const NavButtonWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  @media (max-width: 992px) {
+    flex-direction: column;
+    gap: 20px;
+  }
 `;
 
 const NavigationContainer = ({ children }) => {
@@ -34,7 +42,7 @@ const NavigationContainer = ({ children }) => {
         />
       </Link>
       <NavButtonWrapper>{children}</NavButtonWrapper>
-      <MySwitch title={"DARK MODE"} onClickAction={() => toggleDarkMode()} />
+      <MySwitch title={"Dark Theme"} onClickAction={() => toggleDarkMode()} />
     </NavWrapper>
   );
 };

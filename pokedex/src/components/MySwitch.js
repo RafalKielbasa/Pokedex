@@ -6,6 +6,10 @@ const ThemeName = styled.span`
   color: ${(prop) => prop.theme.textColor};
   font-size: 18px;
   font-weight: bold;
+  @media (max-width: 992px) {
+    font-size: 13px;
+    font-weight: bold;
+  }
 `;
 const ThemeConatiner = styled.span`
   border: 2px solid ${(prop) => prop.theme.textColor};

@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import GlobalContext from "src/context/GlobalContext";
 import styled from "styled-components";
-import ButtonGroup from "@mui/material/ButtonGroup";
 const NavButton = styled.button`
    {
     padding: 25px 30px;
@@ -10,79 +9,58 @@ const NavButton = styled.button`
     color: #050801;
     font-weight: bold;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
     letter-spacing: 4px;
     overflow: hidden;
     transition: 0.5s;
     font-size: 24px;
+    @media (max-width: 992px) {
+      width: 300px;
+    }
   }
   :hover {
     background: ${(prop) => prop.theme.hoverButtonColor};
     color: white;
-    box-shadow: 0 0 5px #3d85c6 0 0 25px #3d85c6, 0 0 50px #3d85c6,
-      0 0 200px #3d85c6;
-    -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
   }
 `;
 const ActiveNavButton = styled(NavButton)`
   background: ${(prop) => prop.theme.hoverButtonColor};
   color: white;
-  box-shadow: 0 0 5px #3d85c6 0 0 25px #3d85c6, 0 0 50px #3d85c6,
-    0 0 200px #3d85c6;
-  -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
 `;
 const NavigationBar = () => {
   const { loggedIn, setLoggedIn, setUser, theme, activeBtn, ActiveBtnHandle } =
     useContext(GlobalContext);
   return (
-    <ButtonGroup variant="contained" sx={{ display: "flex", flexWrap: "wrap" }}>
+    <>
       <Link to="/">
         {activeBtn === "Home" ? (
-          <ActiveNavButton
-            onClick={(e) => ActiveBtnHandle(e.target.innerHTML)}
-            theme={theme}
-          >
+          <ActiveNavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
             Home
           </ActiveNavButton>
         ) : (
-          <NavButton
-            onClick={(e) => ActiveBtnHandle(e.target.innerHTML)}
-            theme={theme}
-          >
+          <NavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
             Home
           </NavButton>
         )}
       </Link>
       <Link to="favourites">
         {activeBtn === "Ulubione" ? (
-          <ActiveNavButton
-            onClick={(e) => ActiveBtnHandle(e.target.innerHTML)}
-            theme={theme}
-          >
+          <ActiveNavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
             Ulubione
           </ActiveNavButton>
         ) : (
-          <NavButton
-            onClick={(e) => ActiveBtnHandle(e.target.innerHTML)}
-            theme={theme}
-          >
+          <NavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
             Ulubione
           </NavButton>
         )}
       </Link>
       <Link to="arena">
         {activeBtn === "Arena" ? (
-          <ActiveNavButton
-            onClick={(e) => ActiveBtnHandle(e.target.innerHTML)}
-            theme={theme}
-          >
+          <ActiveNavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
             Arena
           </ActiveNavButton>
         ) : (
-          <NavButton
-            onClick={(e) => ActiveBtnHandle(e.target.innerHTML)}
-            theme={theme}
-          >
+          <NavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
             Arena
           </NavButton>
         )}
@@ -90,17 +68,11 @@ const NavigationBar = () => {
       {!loggedIn && (
         <Link Link to="logIn">
           {activeBtn === "Logowanie" ? (
-            <ActiveNavButton
-              onClick={(e) => ActiveBtnHandle(e.target.innerHTML)}
-              theme={theme}
-            >
+            <ActiveNavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
               Logowanie
             </ActiveNavButton>
           ) : (
-            <NavButton
-              onClick={(e) => ActiveBtnHandle(e.target.innerHTML)}
-              theme={theme}
-            >
+            <NavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
               Logowanie
             </NavButton>
           )}
@@ -109,17 +81,11 @@ const NavigationBar = () => {
       {!loggedIn && (
         <Link to="register">
           {activeBtn === "Rejestracja" ? (
-            <ActiveNavButton
-              onClick={(e) => ActiveBtnHandle(e.target.innerHTML)}
-              theme={theme}
-            >
+            <ActiveNavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
               Rejestracja
             </ActiveNavButton>
           ) : (
-            <NavButton
-              onClick={(e) => ActiveBtnHandle(e.target.innerHTML)}
-              theme={theme}
-            >
+            <NavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
               Rejestracja
             </NavButton>
           )}
@@ -128,17 +94,11 @@ const NavigationBar = () => {
       {loggedIn && (
         <Link to="edit">
           {activeBtn === "Edytowanie" ? (
-            <ActiveNavButton
-              onClick={(e) => ActiveBtnHandle(e.target.innerHTML)}
-              theme={theme}
-            >
+            <ActiveNavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
               Edytowanie
             </ActiveNavButton>
           ) : (
-            <NavButton
-              onClick={(e) => ActiveBtnHandle(e.target.innerHTML)}
-              theme={theme}
-            >
+            <NavButton onClick={(e) => ActiveBtnHandle(e.target.innerHTML)} theme={theme}>
               Edytowanie
             </NavButton>
           )}
@@ -157,7 +117,7 @@ const NavigationBar = () => {
           </NavButton>
         </Link>
       )}
-    </ButtonGroup>
+    </>
   );
 };
 export default NavigationBar;
