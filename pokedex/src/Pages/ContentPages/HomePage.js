@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useQueries } from "@tanstack/react-query";
 import { useOutletContext } from "react-router-dom";
 
-import { filterFnc, filterOnlyLocalValues } from "src/helpers";
+import { filterFnc } from "src/helpers";
 import {
   fetchDataFromPage,
   fetchPokemonQueriesData,
@@ -46,7 +46,15 @@ const HomePage = () => {
     enabled: editedStatus === "success" && searchedValue !== "",
     staleTime: 10 * (60 * 1000),
   });
+
   useEffect(() => {
+    const localData = editedList.map((value) => {
+      const editedObjectList = {
+        name: value,
+        url: `http://localhost:3000/edited/${value}`,
+      };
+      return editedObjectList;
+    });
     pokemons &&
       searchedValue === "" &&
       !showOnlyLocalPokemons &&
@@ -55,8 +63,7 @@ const HomePage = () => {
       searchedValue !== "" &&
       setCreateComponentData(filterFnc(pokemonsToFilter, searchedValue)) &&
       setShowLocalPokemons(false);
-    showOnlyLocalPokemons &&
-      setCreateComponentData(filterOnlyLocalValues(pokemons, editedList));
+    showOnlyLocalPokemons && localData && setCreateComponentData(localData);
   }, [
     pokemons,
     pokemonsToFilter,
@@ -66,28 +73,24 @@ const HomePage = () => {
   ]);
 
   const resultList = createComponentData ? createComponentData : [];
-  console.log({ showOnlyLocalPokemons, resultList });
+  console.log({ resultList });
 
   const pokemonQueries = useQueries({
     queries: resultList?.map(({ name, url }) => {
       return {
         queryKey: ["pokemon", name],
         queryFn: () => fetchPokemonQueriesData(url, editedList, name),
+        staleTime: 10 * (60 * 1000),
       };
     }),
   });
 
-  if (
-    (searchedValue === "" && pokemonsStatus === "loading") ||
-    (searchedValue !== "" && pokemonsToFilterStatus === "loading")
-  )
-    return <Loader />;
+  if (searchedValue === "" && pokemonsStatus === "loading") return <Loader />;
 
   if (pokemonsStatus === "error")
     return <ErrorMsg errorMsg={pokemonsError.message} />;
   if (pokemonsToFilterStatus === "error")
     return <ErrorMsg errorMsg={pokemonsToFilterError.message} />;
-
   return (
     <BasicPokemonLayout>
       {(pokemonsStatus === "success" ||

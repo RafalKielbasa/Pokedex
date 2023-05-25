@@ -14,7 +14,6 @@ const MainPage = () => {
   } = useQuery({
     queryKey: ["editedPokemons"],
     queryFn: () => fetchLocalList("edited"),
-    staleTime: 10 * (60 * 1000),
   });
   const {
     data: favoriteList,
@@ -23,7 +22,6 @@ const MainPage = () => {
   } = useQuery({
     queryKey: ["favorite"],
     queryFn: () => fetchLocalList("favorite"),
-    staleTime: 10 * (60 * 1000),
   });
 
   const [arenaFirstFighter, setArenaFirstFighter] = useState(null);

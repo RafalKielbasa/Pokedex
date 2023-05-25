@@ -7,7 +7,7 @@ import {
 } from "src/api/fetchDataFunctions";
 import { StyledFormField, StyledValidationError } from "src/components";
 import { useOutletContext } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import styled from "styled-components";
 import { enqueueSnackbar } from "notistack";
 import { editValidationSchema } from "src/validationSchemas";
@@ -45,6 +45,7 @@ const StyledButton = styled.button`
   font-size: 24px;
 `;
 const EditPage = () => {
+  const queryClient = useQueryClient();
   const { theme } = useContext(GlobalContext);
   const { editedList, editedStatus } = useOutletContext();
   const { data: pokemonDataToEdit } = useQuery({
@@ -100,6 +101,9 @@ const EditPage = () => {
         editedCreatedPostData(values, values?.name, editedList, action);
         setSubmitting(false);
         setAction(null);
+        queryClient.setQueryData(["editedPokemons"], (prev) =>
+          prev.push(values.name)
+        );
         resetForm({
           abilities: [
             {
