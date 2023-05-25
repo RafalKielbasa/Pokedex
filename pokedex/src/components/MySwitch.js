@@ -18,10 +18,8 @@ const MySwitch = ({ onClickAction, title, checkedValue = false }) => {
   const { theme } = useContext(GlobalContext);
   return (
     <ThemeConatiner theme={theme}>
-      <ThemeName theme={theme} checked={checkedValue}>
-        {title}
-      </ThemeName>
-      <Switch onClick={onClickAction} />
+      <ThemeName theme={theme}>{title}</ThemeName>
+      <Switch onClick={onClickAction} checked={checkedValue} />
     </ThemeConatiner>
   );
 };

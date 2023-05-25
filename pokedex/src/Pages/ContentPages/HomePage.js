@@ -50,29 +50,22 @@ const HomePage = () => {
   });
 
   useEffect(() => {
-    const localData = editedList.map((value) => {
-      const editedObjectList = {
-        name: value,
-        url: `http://localhost:3000/edited/${value}`,
-      };
-      return editedObjectList;
-    });
-    searchedValue === "" &&
-      pokemons &&
-      !showOnlyLocalPokemons &&
-      setCreateComponentData(pokemons);
+    const localData =
+      editedList &&
+      editedList?.map((value) => {
+        const editedObjectList = {
+          name: value,
+          url: `http://localhost:3000/edited/${value}`,
+        };
+        return editedObjectList;
+      });
+    searchedValue === "" && pokemons && !showOnlyLocalPokemons && setCreateComponentData(pokemons);
     searchedValue !== "" &&
       pokemonsToFilter &&
       !showOnlyLocalPokemons &&
       setCreateComponentData(filterFnc(pokemonsToFilter, searchedValue));
     showOnlyLocalPokemons && setCreateComponentData(localData);
-  }, [
-    pokemons,
-    pokemonsToFilter,
-    searchedValue,
-    showOnlyLocalPokemons,
-    editedList,
-  ]);
+  }, [pokemons, pokemonsToFilter, searchedValue, showOnlyLocalPokemons, editedList]);
   useEffect(() => {
     searchedValue !== "" && setShowOnlyLocalPokemons(false);
   }, [setShowOnlyLocalPokemons, searchedValue]);
@@ -90,30 +83,24 @@ const HomePage = () => {
   console.log({ showOnlyLocalPokemons, resultList, pokemonQueries });
   if (searchedValue === "" && pokemonsStatus === "loading") return <Loader />;
 
-  if (pokemonsStatus === "error")
-    return <ErrorMsg errorMsg={pokemonsError.message} />;
+  if (pokemonsStatus === "error") return <ErrorMsg errorMsg={pokemonsError.message} />;
   if (pokemonsToFilterStatus === "error")
     return <ErrorMsg errorMsg={pokemonsToFilterError.message} />;
 
   return (
     <BasicPokemonLayout>
-      {(pokemonsStatus === "success" ||
-        pokemonsToFilterStatus === "success") && (
+      {(pokemonsStatus === "success" || pokemonsToFilterStatus === "success") && (
         <>
           <PageHeader
             checkedValue={showOnlyLocalPokemons}
             handleSearcherChange={(e) => setSearchedValue(e.target.value)}
-            toggleOnlyLocalPokemonsHandle={() =>
-              setShowOnlyLocalPokemons((prev) => !prev)
-            }
+            toggleOnlyLocalPokemonsHandle={() => setShowOnlyLocalPokemons((prev) => !prev)}
           />
           <PokemonCardContainer>
             {pokemonQueries && pokemonQueries?.length > 0 ? (
               pokemonQueries?.map(
                 ({ data, status }) =>
-                  status === "success" && (
-                    <PokemonCard key={data?.id} id={data?.id} value={data} />
-                  )
+                  status === "success" && <PokemonCard key={data?.id} id={data?.id} value={data} />
               )
             ) : (
               <NoMatch />
