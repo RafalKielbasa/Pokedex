@@ -23,21 +23,18 @@ export default function BattleButton({
         setArrayOfModifiedPokemon,
         arenaArray[0]
       );
-      console.log(arrayOfModifiedPokemon);
       setLoser(arenaArray[1]);
     } else if (
       arenaArray[1].base_experience * arenaArray[1].weight >
       arenaArray[0].base_experience * arenaArray[0].weight
     ) {
       setWinner(arenaArray[1]);
-      const modifiedPokemon = arenaArray[1];
-      arenaArray[0].base_experience = arenaArray[1].base_experience + 10;
+      arenaArray[1].base_experience = arenaArray[1].base_experience + 10;
       modifyPokemon(
         arrayOfModifiedPokemon,
         setArrayOfModifiedPokemon,
         arenaArray[1]
       );
-      console.log(arrayOfModifiedPokemon);
       setLoser(arenaArray[0]);
     } else {
       setWinner(0);

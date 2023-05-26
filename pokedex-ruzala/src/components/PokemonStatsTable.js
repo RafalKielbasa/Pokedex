@@ -8,22 +8,22 @@ export default function PokemonStatsTable({ sx, pokemonData }) {
           <TableRow>
             <TableCell>Type(s)</TableCell>
             <TableCell>
-              {pokemonData.data.types.map((element) => (
+              {pokemonData.types.map((element) => (
                 <Box>{element.type.name}</Box>
               ))}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>ID</TableCell>
-            <TableCell>{`#${pokemonData.data.id}`}</TableCell>
+            <TableCell>{`#${pokemonData.id}`}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Weight</TableCell>
-            <TableCell>{pokemonData.data.weight}</TableCell>
+            <TableCell>{pokemonData.weight}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Height</TableCell>
-            <TableCell>{pokemonData.data.height}</TableCell>
+            <TableCell>{pokemonData.height}</TableCell>
           </TableRow>
         </TableBody>
       </Table>
@@ -40,19 +40,19 @@ export default function PokemonStatsTable({ sx, pokemonData }) {
         <TableBody>
           <TableRow>
             <TableCell>Attack</TableCell>
-            <TableCell>{pokemonData.data.stats[1].base_stat}</TableCell>
+            <TableCell>{pokemonData.stats[1].base_stat}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Defence</TableCell>
-            <TableCell>{pokemonData.data.stats[2].base_stat}</TableCell>
+            <TableCell>{pokemonData.stats[2].base_stat}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>HP</TableCell>
-            <TableCell>{pokemonData.data.stats[0].base_stat}</TableCell>
+            <TableCell>{pokemonData.stats[0].base_stat}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Base Experience</TableCell>
-            <TableCell>{pokemonData.data.base_experience}</TableCell>
+            <TableCell>{pokemonData.base_experience}</TableCell>
           </TableRow>
         </TableBody>
       </Table>

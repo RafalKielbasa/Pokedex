@@ -39,7 +39,6 @@ export default function TableProperties({
         )
       );
   };
-  console.log(currentArray);
   const handleItemPerPageChange = (e) => {
     itemsPerPageSetter(e.target.value);
   };
@@ -55,7 +54,6 @@ export default function TableProperties({
           )}`
         );
         setGoToPage((prev) => prev);
-        console.log(goToPage);
       }
     } else {
       setGoToPage(1);

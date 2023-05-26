@@ -1,41 +1,27 @@
 import { Box } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import fetchPokeLinks from "../fetching/fetchPokeLinks";
-import fetchArray from "../fetching/fetchArray";
 import PokemonTile from "../components/PokemonTile";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ArrowButton from "../components/ArrowButton";
 import TableProperties from "../components/TableProperties";
 import fetchData from "../fetching/fetchData";
+import { GlobalContext } from "../App";
 
 const baseURL = process.env.REACT_APP_BASE_URL;
 
 export default function HomePage() {
-  const pokemonLinks = useQuery({
-    queryKey: ["pokemonLinks"],
-    queryFn: () => fetchPokeLinks(),
-    staleTime: 1000000,
-  });
-  const pokemons = useQuery({
-    queryKey: ["pokemons"],
-    queryFn: () => fetchArray(pokemonLinks.data, setCurrentArray),
-    staleTime: 1000000,
-    enabled: pokemonLinks.data ? true : false,
-  });
   const pokeTypes = useQuery({
     queryKey: ["pokeTypes"],
     queryFn: () => fetchData(`${baseURL}type`),
     staleTime: 1000000,
   });
 
-  const [currentArray, setCurrentArray] = useState(
-    pokemons.data ? pokemons.data : undefined
-  );
+  const { pokemons, currentArray, setCurrentArray } = useContext(GlobalContext);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [currentItemsPerPage, setCurrentItemsPerPage] = useState(15);
-
-  if (pokemons.isLoading) {
+  if (!currentArray || pokeTypes.isLoading) {
     return (
       <Box sx={{ position: "relative", height: "100%", width: "100%" }}>
         <CircularProgress
@@ -100,7 +86,7 @@ export default function HomePage() {
             minHeight: "700px",
           }}
         >
-          {pokemons.data &&
+          {currentArray &&
             currentArray.map((element, index) => {
               if (
                 index >=

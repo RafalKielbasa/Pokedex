@@ -14,14 +14,11 @@ export default function Arena() {
   const isLoser = (pokemon) => {
     if (loser) {
       if (pokemon.id === loser.id) {
-        console.log(true);
         return true;
       } else {
-        console.log(false);
         return false;
       }
     } else {
-      console.log(false);
       return false;
     }
   };
@@ -30,7 +27,6 @@ export default function Arena() {
     setWinner(null);
     setLoser(null);
   }, [arenaArray]);
-
   return (
     <Box
       sx={{

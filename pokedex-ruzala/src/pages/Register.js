@@ -17,7 +17,7 @@ export default function Register() {
     axios
       .post("http://localhost:5000/users", { id: usersLength + 1, ...values })
       .then((response) => {
-        console.log(response);
+        console.log("zrobione");
       });
     actions.resetForm();
     enqueueSnackbar("Zarejestrowano pomyślnie! Proszę się zalogować", {

@@ -1,19 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
-import fetchData from "../fetching/fetchData";
 import { useParams, useNavigate } from "react-router-dom";
 import { Box, IconButton } from "@mui/material";
 import { ArrowForwardIos, ArrowBackIos } from "@mui/icons-material";
 import PokemonStatsTable from "../components/PokemonStatsTable";
-
-const baseURL = process.env.REACT_APP_BASE_URL;
+import { GlobalContext } from "../App";
+import { useContext } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function PokemonPreview() {
   const { id } = useParams();
-  const pokemonData = useQuery({
-    queryKey: ["pokemon", id],
-    queryFn: () => fetchData(`${baseURL}pokemon/${id}`),
-    staleTime: 1000000,
-  });
+  const { currentArray } = useContext(GlobalContext);
 
   const baseBoxStyle = {
     display: "flex",
@@ -32,23 +27,38 @@ export default function PokemonPreview() {
   };
   const scaling = 0.8;
   const navigate = useNavigate();
+  if (!currentArray) {
+    return (
+      <Box sx={{ position: "relative", height: "100%", width: "100%" }}>
+        <CircularProgress
+          size={100}
+          color="warning"
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+          }}
+        />
+      </Box>
+    );
+  }
 
   return (
-    pokemonData.data && (
-      <Box sx={{ display: "flex", width: "100%" }}>
-        {pokemonData.data.id > 1 ? (
-          <IconButton
-            color="primary.light"
-            sx={arrowStyle}
-            onClick={() => {
-              navigate(`/pokemon/${Number(id) - 1}`);
-            }}
-          >
-            <ArrowBackIos />
-          </IconButton>
-        ) : (
-          <Box sx={{ width: "5%" }} />
-        )}
+    <Box sx={{ display: "flex", width: "100%" }}>
+      {id > 1 ? (
+        <IconButton
+          color="primary.light"
+          sx={arrowStyle}
+          onClick={() => {
+            navigate(`/pokemon/${Number(id) - 1}`);
+          }}
+        >
+          <ArrowBackIos />
+        </IconButton>
+      ) : (
+        <Box sx={{ width: "5%" }} />
+      )}
+      {currentArray.length > 0 && (
         <Box
           sx={{
             display: "flex",
@@ -60,7 +70,8 @@ export default function PokemonPreview() {
           <Box sx={[baseBoxStyle, { border: "10px double lightblue" }]}>
             <img
               src={
-                pokemonData.data.sprites.other["official-artwork"].front_default
+                currentArray[id - 1].sprites.other["official-artwork"]
+                  .front_default
               }
               height={`${226 * scaling}px`}
               alt="pokemonSprite"
@@ -76,20 +87,23 @@ export default function PokemonPreview() {
             }}
           ></Box>
           <Box sx={[baseBoxStyle, { fontSize: "20px" }]}>
-            {pokemonData.data.name.toUpperCase()}
+            {currentArray[id - 1].name.toUpperCase()}
           </Box>
-          <PokemonStatsTable sx={baseBoxStyle} pokemonData={pokemonData} />
+          <PokemonStatsTable
+            sx={baseBoxStyle}
+            pokemonData={currentArray[id - 1]}
+          />
         </Box>
-        <IconButton
-          color="primary.light"
-          sx={arrowStyle}
-          onClick={() => {
-            navigate(`/pokemon/${Number(id) + 1}`, { replace: true });
-          }}
-        >
-          <ArrowForwardIos />
-        </IconButton>
-      </Box>
-    )
+      )}
+      <IconButton
+        color="primary.light"
+        sx={arrowStyle}
+        onClick={() => {
+          navigate(`/pokemon/${Number(id) + 1}`, { replace: true });
+        }}
+      >
+        <ArrowForwardIos />
+      </IconButton>
+    </Box>
   );
 }

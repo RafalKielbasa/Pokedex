@@ -6,9 +6,6 @@ export default function modifyPokemon(
   if (
     arrayOfModifiedPokemon.some((element) => element.id === modifiedPokemon.id)
   ) {
-    console.log("juz jest");
-    console.log(arrayOfModifiedPokemon);
-    console.log(modifiedPokemon);
     const indexOfModifiedPokemon = arrayOfModifiedPokemon.findIndex(
       (element) => element.id === modifiedPokemon.id
     );
@@ -20,9 +17,6 @@ export default function modifyPokemon(
     );
     setArrayOfModifiedPokemon(newArrayOfModifiedPokemon);
   } else {
-    console.log("jeszcze nie ma");
-    console.log(arrayOfModifiedPokemon);
-    console.log(modifiedPokemon);
     setArrayOfModifiedPokemon([...arrayOfModifiedPokemon, modifiedPokemon]);
   }
 }

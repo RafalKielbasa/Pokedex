@@ -3,7 +3,6 @@ import PokemonTile from "../components/PokemonTile";
 import PokemonTileDummy from "../components/PokemonTileDummy";
 
 const arenaSwitchCase = (setComponentToRender, arrayOfArenaPokemon) => {
-  console.log(arrayOfArenaPokemon.data.length);
   switch (arrayOfArenaPokemon.data.length) {
     case 1:
       setComponentToRender(

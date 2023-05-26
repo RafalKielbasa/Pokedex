@@ -8,10 +8,14 @@ import {
 import MainLayout from "./layouts/MainLayout";
 import { Box } from "@mui/material";
 import { Pokemons, Arena, Favorites, Login, Register, HomePage } from "./pages";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import PokemonPreview from "./pages/PokemonPreview";
 import { SnackbarProvider } from "notistack";
+import { useQuery } from "@tanstack/react-query";
+import fetchPokeLinks from "./fetching/fetchPokeLinks";
+import fetchArray from "./fetching/fetchArray";
+import updateCurrentArray from "./functional/updateCurrentArray";
 
 export const GlobalContext = React.createContext();
 
@@ -20,6 +24,47 @@ function App() {
   const [favoritesArray, setFavoritesArray] = useState([]);
   const [arenaArray, setArenaArray] = useState([]);
   const [arrayOfModifiedPokemon, setArrayOfModifiedPokemon] = useState([]);
+  const [currentArray, setCurrentArray] = useState([]);
+
+  const pokemonLinks = useQuery({
+    queryKey: ["pokemonLinks"],
+    queryFn: () => fetchPokeLinks(),
+    staleTime: 1000000,
+  });
+  const pokemons = useQuery({
+    queryKey: ["pokemons"],
+    queryFn: () => fetchArray(pokemonLinks.data),
+    staleTime: 1000000,
+    enabled: pokemonLinks.data ? true : false,
+  });
+
+  useEffect(() => {
+    const localStoragePokemons = JSON.parse(
+      localStorage.getItem("modifiedPokemon")
+    );
+    if (localStoragePokemons) {
+      if (localStoragePokemons.length > 0) {
+        setArrayOfModifiedPokemon(localStoragePokemons);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (arrayOfModifiedPokemon.length > 0) {
+      localStorage.setItem(
+        "modifiedPokemon",
+        JSON.stringify(arrayOfModifiedPokemon)
+      );
+    }
+  }, [arrayOfModifiedPokemon]);
+
+  useEffect(
+    () =>
+      setCurrentArray(
+        updateCurrentArray(pokemons.data, arrayOfModifiedPokemon)
+      ),
+    [pokemons.data]
+  );
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -47,6 +92,9 @@ function App() {
           setArenaArray,
           arrayOfModifiedPokemon,
           setArrayOfModifiedPokemon,
+          pokemons,
+          currentArray,
+          setCurrentArray,
         }}
       >
         <SnackbarProvider>
