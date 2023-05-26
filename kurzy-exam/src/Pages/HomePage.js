@@ -39,8 +39,6 @@ const HomePage = () => {
   const [inputText, setInputText] = useState();
   const [favorites, setFavorites] = useState([]);
   const [favoritesIds, setFavoritesIds] = useState([]);
-  // const [localResults, setLocalResults] = useState();
-  // const [partialPokemonData, setPartialPokemonData] = useState([]);
   const [fullPokemonData, setFullPokemonData] = useState([]);
   const [expFullPokemonData, setExpFullPokemonData] = useState([]);
   const [fullPokemonDataFiltered, setFullPokemonDataFiltered] = useState([]);
@@ -89,7 +87,7 @@ const HomePage = () => {
       const test2 = favorites
         .concat(test)
         .sort((a, b) => (a.id > b.id ? 1 : -1));
-      console.log(`test2`, test2);
+      // console.log(`test2`, test2);
     }
   }, [fullPokemonData.length < 150, favorites]);
 
@@ -226,6 +224,8 @@ const HomePage = () => {
                   fullPokemonData={fullPokemonData}
                   partialPokemonData={partialPokemonData}
                   fullPokemonDataFiltered={fullPokemonDataFiltered}
+                  favorites={favorites}
+                  favoritesIds={favoritesIds}
                 />
               ))}
             </PokemonWrapper>
@@ -290,6 +290,8 @@ const HomePage = () => {
                 fullPokemonData={fullPokemonData}
                 partialPokemonData={partialPokemonData}
                 fullPokemonDataFiltered={fullPokemonDataFiltered}
+                favorites={favorites}
+                favoritesIds={favoritesIds}
               />
             ))}
           </PokemonWrapper>

@@ -1,8 +1,7 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
 import PokemonCard from "src/Components/PokemonCards";
-import axios from "axios";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -38,29 +37,25 @@ const FavoritesPage = () => {
   const queryFavoritesData = useQuery(["favorites"], () => getFavorites());
   const { data } = queryFavoritesData;
 
-  const favoritesData = data?.data?.map((item) => ({
-    id: item.id,
-    pic: item.pic,
-    name: item.name,
-    height: item.height,
-    baseexp: item.baseexp,
-    weight: item.weight,
-    abilitie: item.abilitie,
-  }));
+  const favorites = data?.data;
+  const favoritesIds = favorites?.map((item) => item.id);
+
+  // console.log(`favorites`, favorites);
+  // console.log(`favoritesIds`, favoritesIds);
+  // console.log(`data`, data);
 
   return (
     <FavoritePageWrapper>
       <PaginationWrapper>
-        <Box component="form" noValidate autoComplete="off">
+        {/* <Box component="form" noValidate autoComplete="off">
           <TextField
             size="small"
             id="outlined-basic"
             label="Search"
             variant="outlined"
-            // onChange={inputHandler}
             sx={{ marginRight: "400px" }}
           />
-        </Box>
+        </Box> */}
 
         <Stack spacing={2}>
           <Pagination
@@ -68,16 +63,14 @@ const FavoritesPage = () => {
             count={1}
             variant="outlined"
             shape="rounded"
-            // onChange={handleChange}
-            // onClick={saveToLocalStorage}
             sx={{ marginBottom: 2 }}
           />
         </Stack>
       </PaginationWrapper>
 
-      {favoritesData ? (
+      {favorites?.length > 0 ? (
         <PokemonWrapper>
-          {favoritesData.map((item, index) => (
+          {favorites.map((item, index) => (
             <PokemonCard
               key={index}
               id={item.id}
@@ -87,9 +80,8 @@ const FavoritesPage = () => {
               baseexp={item.baseexp}
               weight={item.weight}
               abilitie={item.abilitie}
-              favorites={favoritesData}
-
-              // onClick={() => saveToLocalStorage()}
+              favorites={favorites}
+              favoritesIds={favoritesIds}
             />
           ))}
         </PokemonWrapper>
@@ -107,7 +99,6 @@ const FavoritesPage = () => {
             variant="outlined"
             shape="rounded"
             sx={{ marginTop: 2 }}
-            // onChange={handleChange}
           />
         </Stack>
       </PaginationWrapper>

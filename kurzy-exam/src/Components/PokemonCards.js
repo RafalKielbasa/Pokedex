@@ -1,6 +1,5 @@
 import * as React from "react";
 import axios from "axios";
-import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -29,51 +28,18 @@ export default function PokemonCard({
   weight,
   abilitie,
   fullPokemonData,
+  favorites,
+  favoritesIds,
 }) {
   // const [isFavorite, setIsFavorite] = useState(false);
-  const [favorites, setFavorites] = useState([]);
-  const [favoritesIds, setFavoritesIds] = useState([]);
+  // const [favorites, setFavorites] = useState([]);
+  // const [favoritesIds, setFavoritesIds] = useState([]);
 
   const navigate = useNavigate();
   const handleClick = () => {
     const path = "/details";
-    navigate(path, { state: { id, fullPokemonData, favorites } });
+    navigate(path, { state: { id, fullPokemonData, favorites, favoritesIds } });
   };
-
-  const getFavorites = async () => {
-    const response = await axios.get(`http://localhost:3000/favoriteData/`);
-    setFavorites(response.data);
-    const getFavoritesIds = response?.data?.map((item) => item.id);
-    setFavoritesIds(getFavoritesIds);
-  };
-
-  useEffect(() => {
-    getFavorites();
-  }, []);
-
-  useEffect(() => {
-    const getFavoritesIds = favorites?.map((item) => item.id);
-    setFavoritesIds(getFavoritesIds);
-  }, [favorites.length]);
-
-  // useEffect(() => {
-  //   const array = fullPokemonData.filter((fPDelem) => {
-  //     return favoritesIds.some((fIele) => {
-  //       return fPDelem.id === fIele;
-  //     });
-  //   });
-  //   const test = fullPokemonData.filter((n) => !array.includes(n));
-  //   // console.log(`test`, test);
-  //   const test2 = favorites.concat(test).sort((a, b) => (a.id > b.id ? 1 : -1));
-  //   console.log(`test2`, test2);
-  // }, [favorites]);
-
-  // const array = fullPokemonData.map((item) => {
-  //   return favoritesIds.map((fitem) => {
-  //     // console.log(`fitem`, fitem);
-  //     return [item.id].width(fitem);
-  //   });
-  // });
 
   // const fullPokemonDataIds = fullPokemonData?.map((item) => item.id);
   // console.log(`favorites`, favorites);
@@ -93,12 +59,12 @@ export default function PokemonCard({
         abilitie
       );
       // setIsFavorite((isFavorite) => !isFavorite);
-      getFavorites();
+      // getFavorites();
       window.location.reload(false);
     } else {
       axios.delete(`http://localhost:3000/favoriteData/${id}`);
       // setIsFavorite((isFavorite) => !isFavorite);
-      getFavorites();
+      // getFavorites();
       window.location.reload(false);
     }
   };
@@ -204,7 +170,6 @@ export default function PokemonCard({
         >
           <FavIcon
             onClick={() => handleFavorite()}
-            // isFavorite={isFavorite}
             sx={{
               color: favoritesIds.includes(id) ? "red" : "grey",
             }}

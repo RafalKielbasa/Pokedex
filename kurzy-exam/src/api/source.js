@@ -18,3 +18,8 @@ export const getFavorites = async () => {
   const response = await axios.get(`http://localhost:3000/favoriteData/`);
   return response;
 };
+
+export const getBattleResults = async () => {
+  const response = await axios.get(`http://localhost:3000/battle/`);
+  return response;
+};

@@ -35,9 +35,9 @@ const DetailsPage = () => {
   };
 
   // console.log(`fullPokemonData`, fullPokemonData);
-  console.log(`pokemonDataFiltered`, pokemonDataFiltered.length);
-  console.log(`favoritesFiltered`, favoritesFiltered);
-  console.log(`id`, id);
+  // console.log(`pokemonDataFiltered`, pokemonDataFiltered.length);
+  // console.log(`favoritesFiltered`, favoritesFiltered);
+  // console.log(`id`, id);
 
   //
 

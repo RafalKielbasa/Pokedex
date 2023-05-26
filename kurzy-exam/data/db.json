@@ -11,24 +11,26 @@
       "abilitie": "overgrow"
     },
     {
-      "id": 66,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/66.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/66.svg",
-      "name": "machop",
-      "height": 8,
-      "baseexp": 61,
-      "weight": 195,
-      "abilitie": "guts"
+      "id": 49,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/49.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/49.svg",
+      "name": "venomoth",
+      "height": 15,
+      "baseexp": 158,
+      "weight": 125,
+      "abilitie": "shield-dust"
     },
     {
-      "id": 5,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
-      "name": "charmeleon",
-      "height": 11,
-      "baseexp": 142,
-      "weight": 190,
-      "abilitie": "blaze"
+      "id": 123,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/123.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/123.svg",
+      "name": "scyther",
+      "height": 15,
+      "baseexp": 100,
+      "weight": 560,
+      "abilitie": "swarm"
     }
-  ]
+  ],
+  "battle": [],
+  "afterTheBattle": []
 }
