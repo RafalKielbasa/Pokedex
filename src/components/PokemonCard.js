@@ -51,7 +51,7 @@ export const typeColor = (type) => {
 const Card = styled.div`
   border-radius: 6px;
   width: 300px;
-  height: 450px;
+  height: 460px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -84,10 +84,10 @@ const LabelledInput = styled.label`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-top: 5px;
 `;
 
 const PokemonCard = ({ pokemon }) => {
-  //const { addFavorite } = useFavorite();
   const { userData } = useContext(LoginContext);
   const nav = useNavigate();
   const [editablePokemon, setEditablePokemon] = useState(pokemon);
@@ -119,9 +119,8 @@ const PokemonCard = ({ pokemon }) => {
       ],
     };
     setEditablePokemon(updatedPokemon);
-    //
+
     updateFavorite(updatedPokemon);
-    //
 
     localStorage.setItem(editablePokemon.name, JSON.stringify(updatedPokemon));
   };
@@ -168,6 +167,13 @@ const PokemonCard = ({ pokemon }) => {
                 <LabelledInput>
                   HP
                   <input
+                    style={{
+                      background: "transparent",
+                      border: "1px solid black",
+                      borderRadius: "4px",
+                      gap: "2px",
+                      padding: ".2rem",
+                    }}
                     type="number"
                     {...register("hp", { required: "Required" })}
                     defaultValue={editablePokemon.stats[0].base_stat}
@@ -177,6 +183,13 @@ const PokemonCard = ({ pokemon }) => {
                 <LabelledInput>
                   Attack
                   <input
+                    style={{
+                      background: "transparent",
+                      border: "1px solid black",
+                      borderRadius: "4px",
+                      gap: "2px",
+                      padding: ".2rem",
+                    }}
                     type="number"
                     {...register("attack", { required: "Required" })}
                     defaultValue={editablePokemon.stats[1].base_stat}
@@ -186,6 +199,13 @@ const PokemonCard = ({ pokemon }) => {
                 <LabelledInput>
                   Defense
                   <input
+                    style={{
+                      background: "transparent",
+                      border: "1px solid black",
+                      borderRadius: "4px",
+                      gap: "2px",
+                      padding: ".2rem",
+                    }}
                     type="number"
                     {...register("defense", { required: "Required" })}
                     defaultValue={editablePokemon.stats[2].base_stat}

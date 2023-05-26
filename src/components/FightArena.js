@@ -80,7 +80,7 @@ const calculateStats = (pokemon) => {
   pokemon.stats.forEach((stat) => {
     total += stat.base_stat;
   });
-  return total / pokemon.stats.length;
+  return total; // pokemon.stats.length;
 };
 
 const FightArena = () => {

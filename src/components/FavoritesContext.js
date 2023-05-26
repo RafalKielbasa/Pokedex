@@ -36,7 +36,6 @@ export const FavoritesProvider = ({ children }) => {
     setFavorites([]);
     setCount(0);
   };
-
   const updateFavorite = (updatedPokemon) => {
     setFavorites((prev) => {
       const index = prev.findIndex((item) => item.id === updatedPokemon.id);
@@ -45,7 +44,7 @@ export const FavoritesProvider = ({ children }) => {
         newFavorites[index] = updatedPokemon;
         return newFavorites;
       } else {
-        return [...prev, updatedPokemon];
+        return prev;
       }
     });
   };
