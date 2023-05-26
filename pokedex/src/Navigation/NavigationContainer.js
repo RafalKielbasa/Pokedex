@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { Pokedex } from "../img";
 
@@ -30,6 +30,7 @@ const NavButtonWrapper = styled.div`
 
 const NavigationContainer = ({ children }) => {
   const { toggleDarkMode, theme, ActiveBtnHandle } = useContext(GlobalContext);
+  const [checkedValue, setCheckedValue] = useState(false);
   return (
     <NavWrapper theme={theme}>
       <Link to="/">
@@ -42,7 +43,14 @@ const NavigationContainer = ({ children }) => {
         />
       </Link>
       <NavButtonWrapper>{children}</NavButtonWrapper>
-      <MySwitch title={"Dark Theme"} onClickAction={() => toggleDarkMode()} />
+      <MySwitch
+        title={"Dark Theme"}
+        onClickAction={() => {
+          toggleDarkMode();
+          setCheckedValue((prev) => !prev);
+        }}
+        checkedValue={checkedValue}
+      />
     </NavWrapper>
   );
 };

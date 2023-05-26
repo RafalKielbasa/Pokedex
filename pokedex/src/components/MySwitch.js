@@ -18,7 +18,7 @@ const ThemeConatiner = styled.span`
   border-radius: 25px;
   max-width: 320px;
 `;
-const MySwitch = ({ onClickAction, title, checkedValue = false }) => {
+const MySwitch = ({ onClickAction, title, checkedValue }) => {
   const { theme } = useContext(GlobalContext);
   return (
     <ThemeConatiner theme={theme}>

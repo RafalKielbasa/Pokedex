@@ -9,6 +9,7 @@ import { CardImg, CardBoxInfo, HoverCard } from "../cardElements";
 
 import GlobalContext from "src/context/GlobalContext";
 import ArenaCardContainer from "../cardContainers/ArenaCardContainer";
+import BattleStats from "../exlusiveArenaPageComponents/BattleStats";
 
 const ButtonContainer = styled.div`
   width: 100%;
@@ -16,7 +17,14 @@ const ButtonContainer = styled.div`
   align-items: flex-end;
   justify-content: flex-end;
 `;
-const ArenaCard = ({ value, deleteFighter, opacity }) => {
+const ArenaCard = ({
+  value,
+  deleteFighter,
+  opacity,
+  winValue,
+  lossValue,
+  tieValue,
+}) => {
   const dataToPass = value;
   const { theme } = useContext(GlobalContext);
   return (
@@ -36,7 +44,11 @@ const ArenaCard = ({ value, deleteFighter, opacity }) => {
           }}
         >
           <ButtonContainer>
-            <IconButton aria-label="fight" onClick={deleteFighter} sx={{ color: theme.textColor }}>
+            <IconButton
+              aria-label="fight"
+              onClick={deleteFighter}
+              sx={{ color: theme.textColor }}
+            >
               <ClearIcon />
             </IconButton>
           </ButtonContainer>
@@ -44,6 +56,11 @@ const ArenaCard = ({ value, deleteFighter, opacity }) => {
           <CardBoxInfo dataToPass={dataToPass}></CardBoxInfo>
         </Card>
       </HoverCard>
+      <BattleStats
+        winValue={winValue}
+        lossValue={lossValue}
+        tieValue={tieValue}
+      />
     </ArenaCardContainer>
   );
 };

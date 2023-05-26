@@ -103,16 +103,22 @@ const ArenaPage = () => {
     setArenaFirstFighter(null);
     setArenaSecondFighter(null);
   };
+  console.log(firstFighter, firstFighter?.winCount);
   return (
     <ArenaBody theme={theme}>
       <ArenaContainer>
         {firstFighterStatus === "success" && !isFirstPokemonDeleted ? (
           <FightResultCardContainer
+            winValue={firstFighter?.winCount}
+            lossValue={firstFighter?.lossCount}
+            tieValue={firstFighter?.tieCount}
             fighterValue={firstFighter}
             fightResult={fightResult}
             winnerValue={"first"}
             lostValue={"second"}
-            deleteFighter={() => deleteFighter(setArenaFirstFighter, setIsFirstPokemonDeleted)}
+            deleteFighter={() =>
+              deleteFighter(setArenaFirstFighter, setIsFirstPokemonDeleted)
+            }
           />
         ) : (
           <BlankCard value={"Pierwszy Pokemon"} />
@@ -120,11 +126,16 @@ const ArenaPage = () => {
         <img src={VS} alt="VS" width={"250px"} height={"250px"} />
         {secondFighterStatus === "success" && !isSecondPokemonDeleted ? (
           <FightResultCardContainer
+            winValue={secondFighter?.winCount}
+            lossValue={secondFighter?.lossCount}
+            tieValue={secondFighter?.tieCount}
             fighterValue={secondFighter}
             fightResult={fightResult}
             winnerValue={"second"}
             lostValue={"first"}
-            deleteFighter={() => deleteFighter(setArenaSecondFighter, setIsSecondPokemonDeleted)}
+            deleteFighter={() =>
+              deleteFighter(setArenaSecondFighter, setIsSecondPokemonDeleted)
+            }
           />
         ) : (
           <BlankCard value={"Drugi Pokemon"} />

@@ -19,3 +19,4 @@ export { default as FightActionButtons } from "./exlusiveArenaPageComponents/Fig
 export { default as FightResultCardContainer } from "./exlusiveArenaPageComponents/FightResultCardContainer";
 export { default as PageHeader } from "./ExlusiveHomePageComponents/PageHeader";
 export { default as ConditionalNavbarBtn } from "./ConditionalNavbarBtn";
+export { default as BattleStats } from "./exlusiveArenaPageComponents/BattleStats";

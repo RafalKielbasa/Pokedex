@@ -6,16 +6,52 @@ const FightResultCardContainer = ({
   lostValue,
   deleteFighter,
   fighterValue,
+  winValue,
+  lossValue,
+  tieValue,
 }) => {
   switch (fightResult) {
     case winnerValue:
-      return <WinnerCard value={fighterValue} deleteFighter={deleteFighter} />;
+      return (
+        <WinnerCard
+          value={fighterValue}
+          deleteFighter={deleteFighter}
+          winValue={winValue}
+          lossValue={lossValue}
+          tieValue={tieValue}
+        />
+      );
     case lostValue:
-      return <ArenaCard value={fighterValue} deleteFighter={deleteFighter} opacity={0.5} />;
+      return (
+        <ArenaCard
+          value={fighterValue}
+          deleteFighter={deleteFighter}
+          winValue={winValue}
+          lossValue={lossValue}
+          tieValue={tieValue}
+          opacity={0.5}
+        />
+      );
     case "tie":
-      return <ArenaCard value={fighterValue} deleteFighter={deleteFighter} />;
+      return (
+        <ArenaCard
+          value={fighterValue}
+          deleteFighter={deleteFighter}
+          winValue={winValue}
+          lossValue={lossValue}
+          tieValue={tieValue}
+        />
+      );
     case "":
-      return <ArenaCard value={fighterValue} deleteFighter={deleteFighter} />;
+      return (
+        <ArenaCard
+          value={fighterValue}
+          deleteFighter={deleteFighter}
+          winValue={winValue}
+          lossValue={lossValue}
+          tieValue={tieValue}
+        />
+      );
     default:
       return <div></div>;
   }
