@@ -24,3 +24,4 @@ export { default as StyledSubmitButton } from "./formComponents/StyledSubmitButt
 export { default as FormContainer } from "./formComponents/FormContainer";
 export { default as FormHeader } from "./formComponents/FormHeader";
 export { default as FormInfo } from "./formComponents/FormInfo";
+export { default as SelectPokemon } from "./formComponents/SelectPokemon";

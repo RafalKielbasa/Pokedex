@@ -10,6 +10,7 @@ import {
   StyledSubmitButton,
   FormContainer,
   FormHeader,
+  SelectPokemon,
 } from "src/components";
 import { useOutletContext } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -99,21 +100,10 @@ const EditPage = () => {
       {({ isSubmitting, values }) => (
         <FormContainer>
           <FormHeader value={"Wybierz pokemona do edycji/ lub stwórz nowego"} />
-          <select
-            name="chooseEditPokemon"
-            type="text"
-            defaultValue={""}
-            onChange={(e) => setChosedPokemon(e.target.value)}
-          >
-            <>
-              <option value=""></option>
-              {pokemonDataToEdit?.map((name, index) => (
-                <option key={index} value={name}>
-                  {name}
-                </option>
-              ))}
-            </>
-          </select>
+          <SelectPokemon
+            pokemonDataToEdit={pokemonDataToEdit}
+            setChosedPokemon={setChosedPokemon}
+          />
           <Form>
             <MyTextField name="name" label="Nazwa Pokemona" type="text" />
             <MyTextField
