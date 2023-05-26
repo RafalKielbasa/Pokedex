@@ -9,6 +9,7 @@ import PokemonCard from "../Components/PokemonCards";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { getFullResults } from "src/api/source";
+import { getFavorites } from "src/api/source";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -37,6 +38,8 @@ const HomePage = () => {
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
   const [inputText, setInputText] = useState();
+  const [favorites, setFavorites] = useState([]);
+  const [favoritesIds, setFavoritesIds] = useState([]);
   // const [localResults, setLocalResults] = useState();
   // const [partialPokemonData, setPartialPokemonData] = useState([]);
   const [fullPokemonData, setFullPokemonData] = useState([]);
@@ -45,9 +48,19 @@ const HomePage = () => {
 
   const queryFullData = useQuery([`/`], () => getFullResults());
 
-  // console.log(`fullPokemonData`, fullPokemonData);
-  // console.log(`fullPokemonData`, fullPokemonData);
-  // console.log(`offset`, offset);
+  const getFavorites = async () => {
+    const response = await axios.get(`http://localhost:3000/favoriteData/`);
+    setFavorites(response.data);
+    const getFavoritesIds = response?.data?.map((item) => item.id);
+    setFavoritesIds(getFavoritesIds);
+  };
+
+  useEffect(() => {
+    getFavorites();
+  }, []);
+
+  // console.log(`favorites`, favorites);
+  // console.log(`favoritesIds`, favoritesIds);
 
   useEffect(() => {
     async function getPokemonData() {
@@ -83,6 +96,11 @@ const HomePage = () => {
     const textFieldText = event.target.value.toLowerCase();
     setInputText(textFieldText);
   };
+
+  // const array = fullPokemonData?.toSpliced(favoritesIds - 1, 1);
+
+  // console.log(`favoritesIds`, favoritesIds);
+  // console.log(`array`, array);
 
   // if (fullPokemonData) {
   //   const dataToFavorite = fullPokemonData.map((item) => ({

@@ -1,16 +1,6 @@
 {
   "favoriteData": [
     {
-      "id": 1,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
-      "name": "bulbasaur",
-      "height": 7,
-      "baseexp": 64,
-      "weight": 69,
-      "abilitie": "overgrow"
-    },
-    {
       "id": 3,
       "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
       "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
@@ -21,14 +11,24 @@
       "abilitie": "overgrow"
     },
     {
-      "id": 6,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/6.svg",
-      "name": "charizard",
-      "height": 17,
-      "baseexp": 267,
-      "weight": 905,
-      "abilitie": "blaze"
+      "id": 2,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
+      "name": "ivysaur",
+      "height": 10,
+      "baseexp": 142,
+      "weight": 130,
+      "abilitie": "overgrow"
+    },
+    {
+      "id": 66,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/66.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/66.svg",
+      "name": "machop",
+      "height": 8,
+      "baseexp": 61,
+      "weight": 195,
+      "abilitie": "guts"
     }
   ]
 }

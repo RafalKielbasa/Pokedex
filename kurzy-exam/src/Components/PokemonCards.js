@@ -62,8 +62,18 @@ export default function PokemonCard({
         return fPDelem.id === fIele;
       });
     });
-    // const test = fullPokemonData.splice(array);
+    const test = fullPokemonData.filter((n) => !array.includes(n));
     // console.log(`test`, test);
+    const test2 = favorites.concat(test).sort((a, b) => (a.id > b.id ? 1 : -1));
+    console.log(`test2`, test2);
+    // const A = [1, 4, 3, 2];
+    // const B = [0, 2, 1, 2];
+    // console.log(
+    //   `tu`,
+    //   A.filter((n) => !B.includes(n))
+    // );
+    // const test = fullPokemonData.splice(array);
+
     // console.log(`array`, array);
   }, [favorites]);
 
