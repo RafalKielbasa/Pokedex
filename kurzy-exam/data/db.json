@@ -1,16 +1,6 @@
 {
   "favoriteData": [
     {
-      "id": 3,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
-      "name": "venusaur",
-      "height": 20,
-      "baseexp": 263,
-      "weight": 1000,
-      "abilitie": "overgrow"
-    },
-    {
       "id": 2,
       "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
       "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
@@ -29,6 +19,16 @@
       "baseexp": 61,
       "weight": 195,
       "abilitie": "guts"
+    },
+    {
+      "id": 5,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
+      "name": "charmeleon",
+      "height": 11,
+      "baseexp": 142,
+      "weight": 190,
+      "abilitie": "blaze"
     }
   ]
 }

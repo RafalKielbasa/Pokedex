@@ -9,7 +9,6 @@ import PokemonCard from "../Components/PokemonCards";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { getFullResults } from "src/api/source";
-import { getFavorites } from "src/api/source";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -78,12 +77,21 @@ const HomePage = () => {
     getPokemonData();
   }, [queryFullData.status === "success", page]);
 
-  // const queryData = queryFullData?.data?.map((item, index) => ({
-  //   name: item.name,
-  //   id: index + 1,
-  //   favorite: false,
-  //   battle: false,
-  // }));
+  useEffect(() => {
+    if (fullPokemonData.length === 150) {
+      const array = fullPokemonData.filter((fPDelem) => {
+        return favoritesIds.some((fIele) => {
+          return fPDelem.id === fIele;
+        });
+      });
+      const test = fullPokemonData.filter((n) => !array.includes(n));
+      // console.log(`test`, test);
+      const test2 = favorites
+        .concat(test)
+        .sort((a, b) => (a.id > b.id ? 1 : -1));
+      console.log(`test2`, test2);
+    }
+  }, [fullPokemonData.length < 150, favorites]);
 
   fullPokemonData.length > 150 ? window.location.reload() : {};
 

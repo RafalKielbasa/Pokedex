@@ -20,7 +20,6 @@ export const router = createBrowserRouter([
         path: "/",
         element: <HomePage />,
         loader: () => getFullResults(),
-        loader: () => getFavorites(),
       },
       {
         path: "favorites",

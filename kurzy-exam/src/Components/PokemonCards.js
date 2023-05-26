@@ -56,26 +56,17 @@ export default function PokemonCard({
     setFavoritesIds(getFavoritesIds);
   }, [favorites.length]);
 
-  useEffect(() => {
-    const array = fullPokemonData.filter((fPDelem) => {
-      return favoritesIds.some((fIele) => {
-        return fPDelem.id === fIele;
-      });
-    });
-    const test = fullPokemonData.filter((n) => !array.includes(n));
-    // console.log(`test`, test);
-    const test2 = favorites.concat(test).sort((a, b) => (a.id > b.id ? 1 : -1));
-    console.log(`test2`, test2);
-    // const A = [1, 4, 3, 2];
-    // const B = [0, 2, 1, 2];
-    // console.log(
-    //   `tu`,
-    //   A.filter((n) => !B.includes(n))
-    // );
-    // const test = fullPokemonData.splice(array);
-
-    // console.log(`array`, array);
-  }, [favorites]);
+  // useEffect(() => {
+  //   const array = fullPokemonData.filter((fPDelem) => {
+  //     return favoritesIds.some((fIele) => {
+  //       return fPDelem.id === fIele;
+  //     });
+  //   });
+  //   const test = fullPokemonData.filter((n) => !array.includes(n));
+  //   // console.log(`test`, test);
+  //   const test2 = favorites.concat(test).sort((a, b) => (a.id > b.id ? 1 : -1));
+  //   console.log(`test2`, test2);
+  // }, [favorites]);
 
   // const array = fullPokemonData.map((item) => {
   //   return favoritesIds.map((fitem) => {
