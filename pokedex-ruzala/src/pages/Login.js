@@ -20,6 +20,10 @@ export default function Login() {
         user.userName === values.userName && user.password === values.password
     );
     setLoginState(isRegistered);
+    localStorage.setItem(
+      "user",
+      JSON.stringify({ userName: values.userName, password: values.password })
+    );
     if (isRegistered) {
       enqueueSnackbar("Zalogowano pomyślnie!", { variant: "success" });
       navigate("/");

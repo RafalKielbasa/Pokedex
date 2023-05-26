@@ -5,3 +5,4 @@ Milestone commits:
 - working search: f019749e15f4232a0f67e15e078f3d816750f47c
 - working register and login: add75c1fa486f09a2ad242b34a8083957813cb2d
 - working arena without pokemon stat modification: 2a0b4db4b49235e909c68034ff8e8e01e032ebeb
+- working stat modification after arena fight: 41bfc8b5fd5bdb2e75c593c95c845348bc49c029

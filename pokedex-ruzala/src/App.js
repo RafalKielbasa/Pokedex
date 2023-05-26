@@ -16,6 +16,7 @@ import { useQuery } from "@tanstack/react-query";
 import fetchPokeLinks from "./fetching/fetchPokeLinks";
 import fetchArray from "./fetching/fetchArray";
 import updateCurrentArray from "./functional/updateCurrentArray";
+import verifyLoginState from "./fetching/verifyLoginState";
 
 export const GlobalContext = React.createContext();
 
@@ -47,6 +48,7 @@ function App() {
         setArrayOfModifiedPokemon(localStoragePokemons);
       }
     }
+    verifyLoginState(setLoginState);
   }, []);
 
   useEffect(() => {

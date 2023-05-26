@@ -75,6 +75,7 @@ export default function NavBar() {
           <Button
             onClick={() => {
               setLoginState(false);
+              localStorage.removeItem("user");
             }}
           >
             Wyloguj
