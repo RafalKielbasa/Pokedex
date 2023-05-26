@@ -1,49 +1,23 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Form, Formik, Field, ErrorMessage } from "formik";
+import React, { useEffect, useState } from "react";
+import { Form, Formik } from "formik";
 import { editedCreatedPostData } from "src/api/postDataFunctions";
-import { fetchPokemonNamesList, fetchOnePokemon } from "src/api/fetchDataFunctions";
-import { StyledFormField, StyledValidationError } from "src/components";
+import {
+  fetchPokemonNamesList,
+  fetchOnePokemon,
+} from "src/api/fetchDataFunctions";
+import {
+  MyTextField,
+  StyledSubmitButton,
+  FormContainer,
+  FormHeader,
+} from "src/components";
 import { useOutletContext } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import styled from "styled-components";
 import { enqueueSnackbar } from "notistack";
 import { editValidationSchema } from "src/validationSchemas";
-import GlobalContext from "src/context/GlobalContext";
-const FormRowContainer = styled.div`
-  display: flex;
-  width: 600px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 10px;
-`;
-const FormHeader = styled.h1`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-`;
-const FormContainer = styled.div`
-  min-height: 83vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: url(${(prop) => prop.theme.bgColor});
-  color: ${(prop) => prop.theme.textColor};
-`;
-const StyledButton = styled.button`
-  margin-top: 30px;
-  margin-bottom: 15px;
-  width: 45%;
-  height: 12%;
-  font-size: 24px;
-`;
+
 const EditPage = () => {
   const queryClient = useQueryClient();
-  const { theme } = useContext(GlobalContext);
   const { editedList, editedStatus } = useOutletContext();
   const { data: pokemonDataToEdit } = useQuery({
     queryKey: ["AllPokemonsNamesList"],
@@ -75,7 +49,8 @@ const EditPage = () => {
   });
   useEffect(() => {
     if (status === "success" && chosedPokemon !== "") {
-      const { abilities, base_experience, height, id, name, sprites, weight } = detailPokemon;
+      const { abilities, base_experience, height, id, name, sprites, weight } =
+        detailPokemon;
       setInitialValues({
         abilities,
         base_experience,
@@ -97,7 +72,10 @@ const EditPage = () => {
         editedCreatedPostData(values, values?.name, editedList, action);
         setSubmitting(false);
         setAction(null);
-        queryClient.setQueryData(["editedPokemons"], (prev) => [...prev, values?.name]);
+        queryClient.setQueryData(["editedPokemons"], (prev) => [
+          ...prev,
+          values?.name,
+        ]);
         resetForm({
           abilities: [
             {
@@ -119,85 +97,66 @@ const EditPage = () => {
       }}
     >
       {({ isSubmitting, values }) => (
-        <FormContainer theme={theme}>
-          <FormHeader>
-            <label htmlFor="chooseEditPokemon">Wybierz pokemona do edycji/ lub stwórz nowego</label>
-            <select
-              name="chooseEditPokemon"
-              type="text"
-              defaultValue={""}
-              onChange={(e) => setChosedPokemon(e.target.value)}
-            >
-              <>
-                <option value=""></option>
-                {pokemonDataToEdit?.map((name, index) => (
-                  <option key={index} value={name}>
-                    {name}
-                  </option>
-                ))}
-              </>
-            </select>
-          </FormHeader>
+        <FormContainer>
+          <FormHeader value={"Wybierz pokemona do edycji/ lub stwórz nowego"} />
+          <select
+            name="chooseEditPokemon"
+            type="text"
+            defaultValue={""}
+            onChange={(e) => setChosedPokemon(e.target.value)}
+          >
+            <>
+              <option value=""></option>
+              {pokemonDataToEdit?.map((name, index) => (
+                <option key={index} value={name}>
+                  {name}
+                </option>
+              ))}
+            </>
+          </select>
           <Form>
-            <FormRowContainer>
-              <label htmlFor="name">Nazwa Pokemona</label>
-              <Field name="name" type="text" value={values?.name} as={StyledFormField}></Field>
-              <ErrorMessage name="name" component={StyledValidationError} />
-            </FormRowContainer>
-            <FormRowContainer>
-              <label htmlFor="base_experience">Doświadczenie bazowe</label>
-              <Field
-                name="base_experience"
-                type="number"
-                value={values?.base_experience}
-                as={StyledFormField}
-              ></Field>
-              <ErrorMessage name="base_experience" component={StyledValidationError} />
-            </FormRowContainer>
-            <FormRowContainer>
-              <label htmlFor="abilities">Ability name</label>
-              <Field
-                name="abilities[0].ability.name"
-                type="text"
-                value={values?.abilities[0]?.ability?.name}
-                as={StyledFormField}
-              />
-              <ErrorMessage name="abilities[0].ability.name" component={StyledValidationError} />
-            </FormRowContainer>
-            <FormRowContainer>
-              <label htmlFor="height">Wysokość pokemona</label>
-              <Field name="height" type="number" as={StyledFormField} />
-              <ErrorMessage name="height" />
-            </FormRowContainer>
-            <FormRowContainer>
-              <label htmlFor="weight">Waga Pokemona</label>
-              <Field name="weight" type="number" as={StyledFormField} />
-              <ErrorMessage name="weight" component={StyledValidationError} />
-            </FormRowContainer>
-            <FormRowContainer>
-              <StyledButton
-                type="submit"
-                onClick={() => setAction("edit")}
-                disabled={
-                  values?.name === "" ||
-                  isSubmitting ||
-                  (values?.name !== "" && !pokemonDataToEdit.includes(values?.name))
-                }
-              >
-                Edytuj Pokemona
-              </StyledButton>
-              <StyledButton
-                type="submit"
-                onClick={() => setAction("create")}
-                disabled={
-                  values?.name === "" ||
-                  isSubmitting ||
-                  (values?.name !== "" && pokemonDataToEdit.includes(values?.name))
-                }
-              >
-                Stwórz Nowego Pokemona
-              </StyledButton>
-            </FormRowContainer>
+            <MyTextField name="name" label="Nazwa Pokemona" type="text" />
+            <MyTextField
+              name="base_experience"
+              label="Doświadczenie bazowe"
+              type="number"
+            />
+            <MyTextField
+              name="abilities[0].ability.name"
+              label="Nazwa umiejętności"
+              type="text"
+            />
+            <MyTextField
+              name="height"
+              label="Wysokość pokemona"
+              type="number"
+            />
+            <MyTextField
+              name="height"
+              label="Wysokość pokemona"
+              type="number"
+            />
+            <MyTextField name="weight" label="Waga pokemona" type="number" />
+            <StyledSubmitButton
+              value={"Edytuj Pokemona"}
+              disableConditions={
+                values?.name === "" ||
+                isSubmitting ||
+                (values?.name !== "" &&
+                  !pokemonDataToEdit.includes(values?.name))
+              }
+              onClickActionsOtherThanSubmit={() => setAction("edit")}
+            />
+            <StyledSubmitButton
+              value={"Stwórz Nowego Pokemona"}
+              disableConditions={
+                values?.name === "" ||
+                isSubmitting ||
+                (values?.name !== "" &&
+                  pokemonDataToEdit.includes(values?.name))
+              }
+              onClickActionsOtherThanSubmit={() => setAction("create")}
+            />
           </Form>
         </FormContainer>
       )}

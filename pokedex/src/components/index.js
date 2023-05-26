@@ -9,8 +9,6 @@ export { default as BlankCard } from "./cards/BlankCard";
 export { default as BasicPokemonLayout } from "./layouts/BasicPokemonLayout";
 export { default as Loader } from "./loaders/Loader";
 export { default as ErrorMsg } from "./loaders/ErrorMsg";
-export { default as StyledValidationError } from "./formComponents/StyledValidationError";
-export { default as StyledFormField } from "./formComponents/StyledFormField";
 export { default as ArenaCard } from "./cards/ArenaCard";
 export { default as MySwitch } from "./MySwitch";
 export { default as ArenaCardContainer } from "./cardContainers/ArenaCardContainer";
@@ -20,3 +18,9 @@ export { default as FightResultCardContainer } from "./exlusiveArenaPageComponen
 export { default as PageHeader } from "./ExlusiveHomePageComponents/PageHeader";
 export { default as ConditionalNavbarBtn } from "./ConditionalNavbarBtn";
 export { default as BattleStats } from "./exlusiveArenaPageComponents/BattleStats";
+export { default as MyTextField } from "./formComponents/MyTextField";
+export { default as FormRowContainer } from "./formComponents/FormRowContainer";
+export { default as StyledSubmitButton } from "./formComponents/StyledSubmitButton";
+export { default as FormContainer } from "./formComponents/FormContainer";
+export { default as FormHeader } from "./formComponents/FormHeader";
+export { default as FormInfo } from "./formComponents/FormInfo";
