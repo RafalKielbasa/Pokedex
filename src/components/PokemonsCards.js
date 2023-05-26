@@ -31,7 +31,6 @@ const Select = styled.select`
 `;
 
 const Wrapper = styled.body`
-  background-color: ${(props) => (props.theme ? "papayawhip" : "black")};
   height: 100vh;
 `;
 
@@ -76,7 +75,11 @@ const PokemonsCards = () => {
 
   return (
     <>
-      <Wrapper theme={theme}>
+      <Wrapper
+        style={{
+          backgroundColor: theme ? "#720e9e" : "papayawhip",
+        }}
+      >
         <SelectWrapper>
           <Select onChange={handleChangeType}>
             <option value="">choose your type...</option>

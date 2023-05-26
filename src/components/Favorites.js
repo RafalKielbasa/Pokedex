@@ -5,6 +5,7 @@ import FavoriteCard from "./FavoriteCard";
 import { SearchContext } from "./SearchContext";
 import { Modal, Header, Button, Icon, Message } from "semantic-ui-react";
 import { FightArenaContext } from "./FightArenaContext";
+import { ThemeContext } from "./ThemeContext";
 
 const FavoritesGrid = styled.div`
   display: flex;
@@ -25,6 +26,7 @@ const ButtonContainer = styled.div`
 const Favorites = () => {
   const { favorites } = useContext(FavoriteContext);
   const { search } = useContext(SearchContext);
+  const { theme } = useContext(ThemeContext);
   const { removeAll } = useFavorite();
   const [openModal, setOpenModal] = useState(false);
   const { error, closeError, alert, closeAlert } =

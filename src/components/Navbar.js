@@ -50,7 +50,7 @@ export const Navbar = () => {
       <div
         className="ui tiny menu"
         style={{
-          backgroundColor: theme ? "black" : "papayawhip",
+          backgroundColor: theme ? "#720e9e	" : "papayawhip",
           color: theme ? "white" : "black",
           borderRadius: "0px",
         }}
@@ -63,7 +63,7 @@ export const Navbar = () => {
             width: "70px",
             height: "70px",
             marginRight: "10px",
-            backgroundColor: theme ? "black" : "papayawhip",
+            backgroundColor: theme ? "#720e9e" : "papayawhip",
           }}
         />
 
@@ -154,3 +154,7 @@ export const Navbar = () => {
     </div>
   );
 };
+
+{
+  /*"#8A2BE2	"*/
+}

@@ -49,23 +49,16 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-const Info = styled.h2`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-`;
-
-///
-
 const DefeatedCardStyle = css`
   opacity: 0.5;
   filter: grayscale(100%);
 `;
 
-///
-
 const CardShadow = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   margin: 10px;
   border-radius: 6px;
   width: 300px;
@@ -75,12 +68,13 @@ const CardShadow = styled.div`
   filter: grayscale(100%);
   background-color: lightgray;
 `;
+
 const calculateStats = (pokemon) => {
   let total = 0;
   pokemon.stats.forEach((stat) => {
     total += stat.base_stat;
   });
-  return total; // pokemon.stats.length;
+  return total;
 };
 
 const FightArena = () => {
@@ -128,8 +122,8 @@ const FightArena = () => {
       </Header>
       {fightArena.length === 0 ? (
         <Wrapper>
-          <CardShadow />
-          <CardShadow />
+          <CardShadow>Empty slot</CardShadow>
+          <CardShadow>Empty slot</CardShadow>
         </Wrapper>
       ) : (
         <Wrapper>

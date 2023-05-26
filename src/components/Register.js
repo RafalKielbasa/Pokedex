@@ -11,12 +11,14 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Person from "@mui/icons-material/Person";
 import Mail from "@mui/icons-material/Mail";
+import { ThemeContext } from "./ThemeContext";
 
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+  //margin-top: 30px;
+  height: 100vh;
 `;
 
 const FormWraper = styled.form`
@@ -71,6 +73,7 @@ const Register = () => {
   const { userData } = useContext(LoginContext);
   const nav = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const { theme } = useContext(ThemeContext);
 
   const handleRegistration = (data) => {
     const { confirmPassword, ...user } = data;
@@ -83,7 +86,11 @@ const Register = () => {
       {userData ? (
         <Info>{`You are already logg ${userData.name}`}</Info>
       ) : (
-        <Wrapper>
+        <Wrapper
+          style={{
+            backgroundColor: theme ? "#720e9e" : "papayawhip",
+          }}
+        >
           <FormWraper onSubmit={handleSubmit(handleRegistration)}>
             <TextField
               type="text"

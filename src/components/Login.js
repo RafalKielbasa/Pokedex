@@ -1,15 +1,15 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-//import { Input, Button } from "@mui/material";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginContext } from "./LoginContext";
-import Person from "@mui/icons-material/Person";
 import Mail from "@mui/icons-material/Mail";
 import { TextField, IconButton, InputAdornment } from "@mui/material";
-import { Input, Button, Icon } from "@mui/material";
+import { Button } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const Wrapper = styled.div`
   display: flex;
@@ -29,8 +29,17 @@ const FormWraper = styled.form`
   padding: 2rem;
 `;
 
+const schema = yup.object().shape({
+  email: yup.string().required("Email is required"),
+  password: yup.string().required("Password is required"),
+});
+
 const Login = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
   const { setUserData } = useContext(LoginContext);
   const nav = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -60,6 +69,7 @@ const Login = () => {
             ),
           }}
         />
+        {errors.email && <p>{errors.email.message}</p>}
         <TextField
           type={showPassword ? "text" : "password"}
           placeholder="Password"
@@ -77,6 +87,8 @@ const Login = () => {
             ),
           }}
         />
+        {errors.password && <p>{errors.password.message}</p>}
+
         <Button type="submit">Login</Button>
         <Link to="/register">Don't have account ? Register Now</Link>
       </FormWraper>
