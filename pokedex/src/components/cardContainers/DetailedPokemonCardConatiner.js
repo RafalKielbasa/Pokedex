@@ -12,9 +12,7 @@ margin-bottom 30px;
 
 const DetailedPokemonCardConatiner = ({ children }) => {
   const { theme } = useContext(GlobalContext);
-  return (
-    <MyDetailedCardContaner theme={theme}>{children}</MyDetailedCardContaner>
-  );
+  return <MyDetailedCardContaner theme={theme}>{children}</MyDetailedCardContaner>;
 };
 
 export default DetailedPokemonCardConatiner;
