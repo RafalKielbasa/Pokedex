@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
-import PokemonCard from "../Components/PokemonCards";
+import PokemonCard, { BlankPokemonCard } from "../Components/PokemonCards";
 import { useQuery } from "react-query";
 import { useEffect, useState } from "react";
 import { getFavorites } from "src/api/source";
@@ -81,6 +81,7 @@ const ArenaPage = () => {
           WALCZ !
         </Button>
       </Stack>
+      <BlankPokemonCard />
     </>
   );
 };

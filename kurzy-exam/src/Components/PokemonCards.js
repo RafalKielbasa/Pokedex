@@ -11,6 +11,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { GiCrossedSwords } from "react-icons/gi";
 import { CardActionArea } from "@mui/material";
 import { postData } from "src/api/postData";
+import { bawpikachu } from "src/Images";
 
 const CardsWrapper = styled.div`
   margin: 20px;
@@ -214,6 +215,40 @@ export default function PokemonCard({
             }}
           />
         </CardActions>
+      </Card>
+    </CardsWrapper>
+  );
+}
+export function BlankPokemonCard() {
+  return (
+    <CardsWrapper>
+      <Card
+        sx={{
+          width: 320,
+          height: 400,
+        }}
+      >
+        <CardContent
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: "40px",
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+            variant="body2"
+            color="text.secondary"
+          >
+            Miejsce na walczącego pokemona
+          </Typography>
+          <img sx={{ marginBottom: "10px" }} src={bawpikachu} alt={"picture"} />
+        </CardContent>
       </Card>
     </CardsWrapper>
   );
