@@ -1,36 +1,57 @@
 {
   "favoriteData": [
     {
-      "id": 2,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
-      "name": "ivysaur",
+      "id": 15,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/15.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/15.svg",
+      "name": "beedrill",
       "height": 10,
-      "baseexp": 142,
-      "weight": 130,
-      "abilitie": "overgrow"
-    },
-    {
-      "id": 49,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/49.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/49.svg",
-      "name": "venomoth",
-      "height": 15,
-      "baseexp": 158,
-      "weight": 125,
-      "abilitie": "shield-dust"
-    },
-    {
-      "id": 123,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/123.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/123.svg",
-      "name": "scyther",
-      "height": 15,
-      "baseexp": 100,
-      "weight": 560,
+      "baseexp": 178,
+      "weight": 295,
       "abilitie": "swarm"
+    },
+    {
+      "id": 62,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/62.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/62.svg",
+      "name": "poliwrath",
+      "height": 13,
+      "baseexp": 255,
+      "weight": 540,
+      "abilitie": "water-absorb"
+    },
+    {
+      "id": 144,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/144.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/144.svg",
+      "name": "articuno",
+      "height": 17,
+      "baseexp": 290,
+      "weight": 554,
+      "abilitie": "pressure"
     }
   ],
-  "battle": [],
+  "battle": [
+    {
+      "id": 62,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/62.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/62.svg",
+      "name": "poliwrath",
+      "height": 13,
+      "baseexp": 255,
+      "weight": 540,
+      "abilitie": "water-absorb"
+    },
+    {
+      "id": 74,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/74.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/74.svg",
+      "name": "geodude",
+      "height": 4,
+      "baseexp": 60,
+      "weight": 200,
+      "abilitie": "rock-head"
+    }
+  ],
   "afterTheBattle": []
 }

@@ -39,6 +39,8 @@ const HomePage = () => {
   const [inputText, setInputText] = useState();
   const [favorites, setFavorites] = useState([]);
   const [favoritesIds, setFavoritesIds] = useState([]);
+  const [battle, setBattle] = useState([]);
+  const [battleIds, setBattleIds] = useState([]);
   const [fullPokemonData, setFullPokemonData] = useState([]);
   const [expFullPokemonData, setExpFullPokemonData] = useState([]);
   const [fullPokemonDataFiltered, setFullPokemonDataFiltered] = useState([]);
@@ -56,8 +58,19 @@ const HomePage = () => {
     getFavorites();
   }, []);
 
-  // console.log(`favorites`, favorites);
-  // console.log(`favoritesIds`, favoritesIds);
+  const getBattle = async () => {
+    const response = await axios.get(`http://localhost:3000/battle/`);
+    setBattle(response.data);
+    const getBattleIds = response?.data?.map((item) => item.id);
+    setBattleIds(getBattleIds);
+  };
+
+  useEffect(() => {
+    getBattle();
+  }, []);
+
+  // console.log(`battle`, battle);
+  // console.log(`battleIds`, battleIds);
 
   useEffect(() => {
     async function getPokemonData() {
@@ -82,12 +95,12 @@ const HomePage = () => {
           return fPDelem.id === fIele;
         });
       });
-      const test = fullPokemonData.filter((n) => !array.includes(n));
+      const filterFPD = fullPokemonData.filter((n) => !array.includes(n));
       // console.log(`test`, test);
-      const test2 = favorites
-        .concat(test)
+      const getExpFPD = favorites
+        .concat(filterFPD)
         .sort((a, b) => (a.id > b.id ? 1 : -1));
-      // console.log(`test2`, test2);
+      setExpFullPokemonData(getExpFPD);
     }
   }, [fullPokemonData.length < 150, favorites]);
 
@@ -226,6 +239,8 @@ const HomePage = () => {
                   fullPokemonDataFiltered={fullPokemonDataFiltered}
                   favorites={favorites}
                   favoritesIds={favoritesIds}
+                  battle={battle}
+                  battleIds={battleIds}
                 />
               ))}
             </PokemonWrapper>
@@ -292,6 +307,8 @@ const HomePage = () => {
                 fullPokemonDataFiltered={fullPokemonDataFiltered}
                 favorites={favorites}
                 favoritesIds={favoritesIds}
+                battle={battle}
+                battleIds={battleIds}
               />
             ))}
           </PokemonWrapper>

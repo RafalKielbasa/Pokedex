@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { GiCrossedSwords } from "react-icons/gi";
 import { CardActionArea } from "@mui/material";
 import { postData } from "src/api/postData";
 
@@ -16,6 +17,11 @@ const CardsWrapper = styled.div`
 `;
 const FavIcon = styled(FavoriteIcon)`
   cursor: pointer;
+`;
+const BattleIcon = styled(GiCrossedSwords)`
+  cursor: pointer;
+  margin-right: 20px;
+  font-size: 20px;
 `;
 
 export default function PokemonCard({
@@ -30,6 +36,8 @@ export default function PokemonCard({
   fullPokemonData,
   favorites,
   favoritesIds,
+  battle,
+  battleIds,
 }) {
   // const [isFavorite, setIsFavorite] = useState(false);
   // const [favorites, setFavorites] = useState([]);
@@ -68,6 +76,33 @@ export default function PokemonCard({
       window.location.reload(false);
     }
   };
+
+  const handleBattle = () => {
+    if (!battleIds.includes(id) && battle.length < 2) {
+      postData(
+        "battle",
+        id,
+        pic,
+        picDet,
+        name,
+        height,
+        baseexp,
+        weight,
+        abilitie
+      );
+      // setIsFavorite((isFavorite) => !isFavorite);
+      // getFavorites();
+      window.location.reload(false);
+    } else {
+      axios.delete(`http://localhost:3000/battle/${id}`);
+      // setIsFavorite((isFavorite) => !isFavorite);
+      // getFavorites();
+      window.location.reload(false);
+    }
+  };
+
+  // console.log(`battle`, battle);
+  // console.log(`battle.length`, battle.length);
 
   return (
     <CardsWrapper>
@@ -168,6 +203,10 @@ export default function PokemonCard({
             justifyContent: "center",
           }}
         >
+          <BattleIcon
+            onClick={() => handleBattle()}
+            style={{ color: battleIds.includes(id) ? "red" : "grey" }}
+          />
           <FavIcon
             onClick={() => handleFavorite()}
             sx={{

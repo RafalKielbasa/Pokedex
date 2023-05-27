@@ -1,5 +1,6 @@
 import React from "react";
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import PokemonCard from "src/Components/PokemonCards";
 import styled from "styled-components";
@@ -33,12 +34,25 @@ const InfoWrapper = styled.h1`
 
 const FavoritesPage = () => {
   const [page, setPage] = useState(1);
+  const [battle, setBattle] = useState([]);
+  const [battleIds, setBattleIds] = useState([]);
 
   const queryFavoritesData = useQuery(["favorites"], () => getFavorites());
   const { data } = queryFavoritesData;
 
   const favorites = data?.data;
   const favoritesIds = favorites?.map((item) => item.id);
+
+  const getBattle = async () => {
+    const response = await axios.get(`http://localhost:3000/battle/`);
+    setBattle(response.data);
+    const getBattleIds = response?.data?.map((item) => item.id);
+    setBattleIds(getBattleIds);
+  };
+
+  useEffect(() => {
+    getBattle();
+  }, []);
 
   // console.log(`favorites`, favorites);
   // console.log(`favoritesIds`, favoritesIds);
@@ -47,16 +61,6 @@ const FavoritesPage = () => {
   return (
     <FavoritePageWrapper>
       <PaginationWrapper>
-        {/* <Box component="form" noValidate autoComplete="off">
-          <TextField
-            size="small"
-            id="outlined-basic"
-            label="Search"
-            variant="outlined"
-            sx={{ marginRight: "400px" }}
-          />
-        </Box> */}
-
         <Stack spacing={2}>
           <Pagination
             page={page}
@@ -82,6 +86,8 @@ const FavoritesPage = () => {
               abilitie={item.abilitie}
               favorites={favorites}
               favoritesIds={favoritesIds}
+              battle={battle}
+              battleIds={battleIds}
             />
           ))}
         </PokemonWrapper>
