@@ -154,7 +154,3 @@ export const Navbar = () => {
     </div>
   );
 };
-
-{
-  /*"#8A2BE2	"*/
-}

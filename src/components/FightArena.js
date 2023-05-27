@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { FightArenaContext } from "./FightArenaContext";
 import { typeColor } from "./FavoriteCard";
 import { css } from "styled-components";
+import { ThemeContext } from "./ThemeContext";
 
 const Card = styled.div`
   margin: 10px;
@@ -69,6 +70,10 @@ const CardShadow = styled.div`
   background-color: lightgray;
 `;
 
+const Body = styled.body`
+  min-height: 100vh;
+`;
+
 const calculateStats = (pokemon) => {
   let total = 0;
   pokemon.stats.forEach((stat) => {
@@ -79,6 +84,7 @@ const calculateStats = (pokemon) => {
 
 const FightArena = () => {
   const [defetedPokemon, setDefeted] = useState(null);
+  const { theme } = useContext(ThemeContext);
   const { fightArena, clearArena, winner, setWinner } =
     useContext(FightArenaContext);
 
@@ -108,49 +114,58 @@ const FightArena = () => {
 
   return (
     <>
-      <Header>
-        <Button disabled={fightArena.length < 2 ? true : false} onClick={fight}>
-          COMBAT
-        </Button>
-        {winner && <h2>🏆Winner: {winner.toUpperCase()}🏆</h2>}
-        <Button
-          disabled={fightArena.length === 0 ? true : false}
-          onClick={clearArena}
-        >
-          Clear Arena
-        </Button>
-      </Header>
-      {fightArena.length === 0 ? (
-        <Wrapper>
-          <CardShadow>Empty slot</CardShadow>
-          <CardShadow>Empty slot</CardShadow>
-        </Wrapper>
-      ) : (
-        <Wrapper>
-          {fightArena.map((pokemon) => (
-            <Card
-              key={pokemon.id}
-              type={pokemon?.types[0].type.name}
-              defeted={defetedPokemon === pokemon.name}
-            >
-              <img
-                style={{ width: "150px", height: "150px" }}
-                src={pokemon.sprites.other["official-artwork"].front_default}
-                alt={pokemon.name}
-              />
-              <h2>
-                {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
-              </h2>
-              <TypesGrid>
-                <p>🆔 {pokemon.id}</p>
-                <p>❤️ {pokemon.stats[0].base_stat}</p>
-                <p>⚔️ {pokemon.stats[1].base_stat}</p>
-                <p>🛡️ {pokemon.stats[2].base_stat}</p>
-              </TypesGrid>
-            </Card>
-          ))}
-        </Wrapper>
-      )}
+      <Body
+        style={{
+          backgroundColor: theme ? "#720e9e" : "papayawhip",
+        }}
+      >
+        <Header>
+          <Button
+            disabled={fightArena.length < 2 ? true : false}
+            onClick={fight}
+          >
+            COMBAT
+          </Button>
+          {winner && <h2>🏆Winner: {winner.toUpperCase()}🏆</h2>}
+          <Button
+            disabled={fightArena.length === 0 ? true : false}
+            onClick={clearArena}
+          >
+            Clear Arena
+          </Button>
+        </Header>
+        {fightArena.length === 0 ? (
+          <Wrapper>
+            <CardShadow>Empty slot</CardShadow>
+            <CardShadow>Empty slot</CardShadow>
+          </Wrapper>
+        ) : (
+          <Wrapper>
+            {fightArena.map((pokemon) => (
+              <Card
+                key={pokemon.id}
+                type={pokemon?.types[0].type.name}
+                defeted={defetedPokemon === pokemon.name}
+              >
+                <img
+                  style={{ width: "150px", height: "150px" }}
+                  src={pokemon.sprites.other["official-artwork"].front_default}
+                  alt={pokemon.name}
+                />
+                <h2>
+                  {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+                </h2>
+                <TypesGrid>
+                  <p>🆔 {pokemon.id}</p>
+                  <p>❤️ {pokemon.stats[0].base_stat}</p>
+                  <p>⚔️ {pokemon.stats[1].base_stat}</p>
+                  <p>🛡️ {pokemon.stats[2].base_stat}</p>
+                </TypesGrid>
+              </Card>
+            ))}
+          </Wrapper>
+        )}
+      </Body>
     </>
   );
 };

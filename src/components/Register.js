@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Input, Button, Icon } from "@mui/material";
+import { Button } from "@mui/material";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginContext } from "./LoginContext";
@@ -17,8 +17,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  //margin-top: 30px;
-  height: 100vh;
+  margin-top: 30px;
 `;
 
 const FormWraper = styled.form`
@@ -39,6 +38,9 @@ const Info = styled.div`
   margin-top: 30px;
 `;
 
+const Body = styled.body`
+  min-height: 100vh;
+`;
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
   email: yup
@@ -83,84 +85,88 @@ const Register = () => {
 
   return (
     <>
-      {userData ? (
-        <Info>{`You are already logg ${userData.name}`}</Info>
-      ) : (
-        <Wrapper
-          style={{
-            backgroundColor: theme ? "#720e9e" : "papayawhip",
-          }}
-        >
-          <FormWraper onSubmit={handleSubmit(handleRegistration)}>
-            <TextField
-              type="text"
-              placeholder="Username"
-              {...register("name")}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <Person />
-                  </InputAdornment>
-                ),
-              }}
-            />
-            {errors.name && <p>{errors.name.message}</p>}
-            <TextField
-              type="email"
-              placeholder="Email"
-              {...register("email")}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <Mail />
-                  </InputAdornment>
-                ),
-              }}
-            />
-            {errors.email && <p>{errors.email.message}</p>}
+      <Body
+        style={{
+          backgroundColor: theme ? "#720e9e" : "papayawhip",
+        }}
+      >
+        {userData ? (
+          <Info>{`You are already logg ${userData.name}`}</Info>
+        ) : (
+          <Wrapper>
+            <FormWraper onSubmit={handleSubmit(handleRegistration)}>
+              <TextField
+                type="text"
+                placeholder="Username"
+                {...register("name")}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <Person />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              {errors.name && <p>{errors.name.message}</p>}
+              <TextField
+                type="email"
+                placeholder="Email"
+                {...register("email")}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <Mail />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              {errors.email && <p>{errors.email.message}</p>}
 
-            <TextField
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-              {...register("password")}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() => setShowPassword(!showPassword)}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-            {errors.password && <p>{errors.password.message}</p>}
-            <TextField
-              type={showPassword ? "text" : "password"}
-              placeholder="Confirm Password"
-              {...register("confirmPassword")}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() => setShowPassword(!showPassword)}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-            {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
+              <TextField
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                {...register("password")}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => setShowPassword(!showPassword)}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              {errors.password && <p>{errors.password.message}</p>}
+              <TextField
+                type={showPassword ? "text" : "password"}
+                placeholder="Confirm Password"
+                {...register("confirmPassword")}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => setShowPassword(!showPassword)}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              {errors.confirmPassword && (
+                <p>{errors.confirmPassword.message}</p>
+              )}
 
-            <Button type="submit">Register</Button>
-            <Link to="/login">Already have an account? Log in.</Link>
-          </FormWraper>
-        </Wrapper>
-      )}
+              <Button type="submit">Register</Button>
+              <Link to="/login">Already have an account? Log in.</Link>
+            </FormWraper>
+          </Wrapper>
+        )}
+      </Body>
     </>
   );
 };

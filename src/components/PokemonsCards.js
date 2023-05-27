@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { SearchContext } from "./SearchContext";
 import { useFavorite } from "./FavoritesContext";
 import { Message } from "semantic-ui-react";
-import { Button, Modal } from "semantic-ui-react";
 import { ThemeContext } from "./ThemeContext";
 
 const PokemonsGrid = styled.div`

@@ -10,6 +10,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { ThemeContext } from "./ThemeContext";
 
 const Wrapper = styled.div`
   display: flex;
@@ -29,6 +30,10 @@ const FormWraper = styled.form`
   padding: 2rem;
 `;
 
+const Body = styled.body`
+  min-height: 100vh;
+`;
+
 const schema = yup.object().shape({
   email: yup.string().required("Email is required"),
   password: yup.string().required("Password is required"),
@@ -43,6 +48,7 @@ const Login = () => {
   const { setUserData } = useContext(LoginContext);
   const nav = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const { theme } = useContext(ThemeContext);
 
   const handle = (data) => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -55,44 +61,50 @@ const Login = () => {
   };
 
   return (
-    <Wrapper>
-      <FormWraper onSubmit={handleSubmit(handle)}>
-        <TextField
-          type="email"
-          placeholder="Email"
-          {...register("email")}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <Mail />
-              </InputAdornment>
-            ),
-          }}
-        />
-        {errors.email && <p>{errors.email.message}</p>}
-        <TextField
-          type={showPassword ? "text" : "password"}
-          placeholder="Password"
-          {...register("password")}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  onClick={() => setShowPassword(!showPassword)}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-        {errors.password && <p>{errors.password.message}</p>}
+    <Body
+      style={{
+        backgroundColor: theme ? "#720e9e" : "papayawhip",
+      }}
+    >
+      <Wrapper>
+        <FormWraper onSubmit={handleSubmit(handle)}>
+          <TextField
+            type="email"
+            placeholder="Email"
+            {...register("email")}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Mail />
+                </InputAdornment>
+              ),
+            }}
+          />
+          {errors.email && <p>{errors.email.message}</p>}
+          <TextField
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            {...register("password")}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowPassword(!showPassword)}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          {errors.password && <p>{errors.password.message}</p>}
 
-        <Button type="submit">Login</Button>
-        <Link to="/register">Don't have account ? Register Now</Link>
-      </FormWraper>
-    </Wrapper>
+          <Button type="submit">Login</Button>
+          <Link to="/register">Don't have account ? Register Now</Link>
+        </FormWraper>
+      </Wrapper>
+    </Body>
   );
 };
 
