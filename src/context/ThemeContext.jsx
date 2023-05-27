@@ -38,3 +38,5 @@ export const useMode = () => {
 
   return [theme, colorMode];
 };
+
+//https://mui.com/material-ui/customization/dark-mode/

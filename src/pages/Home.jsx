@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 import { Pagination, styled, css } from "@mui/material";
@@ -41,11 +41,9 @@ const Home = () => {
   const [pokedex, setPokedex] = useState([]);
   const [search, setSearch] = useState("");
 
-  const { items: newPokemon, error: newPokemonError } =
-    useFetchLocalApi("newPokemon");
+  const { items: newPokemon } = useFetchLocalApi("newPokemon");
 
-  const { items: editedPokemonList, error: editedPokemonListError } =
-    useFetchLocalApi("editedPokemon");
+  const { items: editedPokemonList } = useFetchLocalApi("editedPokemon");
 
   useEffect(() => {
     const fetchData = async (url, search) => {
@@ -59,7 +57,7 @@ const Home = () => {
           ? setPokedex(searchFilter(data, search))
           : setPokedex(response.data.results);
       } catch (error) {
-        setError(error);
+        console.log(error);
       }
     };
     fetchData(url, search);

@@ -29,12 +29,10 @@ const Heading = styled("h1")(
   `
 );
 
-const Favorites = ({}) => {
-  const { items: favorites, error: favoritesError } =
-    useFetchLocalApi("favorites");
+const Favorites = () => {
+  const { items: favorites } = useFetchLocalApi("favorites");
 
-  const { items: editedPokemonList, error: editedPokemonListError } =
-    useFetchLocalApi("editedPokemon");
+  const { items: editedPokemonList } = useFetchLocalApi("editedPokemon");
 
   return (
     <StyledBox>

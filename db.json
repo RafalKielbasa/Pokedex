@@ -1,39 +1,20 @@
 {
-	"user": [
-		{
-			"name": "123",
-			"email": "ostrach109@gmail.com",
-			"password": "123456",
-			"id": 1
-		},
-		{
-			"name": "kaskfas",
-			"email": "asknfs@wp.pl",
-			"password": "Testowy123!",
-			"id": 2
-		}
-	],
-	"battle": [],
-	"favorites": [
-		{
-			"id": 2,
-			"sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
-			"name": "ivysaur",
-			"weight": 130,
-			"ability": "overgrow",
-			"height": 10,
-			"base_experience": 142
-		},
-		{
-			"id": "528272845080010970",
-			"sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
-			"name": "venusaur",
-			"weight": 1000,
-			"ability": "overgrow",
-			"height": 20,
-			"base_experience": 263
-		}
-	],
-	"editedPokemon": [],
-	"newPokemon": []
+  "user": [
+    {
+      "name": "123",
+      "email": "ostrach109@gmail.com",
+      "password": "123456",
+      "id": 1
+    },
+    {
+      "name": "kaskfas",
+      "email": "asknfs@wp.pl",
+      "password": "Testowy123!",
+      "id": 2
+    }
+  ],
+  "battle": [],
+  "favorites": [],
+  "editedPokemon": [],
+  "newPokemon": []
 }

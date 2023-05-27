@@ -46,15 +46,14 @@ const EditList = () => {
         const response = await axios.get(url);
         setPokedex(response.data.results);
       } catch (error) {
-        setError(error);
+        console.log(error);
       }
     };
 
     fetchData();
   }, [url]);
 
-  const { items: editedPokemonList, error: editedPokemonListError } =
-    useFetchLocalApi("editedPokemon");
+  const { items: editedPokemonList } = useFetchLocalApi("editedPokemon");
 
   const handlePaginationChange = (event, value) => {
     setUrl(

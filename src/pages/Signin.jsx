@@ -44,8 +44,7 @@ const Signin = ({ setUserData }) => {
   const navigate = useNavigate();
   const theme = useTheme();
 
-  const { items: usersFromData, error: usersFromDataError } =
-    useFetchLocalApi("user");
+  const { items: usersFromData } = useFetchLocalApi("user");
 
   const handleSnackBar = (text, type) => {
     enqueueSnackbar(text, { variant: type });

@@ -159,9 +159,15 @@ const Details = () => {
   };
 
   const handleBattleClick = () => {
-    if (battle.length > 1 && !battle.includes(pokemonData.id)) {
+    console.log(battle, battle.includes(pokemonData.name));
+
+    if (
+      battle.length > 1 &&
+      !battle.includes(pokemonData.id) &&
+      !isToggledBattle
+    ) {
       handleSnackBar("Too much players", "error");
-    } else if (!isToggledBattle && !battle.includes(pokemonData.id)) {
+    } else if (!isToggledBattle) {
       JsonPost(pokemonData, "battle");
       JsonPost(pokemonData, "editedPokemon");
 

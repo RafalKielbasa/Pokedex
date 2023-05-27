@@ -12,9 +12,8 @@ import Register from "./pages/Register";
 import Favorites from "./pages/Favorites";
 import EditForm from "./pages/EditForm";
 import Details from "./pages/Details";
-import { useMode, ThemeContext } from "./context/ThemeContext";
-import ContextProvider from "./context/Context";
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
+import { useMode, ThemeContext } from "./context/ThemeContext";
 
 function App() {
   const getUserData = localStorage.getItem("userData");
@@ -31,30 +30,27 @@ function App() {
         />
         <ThemeProvider theme={theme}>
           <SnackbarProvider>
-            <ContextProvider>
-              <ResponsiveAppBar />
-              <div className="container">
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/arena" element={<Arena />} />
-                  <Route
-                    path="/sign-in"
-                    element={<Signin setUserData={setUserData} />}
-                  />
-                  <Route path="/register" element={<Register />} />
-                  <Route path="/favorites" element={<Favorites />} />
-                  <Route path="/Details/:id/" element={<Details />} />
+            <ResponsiveAppBar />
 
-                  {userData ? (
-                    <Route path="/EditList" element={<EditList />} />
-                  ) : null}
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/arena" element={<Arena />} />
+              <Route
+                path="/sign-in"
+                element={<Signin setUserData={setUserData} />}
+              />
+              <Route path="/register" element={<Register />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/Details/:id/" element={<Details />} />
 
-                  {userData ? (
-                    <Route path="/EditForm/:id/" element={<EditForm />} />
-                  ) : null}
-                </Routes>
-              </div>
-            </ContextProvider>
+              {userData ? (
+                <Route path="/EditList" element={<EditList />} />
+              ) : null}
+
+              {userData ? (
+                <Route path="/EditForm/:id/" element={<EditForm />} />
+              ) : null}
+            </Routes>
           </SnackbarProvider>
         </ThemeProvider>
       </ThemeContext.Provider>
