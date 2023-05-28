@@ -73,13 +73,10 @@ const CardShadow = styled.div`
 const Body = styled.body`
   min-height: 100vh;
 `;
-
 const calculateStats = (pokemon) => {
-  let total = 0;
-  pokemon.stats.forEach((stat) => {
-    total += stat.base_stat;
-  });
-  return total;
+  let hp = pokemon.stats[0].base_stat;
+  let attack = pokemon.stats[1].base_stat;
+  return hp + attack;
 };
 
 const FightArena = () => {
@@ -94,8 +91,13 @@ const FightArena = () => {
       return;
     }
 
-    const pokemon1 = fightArena[0];
-    const pokemon2 = fightArena[1];
+    let pokemon1 = JSON.parse(localStorage.getItem(fightArena[0].name));
+    let pokemon2 = JSON.parse(localStorage.getItem(fightArena[1].name));
+
+    if (!pokemon1 || !pokemon2) {
+      alert("Nie można znaleźć danych Pokemon w localStorage");
+      return;
+    }
 
     const pokemon1Stats = calculateStats(pokemon1);
     const pokemon2Stats = calculateStats(pokemon2);
