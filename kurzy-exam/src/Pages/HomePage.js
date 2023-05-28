@@ -41,6 +41,8 @@ const HomePage = () => {
   const [favoritesIds, setFavoritesIds] = useState([]);
   const [battle, setBattle] = useState([]);
   const [battleIds, setBattleIds] = useState([]);
+  const [afterBattle, setAfterBattle] = useState([]);
+  const [afterBattleIds, setAfterBattleIds] = useState([]);
   const [fullPokemonData, setFullPokemonData] = useState([]);
   const [expFullPokemonData, setExpFullPokemonData] = useState([]);
   const [fullPokemonDataFiltered, setFullPokemonDataFiltered] = useState([]);
@@ -69,8 +71,19 @@ const HomePage = () => {
     getBattle();
   }, []);
 
-  // console.log(`battle`, battle);
-  // console.log(`battleIds`, battleIds);
+  const getAfterTheBattle = async () => {
+    const response = await axios.get(`http://localhost:3000/afterTheBattle/`);
+    setAfterBattle(response.data);
+    const getBattleIds = response?.data?.map((item) => item.id);
+    setAfterBattleIds(getBattleIds);
+  };
+
+  useEffect(() => {
+    getAfterTheBattle();
+  }, []);
+
+  console.log(`afterBattleIds`, afterBattleIds);
+  console.log(`expFullPokemonData`, expFullPokemonData);
 
   useEffect(() => {
     async function getPokemonData() {
@@ -91,22 +104,22 @@ const HomePage = () => {
   useEffect(() => {
     if (fullPokemonData.length === 150) {
       const array = fullPokemonData.filter((fPDelem) => {
-        return favoritesIds.some((fIele) => {
+        return afterBattleIds.some((fIele) => {
           return fPDelem.id === fIele;
         });
       });
       const filterFPD = fullPokemonData.filter((n) => !array.includes(n));
       // console.log(`test`, test);
-      const getExpFPD = favorites
+      const getExpFPD = afterBattle
         .concat(filterFPD)
         .sort((a, b) => (a.id > b.id ? 1 : -1));
       setExpFullPokemonData(getExpFPD);
     }
-  }, [fullPokemonData.length < 150, favorites]);
+  }, [fullPokemonData.length < 150, afterBattle]);
 
   fullPokemonData.length > 150 ? window.location.reload() : {};
 
-  const pageCount = fullPokemonData.length / 15;
+  // const pageCount = fullPokemonData?.length / 15;
   const partialPokemonData = fullPokemonData
     .slice(offset, offset + 15)
     .sort((a, b) => (a.id > b.id ? 1 : -1));
@@ -115,29 +128,6 @@ const HomePage = () => {
     const textFieldText = event.target.value.toLowerCase();
     setInputText(textFieldText);
   };
-
-  // const array = fullPokemonData?.toSpliced(favoritesIds - 1, 1);
-
-  // console.log(`favoritesIds`, favoritesIds);
-  // console.log(`array`, array);
-
-  // if (fullPokemonData) {
-  //   const dataToFavorite = fullPokemonData.map((item) => ({
-  //     id: item.id,
-  //     pic: item.sprites.front_default,
-  //     name: item.name,
-  //     height: item.height,
-  //   }));
-  //   console.log(`dataToFavorite;`, dataToFavorite);
-  // }
-
-  // useEffect(() => {
-  //   const expFullData = data.map((item) => ({
-  //     ...item,
-  //     favorite: false,
-  //   }));
-  //   setExpFullPokemonData(expFullData);
-  // }, [queryFullData]);
 
   useEffect(
     () =>
@@ -215,7 +205,6 @@ const HomePage = () => {
                 variant="outlined"
                 shape="rounded"
                 onChange={handleChange}
-                // onClick={saveToLocalStorage}
                 sx={{ marginBottom: 2 }}
               />
             </Stack>
@@ -280,11 +269,10 @@ const HomePage = () => {
             <Stack spacing={2}>
               <Pagination
                 page={page}
-                count={pageCount}
+                count={10}
                 variant="outlined"
                 shape="rounded"
                 onChange={handleChange}
-                // onClick={saveToLocalStorage}
                 sx={{ marginBottom: 2 }}
               />
             </Stack>
@@ -317,7 +305,7 @@ const HomePage = () => {
             <Stack spacing={2}>
               <Pagination
                 page={page}
-                count={pageCount}
+                count={10}
                 variant="outlined"
                 shape="rounded"
                 sx={{ marginTop: 2 }}

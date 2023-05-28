@@ -67,13 +67,9 @@ export default function PokemonCard({
         weight,
         abilitie
       );
-      // setIsFavorite((isFavorite) => !isFavorite);
-      // getFavorites();
       window.location.reload(false);
     } else {
       axios.delete(`http://localhost:3000/favoriteData/${id}`);
-      // setIsFavorite((isFavorite) => !isFavorite);
-      // getFavorites();
       window.location.reload(false);
     }
   };
@@ -91,13 +87,10 @@ export default function PokemonCard({
         weight,
         abilitie
       );
-      // setIsFavorite((isFavorite) => !isFavorite);
-      // getFavorites();
+
       window.location.reload(false);
     } else {
       axios.delete(`http://localhost:3000/battle/${id}`);
-      // setIsFavorite((isFavorite) => !isFavorite);
-      // getFavorites();
       window.location.reload(false);
     }
   };

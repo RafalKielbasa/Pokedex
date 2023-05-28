@@ -21,27 +21,17 @@
       "abilitie": "pressure"
     }
   ],
-  "battle": [
+  "battle": [],
+  "afterTheBattle": [
     {
-      "id": 36,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/36.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/36.svg",
-      "name": "clefable",
-      "height": 13,
-      "baseexp": 242,
-      "weight": 400,
-      "abilitie": "cute-charm"
-    },
-    {
-      "id": 3,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
-      "name": "venusaur",
-      "height": 20,
-      "baseexp": 263,
-      "weight": 1000,
-      "abilitie": "overgrow"
+      "id": 95,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/95.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/95.svg",
+      "name": "onix",
+      "height": 88,
+      "baseexp": 107,
+      "weight": 2100,
+      "abilitie": "rock-head"
     }
-  ],
-  "afterTheBattle": []
+  ]
 }
