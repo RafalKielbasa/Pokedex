@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
+
 import styled from "styled-components";
+
 import GlobalContext from "src/context/GlobalContext";
+
 const MyFormContainer = styled.div`
   min-height: 82.5vh;
   display: flex;
@@ -10,8 +13,10 @@ const MyFormContainer = styled.div`
   background: url(${(prop) => prop.theme.bgColor});
   color: ${(prop) => prop.theme.textColor};
 `;
+
 const FormContainer = ({ children }) => {
   const { theme } = useContext(GlobalContext);
+
   return <MyFormContainer theme={theme}>{children}</MyFormContainer>;
 };
 

@@ -1,30 +1,37 @@
 import React, { useEffect, useState } from "react";
+
 import { Form, Formik } from "formik";
+
+import { useOutletContext } from "react-router-dom";
+
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { enqueueSnackbar } from "notistack";
+
+import { fetchPokemonNamesList, fetchOnePokemon } from "src/api/fetchDataFunctions";
 import { editedCreatedPostData } from "src/api/postDataFunctions";
-import {
-  fetchPokemonNamesList,
-  fetchOnePokemon,
-} from "src/api/fetchDataFunctions";
+
 import {
   MyTextField,
   StyledSubmitButton,
   FormContainer,
   FormHeader,
   SelectPokemon,
-} from "src/components";
-import { useOutletContext } from "react-router-dom";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { enqueueSnackbar } from "notistack";
+} from "src/components/formComponents";
+
 import { editValidationSchema } from "src/validationSchemas";
 
 const EditPage = () => {
   const queryClient = useQueryClient();
+
   const { editedList, editedStatus } = useOutletContext();
+
   const { data: pokemonDataToEdit } = useQuery({
     queryKey: ["AllPokemonsNamesList"],
     queryFn: () => fetchPokemonNamesList(editedList),
     staleTime: 10 * (60 * 1000),
   });
+
   const [action, setAction] = useState(null);
   const [chosedPokemon, setChosedPokemon] = useState("");
   const [initialValues, setInitialValues] = useState({
@@ -42,16 +49,17 @@ const EditPage = () => {
     sprites: "",
     weight: "",
   });
+
   const { data: detailPokemon, status } = useQuery({
     queryKey: ["pokemon", chosedPokemon],
     queryFn: () => fetchOnePokemon(editedList, chosedPokemon),
     enabled: editedStatus === "success" && chosedPokemon !== "",
     staleTime: 10 * (60 * 1000),
   });
+
   useEffect(() => {
     if (status === "success" && chosedPokemon !== "") {
-      const { abilities, base_experience, height, id, name, sprites, weight } =
-        detailPokemon;
+      const { abilities, base_experience, height, id, name, sprites, weight } = detailPokemon;
       setInitialValues({
         abilities,
         base_experience,
@@ -63,20 +71,17 @@ const EditPage = () => {
       });
     }
   }, [status, chosedPokemon, detailPokemon]);
+
   return (
     <Formik
       initialValues={initialValues}
       enableReinitialize={true}
       validationSchema={editValidationSchema}
       onSubmit={(values, { setSubmitting, resetForm }) => {
-        console.log(values.name);
         editedCreatedPostData(values, values?.name, editedList, action);
         setSubmitting(false);
         setAction(null);
-        queryClient.setQueryData(["editedPokemons"], (prev) => [
-          ...prev,
-          values?.name,
-        ]);
+        queryClient.setQueryData(["editedPokemons"], (prev) => [...prev, values?.name]);
         resetForm({
           abilities: [
             {
@@ -106,34 +111,17 @@ const EditPage = () => {
           />
           <Form>
             <MyTextField name="name" label="Nazwa Pokemona" type="text" />
-            <MyTextField
-              name="base_experience"
-              label="Doświadczenie bazowe"
-              type="number"
-            />
-            <MyTextField
-              name="abilities[0].ability.name"
-              label="Nazwa umiejętności"
-              type="text"
-            />
-            <MyTextField
-              name="height"
-              label="Wysokość pokemona"
-              type="number"
-            />
-            <MyTextField
-              name="height"
-              label="Wysokość pokemona"
-              type="number"
-            />
+            <MyTextField name="base_experience" label="Doświadczenie bazowe" type="number" />
+            <MyTextField name="abilities[0].ability.name" label="Nazwa umiejętności" type="text" />
+            <MyTextField name="height" label="Wysokość pokemona" type="number" />
+            <MyTextField name="height" label="Wysokość pokemona" type="number" />
             <MyTextField name="weight" label="Waga pokemona" type="number" />
             <StyledSubmitButton
               value={"Edytuj Pokemona"}
               disableConditions={
                 values?.name === "" ||
                 isSubmitting ||
-                (values?.name !== "" &&
-                  !pokemonDataToEdit.includes(values?.name))
+                (values?.name !== "" && !pokemonDataToEdit.includes(values?.name))
               }
               onClickActionsOtherThanSubmit={() => setAction("edit")}
             />
@@ -142,8 +130,7 @@ const EditPage = () => {
               disableConditions={
                 values?.name === "" ||
                 isSubmitting ||
-                (values?.name !== "" &&
-                  pokemonDataToEdit.includes(values?.name))
+                (values?.name !== "" && pokemonDataToEdit.includes(values?.name))
               }
               onClickActionsOtherThanSubmit={() => setAction("create")}
             />

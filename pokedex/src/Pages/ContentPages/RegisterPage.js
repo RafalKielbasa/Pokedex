@@ -1,14 +1,19 @@
 import { Form, Formik } from "formik";
+
 import { enqueueSnackbar } from "notistack";
+
 import { postData } from "src/api/postDataFunctions";
+
 import { registerValidationSchema } from "src/validationSchemas";
+
 import {
   FormContainer,
   FormHeader,
   FormInfo,
   MyTextField,
   StyledSubmitButton,
-} from "src/components";
+} from "src/components/formComponents";
+
 const RegisterPage = () => {
   return (
     <Formik
@@ -34,6 +39,7 @@ const RegisterPage = () => {
               display: "flex",
               flexDirection: "column",
               fontSize: "24px",
+              padding: "3%",
             }}
           >
             <FormHeader value={"Utwórz konto"} />
@@ -44,12 +50,7 @@ const RegisterPage = () => {
               label="Nazwa Użytkownika"
               placeholder="Wprowadź nazwę użytkownika"
             />
-            <MyTextField
-              name="email"
-              type="email"
-              label="E-mail"
-              placeholder="Wprowadź email"
-            />
+            <MyTextField name="email" type="email" label="E-mail" placeholder="Wprowadź email" />
             <MyTextField
               name="password"
               type="password"
@@ -62,10 +63,7 @@ const RegisterPage = () => {
               label="Powtórz hasło"
               placeholder="Powtórz hasło"
             />
-            <StyledSubmitButton
-              value={"Wyślij"}
-              disableConditions={isSubmitting}
-            />
+            <StyledSubmitButton value={"Wyślij"} disableConditions={isSubmitting} />
           </Form>
         </FormContainer>
       )}

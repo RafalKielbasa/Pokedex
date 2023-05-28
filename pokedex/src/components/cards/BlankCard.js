@@ -3,8 +3,10 @@ import React, { useContext } from "react";
 import Card from "@mui/material/Card";
 
 import GlobalContext from "src/context/GlobalContext";
+
 function BlankCard({ value }) {
   const { theme } = useContext(GlobalContext);
+
   return (
     <Card
       sx={{

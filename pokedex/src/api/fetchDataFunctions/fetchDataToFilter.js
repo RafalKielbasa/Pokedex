@@ -1,6 +1,9 @@
 import axios from "axios";
+
 import { updateUrlFnc } from "src/helpers";
+
 const BASE_URL = process.env.REACT_APP_BASE_URL;
+
 export const fetchDataToFilter = async (editedList) => {
   const {
     data: { results },

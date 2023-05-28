@@ -1,5 +1,7 @@
 import React from "react";
+
 import CardMedia from "@mui/material/CardMedia";
+
 const CardImg = ({ dataToPass }) => {
   const {
     name,

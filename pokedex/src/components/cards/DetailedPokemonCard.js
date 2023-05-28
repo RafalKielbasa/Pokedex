@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Card, Button, IconButton } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ColorizeIcon from "@mui/icons-material/Colorize";
 
 import styled from "styled-components";
 
 import GlobalContext from "src/context/GlobalContext";
+
 import { CardImg, CardBoxInfo, HoverCard } from "../cardElements";
 
 const DetailedConatiner = styled.div` 
@@ -17,6 +18,7 @@ align-items:center;
 margin-bottom 10px;
 margin-top 30px;
 }`;
+
 const MyCard = styled.div`
   display: "flex";
   width: 700px;
@@ -32,6 +34,7 @@ const MyCard = styled.div`
     width: 220px;
   }
 `;
+
 const InfoHeader = styled.div`
   color: #4bc5a0;
   font-weight: 600;
@@ -40,6 +43,7 @@ const InfoHeader = styled.div`
   margin-bottom: 20px;
   margin-left: 10px;
 `;
+
 const PokedexTitle = styled.div`
   display: flex;
   justify-content: center;
@@ -48,6 +52,7 @@ const PokedexTitle = styled.div`
   font-weight: bold;
   margin-bottom: 20px;
 `;
+
 const InfoContainer = styled.div`
   display: flex;
   gap: 5%;
@@ -56,9 +61,11 @@ const InfoContainer = styled.div`
     flex-direction: column;
   }
 `;
+
 const FavoriteWrapper = styled.div`
   margin-bottom: 20px;
 `;
+
 const DetailedPokemonCard = ({
   value,
   onClickFavorite,
@@ -71,6 +78,7 @@ const DetailedPokemonCard = ({
   const navigate = useNavigate();
   const dataToPass = value;
   const { theme } = useContext(GlobalContext);
+
   return (
     <DetailedConatiner>
       <HoverCard>

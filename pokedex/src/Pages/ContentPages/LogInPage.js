@@ -1,26 +1,37 @@
-import { useQuery } from "@tanstack/react-query";
-import { Form, Formik } from "formik";
 import React, { useContext } from "react";
-import { fetchUsers } from "src/api/fetchDataFunctions";
+
 import { useNavigate } from "react-router-dom";
+
+import { useQuery } from "@tanstack/react-query";
+
+import { Form, Formik } from "formik";
+
 import { enqueueSnackbar } from "notistack";
+
 import GlobalContext from "src/context/GlobalContext";
+
+import { fetchUsers } from "src/api/fetchDataFunctions";
+
 import { loginValidationSchema } from "src/validationSchemas";
+
 import {
   FormContainer,
   FormHeader,
   MyTextField,
   StyledSubmitButton,
   FormInfo,
-} from "src/components";
+} from "src/components/formComponents";
+
 const LogInPage = () => {
   const navigate = useNavigate();
   const { setLoggedIn, setUser } = useContext(GlobalContext);
+
   const { data: users } = useQuery({
     queryKey: ["users"],
     queryFn: () => fetchUsers(),
     staleTime: 10 * (60 * 1000),
   });
+
   return (
     <Formik
       initialValues={{
@@ -29,9 +40,7 @@ const LogInPage = () => {
       }}
       validationSchema={loginValidationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        const filteredUsers = users?.filter(
-          ({ userName }) => userName === values?.userName
-        );
+        const filteredUsers = users?.filter(({ userName }) => userName === values?.userName);
         if (values?.password === filteredUsers[0]?.password) {
           setSubmitting(false);
           setLoggedIn(true);
@@ -55,12 +64,11 @@ const LogInPage = () => {
               display: "flex",
               flexDirection: "column",
               fontSize: "24px",
+              padding: "3%",
             }}
           >
             <FormHeader value={"Zaloguj się"} />
-            <FormInfo
-              value={"Wypełnij poniższe pola aby zalogować się na konto"}
-            />
+            <FormInfo value={"Wypełnij poniższe pola aby zalogować się na konto"} />
             <MyTextField
               name="name"
               type="text"
@@ -73,10 +81,7 @@ const LogInPage = () => {
               label="Hasło"
               placeholder="Wprowadź nazwę użytkownika"
             />
-            <StyledSubmitButton
-              value={"Zaloguj"}
-              disableConditions={isSubmitting}
-            />
+            <StyledSubmitButton value={"Zaloguj"} disableConditions={isSubmitting} />
           </Form>
         </FormContainer>
       )}

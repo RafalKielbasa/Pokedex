@@ -1,11 +1,15 @@
 import React, { useContext } from "react";
-import GlobalContext from "src/context/GlobalContext";
+
 import styled from "styled-components";
+
+import GlobalContext from "src/context/GlobalContext";
+
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
+
 const FightButton = styled.button`
    {
     padding: 25px 30px;
@@ -14,6 +18,7 @@ const FightButton = styled.button`
     font-size: 24px;
   }
 `;
+
 const FightActionButtons = ({ fightResult, fightResultFnc, ClickHandle }) => {
   const { theme } = useContext(GlobalContext);
 

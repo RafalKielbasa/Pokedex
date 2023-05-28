@@ -1,5 +1,7 @@
 import axios from "axios";
+
 import { filterOnlyNeedData } from "src/helpers/";
+
 export const fetchOnePokemon = async (editedList, name) => {
   const PokemonUrl = editedList?.includes(name)
     ? `http://localhost:3000/edited/${name}`

@@ -5,11 +5,11 @@ import ClearIcon from "@mui/icons-material/Clear";
 
 import styled from "styled-components";
 
-import { CardImg, CardBoxInfo, HoverCard } from "../cardElements";
-
 import GlobalContext from "src/context/GlobalContext";
-import ArenaCardContainer from "../cardContainers/ArenaCardContainer";
-import BattleStats from "../exlusiveArenaPageComponents/BattleStats";
+
+import { CardImg, CardBoxInfo, HoverCard } from "../cardElements";
+import { BattleStats } from "../exlusiveArenaPageComponents";
+import { ArenaCardContainer } from "../cardContainers";
 
 const ButtonContainer = styled.div`
   width: 100%;
@@ -17,19 +17,13 @@ const ButtonContainer = styled.div`
   align-items: flex-end;
   justify-content: flex-end;
 `;
-const ArenaCard = ({
-  value,
-  deleteFighter,
-  opacity,
-  winValue,
-  lossValue,
-  tieValue,
-}) => {
+
+const ArenaCard = ({ value, deleteFighter, opacity, winValue, lossValue, tieValue }) => {
   const dataToPass = value;
   const { theme } = useContext(GlobalContext);
+
   return (
     <ArenaCardContainer>
-      {" "}
       <HoverCard>
         <Card
           sx={{
@@ -44,11 +38,7 @@ const ArenaCard = ({
           }}
         >
           <ButtonContainer>
-            <IconButton
-              aria-label="fight"
-              onClick={deleteFighter}
-              sx={{ color: theme.textColor }}
-            >
+            <IconButton aria-label="fight" onClick={deleteFighter} sx={{ color: theme.textColor }}>
               <ClearIcon />
             </IconButton>
           </ButtonContainer>
@@ -56,11 +46,7 @@ const ArenaCard = ({
           <CardBoxInfo dataToPass={dataToPass}></CardBoxInfo>
         </Card>
       </HoverCard>
-      <BattleStats
-        winValue={winValue}
-        lossValue={lossValue}
-        tieValue={tieValue}
-      />
+      <BattleStats winValue={winValue} lossValue={lossValue} tieValue={tieValue} />
     </ArenaCardContainer>
   );
 };

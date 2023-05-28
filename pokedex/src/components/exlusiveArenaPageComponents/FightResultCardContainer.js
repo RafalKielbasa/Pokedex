@@ -1,5 +1,5 @@
 import React from "react";
-import { ArenaCard, WinnerCard } from "src/components";
+import { ArenaCard, WinnerCard } from "src/components/cards";
 const FightResultCardContainer = ({
   fightResult,
   winnerValue,

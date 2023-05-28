@@ -1,5 +1,7 @@
 import React from "react";
+
 import styled from "styled-components";
+
 const NavButton = styled.button`
    {
     padding: 25px 30px;
@@ -21,10 +23,12 @@ const NavButton = styled.button`
     color: white;
   }
 `;
+
 const ActiveNavButton = styled(NavButton)`
   background: ${(prop) => prop.theme.hoverButtonColor};
   color: white;
 `;
+
 const ConditionalNavbarBtn = ({ activeBtn, value, clickHandle, theme }) => {
   return (
     <>

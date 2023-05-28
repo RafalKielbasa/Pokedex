@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
+
 import MainPage from "src/Pages/MainPage";
+
 import {
   HomePage,
   ArenaPage,
@@ -8,6 +10,7 @@ import {
   DetailedPage,
   FavoritesPage,
 } from "src/Pages/ContentPages";
+
 export const publicRouter = createBrowserRouter([
   {
     path: "/",

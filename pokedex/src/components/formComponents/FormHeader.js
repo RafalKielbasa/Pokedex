@@ -1,5 +1,7 @@
 import React from "react";
+
 import styled from "styled-components";
+
 const MyFormHeader = styled.h1`
   display: flex;
   flex-direction: column;
@@ -7,6 +9,7 @@ const MyFormHeader = styled.h1`
   justify-content: center;
   font-weight: bold;
 `;
+
 const FormHeader = ({ value }) => {
   return <MyFormHeader>{value}</MyFormHeader>;
 };

@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
+
 import styled from "styled-components";
+
 import GlobalContext from "src/context/GlobalContext";
+
 const MySelect = styled.select`
   height: 40px;
   width: 270px;
@@ -8,8 +11,10 @@ const MySelect = styled.select`
   color: ${(prop) => prop.theme.textColor};
   margin-bottom: 15px;
 `;
+
 const SelectPokemon = ({ pokemonDataToEdit, setChosedPokemon }) => {
   const { theme } = useContext(GlobalContext);
+
   return (
     <MySelect
       theme={theme}

@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
-import GlobalContext from "src/context/GlobalContext";
+
 import styled from "styled-components";
+
+import GlobalContext from "src/context/GlobalContext";
 
 const MyBasicPokemonLayout = styled.div`
   background: url(${(prop) => prop.theme.bgColor});
@@ -10,6 +12,7 @@ const MyBasicPokemonLayout = styled.div`
 
 const BasicPokemonLayout = ({ children }) => {
   const { theme } = useContext(GlobalContext);
+
   return <MyBasicPokemonLayout theme={theme}>{children}</MyBasicPokemonLayout>;
 };
 

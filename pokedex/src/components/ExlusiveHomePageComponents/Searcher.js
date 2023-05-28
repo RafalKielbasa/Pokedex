@@ -1,8 +1,11 @@
 import React, { useContext } from "react";
+
 import styled from "styled-components";
+
 import TextField from "@mui/material/TextField";
 
 import GlobalContext from "src/context/GlobalContext";
+
 const Container = styled.div`
   background: ${(prop) => prop.theme.bgColor};
   display: flex;
@@ -13,6 +16,7 @@ const Container = styled.div`
 
 const Searcher = ({ handleSearcherChange }) => {
   const { theme } = useContext(GlobalContext);
+
   return (
     <Container theme={theme}>
       <TextField

@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 
 import { useParams, useOutletContext } from "react-router-dom";
+
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 
-import {
-  DetailedPokemonCard,
-  DetailedPokemonCardConatiner,
-  BasicPokemonLayout,
-  Loader,
-  ErrorMsg,
-} from "src/components";
+import { Loader, ErrorMsg } from "src/components/loaders";
+import { DetailedPokemonCard } from "src/components/cards";
+import { DetailedPokemonCardConatiner } from "src/components/cardContainers";
+import { BasicPokemonLayout } from "src/components/layouts";
+
+import { deleteData } from "src/api/deleteData";
 import { fetchOnePokemon } from "src/api/fetchDataFunctions";
 import { postData } from "src/api/postDataFunctions";
-import { deleteData } from "src/api/deleteData";
 
 const DetailedPage = () => {
   const {
@@ -27,12 +26,13 @@ const DetailedPage = () => {
   } = useOutletContext();
 
   const { name } = useParams();
+
   const queryClient = useQueryClient();
+
   const [isFavorite, setIsFavorite] = useState(false);
+
   useEffect(() => {
-    Array.isArray(favoriteList) &&
-      favoriteList?.includes(name) &&
-      setIsFavorite(true);
+    Array.isArray(favoriteList) && favoriteList?.includes(name) && setIsFavorite(true);
   }, [favoriteList, name]);
 
   const {
@@ -71,12 +71,12 @@ const DetailedPage = () => {
   const arenaFightersHandle = () => {
     !arenaFirstFighter
       ? setArenaFirstFighter(name)
-      : !arenaSecondFighter &&
-        arenaFirstFighter !== name &&
-        setArenaSecondFighter(name);
+      : !arenaSecondFighter && arenaFirstFighter !== name && setArenaSecondFighter(name);
   };
+
   if (status === "loading") return <Loader />;
   if (status === "error") return <ErrorMsg errorMsg={error.message} />;
+
   return (
     <BasicPokemonLayout>
       <DetailedPokemonCardConatiner>

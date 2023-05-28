@@ -1,8 +1,15 @@
 import React from "react";
+
 import { useQueries } from "@tanstack/react-query";
+
 import { useOutletContext } from "react-router-dom";
+
 import { fetchOnePokemon } from "src/api/fetchDataFunctions";
-import { PokemonCard, PokemonCardContainer, BasicPokemonLayout } from "src/components";
+
+import { PokemonCard } from "src/components/cards";
+import { BasicPokemonLayout } from "src/components/layouts";
+import { PokemonCardContainer } from "src/components/cardContainers";
+
 const FavoritesPage = () => {
   const { favoriteList, editedList } = useOutletContext();
 
@@ -16,6 +23,7 @@ const FavoritesPage = () => {
       };
     }),
   });
+
   return (
     <BasicPokemonLayout>
       <PokemonCardContainer>

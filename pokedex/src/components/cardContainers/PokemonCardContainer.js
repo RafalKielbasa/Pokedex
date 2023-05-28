@@ -1,5 +1,7 @@
 import React from "react";
+
 import styled from "styled-components";
+
 const MyCardContaner = styled.div`
   display: flex;
   gap: 20px;

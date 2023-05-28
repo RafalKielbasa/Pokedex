@@ -10,6 +10,7 @@ const PokemonCard = ({ value }) => {
   const navigate = useNavigate();
   const dataToPass = value;
   const { theme } = useContext(GlobalContext);
+
   return (
     <HoverCard>
       <Card

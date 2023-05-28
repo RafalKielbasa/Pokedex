@@ -7,6 +7,9 @@ export const filterOnlyNeedData = (data) => {
     "name",
     "sprites",
     "weight",
+    "winCount",
+    "lossCount",
+    "tieCount",
   ];
   const filteredData = Object.fromEntries(
     Object.entries(data)?.filter(([key]) => filteredQueriesKeys.includes(key))

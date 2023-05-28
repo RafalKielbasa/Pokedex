@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 const regPasword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 export const registerValidationSchema = Yup.object({
-  userName: Yup.string()
+  name: Yup.string()
     .max(15, "nazwa użytkownika musi się składać z maksymalnie 15 znaków")
     .required("to pole jest wymagane"),
   email: Yup.string().email("Pole musi zawierać adress email").required("to pole jest wymagane"),

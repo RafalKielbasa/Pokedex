@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
+
 import styled from "styled-components";
+
 import GlobalContext from "src/context/GlobalContext";
 
 const MyDetailedCardContaner = styled.div`

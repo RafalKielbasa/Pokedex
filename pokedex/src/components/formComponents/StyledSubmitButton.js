@@ -1,7 +1,11 @@
 import React, { useContext } from "react";
+
 import styled from "styled-components";
-import FormRowContainer from "./FormRowContainer";
+
 import GlobalContext from "src/context/GlobalContext";
+
+import FormRowContainer from "./FormRowContainer";
+
 const StyledButton = styled.button`
   margin-top: 10px;
   margin-bottom: 10px;
@@ -11,12 +15,10 @@ const StyledButton = styled.button`
   background-color: ${(prop) => prop.theme.navButtonsColor};
   color: ${(prop) => prop.theme.textColor};
 `;
-const StyledSubmitButton = ({
-  value,
-  disableConditions,
-  onClickActionsOtherThanSubmit,
-}) => {
+
+const StyledSubmitButton = ({ value, disableConditions, onClickActionsOtherThanSubmit }) => {
   const { theme } = useContext(GlobalContext);
+
   return (
     <FormRowContainer>
       <StyledButton

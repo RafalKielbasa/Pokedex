@@ -1,30 +1,58 @@
 import React, { useState, useContext } from "react";
-import { BlankCard, FightActionButtons } from "src/components";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigate, useOutletContext } from "react-router-dom";
+
+import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
+
 import styled from "styled-components";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { useQuery } from "@tanstack/react-query";
-import { useOutletContext } from "react-router-dom";
-import { VS } from "src/img";
-import { fighterPowerLevel } from "src/helpers";
-import { fetchOnePokemon } from "src/api/fetchDataFunctions";
+
 import GlobalContext from "src/context/GlobalContext";
+
+import { BlankCard } from "src/components/cards";
+import {
+  FightActionButtons,
+  FightResultCardContainer,
+} from "src/components/exlusiveArenaPageComponents";
+
+import { VS } from "src/img";
+
+import { fighterPowerLevel } from "src/helpers";
+
+import { fetchOnePokemon } from "src/api/fetchDataFunctions";
 import { arenaPostActionHandle } from "src/api/postDataFunctions";
-import FightResultCardContainer from "src/components/exlusiveArenaPageComponents/FightResultCardContainer";
+
 const ArenaBody = styled.div`
   background: url(${(prop) => prop.theme.arenaBgImg});
   min-height: 82.5vh;
 `;
+
 const ArenaContainer = styled.div`
   display: flex;
   height: 700px;
   justify-content: space-evenly;
   align-items: center;
+  @media (max-width: 800px) {
+    flex-direction: column;
+    height: 100%;
+    padding: 10px;
+    gap: 25px;
+  }
+`;
+
+const MyImg = styled.img`
+  width: 250px;
+  height: 250px;
+  @media (max-width: 800px) {
+    width: 150px;
+    height: 150px;
+  }
 `;
 
 const ArenaPage = () => {
   const { theme, ActiveBtnHandle } = useContext(GlobalContext);
+
   const navigate = useNavigate();
+
   const {
     editedList,
     editedStatus,
@@ -33,7 +61,9 @@ const ArenaPage = () => {
     setArenaFirstFighter,
     setArenaSecondFighter,
   } = useOutletContext();
+
   const queryClient = useQueryClient();
+
   const [fightResult, setFightResult] = useState("");
   const [isFirstPokemonDeleted, setIsFirstPokemonDeleted] = useState(false);
   const [isSecondPokemonDeleted, setIsSecondPokemonDeleted] = useState(false);
@@ -103,7 +133,6 @@ const ArenaPage = () => {
     setArenaFirstFighter(null);
     setArenaSecondFighter(null);
   };
-  console.log(firstFighter, firstFighter?.winCount);
   return (
     <ArenaBody theme={theme}>
       <ArenaContainer>
@@ -116,14 +145,12 @@ const ArenaPage = () => {
             fightResult={fightResult}
             winnerValue={"first"}
             lostValue={"second"}
-            deleteFighter={() =>
-              deleteFighter(setArenaFirstFighter, setIsFirstPokemonDeleted)
-            }
+            deleteFighter={() => deleteFighter(setArenaFirstFighter, setIsFirstPokemonDeleted)}
           />
         ) : (
           <BlankCard value={"Pierwszy Pokemon"} />
         )}
-        <img src={VS} alt="VS" width={"250px"} height={"250px"} />
+        <MyImg src={VS} alt="VS" />
         {secondFighterStatus === "success" && !isSecondPokemonDeleted ? (
           <FightResultCardContainer
             winValue={secondFighter?.winCount}
@@ -133,9 +160,7 @@ const ArenaPage = () => {
             fightResult={fightResult}
             winnerValue={"second"}
             lostValue={"first"}
-            deleteFighter={() =>
-              deleteFighter(setArenaSecondFighter, setIsSecondPokemonDeleted)
-            }
+            deleteFighter={() => deleteFighter(setArenaSecondFighter, setIsSecondPokemonDeleted)}
           />
         ) : (
           <BlankCard value={"Drugi Pokemon"} />

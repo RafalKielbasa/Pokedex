@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from "react";
+
 import { useQuery, useQueries } from "@tanstack/react-query";
+
 import { useOutletContext } from "react-router-dom";
 
 import { filterFnc } from "src/helpers";
+
 import {
   fetchDataFromPage,
   fetchPokemonQueriesData,
   fetchDataToFilter,
 } from "src/api/fetchDataFunctions";
-import {
-  MyPagination,
-  PokemonCard,
-  PokemonCardContainer,
-  Loader,
-  ErrorMsg,
-  BasicPokemonLayout,
-  NoMatch,
-  PageHeader,
-} from "src/components";
+
+import { MyPagination, NoMatch, PageHeader } from "src/components/exlusiveHomePageComponents";
+import { Loader, ErrorMsg } from "src/components/loaders";
+import { BasicPokemonLayout } from "src/components/layouts";
+import { PokemonCard } from "src/components/cards";
+import { PokemonCardContainer } from "src/components/cardContainers";
 
 const HomePage = () => {
   const { editedList, editedStatus } = useOutletContext();

@@ -1,11 +1,15 @@
 import React, { useContext } from "react";
+
 import { Link } from "react-router-dom";
-import { ConditionalNavbarBtn } from "src/components";
+
 import GlobalContext from "src/context/GlobalContext";
+
+import { ConditionalNavbarBtn } from "src/components";
 
 const NavigationBar = () => {
   const { loggedIn, setLoggedIn, setUser, theme, activeBtn, ActiveBtnHandle } =
     useContext(GlobalContext);
+
   return (
     <>
       <Link to="/">

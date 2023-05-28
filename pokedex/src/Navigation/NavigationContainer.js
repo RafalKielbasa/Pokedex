@@ -1,9 +1,13 @@
 import React, { useContext, useState } from "react";
+
 import styled from "styled-components";
-import { Pokedex } from "../img";
+
+import { Link } from "react-router-dom";
 
 import GlobalContext from "src/context/GlobalContext";
-import { Link } from "react-router-dom";
+
+import { Pokedex } from "../img";
+
 import { MySwitch } from "src/components";
 
 const NavWrapper = styled.div`
@@ -18,6 +22,7 @@ const NavWrapper = styled.div`
     flex-direction: column;
   }
 `;
+
 const NavButtonWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
@@ -30,7 +35,9 @@ const NavButtonWrapper = styled.div`
 
 const NavigationContainer = ({ children }) => {
   const { toggleDarkMode, theme, ActiveBtnHandle } = useContext(GlobalContext);
+
   const [checkedValue, setCheckedValue] = useState(false);
+
   return (
     <NavWrapper theme={theme}>
       <Link to="/">
