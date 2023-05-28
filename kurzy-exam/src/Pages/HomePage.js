@@ -120,7 +120,7 @@ const HomePage = () => {
   fullPokemonData.length > 150 ? window.location.reload() : {};
 
   // const pageCount = fullPokemonData?.length / 15;
-  const partialPokemonData = fullPokemonData
+  const partialPokemonData = expFullPokemonData
     .slice(offset, offset + 15)
     .sort((a, b) => (a.id > b.id ? 1 : -1));
 
@@ -131,9 +131,9 @@ const HomePage = () => {
 
   useEffect(
     () =>
-      fullPokemonData &&
+      expFullPokemonData &&
       setFullPokemonDataFiltered(
-        fullPokemonData.filter(
+        expFullPokemonData.filter(
           ({ name, height, base_experience, weight }) =>
             name?.toLowerCase().includes(inputText) ||
             height?.toString().toLowerCase().includes(inputText) ||
@@ -216,7 +216,11 @@ const HomePage = () => {
                 <PokemonCard
                   key={index}
                   id={item.id}
-                  pic={item.sprites.front_default}
+                  pic={
+                    item.sprites.front_default
+                      ? item.sprites.front_default
+                      : item.pic
+                  }
                   picDet={item.sprites.other.dream_world}
                   name={item.name}
                   height={item.height}
@@ -283,8 +287,8 @@ const HomePage = () => {
               <PokemonCard
                 key={index}
                 id={item.id}
-                pic={item.sprites.front_default}
-                picDet={item.sprites.other.dream_world.front_default}
+                // pic={item.sprites.front_default || item.pic}
+                // picDet={item.sprites.other.dream_world.front_default}
                 name={item.name}
                 height={item.height}
                 baseexp={item.base_experience}

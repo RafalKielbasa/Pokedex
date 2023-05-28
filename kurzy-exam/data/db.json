@@ -32,6 +32,16 @@
       "baseexp": 107,
       "weight": 2100,
       "abilitie": "rock-head"
+    },
+    {
+      "id": 3,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
+      "name": "venusaur",
+      "height": 20,
+      "baseexp": 273,
+      "weight": 1000,
+      "abilitie": "overgrow"
     }
   ]
 }
