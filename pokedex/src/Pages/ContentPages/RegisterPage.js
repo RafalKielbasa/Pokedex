@@ -2,9 +2,13 @@ import { Form, Formik } from "formik";
 
 import { enqueueSnackbar } from "notistack";
 
-import { postData } from "src/api/postDataFunctions";
+import { useQuery } from "@tanstack/react-query";
+
+import { postUser } from "src/api/postDataFunctions";
 
 import { registerValidationSchema } from "src/validationSchemas";
+
+import { fetchUsers } from "src/api/fetchDataFunctions";
 
 import {
   FormContainer,
@@ -15,6 +19,10 @@ import {
 } from "src/components/formComponents";
 
 const RegisterPage = () => {
+  const { data: users } = useQuery({
+    queryKey: ["users"],
+    queryFn: () => fetchUsers(),
+  });
   return (
     <Formik
       initialValues={{
@@ -24,10 +32,13 @@ const RegisterPage = () => {
         repeatPassword: "",
       }}
       validationSchema={registerValidationSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        postData("users", values);
+      onSubmit={async (values, { setSubmitting }) => {
+        const filteredUsers = users?.map(({ name }) => name);
+        if (!filteredUsers.includes(values?.name)) {
+          postUser("users", values);
+          enqueueSnackbar("Rejestracja udana", { variant: "success" });
+        } else enqueueSnackbar("Ta nazwa użytkownika jest zajęta", { variant: "error" });
         setSubmitting(false);
-        enqueueSnackbar("Rejestracja udana", { variant: "success" });
       }}
     >
       {({ isSubmitting }) => (
@@ -37,6 +48,7 @@ const RegisterPage = () => {
               border: "2px solid",
               marginTop: "20px",
               display: "flex",
+              width: "70%",
               flexDirection: "column",
               fontSize: "24px",
               padding: "3%",

@@ -77,7 +77,7 @@ const DetailedPokemonCard = ({
 }) => {
   const navigate = useNavigate();
   const dataToPass = value;
-  const { theme } = useContext(GlobalContext);
+  const { theme, ActiveBtnHandle } = useContext(GlobalContext);
 
   return (
     <DetailedConatiner>
@@ -123,7 +123,10 @@ const DetailedPokemonCard = ({
               borderColor: theme.borderColor,
               color: theme.borderColor,
             }}
-            onClick={() => navigate(`/`)}
+            onClick={() => {
+              navigate(`/`);
+              ActiveBtnHandle("Home");
+            }}
           >
             Strona Główna
           </Button>

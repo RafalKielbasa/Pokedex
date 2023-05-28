@@ -10,7 +10,7 @@ export const editedCreatedPostData = async (data, myName, editedList, action) =>
         console.log("Patched Edited");
         return response;
       } catch (error) {
-        enqueueSnackbar(error);
+        enqueueSnackbar(error, { variant: "error" });
       }
     } else {
       try {
@@ -18,7 +18,7 @@ export const editedCreatedPostData = async (data, myName, editedList, action) =>
         console.log("POST Edited");
         return response;
       } catch (error) {
-        enqueueSnackbar(error);
+        enqueueSnackbar(error, { variant: "error" });
       }
     }
   }
@@ -29,7 +29,7 @@ export const editedCreatedPostData = async (data, myName, editedList, action) =>
       console.log("POST Created");
       return response;
     } catch (error) {
-      enqueueSnackbar(error);
+      enqueueSnackbar(error, { variant: "error" });
     }
   }
 };

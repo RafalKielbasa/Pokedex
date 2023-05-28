@@ -14,6 +14,11 @@ const StyledButton = styled.button`
   font-size: 24px;
   background-color: ${(prop) => prop.theme.navButtonsColor};
   color: ${(prop) => prop.theme.textColor};
+  :disabled {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+  }
 `;
 
 const StyledSubmitButton = ({ value, disableConditions, onClickActionsOtherThanSubmit }) => {

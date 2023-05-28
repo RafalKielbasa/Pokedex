@@ -101,7 +101,7 @@ const HomePage = () => {
                   status === "success" && <PokemonCard key={data?.id} id={data?.id} value={data} />
               )
             ) : (
-              <NoMatch />
+              <NoMatch value={"BRAK DOPASOWAŃ"} />
             )}
           </PokemonCardContainer>
           {!showOnlyLocalPokemons && searchedValue === "" && (

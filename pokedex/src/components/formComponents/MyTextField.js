@@ -9,12 +9,15 @@ import GlobalContext from "src/context/GlobalContext";
 import FormRowContainer from "./FormRowContainer";
 
 const MyInput = styled.input`
+  font-weight: bold;
   height: 40px;
   width: 45%;
   background: url(${(prop) => prop.theme.bgColor});
   color: ${(prop) => prop.theme.textColor};
 `;
-
+const MyErrorInput = styled(MyInput)`
+  border-color: red;
+`;
 const MyErrorParagraf = styled.p`
   color: red;
   font-size: 12px;
@@ -33,7 +36,11 @@ const MyTextField = ({ label, ...props }) => {
   return (
     <FormRowContainer>
       <MyLabel>{label}</MyLabel>
-      <MyInput theme={theme} {...field} {...props} />
+      {meta.error ? (
+        <MyErrorInput theme={theme} {...field} {...props} />
+      ) : (
+        <MyInput theme={theme} {...field} {...props} />
+      )}
       {meta.touched && meta.error ? (
         <MyErrorParagraf className="error">{meta.error}</MyErrorParagraf>
       ) : null}

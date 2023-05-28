@@ -29,7 +29,6 @@ const LogInPage = () => {
   const { data: users } = useQuery({
     queryKey: ["users"],
     queryFn: () => fetchUsers(),
-    staleTime: 10 * (60 * 1000),
   });
 
   return (
@@ -40,9 +39,8 @@ const LogInPage = () => {
       }}
       validationSchema={loginValidationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        const filteredUsers = users?.filter(({ userName }) => userName === values?.userName);
+        const filteredUsers = users?.filter(({ name }) => name === values?.name);
         if (values?.password === filteredUsers[0]?.password) {
-          setSubmitting(false);
           setLoggedIn(true);
           setUser(values);
           enqueueSnackbar("Zostałeś zalogowany", {
@@ -51,8 +49,8 @@ const LogInPage = () => {
           navigate(`/edit`);
         } else {
           enqueueSnackbar("Dane logowania niepoprawne", { variant: "error" });
-          setSubmitting(false);
         }
+        setSubmitting(false);
       }}
     >
       {({ isSubmitting }) => (
@@ -77,7 +75,7 @@ const LogInPage = () => {
             />
             <MyTextField
               name="password"
-              type="text"
+              type="password"
               label="Hasło"
               placeholder="Wprowadź nazwę użytkownika"
             />

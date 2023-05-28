@@ -109,11 +109,17 @@ const EditPage = () => {
             pokemonDataToEdit={pokemonDataToEdit}
             setChosedPokemon={setChosedPokemon}
           />
-          <Form>
+          <Form
+            style={{
+              display: "flex",
+              width: "70%",
+              flexDirection: "column",
+              fontSize: "24px",
+            }}
+          >
             <MyTextField name="name" label="Nazwa Pokemona" type="text" />
             <MyTextField name="base_experience" label="Doświadczenie bazowe" type="number" />
             <MyTextField name="abilities[0].ability.name" label="Nazwa umiejętności" type="text" />
-            <MyTextField name="height" label="Wysokość pokemona" type="number" />
             <MyTextField name="height" label="Wysokość pokemona" type="number" />
             <MyTextField name="weight" label="Waga pokemona" type="number" />
             <StyledSubmitButton

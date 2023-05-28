@@ -8,10 +8,10 @@ const Container = styled.h1`
   color: ${(prop) => prop.theme.textColor};
 `;
 
-const NoMatch = () => {
+const NoMatch = ({ value }) => {
   const { theme } = useContext(GlobalContext);
 
-  return <Container theme={theme}>BRAK DOPASOWAŃ</Container>;
+  return <Container theme={theme}>{value}</Container>;
 };
 
 export default NoMatch;

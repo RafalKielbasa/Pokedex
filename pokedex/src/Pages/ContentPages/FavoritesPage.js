@@ -9,6 +9,7 @@ import { fetchOnePokemon } from "src/api/fetchDataFunctions";
 import { PokemonCard } from "src/components/cards";
 import { BasicPokemonLayout } from "src/components/layouts";
 import { PokemonCardContainer } from "src/components/cardContainers";
+import { NoMatch } from "src/components/exlusiveHomePageComponents";
 
 const FavoritesPage = () => {
   const { favoriteList, editedList } = useOutletContext();
@@ -27,11 +28,17 @@ const FavoritesPage = () => {
   return (
     <BasicPokemonLayout>
       <PokemonCardContainer>
-        {favoritePokemons &&
-          favoritePokemons?.map(
-            ({ data, status }) =>
-              status === "success" && <PokemonCard key={data?.id} id={data?.id} value={data} />
-          )}
+        {favoriteList.length > 0 ? (
+          <>
+            {favoritePokemons &&
+              favoritePokemons?.map(
+                ({ data, status }) =>
+                  status === "success" && <PokemonCard key={data?.id} id={data?.id} value={data} />
+              )}
+          </>
+        ) : (
+          <NoMatch value={"BRAK ULUBIONYCH"} />
+        )}
       </PokemonCardContainer>
     </BasicPokemonLayout>
   );

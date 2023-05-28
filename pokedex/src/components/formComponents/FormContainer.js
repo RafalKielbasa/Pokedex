@@ -5,7 +5,7 @@ import styled from "styled-components";
 import GlobalContext from "src/context/GlobalContext";
 
 const MyFormContainer = styled.div`
-  min-height: 82.5vh;
+  min-height: 83vh;
   display: flex;
   flex-direction: column;
   align-items: center;
