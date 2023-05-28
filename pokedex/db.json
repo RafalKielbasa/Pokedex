@@ -9,7 +9,13 @@
       "repeatPassword": "Mat123mat@"
     },
     {
-      "name": "bulbasaur1",
+      "name": "bulbasaur5",
+      "email": "mk@gmail.com",
+      "password": "Mat123mat@",
+      "repeatPassword": "Mat123mat@"
+    },
+    {
+      "name": "wartortleNowy",
       "email": "mk@gmail.com",
       "password": "Mat123mat@",
       "repeatPassword": "Mat123mat@"

@@ -2,7 +2,7 @@ import { Form, Formik } from "formik";
 
 import { enqueueSnackbar } from "notistack";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { postUser } from "src/api/postDataFunctions";
 
@@ -19,10 +19,17 @@ import {
 } from "src/components/formComponents";
 
 const RegisterPage = () => {
+  const queryClient = useQueryClient();
   const { data: users } = useQuery({
     queryKey: ["users"],
     queryFn: () => fetchUsers(),
+    staleTime: 10 * (60 * 1000),
   });
+
+  const { mutate, error } = useMutation({
+    mutationFn: (values) => postUser("users", values),
+  });
+
   return (
     <Formik
       initialValues={{
@@ -32,13 +39,24 @@ const RegisterPage = () => {
         repeatPassword: "",
       }}
       validationSchema={registerValidationSchema}
-      onSubmit={async (values, { setSubmitting }) => {
+      onSubmit={(values, { setSubmitting }) => {
         const filteredUsers = users?.map(({ name }) => name);
         if (!filteredUsers.includes(values?.name)) {
-          postUser("users", values);
-          enqueueSnackbar("Rejestracja udana", { variant: "success" });
-        } else enqueueSnackbar("Ta nazwa użytkownika jest zajęta", { variant: "error" });
-        setSubmitting(false);
+          mutate(values, {
+            onSuccess: () => {
+              enqueueSnackbar("Rejestracja udana", { variant: "success" });
+              setSubmitting(false);
+              queryClient.invalidateQueries(["users"]);
+            },
+            onError: () => {
+              enqueueSnackbar(error, { variant: "error" });
+              setSubmitting(false);
+            },
+          });
+        } else {
+          enqueueSnackbar("Ta nazwa użytkownika jest zajęta", { variant: "error" });
+          setSubmitting(false);
+        }
       }}
     >
       {({ isSubmitting }) => (

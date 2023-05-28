@@ -29,6 +29,7 @@ const LogInPage = () => {
   const { data: users } = useQuery({
     queryKey: ["users"],
     queryFn: () => fetchUsers(),
+    staleTime: 10 * (60 * 1000),
   });
 
   return (
