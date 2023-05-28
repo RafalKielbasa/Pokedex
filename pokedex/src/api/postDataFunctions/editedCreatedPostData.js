@@ -23,7 +23,7 @@ export const editedCreatedPostData = async (data, myName, editedList, action) =>
     }
   }
   if (action === "create") {
-    const updatedData = { ...data, id: data?.id + 150 };
+    const updatedData = { ...data, id: data?.id + 150, winCount: 0, lossCount: 0, tieCount: 0 };
     try {
       const response = await axios.post(`http://localhost:3000/edited/`, updatedData);
       console.log("POST Created");

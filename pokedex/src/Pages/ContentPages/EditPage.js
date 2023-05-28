@@ -4,7 +4,7 @@ import { Form, Formik } from "formik";
 
 import { useOutletContext } from "react-router-dom";
 
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 
 import { enqueueSnackbar } from "notistack";
 
@@ -48,6 +48,9 @@ const EditPage = () => {
     name: "",
     sprites: "",
     weight: "",
+    winCount: "",
+    lossCount: "",
+    tieCount: "",
   });
 
   const { data: detailPokemon, status } = useQuery({
@@ -59,7 +62,18 @@ const EditPage = () => {
 
   useEffect(() => {
     if (status === "success" && chosedPokemon !== "") {
-      const { abilities, base_experience, height, id, name, sprites, weight } = detailPokemon;
+      const {
+        abilities,
+        base_experience,
+        height,
+        id,
+        name,
+        sprites,
+        weight,
+        winCount,
+        lossCount,
+        tieCount,
+      } = detailPokemon;
       setInitialValues({
         abilities,
         base_experience,
@@ -68,37 +82,47 @@ const EditPage = () => {
         name,
         sprites,
         weight,
+        winCount,
+        lossCount,
+        tieCount,
       });
     }
   }, [status, chosedPokemon, detailPokemon]);
 
+  const { mutate, error } = useMutation({
+    mutationFn: (data) => editedCreatedPostData(data, data?.name, editedList, action),
+  });
   return (
     <Formik
       initialValues={initialValues}
       enableReinitialize={true}
       validationSchema={editValidationSchema}
       onSubmit={(values, { setSubmitting, resetForm }) => {
-        editedCreatedPostData(values, values?.name, editedList, action);
-        setSubmitting(false);
-        setAction(null);
-        queryClient.setQueryData(["editedPokemons"], (prev) => [...prev, values?.name]);
-        resetForm({
-          abilities: [
-            {
-              ability: {
-                name: "",
-              },
-            },
-          ],
-          base_experience: "",
-          height: "",
-          id: "",
-          name: "",
-          sprites: "",
-          weight: "",
-        });
-        enqueueSnackbar("Operacja zakończona sukcesem", {
-          variant: "success",
+        mutate(values, {
+          onSuccess: () => {
+            setSubmitting(false);
+            setAction(null);
+            queryClient.setQueryData(["editedPokemons"], (prev) => [...prev, values?.name]);
+            queryClient.setQueryData(["pokemon", values?.name], values);
+            resetForm({
+              abilities: [
+                {
+                  ability: {
+                    name: "",
+                  },
+                },
+              ],
+              base_experience: "",
+              height: "",
+              id: "",
+              name: "",
+              sprites: "",
+              weight: "",
+            });
+            enqueueSnackbar("Operacja zakończona sukcesem", {
+              variant: "success",
+            });
+          },
         });
       }}
     >
