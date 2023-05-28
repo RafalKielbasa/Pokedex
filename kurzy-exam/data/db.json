@@ -11,16 +11,6 @@
       "abilitie": "swarm"
     },
     {
-      "id": 62,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/62.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/62.svg",
-      "name": "poliwrath",
-      "height": 13,
-      "baseexp": 255,
-      "weight": 540,
-      "abilitie": "water-absorb"
-    },
-    {
       "id": 144,
       "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/144.png",
       "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/144.svg",
@@ -33,24 +23,24 @@
   ],
   "battle": [
     {
-      "id": 62,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/62.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/62.svg",
-      "name": "poliwrath",
+      "id": 36,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/36.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/36.svg",
+      "name": "clefable",
       "height": 13,
-      "baseexp": 255,
-      "weight": 540,
-      "abilitie": "water-absorb"
+      "baseexp": 242,
+      "weight": 400,
+      "abilitie": "cute-charm"
     },
     {
-      "id": 74,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/74.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/74.svg",
-      "name": "geodude",
-      "height": 4,
-      "baseexp": 60,
-      "weight": 200,
-      "abilitie": "rock-head"
+      "id": 3,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
+      "name": "venusaur",
+      "height": 20,
+      "baseexp": 263,
+      "weight": 1000,
+      "abilitie": "overgrow"
     }
   ],
   "afterTheBattle": []

@@ -219,13 +219,127 @@ export default function PokemonCard({
     </CardsWrapper>
   );
 }
+
+export function ArenaPokemonCard({
+  id,
+  pic,
+  picDet,
+  name,
+  height,
+  baseexp,
+  weight,
+  abilitie,
+}) {
+  return (
+    <CardsWrapper>
+      <Card
+        sx={{
+          width: 320,
+          // "&:hover": {
+          //   transform: "scale(1.10)",
+          // },
+        }}
+      >
+        <CardMedia style={{ textAlign: "center" }}>
+          <img src={pic} alt={"picture"} key={id} />
+        </CardMedia>
+
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          style={{ textAlign: "center" }}
+        >
+          {name}
+        </Typography>
+
+        <CardContent
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "flex-start",
+          }}
+        >
+          <CardContent
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="body2" color="text.secondary">
+              {height}
+            </Typography>
+            <Typography
+              sx={{ fontWeight: "bold", paddingBottom: "20px" }}
+              variant="body2"
+              color="text.secondary"
+            >
+              Height
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {baseexp}
+            </Typography>
+            <Typography
+              sx={{ fontWeight: "bold" }}
+              variant="body2"
+              color="text.secondary"
+            >
+              Base experience
+            </Typography>
+          </CardContent>
+
+          <CardContent
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="body2" color="text.secondary">
+              {weight}
+            </Typography>
+            <Typography
+              sx={{ fontWeight: "bold", paddingBottom: "20px" }}
+              variant="body2"
+              color="text.secondary"
+            >
+              Weight
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {abilitie}
+            </Typography>
+            <Typography
+              sx={{ fontWeight: "bold" }}
+              variant="body2"
+              color="text.secondary"
+            >
+              Abilitie
+            </Typography>
+          </CardContent>
+        </CardContent>
+
+        <CardActions
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        ></CardActions>
+      </Card>
+    </CardsWrapper>
+  );
+}
+
 export function BlankPokemonCard() {
   return (
     <CardsWrapper>
       <Card
         sx={{
           width: 320,
-          height: 400,
+          height: 330,
         }}
       >
         <CardContent
@@ -238,7 +352,7 @@ export function BlankPokemonCard() {
         >
           <Typography
             sx={{
-              fontSize: "40px",
+              fontSize: "28px",
               fontWeight: "bold",
               textAlign: "center",
             }}
