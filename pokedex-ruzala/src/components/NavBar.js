@@ -65,7 +65,7 @@ export default function NavBar() {
         {loginState && (
           <Button
             onClick={() => {
-              navigate("/");
+              navigate("/edit");
             }}
           >
             Edycja

@@ -34,3 +34,22 @@ export const loginSchema = yup.object().shape({
     )
     .required("Pole wymagane"),
 });
+
+export const pokemonEditSchema = yup.object().shape({
+  name: yup
+    .string()
+    .min(2, "Pokemon musi mieć w nazwie minimum 2 znaki.")
+    .required("Pole wymagane"),
+  weight: yup
+    .number()
+    .min(1, "Pokemon musi ważyć minimum 1.")
+    .required("Pole wymagane"),
+  height: yup
+    .number()
+    .min(1, "Pokemon musi mierzyć minimum 1.")
+    .required("Pole wymagane"),
+  base_experience: yup
+    .number()
+    .min(1, "Pokemon musi mieć minimum 1 base experience.")
+    .required("Pole wymagane"),
+});

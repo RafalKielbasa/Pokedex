@@ -6,8 +6,9 @@ import {
   MenuItem,
   Typography,
 } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useSnackbar } from "notistack";
+import { GlobalContext } from "../App";
 
 export default function TableProperties({
   pokemons,
@@ -16,9 +17,9 @@ export default function TableProperties({
   itemsPerPageSetter,
   currentArraySetter,
   currentArray,
-  pokemonTypes,
 }) {
   const { enqueueSnackbar } = useSnackbar();
+  const { pokemonTypes } = useContext(GlobalContext);
 
   const [itemsPerPageArray, setItemsPerPageArray] = useState([]);
   const [goToPage, setGoToPage] = useState();
@@ -150,21 +151,23 @@ export default function TableProperties({
         >
           Filter by Type
         </Typography>
-        <Select
-          sx={{ width: "60%", height: "80%" }}
-          onChange={handleTypeFilter}
-        >
-          <MenuItem selected value={""}>
-            NO FILTER
-          </MenuItem>
-          {pokemonTypes.map((type) => {
-            return (
-              <MenuItem key={`${type} type pokemons`} value={type.name}>
-                {type.name.toUpperCase()}
-              </MenuItem>
-            );
-          })}
-        </Select>
+        {pokemonTypes.length > 0 && (
+          <Select
+            sx={{ width: "60%", height: "80%" }}
+            onChange={handleTypeFilter}
+          >
+            <MenuItem selected value={""}>
+              NO FILTER
+            </MenuItem>
+            {pokemonTypes.map((type) => {
+              return (
+                <MenuItem key={`${type} type pokemons`} value={type.name}>
+                  {type.name.toUpperCase()}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        )}
       </Box>
     </Box>
   );

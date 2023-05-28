@@ -3,20 +3,25 @@ export default function modifyPokemon(
   setArrayOfModifiedPokemon,
   modifiedPokemon
 ) {
+  const newModifiedPokemon = { ...modifiedPokemon };
+  console.log(newModifiedPokemon);
   if (
-    arrayOfModifiedPokemon.some((element) => element.id === modifiedPokemon.id)
+    arrayOfModifiedPokemon.some(
+      (element) => element.id === newModifiedPokemon.id
+    )
   ) {
     const indexOfModifiedPokemon = arrayOfModifiedPokemon.findIndex(
-      (element) => element.id === modifiedPokemon.id
+      (element) => element.id === newModifiedPokemon.id
     );
     const newArrayOfModifiedPokemon = [...arrayOfModifiedPokemon];
     newArrayOfModifiedPokemon.splice(
       indexOfModifiedPokemon,
       1,
-      modifiedPokemon
+      newModifiedPokemon
     );
+    console.log(newArrayOfModifiedPokemon);
     setArrayOfModifiedPokemon(newArrayOfModifiedPokemon);
   } else {
-    setArrayOfModifiedPokemon([...arrayOfModifiedPokemon, modifiedPokemon]);
+    setArrayOfModifiedPokemon([...arrayOfModifiedPokemon, newModifiedPokemon]);
   }
 }

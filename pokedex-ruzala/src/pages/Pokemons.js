@@ -1,27 +1,19 @@
 import { Box } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
 import PokemonTile from "../components/PokemonTile";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useContext, useState } from "react";
 import ArrowButton from "../components/ArrowButton";
 import TableProperties from "../components/TableProperties";
-import fetchData from "../fetching/fetchData";
 import { GlobalContext } from "../App";
 
-const baseURL = process.env.REACT_APP_BASE_URL;
+export default function Pokemons() {
+  const { pokemons, currentArray, setCurrentArray, pokemonTypes } =
+    useContext(GlobalContext);
 
-export default function HomePage() {
-  const pokeTypes = useQuery({
-    queryKey: ["pokeTypes"],
-    queryFn: () => fetchData(`${baseURL}type`),
-    staleTime: 1000000,
-  });
-
-  const { pokemons, currentArray, setCurrentArray } = useContext(GlobalContext);
-
+  console.log(pokemonTypes);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentItemsPerPage, setCurrentItemsPerPage] = useState(15);
-  if (!currentArray || pokeTypes.isLoading) {
+  if (!currentArray || !pokemonTypes) {
     return (
       <Box sx={{ position: "relative", height: "100%", width: "100%" }}>
         <CircularProgress
@@ -74,7 +66,6 @@ export default function HomePage() {
             currentPageSetter={setCurrentPage}
             currentArray={currentArray}
             currentArraySetter={setCurrentArray}
-            pokemonTypes={pokeTypes.data.results}
           />
         )}
         <Box
