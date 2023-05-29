@@ -4,6 +4,7 @@ import { Button } from "semantic-ui-react";
 import { useFavorite } from "./FavoritesContext";
 import { useContext } from "react";
 import { FightArenaContext } from "./FightArenaContext";
+import { useEffect } from "react";
 
 export const typeColor = (type) => {
   switch (type) {
@@ -94,7 +95,12 @@ const FavoriteCard = ({ pokemon }) => {
         />
         <h2>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
         <TypesGrid>
-          <p>🆔 {pokemon.id}</p>
+          <p>
+            🆔{" "}
+            {pokemon.id.toString().length > 1
+              ? pokemon.id.toString().slice(1, 3)
+              : pokemon.id}
+          </p>
           <p>❤️ {pokemon.stats[0].base_stat}</p>
           <p>⚔️ {pokemon.stats[1].base_stat}</p>
           <p>🛡️ {pokemon.stats[2].base_stat}</p>

@@ -91,8 +91,8 @@ const FightArena = () => {
       return;
     }
 
-    let pokemon1 = JSON.parse(localStorage.getItem(fightArena[0].name));
-    let pokemon2 = JSON.parse(localStorage.getItem(fightArena[1].name));
+    let pokemon1 = fightArena[0];
+    let pokemon2 = fightArena[1];
 
     if (!pokemon1 || !pokemon2) {
       alert("Nie można znaleźć danych Pokemon w localStorage");
@@ -147,7 +147,7 @@ const FightArena = () => {
               <Card
                 key={pokemon.id}
                 type={pokemon?.types[0].type.name}
-                defeted={defetedPokemon === pokemon.name}
+                defeted={defetedPokemon === pokemon.id} //
               >
                 <img
                   style={{ width: "150px", height: "150px" }}
@@ -158,7 +158,12 @@ const FightArena = () => {
                   {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
                 </h2>
                 <TypesGrid>
-                  <p>🆔 {pokemon.id}</p>
+                  <p>
+                    🆔{" "}
+                    {pokemon.id.toString().length > 1
+                      ? pokemon.id.toString().slice(1, 3)
+                      : pokemon.id}
+                  </p>
                   <p>❤️ {pokemon.stats[0].base_stat}</p>
                   <p>⚔️ {pokemon.stats[1].base_stat}</p>
                   <p>🛡️ {pokemon.stats[2].base_stat}</p>

@@ -14,6 +14,7 @@ import PokemonMoreCard from "./components/PokemonMoreCard";
 import UserPanel from "./components/UserPanel";
 import { FightArenaProvider } from "./components/FightArenaContext";
 import EditPokemons from "./components/EditPokemons";
+import { NewPokemonProvider } from "./components/NewPokemonContext";
 
 function App() {
   const ErrorPage = () => {
@@ -27,35 +28,37 @@ function App() {
 
   return (
     <>
-      <LoginProvider>
-        <ThemeProvider>
-          <SearchProvider>
-            <FightArenaProvider>
-              <FavoritesProvider>
-                <header style={{ position: "sticky", top: 0, zIndex: 1000 }}>
-                  <Navbar />
-                </header>
+      <NewPokemonProvider>
+        <LoginProvider>
+          <ThemeProvider>
+            <SearchProvider>
+              <FightArenaProvider>
+                <FavoritesProvider>
+                  <header style={{ position: "sticky", top: 0, zIndex: 1000 }}>
+                    <Navbar />
+                  </header>
 
-                <Routes>
-                  <Route path="/" element={<PokemonsCards />} />
-                  <Route path="/favorites" element={<Favorites />} />
-                  <Route path="/register" element={<Register />} />
-                  <Route path="/arena" element={<FightArena />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/user" element={<UserPanel />} />
-                  <Route path="/edit" element={<EditPokemons />} />
+                  <Routes>
+                    <Route path="/" element={<PokemonsCards />} />
+                    <Route path="/favorites" element={<Favorites />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/arena" element={<FightArena />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/user" element={<UserPanel />} />
+                    <Route path="/edit" element={<EditPokemons />} />
 
-                  <Route
-                    path="/pokemon/:pokemonName"
-                    element={<PokemonMoreCard />}
-                  />
-                  <Route path="*" element={<ErrorPage />} />
-                </Routes>
-              </FavoritesProvider>
-            </FightArenaProvider>
-          </SearchProvider>
-        </ThemeProvider>
-      </LoginProvider>
+                    <Route
+                      path="/pokemon/:pokemonName"
+                      element={<PokemonMoreCard />}
+                    />
+                    <Route path="*" element={<ErrorPage />} />
+                  </Routes>
+                </FavoritesProvider>
+              </FightArenaProvider>
+            </SearchProvider>
+          </ThemeProvider>
+        </LoginProvider>
+      </NewPokemonProvider>
     </>
   );
 }
