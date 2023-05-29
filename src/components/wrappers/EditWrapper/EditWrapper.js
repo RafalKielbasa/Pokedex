@@ -1,4 +1,3 @@
-import * as Yup from "yup";
 import {
   Container,
   DetailsSign,
@@ -7,23 +6,11 @@ import {
   PokemonImg,
   PokemonInfo,
   PokemonName,
-  PropsDiv,
 } from "../PokemonDetailsWrapper/PokemonDetailsWrapper.style";
-import { useFormik } from "formik";
-import { Input, Label } from "./EditWrapper.style";
-import { Button } from "@mui/material";
 import { useCorrectPokemonQuery } from "../../../hooks/useCorrecrtPokemon";
 import { useSearchParams } from "react-router-dom";
-import { useEditMutation } from "../../../hooks/useEdit";
 import { useState } from "react";
 import { EditForm } from "./EditForm";
-
-// const editSchema = Yup.object().shape({
-//   height: Yup.number(),
-//   weight: Yup.number(),
-//   base_experience: Yup.number(),
-//   ability: Yup.string(),
-// });
 
 export const EditWrapper = () => {
   const [currentButton, setCurrentButton] = useState();

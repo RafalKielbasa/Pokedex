@@ -130,7 +130,7 @@ export const getCurrentUser = (id) => {
   });
 };
 
-const checkIfUserExist = async (email) => {
+export const checkIfUserExist = async (email) => {
   const data = await getUser(email);
 
   if (data?.data?.length === 0) {
@@ -146,32 +146,24 @@ export const signUp = async (userData) => {
   if (!isExisting) {
     await postUser(userData);
   } else {
-    throw new Error("User already");
+    throw new Error("User already exist");
   }
 };
 
 export const signIn = async (userData) => {
   const isExisting = await checkIfUserExist(userData.email);
+  const user = await getUser(userData.email);
+
+  console.log(isExisting);
 
   if (isExisting) {
-    const user = await getUser(userData.email);
-
     if (user?.data[0]?.password === userData?.password) {
       localStorage.setItem(LocalStorage.LsUserItem, user?.data[0]?.id);
-      console.log("zalogowany");
     } else {
-      console.log("zle haslo");
+      throw new Error("Wrong Password");
     }
   } else {
-    console.log("nie istenieje");
-  }
-};
-
-export const signOut = () => {
-  const loggedUser = localStorage.getItem(LocalStorage.LsUserItem);
-
-  if (loggedUser) {
-    localStorage.removeItem(LocalStorage.LsUserItem);
+    throw new Error("Account with this email does not exist");
   }
 };
 

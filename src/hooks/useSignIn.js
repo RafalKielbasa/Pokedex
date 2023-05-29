@@ -9,11 +9,14 @@ export const useSignInMutation = () => {
 
   return useMutation({
     mutationFn: (userData) => signIn(userData),
+    onError: (msg) => {
+      enqueueSnackbar(`${msg}`, { variant: "error" });
+    },
     onSuccess: () => {
       enqueueSnackbar("Successful registered", { variant: "success" });
 
       setTimeout(() => {
-        navigate(ProjectUrl.Home);
+        navigate(ProjectUrl.EditAndLogout);
         window.location.reload(false);
       }, 2000);
     },

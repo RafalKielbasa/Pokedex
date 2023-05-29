@@ -8,18 +8,12 @@ export const useSignUpMutation = () => {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: (userData) => {
-      signUp({ ...userData, favorites: [] });
-    },
+    mutationFn: (userData) => signUp({ ...userData, favorites: [] }),
+    onError: (err) => enqueueSnackbar(`${err}`, { variant: "error" }),
+
     onSuccess: () => {
       enqueueSnackbar("Successful Registered", { variant: "success" });
       navigate(ProjectUrl.SignIn);
-    },
-    onError: (userData) => {
-      enqueueSnackbar(
-        `Account with this email (${userData.email}) already exist`,
-        { variant: "error" }
-      );
     },
   });
 };

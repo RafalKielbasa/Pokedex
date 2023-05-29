@@ -9,9 +9,19 @@ import {
 } from "../../../context/NavigationButtons";
 import { ButtonContext } from "../../../context/NavigationContext";
 import { v4 } from "uuid";
+import { useNavigate } from "react-router-dom";
+import { ProjectUrl } from "../../../const/ProjectUrl";
 
 export const Navigation = () => {
   const user = useContext(ButtonContext);
+  const navigate = useNavigate();
+
+  const logout = (button) => {
+    if (button === "SIGN OUT") {
+      localStorage.removeItem("Pokedex-user");
+      navigate(ProjectUrl.Home);
+    }
+  };
 
   return (
     <Container>
@@ -21,7 +31,11 @@ export const Navigation = () => {
         {user
           ? NavigationButtonsLogin.map((button) => {
               return (
-                <Button href={button.href} key={v4()}>
+                <Button
+                  href={button.href}
+                  key={v4()}
+                  onClick={(btn) => logout(btn.target.innerText)}
+                >
                   {button.label}
                 </Button>
               );
