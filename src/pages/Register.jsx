@@ -64,7 +64,6 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleOnSubmit = (values, actions) => {
-    console.log(values);
     actions.setSubmitting(false);
     axios.post(`http://localhost:3001/user/`, {
       name: values.name,

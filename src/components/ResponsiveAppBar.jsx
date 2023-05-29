@@ -13,6 +13,8 @@ import {
   Button,
   Tooltip,
   MenuItem,
+  styled,
+  css,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 
@@ -21,13 +23,13 @@ import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 
-import styled from "styled-components";
-
 import { ThemeContext } from "../context/ThemeContext";
 
-const StyledTitle = styled.span`
-  font-size: 30px;
-`;
+const StyledTitle = styled("span")(
+  css`
+    font-size: 30px;
+  `
+);
 const pages = [
   { text: "Favorites", path: "favorites" },
   { text: "Arena", path: "arena" },
@@ -55,11 +57,11 @@ const ResponsiveAppBar = () => {
     if (userData) {
       setAnchorElUser(event.currentTarget);
     } else {
-      handleClick("Zaloguj sie aby uzyskac dostep", "error");
+      handleSnackBar("Sign In to get access", "error");
     }
   };
 
-  const handleClick = (text, type) => {
+  const handleSnackBar = (text, type) => {
     enqueueSnackbar(text, { variant: type });
   };
 
@@ -160,7 +162,7 @@ const ResponsiveAppBar = () => {
                 }}
               >
                 {visibleAppBarPages.map(({ text, path }) => (
-                  <MenuItem
+                  <Button
                     key={text}
                     onClick={handleCloseNavMenu}
                     style={{
@@ -170,7 +172,7 @@ const ResponsiveAppBar = () => {
                     <Link to={`/${path}`}>
                       <h2>{text}</h2>
                     </Link>
-                  </MenuItem>
+                  </Button>
                 ))}
               </Menu>
             </Box>

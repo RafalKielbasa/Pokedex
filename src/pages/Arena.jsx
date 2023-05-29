@@ -95,10 +95,10 @@ const Arena = () => {
   const playerOneName = battle[0]?.name;
   const playerTwoName = battle[1]?.name;
 
-  const playerOneForce = playerOne?.base_experience * playerOne?.weight;
-  const playerTwoForce = playerTwo?.base_experience * playerTwo?.weight;
-
   const handleFight = () => {
+    const playerOneForce = playerOne?.base_experience * playerOne?.weight;
+    const playerTwoForce = playerTwo?.base_experience * playerTwo?.weight;
+
     if (playerOneForce > playerTwoForce) {
       setWinner(playerOneName);
       updateData(playerOne);

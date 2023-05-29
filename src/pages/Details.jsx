@@ -160,8 +160,6 @@ const Details = () => {
   };
 
   const handleBattleClick = () => {
-    console.log(battle, battle.includes(pokemonData.name));
-
     if (
       battle.length > 1 &&
       !battle.includes(pokemonData.id) &&
