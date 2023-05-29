@@ -1,22 +1,31 @@
 import React from "react";
 import axios from "axios";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import PokemonCard from "../Components/PokemonCards";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useQuery } from "react-query";
 import { getFullResults } from "src/api/source";
 import { useSnackbar } from "notistack";
+import { ThemeContext } from "src/context/ThemeContext";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-const HomePageWrapper = styled.div`
-  margin-bottom: 20px;
-  padding: 0px 40px 0px 40px;
-`;
+const HomePageWrapper = styled("div")(
+  ({ theme }) => css`
+    margin-bottom: 20px;
+    padding: 0px 40px 0px 40px;
+    background-color: ${theme.bgColor};
+  `
+);
+// const HomePageWrapper = styled.div`
+//   margin-bottom: 20px;
+//   padding: 0px 40px 0px 40px;
+//   background-color: black;
+// `;
 const PaginationWrapper = styled.div`
   display: flex;
   align-items: top;
@@ -32,6 +41,7 @@ const InfoWrapper = styled.h1`
   display: flex;
   justify-content: center;
   margin-top: 100px;
+  background-color: black;
 `;
 
 const HomePage = () => {
@@ -53,6 +63,7 @@ const HomePage = () => {
     []
   );
 
+  const { theme } = useContext(ThemeContext);
   const { enqueueSnackbar } = useSnackbar();
   const queryFullData = useQuery([`/`], () => getFullResults());
 
@@ -180,7 +191,7 @@ const HomePage = () => {
   return (
     <>
       {inputText ? (
-        <HomePageWrapper>
+        <HomePageWrapper theme={theme}>
           <PaginationWrapper>
             <Box component="form" noValidate autoComplete="off">
               <TextField

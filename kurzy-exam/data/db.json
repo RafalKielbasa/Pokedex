@@ -11,16 +11,6 @@
       "abilitie": "overgrow"
     },
     {
-      "id": 1,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
-      "name": "bulbasaur",
-      "height": 7,
-      "baseexp": 64,
-      "weight": 69,
-      "abilitie": "overgrow"
-    },
-    {
       "id": 75,
       "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/75.png",
       "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/75.svg",
@@ -41,7 +31,18 @@
       "abilitie": "overgrow"
     }
   ],
-  "battle": [],
+  "battle": [
+    {
+      "id": 35,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/35.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/35.svg",
+      "name": "clefairy",
+      "height": 6,
+      "baseexp": 113,
+      "weight": 75,
+      "abilitie": "cute-charm"
+    }
+  ],
   "afterTheBattle": [
     {
       "id": 95,
