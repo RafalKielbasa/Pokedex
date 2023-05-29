@@ -115,6 +115,11 @@ const Arena = () => {
       ...winner,
       base_experience: winner.base_experience + 10,
     });
+    axios.post(`http://localhost:3001/battleHistory/`, {
+      playerOneName,
+      playerTwoName,
+      winner: winner?.name,
+    });
   };
 
   const removeFighter = (index) => {

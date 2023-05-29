@@ -22,5 +22,6 @@
   "battle": [],
   "favorites": [],
   "editedPokemon": [],
-  "newPokemon": []
+  "newPokemon": [],
+  "battleHistory": []
 }
