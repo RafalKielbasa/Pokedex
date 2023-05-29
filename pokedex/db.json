@@ -1,12 +1,5 @@
 {
   "favorite": [],
   "edited": [],
-  "users": [
-    {
-      "name": "charizard",
-      "email": "ada@wp.pl",
-      "password": "Mat123mat@",
-      "repeatPassword": "Mat123mat@"
-    }
-  ]
+  "users": []
 }
