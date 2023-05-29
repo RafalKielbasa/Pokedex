@@ -24,11 +24,7 @@ export const PokemonCard = ({ props }) => {
 
       <Body>
         <PokemonName>
-          {location.pathname === ProjectUrl.EditAndLogout ? (
-            <Link to={`${ProjectUrl.Edit}?name=${name}`}>{name}</Link>
-          ) : (
-            <Link to={`${ProjectUrl.PokemonDetails}?name=${name}`}>{name}</Link>
-          )}
+          <Link to={`${ProjectUrl.PokemonDetails}?name=${name}`}>{name}</Link>
         </PokemonName>
         <Container>
           <PropsDiv>

@@ -7,24 +7,25 @@ import {
 import { usePaginationQuery } from "../../../hooks/usePagination";
 import { useState } from "react";
 import { PagePagination } from "../../PagePagination";
+import { PokemonCardEdit } from "../../PokemonCardList/PokemonCardEdit";
+import { useAllPokemonQuery } from "../../../hooks/useAllPokemon";
 
 export const EditAndLogoutWrapper = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { data } = usePaginationQuery("pokemon", currentPage);
-
-  console.log(data);
+  const { data: AllPokemons } = useAllPokemonQuery();
 
   return (
     <PageWrapper>
       <Wrapper>
         {data?.data?.map((pokemon) => {
-          return <PokemonCard props={pokemon} />;
+          return <PokemonCardEdit props={pokemon} />;
         })}
       </Wrapper>
       <PaginationWrapper>
         <PagePagination
           setCurrentPage={setCurrentPage}
-          pokemonData={data?.data}
+          pokemonData={AllPokemons?.data}
         />
       </PaginationWrapper>
     </PageWrapper>
