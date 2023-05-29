@@ -43,6 +43,10 @@ const NewPokemon = ({ pokemon }) => {
             src={pokemon.sprites.other["official-artwork"].front_default}
             alt={pokemon.name}
           />
+          <div>
+            {" "}
+            <i class="edit icon"></i> new
+          </div>
           <h2>
             {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
           </h2>

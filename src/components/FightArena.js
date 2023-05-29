@@ -104,10 +104,10 @@ const FightArena = () => {
 
     if (pokemon1Stats > pokemon2Stats) {
       setWinner(pokemon1.name);
-      setDefeted(pokemon2.name);
+      setDefeted(pokemon2.id);
     } else if (pokemon1Stats < pokemon2Stats) {
       setWinner(pokemon2.name);
-      setDefeted(pokemon1.name);
+      setDefeted(pokemon1.id);
     } else {
       setWinner("Remis");
       setDefeted(null);
@@ -154,6 +154,12 @@ const FightArena = () => {
                   src={pokemon.sprites.other["official-artwork"].front_default}
                   alt={pokemon.name}
                 />
+                {pokemon.id.toString().length > 4 ? (
+                  <div>
+                    {" "}
+                    <i class="edit icon"></i> new
+                  </div>
+                ) : null}
                 <h2>
                   {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
                 </h2>
@@ -161,7 +167,7 @@ const FightArena = () => {
                   <p>
                     🆔{" "}
                     {pokemon.id.toString().length > 1
-                      ? pokemon.id.toString().slice(1, 3)
+                      ? pokemon.id.toString().slice(0, 3)
                       : pokemon.id}
                   </p>
                   <p>❤️ {pokemon.stats[0].base_stat}</p>

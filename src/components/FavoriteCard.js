@@ -50,7 +50,7 @@ export const typeColor = (type) => {
 const Card = styled.div`
   border-radius: 6px;
   width: 300px;
-  height: 400px;
+  height: 460px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -93,12 +93,18 @@ const FavoriteCard = ({ pokemon }) => {
           src={pokemon.sprites.other["official-artwork"].front_default}
           alt={pokemon.name}
         />
+        {pokemon.id.toString().length > 4 ? (
+          <div>
+            {" "}
+            <i class="edit icon"></i> new
+          </div>
+        ) : null}
         <h2>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
         <TypesGrid>
           <p>
             🆔{" "}
             {pokemon.id.toString().length > 1
-              ? pokemon.id.toString().slice(1, 3)
+              ? pokemon.id.toString().slice(0, 3)
               : pokemon.id}
           </p>
           <p>❤️ {pokemon.stats[0].base_stat}</p>
