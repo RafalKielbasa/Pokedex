@@ -1,14 +1,15 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
 import axios from "axios";
 import styled from "styled-components";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import PokemonCard from "../Components/PokemonCards";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import PokemonCard from "../Components/PokemonCards";
+import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { getFullResults } from "src/api/source";
+import { useSnackbar } from "notistack";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -52,6 +53,7 @@ const HomePage = () => {
     []
   );
 
+  const { enqueueSnackbar } = useSnackbar();
   const queryFullData = useQuery([`/`], () => getFullResults());
 
   const getFavorites = async () => {
@@ -60,6 +62,13 @@ const HomePage = () => {
     const getFavoritesIds = response?.data?.map((item) => item.id);
     setFavoritesIds(getFavoritesIds);
   };
+
+  useEffect(() => {
+    enqueueSnackbar(`Załadowano bazę danych Pokemonów`, {
+      preventDuplicate: true,
+      autoHideDuration: 3500,
+    });
+  }, [queryFullData.status === "success"]);
 
   useEffect(() => {
     getFavorites();

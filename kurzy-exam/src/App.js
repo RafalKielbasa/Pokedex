@@ -1,16 +1,22 @@
-import "./App.css";
+// import "./App.css";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./Routes/Routes";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { SnackbarProvider } from "notistack";
+import ThemeContextProvider from "src/context/ThemeContext";
 
 function App() {
   const queryClient = new QueryClient();
 
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+      <SnackbarProvider>
+        <QueryClientProvider client={queryClient}>
+          <ThemeContextProvider>
+            <RouterProvider router={router} />
+          </ThemeContextProvider>
+        </QueryClientProvider>
+      </SnackbarProvider>
     </>
   );
 }

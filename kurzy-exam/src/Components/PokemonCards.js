@@ -6,8 +6,9 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
 import { GiCrossedSwords } from "react-icons/gi";
 import { CardActionArea } from "@mui/material";
 import { postData } from "src/api/postData";
@@ -40,6 +41,7 @@ export default function PokemonCard({
   battle,
   battleIds,
 }) {
+  const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const handleClick = () => {
     const path = "/details";
@@ -61,10 +63,22 @@ export default function PokemonCard({
         weight,
         abilitie
       );
-      window.location.reload(false);
+      enqueueSnackbar(`Pokemon ${name} został dodany do "Ulubionych"`, {
+        preventDuplicate: true,
+        autoHideDuration: 5000,
+      });
+      setTimeout(function () {
+        window.location.reload();
+      }, 1200);
     } else {
       axios.delete(`http://localhost:3000/favoriteData/${id}`);
-      window.location.reload(false);
+      enqueueSnackbar(`Pokemon ${name} został usunięty z "Ulubionych"`, {
+        preventDuplicate: true,
+        autoHideDuration: 5000,
+      });
+      setTimeout(function () {
+        window.location.reload();
+      }, 1200);
     }
   };
 
@@ -81,10 +95,22 @@ export default function PokemonCard({
         weight,
         abilitie
       );
-      window.location.reload(false);
+      enqueueSnackbar(`Pokemon ${name} poszedł walczyć na Arenę`, {
+        preventDuplicate: true,
+        autoHideDuration: 5000,
+      });
+      setTimeout(function () {
+        window.location.reload();
+      }, 1200);
     } else {
       axios.delete(`http://localhost:3000/battle/${id}`);
-      window.location.reload(false);
+      enqueueSnackbar(`Pokemon ${name} został usunięty z Areny`, {
+        preventDuplicate: true,
+        autoHideDuration: 5000,
+      });
+      setTimeout(function () {
+        window.location.reload();
+      }, 1200);
     }
   };
 

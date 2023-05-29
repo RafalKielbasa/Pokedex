@@ -1,14 +1,34 @@
 {
   "favoriteData": [
     {
-      "id": 8,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/8.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/8.svg",
-      "name": "wartortle",
+      "id": 2,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
+      "name": "ivysaur",
       "height": 10,
       "baseexp": 142,
-      "weight": 225,
-      "abilitie": "torrent"
+      "weight": 130,
+      "abilitie": "overgrow"
+    },
+    {
+      "id": 1,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
+      "name": "bulbasaur",
+      "height": 7,
+      "baseexp": 64,
+      "weight": 69,
+      "abilitie": "overgrow"
+    },
+    {
+      "id": 75,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/75.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/75.svg",
+      "name": "graveler",
+      "height": 10,
+      "baseexp": 137,
+      "weight": 1050,
+      "abilitie": "rock-head"
     },
     {
       "id": 3,
@@ -43,16 +63,6 @@
       "abilitie": "effect-spore"
     },
     {
-      "id": 5,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
-      "name": "charmeleon",
-      "height": 11,
-      "baseexp": 152,
-      "weight": 190,
-      "abilitie": "blaze"
-    },
-    {
       "id": 3,
       "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
       "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
@@ -61,6 +71,26 @@
       "baseexp": 283,
       "weight": 1000,
       "abilitie": "overgrow"
+    },
+    {
+      "id": 5,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
+      "name": "charmeleon",
+      "height": 11,
+      "baseexp": 162,
+      "weight": 190,
+      "abilitie": "blaze"
+    },
+    {
+      "id": 25,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg",
+      "name": "pikachu",
+      "height": 4,
+      "baseexp": 132,
+      "weight": 60,
+      "abilitie": "static"
     }
   ]
 }

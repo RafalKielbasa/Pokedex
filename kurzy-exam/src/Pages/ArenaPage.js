@@ -1,14 +1,15 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { BlankPokemonCard, ArenaPokemonCard } from "../Components/PokemonCards";
-import { useEffect, useState } from "react";
-import { vs } from "src/Images";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import BasicModal, { DrawModal } from "src/Components/Modal";
+import { useSnackbar } from "notistack";
+import { BlankPokemonCard, ArenaPokemonCard } from "../Components/PokemonCards";
+import { useEffect, useState } from "react";
 import { postData } from "src/api/postData";
 import { useNavigate } from "react-router-dom";
+import { vs } from "src/Images";
 
 const PokemonWrapper = styled.div`
   display: flex;
@@ -31,6 +32,7 @@ const ArenaPage = () => {
   const [open2, setOpen2] = React.useState(false);
   const handleClose = () => setOpen(false);
 
+  const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
   const getBattle = async () => {
@@ -58,13 +60,25 @@ const ArenaPage = () => {
   const removeFromArena1 = () => {
     if (battle[0]) {
       axios.delete(`http://localhost:3000/battle/${battle[0].id}`);
-      window.location.reload(false);
+      enqueueSnackbar(`Pokemon ${battle[0].name} został usunięty z Areny`, {
+        preventDuplicate: true,
+        autoHideDuration: 5000,
+      });
+      setTimeout(function () {
+        window.location.reload();
+      }, 1200);
     }
   };
   const removeFromArena2 = () => {
     if (battle[1]) {
       axios.delete(`http://localhost:3000/battle/${battle[1].id}`);
-      window.location.reload(false);
+      enqueueSnackbar(`Pokemon ${battle[1].name} został usunięty z Areny`, {
+        preventDuplicate: true,
+        autoHideDuration: 5000,
+      });
+      setTimeout(function () {
+        window.location.reload();
+      }, 1200);
     }
   };
 
@@ -72,17 +86,14 @@ const ArenaPage = () => {
     const fighter1Stat = battle[0].baseexp * battle[0].weight;
     const fighter2Stat = battle[1].baseexp * battle[1].weight;
     if (fighter1Stat > fighter2Stat) {
-      console.log("Fighter1 wygrywa");
       setWinner(battle[0].name);
       setWinnerPic(battle[0].pic);
       setOpen(true);
     } else if (fighter1Stat < fighter2Stat) {
-      console.log("Fighter2 wygrywa");
       setWinner(battle[1].name);
       setWinnerPic(battle[1].pic);
       setOpen(true);
     } else if (fighter1Stat === fighter2Stat) {
-      console.log("Remis");
       setOpen2(true);
     }
   };
@@ -91,7 +102,6 @@ const ArenaPage = () => {
     const fighter1Stat = battle[0].baseexp * battle[0].weight;
     const fighter2Stat = battle[1].baseexp * battle[1].weight;
     if (fighter1Stat > fighter2Stat && !afterBattleIds.includes(battle[0].id)) {
-      console.log("Fighter1 wygrywa");
       postData(
         "afterTheBattle",
         battle[0].id,
@@ -111,7 +121,6 @@ const ArenaPage = () => {
       fighter1Stat > fighter2Stat &&
       afterBattleIds.includes(battle[0].id)
     ) {
-      console.log("Fighter1 wygrywa");
       axios.delete(`http://localhost:3000/afterTheBattle/${battle[0].id}`);
       postData(
         "afterTheBattle",
@@ -132,7 +141,6 @@ const ArenaPage = () => {
       fighter1Stat < fighter2Stat &&
       !afterBattleIds.includes(battle[1].id)
     ) {
-      console.log("Fighter2 wygrywa");
       postData(
         "afterTheBattle",
         battle[1].id,
@@ -152,7 +160,6 @@ const ArenaPage = () => {
       fighter1Stat < fighter2Stat &&
       afterBattleIds.includes(battle[1].id)
     ) {
-      console.log("Fighter2 wygrywa");
       axios.delete(`http://localhost:3000/afterTheBattle/${battle[1].id}`);
       postData(
         "afterTheBattle",
@@ -170,7 +177,6 @@ const ArenaPage = () => {
       setOpen(false);
       navigate("/");
     } else if (fighter1Stat === fighter2Stat) {
-      console.log("Remis");
       axios.delete(`http://localhost:3000/battle/${battle[0].id}`);
       axios.delete(`http://localhost:3000/battle/${battle[1].id}`);
       setOpen2(false);
