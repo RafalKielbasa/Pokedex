@@ -34,25 +34,19 @@ export default function PokemonCard({
   baseexp,
   weight,
   abilitie,
-  fullPokemonData,
+  expFullPokemonDataFormated,
   favorites,
   favoritesIds,
   battle,
   battleIds,
 }) {
-  // const [isFavorite, setIsFavorite] = useState(false);
-  // const [favorites, setFavorites] = useState([]);
-  // const [favoritesIds, setFavoritesIds] = useState([]);
-
   const navigate = useNavigate();
   const handleClick = () => {
     const path = "/details";
-    navigate(path, { state: { id, fullPokemonData, favorites, favoritesIds } });
+    navigate(path, {
+      state: { id, expFullPokemonDataFormated, favorites, favoritesIds },
+    });
   };
-
-  // const fullPokemonDataIds = fullPokemonData?.map((item) => item.id);
-  // console.log(`favorites`, favorites);
-  // console.log(`fullPokemonData`, fullPokemonData);
 
   const handleFavorite = () => {
     if (!favoritesIds.includes(id)) {
@@ -87,16 +81,12 @@ export default function PokemonCard({
         weight,
         abilitie
       );
-
       window.location.reload(false);
     } else {
       axios.delete(`http://localhost:3000/battle/${id}`);
       window.location.reload(false);
     }
   };
-
-  // console.log(`battle`, battle);
-  // console.log(`battle.length`, battle.length);
 
   return (
     <CardsWrapper>
@@ -216,7 +206,6 @@ export default function PokemonCard({
 export function ArenaPokemonCard({
   id,
   pic,
-  picDet,
   name,
   height,
   baseexp,
@@ -228,9 +217,6 @@ export function ArenaPokemonCard({
       <Card
         sx={{
           width: 320,
-          // "&:hover": {
-          //   transform: "scale(1.10)",
-          // },
         }}
       >
         <CardMedia style={{ textAlign: "center" }}>

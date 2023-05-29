@@ -9,7 +9,6 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
 import { getFavorites } from "src/api/source";
-import { useLogic } from "src/Pages/HomePage";
 
 const FavoritePageWrapper = styled.div`
   margin-bottom: 20px;
@@ -53,10 +52,6 @@ const FavoritesPage = () => {
   useEffect(() => {
     getBattle();
   }, []);
-
-  // console.log(`favorites`, favorites);
-  // console.log(`favoritesIds`, favoritesIds);
-  // console.log(`data`, data);
 
   return (
     <FavoritePageWrapper>

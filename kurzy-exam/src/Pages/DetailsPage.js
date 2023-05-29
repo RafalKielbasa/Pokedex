@@ -15,11 +15,13 @@ const DetailsPageWrapper = styled.div`
 const DetailsPage = () => {
   const location = useLocation();
   const id = location.state?.id;
-  const fullPokemonData = location.state?.fullPokemonData;
+  const expFullPokemonDataFormated = location.state?.expFullPokemonDataFormated;
   let pokemonDataFiltered = [];
-  fullPokemonData === undefined
+  expFullPokemonDataFormated === undefined
     ? []
-    : (pokemonDataFiltered = fullPokemonData?.filter((item) => item.id === id));
+    : (pokemonDataFiltered = expFullPokemonDataFormated?.filter(
+        (item) => item.id === id
+      ));
   const favorites = location.state?.favorites;
   let favoritesFiltered = [];
   favorites === undefined
@@ -33,13 +35,6 @@ const DetailsPage = () => {
   const handleClickFavorite = () => {
     navigate("/favorites");
   };
-
-  // console.log(`fullPokemonData`, fullPokemonData);
-  // console.log(`pokemonDataFiltered`, pokemonDataFiltered.length);
-  // console.log(`favoritesFiltered`, favoritesFiltered);
-  // console.log(`id`, id);
-
-  //
 
   return (
     <>
@@ -91,10 +86,7 @@ const DetailsPage = () => {
             >
               <div>
                 <img
-                  src={
-                    pokemonDataFiltered[0].sprites.other.dream_world
-                      .front_default
-                  }
+                  src={pokemonDataFiltered[0].picDet}
                   alt={"picture"}
                   key={id}
                 />
@@ -156,7 +148,7 @@ const DetailsPage = () => {
                     variant="body2"
                     color="text.secondary"
                   >
-                    {pokemonDataFiltered[0].base_experience}
+                    {pokemonDataFiltered[0].baseexp}
                   </Typography>
                   <Typography
                     sx={{
@@ -175,7 +167,7 @@ const DetailsPage = () => {
                     variant="body2"
                     color="text.secondary"
                   >
-                    {pokemonDataFiltered[0].abilities[0].ability.name}
+                    {pokemonDataFiltered[0].abilitie}
                   </Typography>
                   <Typography
                     sx={{

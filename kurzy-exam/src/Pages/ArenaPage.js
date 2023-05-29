@@ -33,9 +33,6 @@ const ArenaPage = () => {
 
   const navigate = useNavigate();
 
-  console.log(`afterBattle`, afterBattle);
-  console.log(`afterBattleIds`, afterBattleIds);
-
   const getBattle = async () => {
     const response = await axios.get(`http://localhost:3000/battle/`);
     setBattle(response.data);

@@ -1,24 +1,24 @@
 {
   "favoriteData": [
     {
-      "id": 15,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/15.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/15.svg",
-      "name": "beedrill",
+      "id": 8,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/8.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/8.svg",
+      "name": "wartortle",
       "height": 10,
-      "baseexp": 178,
-      "weight": 295,
-      "abilitie": "swarm"
+      "baseexp": 142,
+      "weight": 225,
+      "abilitie": "torrent"
     },
     {
-      "id": 144,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/144.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/144.svg",
-      "name": "articuno",
-      "height": 17,
-      "baseexp": 290,
-      "weight": 554,
-      "abilitie": "pressure"
+      "id": 3,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
+      "name": "venusaur",
+      "height": 20,
+      "baseexp": 283,
+      "weight": 1000,
+      "abilitie": "overgrow"
     }
   ],
   "battle": [],
@@ -34,12 +34,31 @@
       "abilitie": "rock-head"
     },
     {
+      "id": 47,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/47.png",
+      "name": "parasect",
+      "height": 10,
+      "baseexp": 152,
+      "weight": 295,
+      "abilitie": "effect-spore"
+    },
+    {
+      "id": 5,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
+      "name": "charmeleon",
+      "height": 11,
+      "baseexp": 152,
+      "weight": 190,
+      "abilitie": "blaze"
+    },
+    {
       "id": 3,
       "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
       "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
       "name": "venusaur",
       "height": 20,
-      "baseexp": 273,
+      "baseexp": 283,
       "weight": 1000,
       "abilitie": "overgrow"
     }

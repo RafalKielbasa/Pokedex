@@ -44,8 +44,13 @@ const HomePage = () => {
   const [afterBattle, setAfterBattle] = useState([]);
   const [afterBattleIds, setAfterBattleIds] = useState([]);
   const [fullPokemonData, setFullPokemonData] = useState([]);
-  const [expFullPokemonData, setExpFullPokemonData] = useState([]);
-  const [fullPokemonDataFiltered, setFullPokemonDataFiltered] = useState([]);
+  const [fullPokemonDataFormated, setFullPokemonDataFormated] = useState([]);
+  const [expFullPokemonDataFormated, setExpFullPokemonDataFormated] = useState(
+    []
+  );
+  const [expFullPokemonDataFiltered, setExpFullPokemonDataFiltered] = useState(
+    []
+  );
 
   const queryFullData = useQuery([`/`], () => getFullResults());
 
@@ -82,9 +87,6 @@ const HomePage = () => {
     getAfterTheBattle();
   }, []);
 
-  console.log(`afterBattleIds`, afterBattleIds);
-  console.log(`expFullPokemonData`, expFullPokemonData);
-
   useEffect(() => {
     async function getPokemonData() {
       queryFullData?.data?.map(async (item) => {
@@ -103,24 +105,41 @@ const HomePage = () => {
 
   useEffect(() => {
     if (fullPokemonData.length === 150) {
-      const array = fullPokemonData.filter((fPDelem) => {
-        return afterBattleIds.some((fIele) => {
+      const getfullPokemonDataFormated = fullPokemonData?.map((item) => ({
+        id: item.id,
+        pic: item.sprites.front_default,
+        picDet: item.sprites.other.dream_world.front_default,
+        name: item.name,
+        height: item.height,
+        baseexp: item.base_experience,
+        weight: item.weight,
+        abilitie: item.abilities[0].ability.name,
+      }));
+      setFullPokemonDataFormated(getfullPokemonDataFormated);
+    }
+  }, [fullPokemonData, page]);
+
+  useEffect(() => {
+    if (fullPokemonDataFormated?.length === 150) {
+      const array = fullPokemonDataFormated?.filter((fPDelem) => {
+        return afterBattleIds?.some((fIele) => {
           return fPDelem.id === fIele;
         });
       });
-      const filterFPD = fullPokemonData.filter((n) => !array.includes(n));
-      // console.log(`test`, test);
+      const filterFPD = fullPokemonDataFormated?.filter(
+        (n) => !array.includes(n)
+      );
       const getExpFPD = afterBattle
         .concat(filterFPD)
         .sort((a, b) => (a.id > b.id ? 1 : -1));
-      setExpFullPokemonData(getExpFPD);
+      setExpFullPokemonDataFormated(getExpFPD);
     }
-  }, [fullPokemonData.length < 150, afterBattle]);
+  }, [fullPokemonDataFormated, afterBattle]);
 
   fullPokemonData.length > 150 ? window.location.reload() : {};
 
   // const pageCount = fullPokemonData?.length / 15;
-  const partialPokemonData = expFullPokemonData
+  const partialPokemonData = expFullPokemonDataFormated
     .slice(offset, offset + 15)
     .sort((a, b) => (a.id > b.id ? 1 : -1));
 
@@ -131,9 +150,9 @@ const HomePage = () => {
 
   useEffect(
     () =>
-      expFullPokemonData &&
-      setFullPokemonDataFiltered(
-        expFullPokemonData.filter(
+      expFullPokemonDataFormated &&
+      setExpFullPokemonDataFiltered(
+        expFullPokemonDataFormated.filter(
           ({ name, height, base_experience, weight }) =>
             name?.toLowerCase().includes(inputText) ||
             height?.toString().toLowerCase().includes(inputText) ||
@@ -143,39 +162,6 @@ const HomePage = () => {
       ),
     [inputText]
   );
-
-  //console.log(`fullPokemonData`, fullPokemonData.name);
-
-  // const responseLocal = axios.get(`http://localhost:3000/queryFullData`);
-
-  // const fetchFavorite = async () => {
-  //   const response = await axios.get(`http://localhost:3000/queryFullData/`);
-  //   // const filteredData = response?.data.map(({ name }) => name);
-  //   return response;
-  // };
-
-  // useEffect(() => {
-  //   const sendCollection = async () => postData(`queryFullData`, queryData);
-  //   sendCollection();
-  // }, [queryFullData.status === "success"]);
-
-  // // useEffect(() => {
-  // //   const pagefromLS = localStorage.getItem("page");
-  // //   if (pagefromLS) {
-  // //     setPage(JSON.parse(pagefromLS));
-  // //   }
-  // // }, []);
-
-  // // useEffect(() => {
-  // //   const offSetfromLS = localStorage.getItem("offset");
-  // //   if (offSetfromLS) {
-  // //     setOffset(JSON.parse(offSetfromLS));
-  // //   }
-  // // }, []);
-
-  // // const saveToLocalStorage = () => {
-  // //   localStorage.setItem("pagePag", JSON.stringify(page));
-  // // };
 
   const handleChange = (event, value) => {
     setPage(value);
@@ -210,26 +196,22 @@ const HomePage = () => {
             </Stack>
           </PaginationWrapper>
 
-          {fullPokemonDataFiltered.length > 0 ? (
+          {expFullPokemonDataFiltered.length > 0 ? (
             <PokemonWrapper>
-              {fullPokemonDataFiltered.map((item, index) => (
+              {expFullPokemonDataFiltered.map((item, index) => (
                 <PokemonCard
                   key={index}
                   id={item.id}
-                  pic={
-                    item.sprites.front_default
-                      ? item.sprites.front_default
-                      : item.pic
-                  }
-                  picDet={item.sprites.other.dream_world}
+                  pic={item.pic}
+                  picDet={item.picDet}
                   name={item.name}
                   height={item.height}
-                  baseexp={item.base_experience}
+                  baseexp={item.baseexp}
                   weight={item.weight}
-                  abilitie={item.abilities[0].ability.name}
-                  fullPokemonData={fullPokemonData}
+                  abilitie={item.abilitie}
                   partialPokemonData={partialPokemonData}
-                  fullPokemonDataFiltered={fullPokemonDataFiltered}
+                  fullPokemonDataFiltered={expFullPokemonDataFiltered}
+                  expFullPokemonDataFormated={expFullPokemonDataFormated}
                   favorites={favorites}
                   favoritesIds={favoritesIds}
                   battle={battle}
@@ -283,20 +265,20 @@ const HomePage = () => {
           </PaginationWrapper>
 
           <PokemonWrapper>
-            {partialPokemonData.map((item, index) => (
+            {partialPokemonData?.map((item, index) => (
               <PokemonCard
                 key={index}
                 id={item.id}
-                // pic={item.sprites.front_default || item.pic}
-                // picDet={item.sprites.other.dream_world.front_default}
+                pic={item.pic}
+                picDet={item.picDet}
                 name={item.name}
                 height={item.height}
-                baseexp={item.base_experience}
+                baseexp={item.baseexp}
                 weight={item.weight}
-                abilitie={item.abilities[0].ability.name}
-                fullPokemonData={fullPokemonData}
+                abilitie={item.abilitie}
                 partialPokemonData={partialPokemonData}
-                fullPokemonDataFiltered={fullPokemonDataFiltered}
+                fullPokemonDataFiltered={expFullPokemonDataFiltered}
+                expFullPokemonDataFormated={expFullPokemonDataFormated}
                 favorites={favorites}
                 favoritesIds={favoritesIds}
                 battle={battle}
