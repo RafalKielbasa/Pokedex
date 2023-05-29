@@ -182,3 +182,13 @@ export const editPut = (pokemon, id) => {
     data: pokemon,
   });
 };
+
+export const checkIfUserIsLogged = () => {
+  const user = localStorage.getItem("Pokedex-user");
+
+  if (user === null) {
+    return false;
+  } else {
+    return true;
+  }
+};

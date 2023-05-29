@@ -1,4 +1,3 @@
-import { PokemonCard } from "../../PokemonCard/PokemonCard";
 import { Wrapper } from "./EditAndLogoutWrapper.style";
 import {
   PageWrapper,
