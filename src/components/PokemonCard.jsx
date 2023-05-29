@@ -24,7 +24,7 @@ const StyledBox = styled("div")(
       transition: 500ms all;
       &:hover {
         opacity: 0.7;
-        transform: scale(1.1);
+        transform: scale(1.05);
       }
     `
 );
@@ -118,7 +118,7 @@ const PokemonCard = ({
   const handlePokemonCardClick = () => {
     const path = gate
       ? `/EditForm/${pokemonData?.id}`
-      : `/Details/${pokemonData?.id || pokemon.id}`;
+      : `/Details/${pokemonData?.id}`;
     navigate(path, { state: { pokemonData } });
   };
 

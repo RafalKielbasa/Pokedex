@@ -2,7 +2,9 @@ import axios from "axios";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 
-import { Box, Button, TextField, useTheme, css, styled } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
+import { Button, TextField, useTheme, css, styled } from "@mui/material";
 import { useSnackbar } from "notistack";
 
 const Container = styled("div")(
@@ -15,17 +17,29 @@ const Container = styled("div")(
     `
 );
 const StyledRegisterBox = styled("div")(
-  ({ theme }) =>
-    css`
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 3px solid black;
-      margin-top: 30px;
-      background-color: ${theme.palette.background.default};
-      width: 300px;
-      max-height: 550px;
-    `
+  css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid lightgray;
+    border-radius: 12px;
+    margin-top: 30px;
+    width: 300px;
+    max-height: 550px;
+  `
+);
+
+const StyledFormBox = styled("div")(
+  css`
+    margin-bottom: 20px;
+    text-align: center;
+  `
+);
+
+const Title = styled("h1")(
+  css`
+    color: black;
+  `
 );
 
 const userSchema = Yup.object().shape({
@@ -47,6 +61,7 @@ const userSchema = Yup.object().shape({
 const Register = () => {
   const { enqueueSnackbar } = useSnackbar();
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const handleOnSubmit = (values, actions) => {
     console.log(values);
@@ -56,11 +71,12 @@ const Register = () => {
       email: values.email,
       password: values.password,
     });
-    handleClick();
+    handleRegisterClick();
   };
 
-  const handleClick = () => {
+  const handleRegisterClick = () => {
     enqueueSnackbar("Register Succes", { variant: "success" });
+    navigate(`/sign-in`);
   };
 
   return (
@@ -78,10 +94,10 @@ const Register = () => {
         >
           {({ errors, touched, isSubmitting }) => (
             <Form>
-              <Box marginBottom={2}>
-                <h1>Register</h1>
-              </Box>
-              <Box marginBottom={2}>
+              <StyledFormBox>
+                <Title>Register</Title>
+              </StyledFormBox>
+              <StyledFormBox>
                 <Field
                   as={TextField}
                   name="name"
@@ -90,8 +106,8 @@ const Register = () => {
                   helperText={touched.name && errors.name ? errors.name : ""}
                   style={{ background: theme.palette.background.contrast }}
                 />
-              </Box>
-              <Box marginBottom={2}>
+              </StyledFormBox>
+              <StyledFormBox>
                 <Field
                   as={TextField}
                   type="email"
@@ -101,8 +117,8 @@ const Register = () => {
                   helperText={touched.email && errors.email ? errors.email : ""}
                   style={{ background: theme.palette.background.contrast }}
                 />
-              </Box>
-              <Box marginBottom={2}>
+              </StyledFormBox>
+              <StyledFormBox>
                 <Field
                   as={TextField}
                   type="password"
@@ -115,8 +131,8 @@ const Register = () => {
                   }
                   style={{ background: theme.palette.background.contrast }}
                 />
-              </Box>
-              <Box marginBottom={2}>
+              </StyledFormBox>
+              <StyledFormBox>
                 <Field
                   as={TextField}
                   type="password"
@@ -131,8 +147,8 @@ const Register = () => {
                   }
                   style={{ background: theme.palette.background.contrast }}
                 />
-              </Box>
-              <Box display="flex" justifyContent="center" marginBottom={2}>
+              </StyledFormBox>
+              <StyledFormBox>
                 <Button
                   variant="contained"
                   color="primary"
@@ -141,7 +157,7 @@ const Register = () => {
                 >
                   Register
                 </Button>
-              </Box>
+              </StyledFormBox>
             </Form>
           )}
         </Formik>

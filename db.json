@@ -11,6 +11,12 @@
       "email": "asknfs@wp.pl",
       "password": "Testowy123!",
       "id": 2
+    },
+    {
+      "name": "wiktort",
+      "email": "test123@wp.pl",
+      "password": "TestowyLogin123!",
+      "id": 3
     }
   ],
   "battle": [],

@@ -33,6 +33,8 @@ const StyledBox = styled("div")(
       width: 300px;
       height: 400px;
       margin: 40px;
+      border-radius: 12px;
+      transition: 500ms all;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -49,7 +51,7 @@ const WinnerInfo = styled("h1")(
 );
 
 const FightButton = styled("button")(
-  ({ theme }) =>
+  ({ theme, winner }) =>
     css`
       border: 1px solid red;
       width: 20vw;
@@ -58,6 +60,7 @@ const FightButton = styled("button")(
       cursor: pointer;
       font-size: 30px;
       background-color: ${theme.palette.background.contrast};
+      visibility: ${winner === undefined ? "visible" : "hidden"};
     `
 );
 
@@ -158,7 +161,11 @@ const Arena = () => {
           )}
         </StyledBox>
       </CardsContainer>
-      <FightButton onClick={handleFight} disabled={battle.length <= 1}>
+      <FightButton
+        winner={winner}
+        onClick={handleFight}
+        disabled={battle.length <= 1}
+      >
         FIGHT
       </FightButton>
       <Link to={"/"}>

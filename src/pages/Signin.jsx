@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 
 import { useSnackbar } from "notistack";
-import { Box, Button, TextField, useTheme, css, styled } from "@mui/material";
+import { Button, TextField, useTheme, css, styled } from "@mui/material";
 
 import { useFetchLocalApi } from "../hooks/useFetchLocalApi";
 
@@ -19,19 +19,30 @@ const Container = styled("div")(
 );
 
 const StyledLoginBox = styled("div")(
-  ({ theme }) =>
-    css`
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 3px solid black;
-      margin-top: 30px;
-      background-color: ${theme.palette.background.default};
-      width: 300px;
-      height: 350px;
-    `
+  css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid lightgray;
+    border-radius: 12px;
+    margin-top: 30px;
+    width: 300px;
+    height: 350px;
+  `
 );
 
+const StyledFormBox = styled("div")(
+  css`
+    margin-bottom: 20px;
+    text-align: center;
+  `
+);
+
+const Title = styled("h1")(
+  css`
+    color: black;
+  `
+);
 const userSchema = Yup.object().shape({
   email: Yup.string()
     .email("Nieprawidłowy adres e-mail.")
@@ -84,12 +95,12 @@ const Signin = ({ setUserData }) => {
           onSubmit={handleOnSubmit}
           validationSchema={userSchema}
         >
-          {({ errors, touched, isSubmitting }) => (
+          {({ errors, touched }) => (
             <Form>
-              <Box marginBottom={2}>
-                <h1>Logowanie</h1>
-              </Box>
-              <Box marginBottom={2}>
+              <StyledFormBox>
+                <Title>Sign In</Title>
+              </StyledFormBox>
+              <StyledFormBox>
                 <Field
                   as={TextField}
                   type="email"
@@ -99,8 +110,8 @@ const Signin = ({ setUserData }) => {
                   helperText={touched.email && errors.email ? errors.email : ""}
                   style={{ background: theme.palette.background.contrast }}
                 />
-              </Box>
-              <Box marginBottom={2}>
+              </StyledFormBox>
+              <StyledFormBox>
                 <Field
                   as={TextField}
                   type="password"
@@ -113,17 +124,12 @@ const Signin = ({ setUserData }) => {
                   }
                   style={{ background: theme.palette.background.contrast }}
                 />
-              </Box>
-              <Box display="flex" justifyContent="center" marginBottom={2}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  Zaloguj
+              </StyledFormBox>
+              <StyledFormBox>
+                <Button variant="contained" color="primary" type="submit">
+                  Sign-In
                 </Button>
-              </Box>
+              </StyledFormBox>
             </Form>
           )}
         </Formik>

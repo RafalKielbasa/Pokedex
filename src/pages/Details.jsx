@@ -33,8 +33,9 @@ const Card = styled("div")(
       padding: 20px;
       background-color: ${theme.palette.background.default};
       border-radius: 10px;
+      transition: 500ms all;
       &:hover {
-        transform: scale(1.01);
+        transform: scale(1.05);
       }
       display: flex;
       flex-direction: row;
