@@ -1,26 +1,30 @@
 {
-  "users": [],
-  "favorites": [
+  "users": [
     {
-      "name": "charizard",
-      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
-      "weight": 905,
-      "height": 17,
-      "types": ["fire", "flying"],
-      "abilities": ["blaze", "solar-power"],
-      "baseExperience": 267,
-      "id": 3
+      "name": "Admin",
+      "email": "admin@email.com",
+      "password": "Pokemon1!",
+      "repeatPassword": "Pokemon1!",
+      "favorites": [],
+      "id": 1
+    },
+    {
+      "name": "test",
+      "email": "test@e.com",
+      "password": "Pokemon1!",
+      "repeatPassword": "Pokemon1!",
+      "favorites": [],
+      "id": 2
     }
   ],
   "pokemon": [
     {
       "name": "bulbasaur",
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-      "weight": 69,
       "height": 7,
-      "types": ["grass", "poison"],
-      "abilities": ["overgrow", "chlorophyll"],
+      "weight": 69,
       "baseExperience": 64,
+      "abilities": ["overgrow", "chlorophyll"],
       "id": 1
     },
     {

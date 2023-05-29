@@ -14,6 +14,8 @@ export const Favorite = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { data } = usePaginationQuery("favorites", currentPage);
 
+  console.log(data);
+
   if (data?.data?.length === 0) {
     return <H1>There's nothing here yet</H1>;
   } else {

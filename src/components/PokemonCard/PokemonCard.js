@@ -45,7 +45,9 @@ export const PokemonCard = ({ props }) => {
           </PropsDiv>
           <PropsDiv>
             <PokemonPropName>Ability</PokemonPropName>
-            <PokemonPropValue>{abilities[0]}</PokemonPropValue>
+            <PokemonPropValue>
+              {Array.isArray(abilities) ? abilities[0] : abilities}
+            </PokemonPropValue>
           </PropsDiv>
         </Container>
       </Body>

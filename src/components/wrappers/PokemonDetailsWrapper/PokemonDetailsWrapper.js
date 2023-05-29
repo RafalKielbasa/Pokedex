@@ -24,8 +24,12 @@ import { useCorrectFavPokemonQuery } from "../../../hooks/useCorrectFavPokemon";
 export const PokemonDetailsWrapper = ({ pokemonData }) => {
   const { name, height, baseExperience, weight, abilities, image, id } =
     pokemonData[0];
-  const { data, refetch } = useCorrectFavPokemonQuery(name);
+  const { data } = useCorrectFavPokemonQuery(
+    localStorage.getItem("Pokedex-user")
+  );
   const [isFav, setIsFav] = useState();
+
+  console.log(data);
 
   const handleFavClick = () => {
     if (data?.data?.length > 0) {
@@ -35,10 +39,7 @@ export const PokemonDetailsWrapper = ({ pokemonData }) => {
       setIsFav(true);
       addToFavorites(pokemonData[0]);
     }
-    refetch();
   };
-
-  console.log(data?.data);
 
   return (
     <PageWrapper>

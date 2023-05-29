@@ -3,7 +3,7 @@ import { getCorrectPokemon } from "../services/api";
 
 export const useCorrectPokemonQuery = (name) => {
   return useQuery({
-    queryKey: ["correctPokemonData"],
+    queryKey: ["correctPokemonData", name],
     queryFn: () => getCorrectPokemon(name),
     enabled: !!name,
   });

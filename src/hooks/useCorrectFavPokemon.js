@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { getCorrectFavorites } from "../services/api";
 
-export const useCorrectFavPokemonQuery = (name) => {
+export const useCorrectFavPokemonQuery = (id) => {
   return useQuery({
-    queryKey: ["get-correct-favorite-pokemon", name],
-    queryFn: () => getCorrectFavorites(name),
+    queryKey: ["get-correct-favorite-pokemon"],
+    queryFn: () => getCorrectFavorites(id),
   });
 };

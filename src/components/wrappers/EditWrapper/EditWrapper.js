@@ -10,107 +10,39 @@ import {
   PropsDiv,
 } from "../PokemonDetailsWrapper/PokemonDetailsWrapper.style";
 import { useFormik } from "formik";
-import { ButtonWrapper, Input, Label } from "./EditWrapper.style";
+import { Input, Label } from "./EditWrapper.style";
 import { Button } from "@mui/material";
+import { useCorrectPokemonQuery } from "../../../hooks/useCorrecrtPokemon";
+import { useSearchParams } from "react-router-dom";
+import { useEditMutation } from "../../../hooks/useEdit";
+import { useState } from "react";
+import { EditForm } from "./EditForm";
 
-const editSchema = Yup.object().shape({
-  height: Yup.number(),
-  weight: Yup.number(),
-  base_experience: Yup.number(),
-  ability: Yup.string(),
-});
+// const editSchema = Yup.object().shape({
+//   height: Yup.number(),
+//   weight: Yup.number(),
+//   base_experience: Yup.number(),
+//   ability: Yup.string(),
+// });
 
-export const EditWrapper = (props) => {
-  const { name, height, base_experience, weight, ability, img } = props;
-  const defaultValueTemp = 100;
-
-  const formik = useFormik({
-    initialValues: {
-      height: defaultValueTemp,
-      weight: defaultValueTemp,
-      base_experience: defaultValueTemp,
-      ability: "",
-    },
-    validationSchema: editSchema,
-    onSubmit: () => {
-      console.log("submited");
-    },
-  });
+export const EditWrapper = () => {
+  const [currentButton, setCurrentButton] = useState();
+  const [searchParams] = useSearchParams();
+  const { data } = useCorrectPokemonQuery(searchParams.get("name"));
 
   return (
     <PageWrapper>
       <DetailsSign>Edit Pokemon</DetailsSign>
       <PokemonDetailsWrap>
-        <PokemonImg
-          src={
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"
-          }
-          alt={`${name}`}
-        />
+        <PokemonImg alt={data?.data[0]?.name} src={data?.data[0]?.image} />
         <PokemonInfo>
-          <PokemonName>Pokemon Name</PokemonName>
+          <PokemonName>{data?.data[0]?.name}</PokemonName>
           <Container>
-            <PropsDiv>
-              <Label htmlFor="height">Height</Label>
-              <Input
-                name="height"
-                type="text"
-                placeholder={defaultValueTemp}
-                value={formik.values.height}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-            </PropsDiv>
-            <PropsDiv>
-              <Label htmlFor="baseExperience">Base Experience</Label>
-              <Input
-                name="baseExperience"
-                type="text"
-                placeholder={defaultValueTemp}
-                value={formik.values.base_experience}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-            </PropsDiv>
-            <PropsDiv>
-              <Label htmlFor="weight">Weight</Label>
-              <Input
-                name="weight"
-                type="text"
-                placeholder={defaultValueTemp}
-                value={formik.values.weight}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-            </PropsDiv>
-            <PropsDiv>
-              <Label htmlFor="ability">Ability</Label>
-              <Input
-                name="ability"
-                type="text"
-                placeholder={defaultValueTemp}
-                value={formik.values.ability}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-            </PropsDiv>
-
-            <Button
-              variant="contained"
-              type="submit"
-              fullWidth
-              sx={{ marginTop: 12 }}
-            >
-              Save as new!
-            </Button>
-            <Button
-              variant="contained"
-              type="submit"
-              fullWidth
-              sx={{ marginTop: 12 }}
-            >
-              Edit
-            </Button>
+            <EditForm
+              data={data}
+              setCurrentButton={setCurrentButton}
+              currentButton={currentButton}
+            />
           </Container>
         </PokemonInfo>
       </PokemonDetailsWrap>

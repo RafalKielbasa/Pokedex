@@ -1,4 +1,4 @@
-import { Pagination, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { PokemonCard } from "../../PokemonCard/PokemonCard";
 import {
   Header,
@@ -11,6 +11,8 @@ import { useSearchPokemonQuery } from "../../../hooks/useSearchPokemon";
 import { useDebounce } from "../../../hooks/useDebounce";
 import { usePaginationQuery } from "../../../hooks/usePagination";
 import { PagePagination } from "../../PagePagination";
+import { v4 } from "uuid";
+import { LoaderSpinner } from "../../layouts/Loader/Loader";
 
 export const HomePageWrapper = ({ pokemonData }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,6 +29,10 @@ export const HomePageWrapper = ({ pokemonData }) => {
     }
   });
 
+  if (pagination.isLoading) {
+    return <LoaderSpinner />;
+  }
+
   return (
     <PageWrapper>
       <Header>
@@ -40,7 +46,7 @@ export const HomePageWrapper = ({ pokemonData }) => {
       <PokemonWrapper>
         {pokemon?.length > 0 ? (
           pokemon?.map((props) => {
-            return <PokemonCard props={props} />;
+            return <PokemonCard props={props} key={v4()} />;
           })
         ) : (
           <h1>Can't find {value}</h1>

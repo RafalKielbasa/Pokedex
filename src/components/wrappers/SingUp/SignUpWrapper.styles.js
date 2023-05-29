@@ -1,3 +1,4 @@
+import { TextField } from "@mui/material";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -25,4 +26,8 @@ export const Form = styled.form`
 export const ErrorMessage = styled.p`
   margin: 0px;
   color: #ff0000;
+`;
+
+export const Input = styled(TextField)`
+  border-color: ${(props) => props.borderColor};
 `;
