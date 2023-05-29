@@ -8,7 +8,10 @@ import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 
 import { enqueueSnackbar } from "notistack";
 
-import { fetchPokemonNamesList, fetchOnePokemon } from "src/api/fetchDataFunctions";
+import {
+  fetchPokemonNamesList,
+  fetchOnePokemon,
+} from "src/api/fetchDataFunctions";
 import { editedCreatedPostData } from "src/api/postDataFunctions";
 
 import {
@@ -90,7 +93,8 @@ const EditPage = () => {
   }, [status, chosedPokemon, detailPokemon]);
 
   const { mutate, error } = useMutation({
-    mutationFn: (data) => editedCreatedPostData(data, data?.name, editedList, action),
+    mutationFn: (data) =>
+      editedCreatedPostData(data, data?.name, editedList, action),
   });
   return (
     <Formik
@@ -102,26 +106,19 @@ const EditPage = () => {
           onSuccess: () => {
             setSubmitting(false);
             setAction(null);
-            queryClient.setQueryData(["editedPokemons"], (prev) => [...prev, values?.name]);
+            queryClient.setQueryData(["editedPokemons"], (prev) => [
+              ...prev,
+              values?.name,
+            ]);
             queryClient.setQueryData(["pokemon", values?.name], values);
-            resetForm({
-              abilities: [
-                {
-                  ability: {
-                    name: "",
-                  },
-                },
-              ],
-              base_experience: "",
-              height: "",
-              id: "",
-              name: "",
-              sprites: "",
-              weight: "",
-            });
+            resetForm();
             enqueueSnackbar("Operacja zakończona sukcesem", {
               variant: "success",
             });
+          },
+          onError: () => {
+            enqueueSnackbar(error, { variant: "error" });
+            setSubmitting(false);
           },
         });
       }}
@@ -142,16 +139,29 @@ const EditPage = () => {
             }}
           >
             <MyTextField name="name" label="Nazwa Pokemona" type="text" />
-            <MyTextField name="base_experience" label="Doświadczenie bazowe" type="number" />
-            <MyTextField name="abilities[0].ability.name" label="Nazwa umiejętności" type="text" />
-            <MyTextField name="height" label="Wysokość pokemona" type="number" />
+            <MyTextField
+              name="base_experience"
+              label="Doświadczenie bazowe"
+              type="number"
+            />
+            <MyTextField
+              name="abilities[0].ability.name"
+              label="Nazwa umiejętności"
+              type="text"
+            />
+            <MyTextField
+              name="height"
+              label="Wysokość pokemona"
+              type="number"
+            />
             <MyTextField name="weight" label="Waga pokemona" type="number" />
             <StyledSubmitButton
               value={"Edytuj Pokemona"}
               disableConditions={
                 values?.name === "" ||
                 isSubmitting ||
-                (values?.name !== "" && !pokemonDataToEdit.includes(values?.name))
+                (values?.name !== "" &&
+                  !pokemonDataToEdit.includes(values?.name))
               }
               onClickActionsOtherThanSubmit={() => setAction("edit")}
             />
@@ -160,7 +170,8 @@ const EditPage = () => {
               disableConditions={
                 values?.name === "" ||
                 isSubmitting ||
-                (values?.name !== "" && pokemonDataToEdit.includes(values?.name))
+                (values?.name !== "" &&
+                  pokemonDataToEdit.includes(values?.name))
               }
               onClickActionsOtherThanSubmit={() => setAction("create")}
             />

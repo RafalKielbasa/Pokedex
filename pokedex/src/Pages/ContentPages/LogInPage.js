@@ -26,7 +26,11 @@ const LogInPage = () => {
   const navigate = useNavigate();
   const { setLoggedIn, setUser } = useContext(GlobalContext);
 
-  const { data: users } = useQuery({
+  const {
+    data: users,
+    status,
+    error,
+  } = useQuery({
     queryKey: ["users"],
     queryFn: () => fetchUsers(),
     staleTime: 10 * (60 * 1000),
@@ -40,14 +44,22 @@ const LogInPage = () => {
       }}
       validationSchema={loginValidationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        const filteredUsers = users?.filter(({ name }) => name === values?.name);
+        if (status === "loading") {
+          enqueueSnackbar("Loading");
+        }
+        if (status === "error") {
+          enqueueSnackbar(error.message, { variant: "error" });
+        }
+        const filteredUsers = users?.filter(
+          ({ name }) => name === values?.name
+        );
         if (values?.password === filteredUsers[0]?.password) {
           setLoggedIn(true);
           setUser(values);
           enqueueSnackbar("Zostałeś zalogowany", {
             variant: "success",
           });
-          navigate(`/edit`);
+          navigate("/edit");
         } else {
           enqueueSnackbar("Dane logowania niepoprawne", { variant: "error" });
         }
@@ -67,7 +79,9 @@ const LogInPage = () => {
             }}
           >
             <FormHeader value={"Zaloguj się"} />
-            <FormInfo value={"Wypełnij poniższe pola aby zalogować się na konto"} />
+            <FormInfo
+              value={"Wypełnij poniższe pola aby zalogować się na konto"}
+            />
             <MyTextField
               name="name"
               type="text"
@@ -78,9 +92,12 @@ const LogInPage = () => {
               name="password"
               type="password"
               label="Hasło"
-              placeholder="Wprowadź nazwę użytkownika"
+              placeholder="Wprowadź hasło"
             />
-            <StyledSubmitButton value={"Zaloguj"} disableConditions={isSubmitting} />
+            <StyledSubmitButton
+              value={"Zaloguj"}
+              disableConditions={isSubmitting}
+            />
           </Form>
         </FormContainer>
       )}
