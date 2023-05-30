@@ -8,10 +8,21 @@ import NavigationWrapper from "src/Navigation/NavigationWrapper";
 import Button from "@mui/material/Button";
 // import { styled } from "styled-components";
 import { Link } from "react-router-dom";
-import { styled } from "@mui/material/styles";
+import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import { pokelogo } from "src/Images";
 import { useContext } from "react";
 import { ThemeContext } from "src/context/ThemeContext";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#333333",
+    },
+    secondary: {
+      main: "#ffffff",
+    },
+  },
+});
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -71,7 +82,7 @@ const Navigation = () => {
             <MaterialUISwitch
               sx={{ m: 1 }}
               defaultChecked={false}
-              onChange={toggleTheme}
+              onClick={toggleTheme}
             />
           }
           label="Light/Dark Mode"
@@ -82,32 +93,63 @@ const Navigation = () => {
           }}
         />
       </FormGroup>
-      <div style={{ margin: "50px 40px 50px 40px" }}>
-        <NavigationWrapper src={pokelogo} alt={`Logo`}>
-          <Stack direction="row" spacing={2} sx={{ paddingRight: "40px" }}>
+      <NavigationWrapper src={pokelogo} alt={`Logo`} isDark={isDark}>
+        <ThemeProvider theme={theme}>
+          <Stack direction="row" spacing={2} style={{ marginRight: "120px" }}>
             <Link to="/">
-              <Button variant="outlined">HOME</Button>
+              <Button
+                color={isDark ? "secondary" : "primary"}
+                variant="outlined"
+              >
+                HOME
+              </Button>
             </Link>
             <Link to="favorites">
-              <Button variant="outlined">ULUBIONE</Button>
+              <Button
+                color={isDark ? "secondary" : "primary"}
+                variant="outlined"
+              >
+                ULUBIONE
+              </Button>
             </Link>
             <Link to="arena">
-              <Button variant="outlined">ARENA</Button>
+              <Button
+                color={isDark ? "secondary" : "primary"}
+                variant="outlined"
+              >
+                ARENA
+              </Button>
             </Link>
             <Link to="login">
-              <Button variant="outlined">LOGOWANIE</Button>
+              <Button
+                color={isDark ? "secondary" : "primary"}
+                variant="outlined"
+              >
+                LOGOWANIE
+              </Button>
             </Link>
             <Link to="registration">
-              <Button variant="outlined">REJESTRACJA</Button>
+              <Button
+                color={isDark ? "secondary" : "primary"}
+                variant="outlined"
+              >
+                REJESTRACJA
+              </Button>
             </Link>
             <Link to="edition">
-              <Button variant="outlined">EDYCJA</Button>
+              <Button
+                color={isDark ? "secondary" : "primary"}
+                variant="outlined"
+              >
+                EDYCJA
+              </Button>
             </Link>
-
-            <Button variant="outlined">WYLOGUJ</Button>
+            <Button color={isDark ? "secondary" : "primary"} variant="outlined">
+              WYLOGUJ
+            </Button>
           </Stack>
-        </NavigationWrapper>
-      </div>
+        </ThemeProvider>
+      </NavigationWrapper>
     </>
   );
 };

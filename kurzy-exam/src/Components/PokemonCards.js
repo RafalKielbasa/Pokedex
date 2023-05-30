@@ -13,6 +13,8 @@ import { GiCrossedSwords } from "react-icons/gi";
 import { CardActionArea } from "@mui/material";
 import { postData } from "src/api/postData";
 import { bawpikachu } from "src/Images";
+import { useContext } from "react";
+import { ThemeContext } from "src/context/ThemeContext";
 
 const CardsWrapper = styled.div`
   margin: 20px;
@@ -42,6 +44,7 @@ export default function PokemonCard({
   battleIds,
 }) {
   const { enqueueSnackbar } = useSnackbar();
+  const { toggleTheme, isDark } = useContext(ThemeContext);
   const navigate = useNavigate();
   const handleClick = () => {
     const path = "/details";
@@ -117,7 +120,8 @@ export default function PokemonCard({
   return (
     <CardsWrapper>
       <Card
-        sx={{
+        style={{
+          backgroundColor: isDark ? "#bcaaa4" : "white",
           width: 320,
           "&:hover": {
             transform: "scale(1.10)",
@@ -238,10 +242,13 @@ export function ArenaPokemonCard({
   weight,
   abilitie,
 }) {
+  const { toggleTheme, isDark } = useContext(ThemeContext);
+
   return (
     <CardsWrapper>
       <Card
-        sx={{
+        style={{
+          backgroundColor: isDark ? "#bcaaa4" : "white",
           width: 320,
         }}
       >
@@ -339,10 +346,13 @@ export function ArenaPokemonCard({
 }
 
 export function BlankPokemonCard() {
+  const { toggleTheme, isDark } = useContext(ThemeContext);
+
   return (
     <CardsWrapper>
       <Card
-        sx={{
+        style={{
+          backgroundColor: isDark ? "#bcaaa4" : "white",
           width: 320,
           height: 330,
         }}

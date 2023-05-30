@@ -41,6 +41,16 @@
       "baseexp": 113,
       "weight": 75,
       "abilitie": "cute-charm"
+    },
+    {
+      "id": 2,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
+      "name": "ivysaur",
+      "height": 10,
+      "baseexp": 142,
+      "weight": 130,
+      "abilitie": "overgrow"
     }
   ],
   "afterTheBattle": [

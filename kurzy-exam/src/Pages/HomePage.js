@@ -1,31 +1,30 @@
 import React from "react";
 import axios from "axios";
-import styled, { css } from "styled-components";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import PokemonCard from "../Components/PokemonCards";
+import styled, { css } from "styled-components";
 import { useEffect, useState, useContext } from "react";
 import { useQuery } from "react-query";
 import { getFullResults } from "src/api/source";
 import { useSnackbar } from "notistack";
 import { ThemeContext } from "src/context/ThemeContext";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const HomePageWrapper = styled("div")(
-  ({ theme }) => css`
-    margin-bottom: 20px;
-    padding: 0px 40px 0px 40px;
-    background-color: ${theme.bgColor};
-  `
+  ({ theme }) =>
+    css`
+      margin-bottom: 20px;
+      padding: 0px 40px 0px 40px;
+      background-color: ${theme.bgColor};
+      // color: ${theme.textColor};
+    `
 );
-// const HomePageWrapper = styled.div`
-//   margin-bottom: 20px;
-//   padding: 0px 40px 0px 40px;
-//   background-color: black;
-// `;
+
 const PaginationWrapper = styled.div`
   display: flex;
   align-items: top;
@@ -41,8 +40,18 @@ const InfoWrapper = styled.h1`
   display: flex;
   justify-content: center;
   margin-top: 100px;
-  background-color: black;
 `;
+
+const theme2 = createTheme({
+  palette: {
+    primary: {
+      main: "#333333",
+    },
+    secondary: {
+      main: "#ffffff",
+    },
+  },
+});
 
 const HomePage = () => {
   const [offset, setOffset] = useState(0);
@@ -64,6 +73,7 @@ const HomePage = () => {
   );
 
   const { theme } = useContext(ThemeContext);
+  const { toggleTheme, isDark } = useContext(ThemeContext);
   const { enqueueSnackbar } = useSnackbar();
   const queryFullData = useQuery([`/`], () => getFullResults());
 
@@ -193,27 +203,32 @@ const HomePage = () => {
       {inputText ? (
         <HomePageWrapper theme={theme}>
           <PaginationWrapper>
-            <Box component="form" noValidate autoComplete="off">
-              <TextField
-                size="small"
-                id="outlined-basic"
-                label="Search"
-                variant="outlined"
-                onChange={inputHandler}
-                sx={{ marginRight: "400px" }}
-              />
-            </Box>
+            <ThemeProvider theme={theme2}>
+              <Box component="form" noValidate autoComplete="off">
+                <TextField
+                  multiline={true}
+                  size="small"
+                  id="outlined-basic"
+                  label="Search"
+                  variant="outlined"
+                  onChange={inputHandler}
+                  sx={{ marginRight: "400px" }}
+                  color={isDark ? "secondary" : "primary"}
+                />
+              </Box>
 
-            <Stack spacing={2}>
-              <Pagination
-                page={page}
-                count={1}
-                variant="outlined"
-                shape="rounded"
-                onChange={handleChange}
-                sx={{ marginBottom: 2 }}
-              />
-            </Stack>
+              <Stack spacing={2}>
+                <Pagination
+                  page={page}
+                  count={1}
+                  variant="outlined"
+                  shape="rounded"
+                  onChange={handleChange}
+                  sx={{ marginBottom: 2 }}
+                  color={isDark ? "secondary" : "primary"}
+                />
+              </Stack>
+            </ThemeProvider>
           </PaginationWrapper>
 
           {expFullPokemonDataFiltered.length > 0 ? (
@@ -246,42 +261,51 @@ const HomePage = () => {
           )}
 
           <PaginationWrapper>
-            <Stack spacing={2}>
-              <Pagination
-                page={page}
-                count={1}
-                variant="outlined"
-                shape="rounded"
-                sx={{ marginTop: 2 }}
-                onChange={handleChange}
-              />
-            </Stack>
+            <ThemeProvider theme={theme2}>
+              <Stack spacing={2}>
+                <Pagination
+                  page={page}
+                  count={1}
+                  variant="outlined"
+                  shape="rounded"
+                  sx={{ marginTop: 2, paddingBottom: 4 }}
+                  onChange={handleChange}
+                  color={isDark ? "secondary" : "primary"}
+                />
+              </Stack>
+            </ThemeProvider>
           </PaginationWrapper>
         </HomePageWrapper>
       ) : (
-        <HomePageWrapper>
+        <HomePageWrapper theme={theme}>
           <PaginationWrapper>
-            <Box component="form" noValidate autoComplete="off">
-              <TextField
-                size="small"
-                id="outlined-basic"
-                label="Search"
-                variant="outlined"
-                onChange={inputHandler}
-                sx={{ marginRight: "400px" }}
-              />
-            </Box>
+            <ThemeProvider theme={theme2}>
+              <Box component="form" noValidate autoComplete="off">
+                <TextField
+                  multiline={true}
+                  size="small"
+                  id="outlined-basic"
+                  label="Search"
+                  variant="outlined"
+                  onChange={inputHandler}
+                  sx={{ marginRight: "400px" }}
+                  color={isDark ? "secondary" : "primary"}
+                  borderColor="white"
+                />
+              </Box>
 
-            <Stack spacing={2}>
-              <Pagination
-                page={page}
-                count={10}
-                variant="outlined"
-                shape="rounded"
-                onChange={handleChange}
-                sx={{ marginBottom: 2 }}
-              />
-            </Stack>
+              <Stack spacing={2}>
+                <Pagination
+                  page={page}
+                  count={10}
+                  variant="outlined"
+                  shape="rounded"
+                  onChange={handleChange}
+                  sx={{ marginBottom: 2 }}
+                  color={isDark ? "secondary" : "primary"}
+                />
+              </Stack>
+            </ThemeProvider>
           </PaginationWrapper>
 
           <PokemonWrapper>
@@ -308,16 +332,19 @@ const HomePage = () => {
           </PokemonWrapper>
 
           <PaginationWrapper>
-            <Stack spacing={2}>
-              <Pagination
-                page={page}
-                count={10}
-                variant="outlined"
-                shape="rounded"
-                sx={{ marginTop: 2 }}
-                onChange={handleChange}
-              />
-            </Stack>
+            <ThemeProvider theme={theme2}>
+              <Stack spacing={2}>
+                <Pagination
+                  page={page}
+                  count={10}
+                  variant="outlined"
+                  shape="rounded"
+                  sx={{ marginTop: 2, paddingBottom: 4 }}
+                  onChange={handleChange}
+                  color={isDark ? "secondary" : "primary"}
+                />
+              </Stack>
+            </ThemeProvider>
           </PaginationWrapper>
         </HomePageWrapper>
       )}

@@ -4,8 +4,6 @@ import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import PokemonCard from "src/Components/PokemonCards";
 import styled from "styled-components";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
 import { getFavorites } from "src/api/source";
