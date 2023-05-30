@@ -6,7 +6,6 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import NavigationWrapper from "src/Navigation/NavigationWrapper";
 import Button from "@mui/material/Button";
-// import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import { pokelogo } from "src/Images";
