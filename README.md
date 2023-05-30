@@ -20,7 +20,7 @@ Home:
 ![main](https://github.com/mr-fox93/pokemon-api/assets/112568901/c2fe9d70-4a7e-4f38-815b-211519e7d17b)
 
 Theme&Edit:
-![1](https://github.com/RafalKielbasa/Pokedex/assets/112568901/9ba0fa27-425d-4a76-bc57-c3f03fa2cbc6)
+![Zrzut ekranu 2023-05-30 o 14 47 24](https://github.com/RafalKielbasa/Pokedex/assets/112568901/ca669770-0e33-419c-9a47-b9937713d397)
 ![Zrzut ekranu 2023-05-30 o 14 45 53](https://github.com/RafalKielbasa/Pokedex/assets/112568901/ddc53895-2d4b-4f06-92f1-f36f7a96346e)
 
 
