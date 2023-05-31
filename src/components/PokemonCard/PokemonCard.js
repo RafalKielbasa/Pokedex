@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Body,
   Container,
@@ -12,7 +12,6 @@ import { ProjectUrl } from "../../const/ProjectUrl";
 
 export const PokemonCard = ({ props }) => {
   const { name, height, baseExperience, weight, abilities, image } = props;
-  const location = useLocation();
 
   return (
     <WrapperDiv>

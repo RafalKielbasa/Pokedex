@@ -2,8 +2,6 @@ import { useLocation, useSearchParams } from "react-router-dom";
 import { DefaultLayout } from "../components/layouts/Default/DefaultLayout";
 import { PokemonDetailsWrapper } from "../components/wrappers/PokemonDetailsWrapper/PokemonDetailsWrapper";
 import { useCorrectPokemonQuery } from "../hooks/useCorrecrtPokemon";
-import { useState } from "react";
-import { useCorrectFavPokemonQuery } from "../hooks/useCorrectFavPokemon";
 
 export const PokemonDetailsPage = () => {
   const [searchParams] = useSearchParams();

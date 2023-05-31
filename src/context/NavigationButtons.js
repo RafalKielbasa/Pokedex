@@ -8,16 +8,16 @@ export const NavigationButtonsLogout = [
     href: "/pvp",
   },
   {
+    label: "Edit and log out",
+    href: "/editAndLogOut",
+  },
+  {
     label: "Sign in",
     href: "/signIn",
   },
   {
     label: "Sign up",
     href: "/signUp",
-  },
-  {
-    label: "Edit and log out",
-    href: "/editAndLogOut",
   },
 ];
 
@@ -31,15 +31,15 @@ export const NavigationButtonsLogin = [
     href: "/pvp",
   },
   {
+    label: "Edit and log out",
+    href: "/editAndLogOut",
+  },
+  {
     label: "Sign out",
     href: "/",
   },
   {
     label: "Sign up",
     href: "/signUp",
-  },
-  {
-    label: "Edit and log out",
-    href: "/editAndLogOut",
   },
 ];

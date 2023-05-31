@@ -130,7 +130,7 @@ export const getCurrentUser = (id) => {
   });
 };
 
-export const checkIfUserExist = async (email) => {
+const checkIfUserExist = async (email) => {
   const data = await getUser(email);
 
   if (data?.data?.length === 0) {

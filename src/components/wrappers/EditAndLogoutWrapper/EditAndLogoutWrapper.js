@@ -8,6 +8,7 @@ import { useState } from "react";
 import { PagePagination } from "../../PagePagination";
 import { PokemonCardEdit } from "../../PokemonCardList/PokemonCardEdit";
 import { useAllPokemonQuery } from "../../../hooks/useAllPokemon";
+import { v4 } from "uuid";
 
 export const EditAndLogoutWrapper = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,7 +19,7 @@ export const EditAndLogoutWrapper = () => {
     <PageWrapper>
       <Wrapper>
         {data?.data?.map((pokemon) => {
-          return <PokemonCardEdit props={pokemon} />;
+          return <PokemonCardEdit key={v4()} props={pokemon} />;
         })}
       </Wrapper>
       <PaginationWrapper>
