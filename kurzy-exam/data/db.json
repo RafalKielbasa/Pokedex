@@ -1,0 +1,85 @@
+{
+  "favoriteData": [
+    {
+      "id": 2,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
+      "name": "ivysaur",
+      "height": 10,
+      "baseexp": 142,
+      "weight": 130,
+      "abilitie": "overgrow"
+    },
+    {
+      "id": 75,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/75.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/75.svg",
+      "name": "graveler",
+      "height": 10,
+      "baseexp": 137,
+      "weight": 1050,
+      "abilitie": "rock-head"
+    }
+  ],
+  "battle": [
+    {
+      "id": 75,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/75.png",
+      "name": "graveler",
+      "height": 10,
+      "baseexp": 137,
+      "weight": 1050,
+      "abilitie": "rock-head"
+    }
+  ],
+  "afterTheBattle": [
+    {
+      "id": 95,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/95.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/95.svg",
+      "name": "onix",
+      "height": 88,
+      "baseexp": 107,
+      "weight": 2100,
+      "abilitie": "rock-head"
+    },
+    {
+      "id": 47,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/47.png",
+      "name": "parasect",
+      "height": 10,
+      "baseexp": 152,
+      "weight": 295,
+      "abilitie": "effect-spore"
+    },
+    {
+      "id": 5,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
+      "name": "charmeleon",
+      "height": 11,
+      "baseexp": 162,
+      "weight": 190,
+      "abilitie": "blaze"
+    },
+    {
+      "id": 25,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg",
+      "name": "pikachu",
+      "height": 4,
+      "baseexp": 132,
+      "weight": 60,
+      "abilitie": "static"
+    },
+    {
+      "id": 3,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+      "name": "venusaur",
+      "height": 20,
+      "baseexp": 293,
+      "weight": 1000,
+      "abilitie": "overgrow"
+    }
+  ]
+}
