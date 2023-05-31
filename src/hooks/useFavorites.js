@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { getFavorites } from "../services/api";
+import { getAllFavoritesPokemon } from "../services/api";
 
-export const useFavoritesQuery = () => {
+export const useFavoritesQuery = (userId) => {
   return useQuery({
     queryKey: ["all-favorites"],
-    queryFn: () => getFavorites(),
+    queryFn: () => getAllFavoritesPokemon(userId),
+    select: (data) => data?.data?.favorites,
   });
 };

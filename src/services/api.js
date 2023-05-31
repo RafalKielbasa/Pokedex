@@ -68,40 +68,40 @@ export const getPaginatedPokemon = (url, currentPage, limit = 15) => {
   });
 };
 
-export const addToFavorites = (id) => {
+export const getAllFavoritesPokemon = (userId) => {
   return dbFetcher({
-    url: "favorites",
-    method: "POST",
-    data: id,
+    url: `users/${userId}?_embed=favorites`,
+    method: "GET",
   });
 };
 
-export const deleteFromFavorites = (pokemon, id) => {
+export const getAllFavoritesPokemonData = async (pokemonData) => {
+  return await Promise.allSettled(
+    pokemonData?.map(({ id }) => {
+      return dbFetcher({
+        url: `pokemon/${id}`,
+        method: "GET",
+      });
+    })
+  );
+};
+
+export const addToFavorites = ({ pokemonId, userId }) => {
+  if (!userId) {
+    throw new Error("You have to be logged to add Pokemon to favorites");
+  } else {
+    return dbFetcher({
+      url: "favorites",
+      method: "POST",
+      data: { id: pokemonId, userId },
+    });
+  }
+};
+
+export const deleteFromFavorites = (pokemonId) => {
   return dbFetcher({
-    url: `favorites/${id}`,
+    url: `favorites/${pokemonId}`,
     method: "DELETE",
-    data: id,
-  });
-};
-
-export const getCorrectFavorites = (id) => {
-  return dbFetcher({
-    url: `users?id=${id}`,
-    method: "GET",
-    params: {
-      _expand: "favorites",
-    },
-  });
-};
-
-export const getFavorites = (limit = 15, currentPage) => {
-  return dbFetcher({
-    url: "favorites",
-    method: "GET",
-    params: {
-      _page: currentPage,
-      _limit: limit,
-    },
   });
 };
 
@@ -125,7 +125,7 @@ const getUser = (email) => {
 
 export const getCurrentUser = (id) => {
   return dbFetcher({
-    url: `users?id=${id}`,
+    url: `users?id=${id}&_embed=favorites`,
     method: "GET",
   });
 };

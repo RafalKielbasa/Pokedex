@@ -17,27 +17,27 @@ import {
   PropsName,
   PropsValue,
 } from "./PokemonDetailsWrapper.style";
-import { useState } from "react";
-import { addToFavorites, deleteFromFavorites } from "../../../services/api";
-import { useCorrectFavPokemonQuery } from "../../../hooks/useCorrectFavPokemon";
+import { useAddToFavMutation } from "../../../hooks/useAddToFav";
+import { useFavoritesQuery } from "../../../hooks/useFavorites";
+import { useContext } from "react";
+import { UserContext } from "../../../context/UserContext";
+import { useDeleteFromFavMutation } from "../../../hooks/useDeleteFromFav";
 
 export const PokemonDetailsWrapper = ({ pokemonData }) => {
+  const user = useContext(UserContext);
   const { name, height, baseExperience, weight, abilities, image, id } =
     pokemonData[0];
-  const { data } = useCorrectFavPokemonQuery(
-    localStorage.getItem("Pokedex-user")
-  );
-  const [isFav, setIsFav] = useState();
+  const { data: allFavorites } = useFavoritesQuery(user?.id);
+  const { mutate: deleteFromFavorites } = useDeleteFromFavMutation();
+  const { mutate: addToFav } = useAddToFavMutation(user?.id);
+  const checkIfPokemonIsInFav = allFavorites?.findIndex((e) => e.id === id);
 
-  console.log(data);
-
+  console.log(checkIfPokemonIsInFav);
   const handleFavClick = () => {
-    if (data?.data?.length > 0) {
-      setIsFav(false);
-      deleteFromFavorites(pokemonData[0], id);
+    if (checkIfPokemonIsInFav < 0) {
+      addToFav(id);
     } else {
-      setIsFav(true);
-      addToFavorites(pokemonData[0]);
+      deleteFromFavorites(id);
     }
   };
 
@@ -47,7 +47,7 @@ export const PokemonDetailsWrapper = ({ pokemonData }) => {
         <DetailsSign>Pokemon Details</DetailsSign>
         <IconsDiv>
           <FavIcon
-            color={isFav ? "red" : "black"}
+            color={checkIfPokemonIsInFav < 0 ? "black" : "red"}
             onClick={() => handleFavClick()}
           />
           <FightIcon />

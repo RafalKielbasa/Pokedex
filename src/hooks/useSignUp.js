@@ -8,7 +8,7 @@ export const useSignUpMutation = () => {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: (userData) => signUp({ ...userData, favorites: [] }),
+    mutationFn: (userData) => signUp(userData),
     onError: (err) => enqueueSnackbar(`${err}`, { variant: "error" }),
 
     onSuccess: () => {

@@ -1,37 +1,30 @@
-import { useState } from "react";
-import { useFavoritesQuery } from "../../../hooks/useFavorites";
-import { PokemonCard } from "../../PokemonCard/PokemonCard";
-import {
-  PaginationWrapper,
-  PokemonWrapper,
-} from "../HomePageWrapper/HomePageWrapper.styles";
-import { H1 } from "./Favorite.style";
+import { PokemonWrapper } from "../HomePageWrapper/HomePageWrapper.styles";
 import { PageWrapper } from "../PokemonDetailsWrapper/PokemonDetailsWrapper.style";
-import { PagePagination } from "../../PagePagination";
-import { usePaginationQuery } from "../../../hooks/usePagination";
+import { useFavoritesQuery } from "../../../hooks/useFavorites";
+import { useAllFavoritesPokemonDataQuery } from "../../../hooks/useAllFavoritesPokemonData";
+import { PokemonCard } from "../../PokemonCard/PokemonCard";
+import { H1 } from "./Favorite.style";
+import { v4 } from "uuid";
 
 export const Favorite = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const { data } = usePaginationQuery("favorites", currentPage);
+  const { data: favoritesPokemon } = useFavoritesQuery(
+    parseInt(localStorage.getItem("Pokedex-user"))
+  );
+  const { data: favoritesPokemonData } =
+    useAllFavoritesPokemonDataQuery(favoritesPokemon);
 
-  console.log(data);
+  console.log(favoritesPokemonData);
 
-  if (data?.data?.length === 0) {
+  if (favoritesPokemonData?.length === 0) {
     return <H1>There's nothing here yet</H1>;
   } else {
     return (
       <PageWrapper>
         <PokemonWrapper>
-          {data?.data?.map((pokemon) => {
-            return <PokemonCard props={pokemon} />;
+          {favoritesPokemonData?.map((pokemon) => {
+            return <PokemonCard key={v4()} props={pokemon?.value?.data} />;
           })}
         </PokemonWrapper>
-        <PaginationWrapper>
-          <PagePagination
-            setCurrentPage={currentPage}
-            pokemonData={data?.data}
-          />
-        </PaginationWrapper>
       </PageWrapper>
     );
   }

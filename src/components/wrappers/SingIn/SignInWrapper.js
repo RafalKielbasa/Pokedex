@@ -1,7 +1,6 @@
 import { useFormik } from "formik";
 import { Form, Wrapper } from "../SingUp/SignUpWrapper.styles";
 import { Button, TextField } from "@mui/material";
-//import { getUser } from "../../../services/api";
 import { useSignInMutation } from "../../../hooks/useSignIn";
 
 export const SignInWrapper = () => {

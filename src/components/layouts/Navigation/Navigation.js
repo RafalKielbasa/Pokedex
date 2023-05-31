@@ -7,13 +7,14 @@ import {
   NavigationButtonsLogout,
   NavigationButtonsLogin,
 } from "../../../context/NavigationButtons";
-import { ButtonContext } from "../../../context/NavigationContext";
 import { v4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { ProjectUrl } from "../../../const/ProjectUrl";
+import { UserContext } from "../../../context/UserContext";
+import { ThemeSwitcher } from "../../ThemeSwitcher/ThemeSwitcher";
 
 export const Navigation = () => {
-  const user = useContext(ButtonContext);
+  const user = useContext(UserContext);
   const navigate = useNavigate();
 
   const logout = (button) => {
@@ -47,6 +48,7 @@ export const Navigation = () => {
                 </Button>
               );
             })}
+        <ThemeSwitcher />
       </Stack>
     </Container>
   );
