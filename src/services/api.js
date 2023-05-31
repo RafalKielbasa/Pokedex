@@ -48,9 +48,10 @@ export const getCorrectPokemon = (name) => {
 
 export const getSearchPokemon = (key, limit = 5) => {
   return dbFetcher({
-    url: `pokemon?_sort=name`,
+    url: "pokemon",
     method: "GET",
     params: {
+      _sort: "name",
       q: key,
       _limit: limit,
     },
@@ -81,6 +82,9 @@ export const getAllFavoritesPokemonData = async (pokemonData) => {
       return dbFetcher({
         url: `pokemon/${id}`,
         method: "GET",
+        params: {
+          _limit: 15,
+        },
       });
     })
   );

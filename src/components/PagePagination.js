@@ -7,7 +7,5 @@ export const PagePagination = ({ pokemonData, setCurrentPage }) => {
     setCurrentPage(i);
   };
 
-  return (
-    <Pagination count={pageNumber || 0} onChange={handleChange} size="large" />
-  );
+  return <Pagination count={pageNumber} onChange={handleChange} size="large" />;
 };

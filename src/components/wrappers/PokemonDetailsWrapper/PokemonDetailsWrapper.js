@@ -32,7 +32,6 @@ export const PokemonDetailsWrapper = ({ pokemonData }) => {
   const { mutate: addToFav } = useAddToFavMutation(user?.id);
   const checkIfPokemonIsInFav = allFavorites?.findIndex((e) => e.id === id);
 
-  console.log(checkIfPokemonIsInFav);
   const handleFavClick = () => {
     if (checkIfPokemonIsInFav < 0) {
       addToFav(id);

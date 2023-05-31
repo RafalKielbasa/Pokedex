@@ -25,7 +25,9 @@ export const Navigation = () => {
 
   return (
     <Container>
-      <img src={pokedexLogo} alt="pokedex logo" style={{ width: 200 }} />
+      <a href={ProjectUrl.Home}>
+        <img src={pokedexLogo} alt="pokedex logo" style={{ width: 200 }} />
+      </a>
       <h5>{user ? `Logged as: ${user.name}` : null}</h5>
       <Stack direction="row" spacing={2}>
         {user

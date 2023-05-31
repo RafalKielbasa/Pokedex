@@ -5,6 +5,7 @@ import { useAllFavoritesPokemonDataQuery } from "../../../hooks/useAllFavoritesP
 import { PokemonCard } from "../../PokemonCard/PokemonCard";
 import { H1 } from "./Favorite.style";
 import { v4 } from "uuid";
+import { useState } from "react";
 
 export const Favorite = () => {
   const { data: favoritesPokemon } = useFavoritesQuery(

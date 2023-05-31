@@ -13,6 +13,7 @@ import { usePaginationQuery } from "../../../hooks/usePagination";
 import { PagePagination } from "../../PagePagination";
 import { v4 } from "uuid";
 import { LoaderSpinner } from "../../layouts/Loader/Loader";
+import { useAllPokemonQuery } from "../../../hooks/useAllPokemon";
 
 export const HomePageWrapper = ({ pokemonData }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,13 +22,15 @@ export const HomePageWrapper = ({ pokemonData }) => {
   const { data } = useSearchPokemonQuery(debouncedSearch);
   const pagination = usePaginationQuery("pokemon", currentPage);
 
+  console.log(currentPage);
+
   const pokemon = useMemo(() => {
     if (debouncedSearch) {
       return data?.data;
     } else {
       return pagination?.data?.data;
     }
-  });
+  }, [pagination?.data?.data, data?.data, debouncedSearch]);
 
   if (pagination.isLoading) {
     return <LoaderSpinner />;
