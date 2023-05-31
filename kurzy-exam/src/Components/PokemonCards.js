@@ -105,7 +105,15 @@ export default function PokemonCard({
       setTimeout(function () {
         window.location.reload();
       }, 1200);
-    } else {
+    } else if (!battleIds.includes(id) && battle.length === 2) {
+      enqueueSnackbar(
+        `To nie ustawka kiboli. Na Arenie mogą znajdować się tylko 2 pokemony.`,
+        {
+          preventDuplicate: true,
+          autoHideDuration: 5000,
+        }
+      );
+    } else if (battleIds.includes(id)) {
       axios.delete(`http://localhost:3000/battle/${id}`);
       enqueueSnackbar(`Pokemon ${name} został usunięty z Areny`, {
         preventDuplicate: true,
@@ -358,7 +366,7 @@ export function BlankPokemonCard() {
         }}
       >
         <CardContent
-          sx={{
+          style={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -366,7 +374,7 @@ export function BlankPokemonCard() {
           }}
         >
           <Typography
-            sx={{
+            style={{
               fontSize: "28px",
               fontWeight: "bold",
               textAlign: "center",
@@ -376,7 +384,7 @@ export function BlankPokemonCard() {
           >
             Miejsce na walczącego pokemona
           </Typography>
-          <img sx={{ marginBottom: "10px" }} src={bawpikachu} alt={"picture"} />
+          <img sx={{ marginBottom: "10px" }} src={isDark ? null : bawpikachu} />
         </CardContent>
       </Card>
     </CardsWrapper>

@@ -1,25 +1,44 @@
 import React from "react";
 import axios from "axios";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import BasicModal, { DrawModal } from "src/Components/Modal";
 import { useSnackbar } from "notistack";
 import { BlankPokemonCard, ArenaPokemonCard } from "../Components/PokemonCards";
-import { useEffect, useState } from "react";
 import { postData } from "src/api/postData";
 import { useNavigate } from "react-router-dom";
 import { vs } from "src/Images";
+import { ThemeContext } from "src/context/ThemeContext";
+import { useEffect, useState, useContext } from "react";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const PokemonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`;
+const PokemonWrapper = styled("div")(
+  ({ theme }) =>
+    css`
+      display: flex;
+      justify-content: center;
+      background: url(${vs});
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: ${theme.bgColor};
+    `
+);
 const ArenaCardsWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 310px;
 `;
+const theme2 = createTheme({
+  palette: {
+    primary: {
+      main: "#333333",
+    },
+    secondary: {
+      main: "#ffffff",
+    },
+  },
+});
 
 const ArenaPage = () => {
   const [battle, setBattle] = useState([]);
@@ -32,6 +51,8 @@ const ArenaPage = () => {
   const [open2, setOpen2] = React.useState(false);
   const handleClose = () => setOpen(false);
 
+  const { theme } = useContext(ThemeContext);
+  const { toggleTheme, isDark } = useContext(ThemeContext);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
@@ -186,38 +207,37 @@ const ArenaPage = () => {
 
   return (
     <>
-      <Stack
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          gap: "800px",
-        }}
-      >
-        <Button
-          disabled={battle[0] ? false : true}
-          className="fighter1"
-          variant="outlined"
-          onClick={() => removeFromArena1()}
+      <ThemeProvider theme={theme2}>
+        <Stack
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            gap: "800px",
+            backgroundColor: isDark ? "#616161" : "white",
+          }}
         >
-          Usuń
-        </Button>
-        <Button
-          disabled={battle[1] ? false : true}
-          className="fighter2"
-          variant="outlined"
-          onClick={() => removeFromArena2()}
-        >
-          Usuń
-        </Button>
-      </Stack>
-      <PokemonWrapper
-        style={{
-          backgroundImage: `url(${vs})`,
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
+          <Button
+            disabled={battle[0] ? false : true}
+            className="fighter1"
+            variant="outlined"
+            color={isDark ? "secondary" : "primary"}
+            onClick={() => removeFromArena1()}
+          >
+            Usuń
+          </Button>
+          <Button
+            disabled={battle[1] ? false : true}
+            className="fighter2"
+            variant="outlined"
+            color={isDark ? "secondary" : "primary"}
+            onClick={() => removeFromArena2()}
+          >
+            Usuń
+          </Button>
+        </Stack>
+      </ThemeProvider>
+      <PokemonWrapper theme={theme}>
         <ArenaCardsWrapper>
           {battle[0] ? (
             <>
@@ -251,21 +271,27 @@ const ArenaPage = () => {
           )}
         </ArenaCardsWrapper>
       </PokemonWrapper>
-      <Stack
-        sx={{
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <Button
-          disabled={battle.length === 2 ? false : true}
-          variant="outlined"
-          sx={{ fontSize: "20px" }}
-          onClick={() => fight()}
+      <ThemeProvider theme={theme2}>
+        <Stack
+          style={{
+            display: "flex",
+            alignItems: "center",
+            backgroundColor: isDark ? "#616161" : "white",
+            paddingTop: "30px",
+            paddingBottom: "500px",
+          }}
         >
-          WALCZ !
-        </Button>
-      </Stack>
+          <Button
+            disabled={battle.length === 2 ? false : true}
+            variant="outlined"
+            color={isDark ? "secondary" : "primary"}
+            style={{ fontSize: "20px" }}
+            onClick={() => fight()}
+          >
+            WALCZ !
+          </Button>
+        </Stack>
+      </ThemeProvider>
       <BasicModal
         open={open}
         handleClose={handleClose}

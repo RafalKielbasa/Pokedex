@@ -21,7 +21,6 @@ const HomePageWrapper = styled("div")(
       margin-bottom: 20px;
       padding: 0px 40px 0px 40px;
       background-color: ${theme.bgColor};
-      // color: ${theme.textColor};
     `
 );
 
@@ -29,7 +28,7 @@ const PaginationWrapper = styled.div`
   display: flex;
   align-items: top;
   justify-content: flex-end;
-  padding-right: 38px;
+  padding-right: 38px;y
 `;
 const PokemonWrapper = styled.div`
   display: flex;
@@ -150,7 +149,7 @@ const HomePage = () => {
   }, [fullPokemonData, page]);
 
   useEffect(() => {
-    if (fullPokemonDataFormated?.length === 150) {
+    if (fullPokemonDataFormated.length === 150) {
       const array = fullPokemonDataFormated?.filter((fPDelem) => {
         return afterBattleIds?.some((fIele) => {
           return fPDelem.id === fIele;
@@ -164,9 +163,9 @@ const HomePage = () => {
         .sort((a, b) => (a.id > b.id ? 1 : -1));
       setExpFullPokemonDataFormated(getExpFPD);
     }
-  }, [fullPokemonDataFormated, afterBattle]);
+  }, [fullPokemonDataFormated, afterBattle, page]);
 
-  fullPokemonData.length > 150 ? window.location.reload() : {};
+  fullPokemonData.length > 150 ? window.location.reload() : null;
 
   // const pageCount = fullPokemonData?.length / 15;
   const partialPokemonData = expFullPokemonDataFormated
@@ -268,7 +267,7 @@ const HomePage = () => {
                   count={1}
                   variant="outlined"
                   shape="rounded"
-                  sx={{ marginTop: 2, paddingBottom: 4 }}
+                  sx={{ marginTop: 2, paddingBottom: 40 }}
                   onChange={handleChange}
                   color={isDark ? "secondary" : "primary"}
                 />
@@ -339,7 +338,7 @@ const HomePage = () => {
                   count={10}
                   variant="outlined"
                   shape="rounded"
-                  sx={{ marginTop: 2, paddingBottom: 4 }}
+                  sx={{ marginTop: 2, paddingBottom: 40 }}
                   onChange={handleChange}
                   color={isDark ? "secondary" : "primary"}
                 />

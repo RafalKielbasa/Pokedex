@@ -19,38 +19,17 @@
       "baseexp": 137,
       "weight": 1050,
       "abilitie": "rock-head"
-    },
-    {
-      "id": 3,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
-      "name": "venusaur",
-      "height": 20,
-      "baseexp": 283,
-      "weight": 1000,
-      "abilitie": "overgrow"
     }
   ],
   "battle": [
     {
-      "id": 35,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/35.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/35.svg",
-      "name": "clefairy",
-      "height": 6,
-      "baseexp": 113,
-      "weight": 75,
-      "abilitie": "cute-charm"
-    },
-    {
-      "id": 2,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
-      "name": "ivysaur",
+      "id": 75,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/75.png",
+      "name": "graveler",
       "height": 10,
-      "baseexp": 142,
-      "weight": 130,
-      "abilitie": "overgrow"
+      "baseexp": 137,
+      "weight": 1050,
+      "abilitie": "rock-head"
     }
   ],
   "afterTheBattle": [
@@ -74,16 +53,6 @@
       "abilitie": "effect-spore"
     },
     {
-      "id": 3,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
-      "name": "venusaur",
-      "height": 20,
-      "baseexp": 283,
-      "weight": 1000,
-      "abilitie": "overgrow"
-    },
-    {
       "id": 5,
       "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
       "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
@@ -102,6 +71,15 @@
       "baseexp": 132,
       "weight": 60,
       "abilitie": "static"
+    },
+    {
+      "id": 3,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+      "name": "venusaur",
+      "height": 20,
+      "baseexp": 293,
+      "weight": 1000,
+      "abilitie": "overgrow"
     }
   ]
 }

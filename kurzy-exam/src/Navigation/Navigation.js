@@ -3,7 +3,6 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
 import NavigationWrapper from "src/Navigation/NavigationWrapper";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";

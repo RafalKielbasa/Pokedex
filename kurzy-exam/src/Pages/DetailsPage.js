@@ -1,18 +1,37 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
-import styled from "styled-components";
 import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import styled, { css } from "styled-components";
+import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { ThemeContext } from "src/context/ThemeContext";
+import { useContext } from "react";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const DetailsPageWrapper = styled.div`
-  margin-bottom: 20px;
-  padding: 20px 250px 20px 250px;
-`;
+const DetailsPageWrapper = styled("div")(
+  ({ theme }) =>
+    css`
+      padding: 20px 250px 150px 250px;
+      background-color: ${theme.bgColor};
+    `
+);
+
+const theme2 = createTheme({
+  palette: {
+    primary: {
+      main: "#333333",
+    },
+    secondary: {
+      main: "#ffffff",
+    },
+  },
+});
 
 const DetailsPage = () => {
+  const { theme } = useContext(ThemeContext);
+  const { toggleTheme, isDark } = useContext(ThemeContext);
   const location = useLocation();
   const id = location.state?.id;
   const expFullPokemonDataFormated = location.state?.expFullPokemonDataFormated;
@@ -40,7 +59,7 @@ const DetailsPage = () => {
     <>
       {pokemonDataFiltered.length > 0 ? (
         <>
-          <DetailsPageWrapper>
+          <DetailsPageWrapper theme={theme}>
             <CardContent sx={{ display: "flex", flexDirection: "column" }}>
               <Typography
                 sx={{ fontWeight: "bold", fontSize: "20px" }}
@@ -184,31 +203,34 @@ const DetailsPage = () => {
               </CardContent>
             </CardContent>
           </DetailsPageWrapper>
-          <Stack
-            direction="row"
-            spacing={2}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <Button
-              sx={{
-                width: "80%",
-                borderColor: "red",
-                color: "red",
-                textTransform: "capitalize",
+          <ThemeProvider theme={theme2}>
+            <Stack
+              direction="row"
+              spacing={2}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                backgroundColor: isDark ? "#616161" : "white",
               }}
-              variant="outlined"
-              onClick={handleClick}
             >
-              Strona główna
-            </Button>
-          </Stack>
+              <Button
+                style={{
+                  width: "80%",
+                  textTransform: "capitalize",
+                  marginBottom: "350px",
+                }}
+                variant="outlined"
+                color={isDark ? "secondary" : "primary"}
+                onClick={handleClick}
+              >
+                Strona główna
+              </Button>
+            </Stack>
+          </ThemeProvider>
         </>
       ) : (
         <>
-          <DetailsPageWrapper>
+          <DetailsPageWrapper theme={theme}>
             <CardContent sx={{ display: "flex", flexDirection: "column" }}>
               <Typography
                 sx={{ fontWeight: "bold", fontSize: "20px" }}
@@ -352,27 +374,30 @@ const DetailsPage = () => {
               </CardContent>
             </CardContent>
           </DetailsPageWrapper>
-          <Stack
-            direction="row"
-            spacing={2}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <Button
-              sx={{
-                width: "80%",
-                borderColor: "red",
-                color: "red",
-                textTransform: "capitalize",
+          <ThemeProvider theme={theme2}>
+            <Stack
+              direction="row"
+              spacing={2}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                backgroundColor: isDark ? "#616161" : "white",
               }}
-              variant="outlined"
-              onClick={handleClickFavorite}
             >
-              Strona główna
-            </Button>
-          </Stack>
+              <Button
+                style={{
+                  width: "80%",
+                  textTransform: "capitalize",
+                  marginBottom: "350px",
+                }}
+                variant="outlined"
+                color={isDark ? "secondary" : "primary"}
+                onClick={handleClickFavorite}
+              >
+                Strona główna
+              </Button>
+            </Stack>
+          </ThemeProvider>
         </>
       )}
     </>
