@@ -6,35 +6,19 @@ import {
   PaginationWrapper,
   PokemonWrapper,
 } from "./HomePageWrapper.styles";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useSearchPokemonQuery } from "../../../hooks/useSearchPokemon";
 import { useDebounce } from "../../../hooks/useDebounce";
 import { usePaginationQuery } from "../../../hooks/usePagination";
 import { PagePagination } from "../../PagePagination";
 import { v4 } from "uuid";
-import { LoaderSpinner } from "../../layouts/Loader/Loader";
-import { useAllPokemonQuery } from "../../../hooks/useAllPokemon";
 
 export const HomePageWrapper = ({ pokemonData }) => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [page, setPage] = useState();
   const [value, setValue] = useState("");
   const debouncedSearch = useDebounce(value);
-  const { data } = useSearchPokemonQuery(debouncedSearch);
-  const pagination = usePaginationQuery("pokemon", currentPage);
-
-  console.log(currentPage);
-
-  const pokemon = useMemo(() => {
-    if (debouncedSearch) {
-      return data?.data;
-    } else {
-      return pagination?.data?.data;
-    }
-  }, [pagination?.data?.data, data?.data, debouncedSearch]);
-
-  if (pagination.isLoading) {
-    return <LoaderSpinner />;
-  }
+  const { data: searchPokemon } = useSearchPokemonQuery(debouncedSearch);
+  const { data: allPokemon } = usePaginationQuery("pokemon", page);
 
   return (
     <PageWrapper>
@@ -47,19 +31,16 @@ export const HomePageWrapper = ({ pokemonData }) => {
         />
       </Header>
       <PokemonWrapper>
-        {pokemon?.length > 0 ? (
-          pokemon?.map((props) => {
-            return <PokemonCard props={props} key={v4()} />;
-          })
-        ) : (
-          <h1>Can't find {value}</h1>
-        )}
+        {value?.length > 0
+          ? searchPokemon?.data?.map((pokemon) => {
+              return <PokemonCard props={pokemon} key={v4()} />;
+            })
+          : allPokemon?.data?.map((pokemon) => {
+              return <PokemonCard props={pokemon} key={v4()} />;
+            })}
       </PokemonWrapper>
       <PaginationWrapper>
-        <PagePagination
-          setCurrentPage={setCurrentPage}
-          pokemonData={pokemonData}
-        />
+        <PagePagination setCurrentPage={setPage} pokemonData={pokemonData} />
       </PaginationWrapper>
     </PageWrapper>
   );
