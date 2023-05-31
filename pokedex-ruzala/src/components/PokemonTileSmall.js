@@ -3,7 +3,9 @@ import FavoritesButton from "./FavoritesButton";
 import ArenaButton from "./ArenaButton";
 import { useNavigate } from "react-router-dom";
 
-export default function PokemonTile({
+const scaling = 0.6;
+
+export default function PokemonTileSmall({
   pokemon,
   disableZoom = false,
   opacityDown = false,
@@ -17,23 +19,23 @@ export default function PokemonTile({
     display: "flex",
     alignItems: "center",
     width: "40%",
-    height: "25%",
+    height: "30%",
     flexDirection: "column",
-    margin: "0px 10px 20px 10px",
+    margin: "1%",
     background: "rgba(0, 0, 0, 0.2)",
     border: "3px solid lightblue",
     borderRadius: "10px",
     overflow: "hidden",
+    fontSize: "10px",
   };
 
   const singleTypePokemonTile = {
     display: "flex",
-    flexDirection: "column",
     flexWrap: "wrap",
-    height: "350px",
-    width: "300px",
+    justifyContent: "center",
+    height: "100%",
+    width: "100%",
     color: "white",
-    margin: 2,
     boxShadow: "5px 5px 5px black",
     border: "5px solid lightblue",
     borderRadius: "10px",
@@ -43,13 +45,12 @@ export default function PokemonTile({
 
   const dualTypePokemonTile = {
     display: "flex",
-    flexDirection: "column",
     flexWrap: "wrap",
-    height: "350px",
-    width: "300px",
+    justifyContent: "center",
+    height: "100%",
+    width: "100%",
     backgroundColor: "black",
     color: "white",
-    margin: 2,
     boxShadow: "5px 2px 10px black",
     border: "5px solid lightblue",
     borderRadius: "10px",
@@ -61,21 +62,25 @@ export default function PokemonTile({
     "&:hover": { boxShadow: `${shadow}` },
   };
 
-  const scaling = 0.5;
+  const fontSizing = { fontSize: "0.6rem" };
+
   return (
     <Box
-      sx={
-        disableZoom === false
-          ? {
-              position: "relative",
-              "&:hover": { transform: "scale(1.07)" },
-            }
-          : { position: "relative" }
-      }
-      id="box"
+      sx={{
+        position: "relative",
+        display: "flex",
+        width: "28%",
+        height: "31%",
+        margin: "2%",
+        "&:hover": {
+          transform: disableZoom === false ? "scale(1.07)" : "scale(1)",
+        },
+      }}
+      id="mainTileBox"
     >
-      <FavoritesButton pokemon={pokemon} sizing="large" />
-      <ArenaButton pokemon={pokemon} sizing="large" />
+      <FavoritesButton pokemon={pokemon} sizing="small" />
+      <ArenaButton pokemon={pokemon} sizing="small" />
+
       <Box
         sx={[
           pokemon.types[1] ? dualTypePokemonTile : singleTypePokemonTile,
@@ -94,39 +99,46 @@ export default function PokemonTile({
             alignSelf: "center",
             borderRadius: "100px",
             border: "3px solid lightblue",
-            margin: 1,
             background: "rgba(0, 0, 0, 0.3)",
           }}
         >
           <img
             src={pokemon.sprites.other["official-artwork"].front_default}
-            height={`${226 * scaling}px`}
+            height={`${226 * (scaling * scaling)}px`}
             alt="pokemonSprite"
           />
         </Box>
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "space-evenly",
             flexWrap: "wrap",
             width: "100%",
-            marginTop: 2,
           }}
         >
-          <Box sx={[dataBoxStyle, { width: "100%", height: "15% " }]}>
+          <Box
+            sx={[
+              dataBoxStyle,
+              {
+                width: "90%",
+                height: "15% ",
+                fontSize: "0.8rem",
+              },
+            ]}
+          >
             {pokemon.name.toUpperCase()}
           </Box>
           <Box sx={dataBoxStyle}>
-            <Typography sx={{ fontSize: "10px" }}>Base Experience</Typography>
-            <Typography>{pokemon.base_experience}</Typography>
+            <Typography sx={fontSizing}>EXP</Typography>
+            <Typography sx={fontSizing}>{pokemon.base_experience}</Typography>
           </Box>
           <Box sx={dataBoxStyle}>
-            <Typography sx={{ fontSize: "10px" }}>Type(s)</Typography>
+            <Typography sx={fontSizing}>Type(s)</Typography>
             {pokemon.types.map((element) => {
               return (
                 <Typography
+                  sx={{ fontSize: pokemon.types[1] ? "0.45rem" : "0.75rem" }}
                   key={`type ${element.type.name} ${pokemon.name}`}
-                  sx={{ fontSize: "10px" }}
                 >
                   {element.type.name.toUpperCase()}
                 </Typography>
@@ -134,12 +146,12 @@ export default function PokemonTile({
             })}
           </Box>
           <Box sx={dataBoxStyle}>
-            <Typography sx={{ fontSize: "10px" }}>Weight</Typography>
-            <Typography sx={{ fontSize: "15px" }}>{pokemon.weight}</Typography>
+            <Typography sx={fontSizing}>Weight</Typography>
+            <Typography sx={fontSizing}>{pokemon.weight}</Typography>
           </Box>
           <Box sx={dataBoxStyle}>
-            <Typography sx={{ fontSize: "10px" }}>Height</Typography>
-            <Typography sx={{ fontSize: "15px" }}>{pokemon.height}</Typography>
+            <Typography sx={fontSizing}>Height</Typography>
+            <Typography sx={fontSizing}>{pokemon.height}</Typography>
           </Box>
         </Box>
       </Box>

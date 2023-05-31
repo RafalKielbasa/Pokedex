@@ -11,9 +11,11 @@ export default function Favorites() {
       sx={{
         display: "flex",
         width: "100%",
+        height: "83vh",
         flexWrap: "wrap",
         justifyContent: "center",
         alignItems: "center",
+        overflow: favoritesArray.length > 2 ? "scroll" : "hidden",
       }}
     >
       {favoritesArray.length > 0 ? (

@@ -41,7 +41,8 @@ export default function EditPokemonModal({ pokemon }) {
     }
     newPokemon.weight = values.weight;
     newPokemon.height = values.height;
-    newPokemon.base_experience = values.base_experience;
+    newPokemon.base_experience = Number(values.base_experience);
+    console.log(typeof newPokemon.baseExperience);
     modifyPokemon(
       arrayOfModifiedPokemon,
       setArrayOfModifiedPokemon,

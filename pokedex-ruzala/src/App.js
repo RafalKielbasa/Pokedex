@@ -37,6 +37,8 @@ function App() {
   const [arrayOfModifiedPokemon, setArrayOfModifiedPokemon] = useState([]);
   const [currentArray, setCurrentArray] = useState([]);
   const [pokemonTypes, setPokemonTypes] = useState([]);
+  const [openPokedex, setOpenPokedex] = useState(false);
+  const [readyToDisplay, setReadyToDisplay] = useState(false);
 
   const pokemonLinks = useQuery({
     queryKey: ["pokemonLinks"],
@@ -119,6 +121,10 @@ function App() {
           currentArray,
           setCurrentArray,
           pokemonTypes,
+          openPokedex,
+          setOpenPokedex,
+          readyToDisplay,
+          setReadyToDisplay,
         }}
       >
         <SnackbarProvider>

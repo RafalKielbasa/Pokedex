@@ -83,6 +83,7 @@ export default function TableProperties({
         display: "flex",
         justifyContent: "center",
         flexWrap: "wrap",
+        height: "10vh",
         width: "100%",
         padding: "10px",
         border: "3px solid lightblue",
@@ -94,12 +95,13 @@ export default function TableProperties({
         variant="filled"
         sx={{ width: "55%" }}
         onChange={handleSearchInput}
+        size="small"
       />
       <Box
         id="goToPageBox"
         sx={{
           display: "flex",
-          width: "15%",
+          width: "25%",
           margin: "0 2% 0 2%",
           alignItems: "center",
         }}
@@ -108,6 +110,7 @@ export default function TableProperties({
           label="To Page"
           variant="outlined"
           sx={{ width: "70%" }}
+          size="small"
           onChange={handleGoToPageChange}
         />
         <Button
@@ -123,6 +126,7 @@ export default function TableProperties({
         label="Pokemons Per Page"
         value={itemsPerPage}
         onChange={handleItemPerPageChange}
+        size="small"
       >
         {itemsPerPageArray.map((item) => {
           return (
@@ -147,14 +151,16 @@ export default function TableProperties({
             height: "80%",
             alignSelf: "center",
             textAlign: "center",
+            fontSize: " 0.9rem",
           }}
         >
           Filter by Type
         </Typography>
         {pokemonTypes.length > 0 && (
           <Select
-            sx={{ width: "60%", height: "80%" }}
+            sx={{ width: "60%", height: "60%" }}
             onChange={handleTypeFilter}
+            size="small"
           >
             <MenuItem selected value={""}>
               NO FILTER

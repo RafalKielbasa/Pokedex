@@ -30,6 +30,7 @@ export default function Arena() {
   return (
     <Box
       sx={{
+        position: "relative",
         display: "flex",
         width: "100%",
         flexWrap: "wrap",
@@ -49,26 +50,13 @@ export default function Arena() {
         >
           Wyczyść arenę.
         </Button>
-      </Box>
-
-      <Box
-        sx={{
-          position: "relative",
-          display: "flex",
-          width: "100%",
-          justifyContent: "center",
-          alignItems: "center",
-          flexGrow: "1",
-        }}
-        id="fightContainer"
-      >
         {winner && (
           <Typography
             sx={{
               position: "absolute",
-              top: "10%",
               left: "50%",
-              transform: "translate(-50%, -10%)",
+              transform: "translate(-50%, -0%)",
+              zIndex: "20",
             }}
           >
             {typeof winner === "object" &&
@@ -76,6 +64,19 @@ export default function Arena() {
             {winner === 0 && `REMIS`}
           </Typography>
         )}
+      </Box>
+
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "10%",
+          flexGrow: "1",
+        }}
+        id="fightContainer"
+      >
         {arenaArray.length !== 0 ? (
           <PokemonTile
             key={`${arenaArray[0].name}_arena_tile`}

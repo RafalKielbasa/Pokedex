@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { GlobalContext } from "../App";
 
-export default function ArenaButton({ pokemon }) {
+export default function ArenaButton({ pokemon, sizing }) {
   const { arenaArray, setArenaArray } = useContext(GlobalContext);
   const [isActive, setIsActive] = useState(false);
 
@@ -33,8 +33,13 @@ export default function ArenaButton({ pokemon }) {
         handleToggleFavorite();
       }}
       disabled={arenaArray.length === 2 && !isActive}
-      size="small"
-      sx={{ position: "absolute", top: "30px", left: "270px" }}
+      sx={{
+        position: "absolute",
+        top: sizing === "small" ? "5%" : "10%",
+        left: sizing === "small" ? "5%" : "10%",
+        width: "36px",
+        height: "36px",
+      }}
     >
       {isActive ? <Castle /> : <CastleOutlined />}
     </Fab>

@@ -33,7 +33,15 @@ export default function EditPokemon() {
     );
   }
   return (
-    <Box sx={{ display: "flex", width: "100%", justifyContent: "center" }}>
+    <Box
+      sx={{
+        display: "flex",
+        width: "100%",
+        height: "90vh",
+        justifyContent: "center",
+        overflow: "scroll",
+      }}
+    >
       <Table sx={{ width: "80%" }}>
         <TableHead>
           <TableRow>

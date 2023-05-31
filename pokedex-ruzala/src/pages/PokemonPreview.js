@@ -44,7 +44,7 @@ export default function PokemonPreview() {
   }
 
   return (
-    <Box sx={{ display: "flex", width: "100%" }}>
+    <Box sx={{ display: "flex", width: "100%", height: "83vh" }}>
       {id > 1 ? (
         <IconButton
           color="primary.light"
@@ -64,7 +64,6 @@ export default function PokemonPreview() {
             display: "flex",
             width: "90%",
             flexDirection: "column",
-            marginTop: "5%",
           }}
         >
           <Box sx={[baseBoxStyle, { border: "10px double lightblue" }]}>

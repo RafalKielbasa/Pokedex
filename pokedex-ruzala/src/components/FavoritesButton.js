@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { GlobalContext } from "../App";
 
-export default function FavoritesButton({ pokemon }) {
+export default function FavoritesButton({ pokemon, sizing }) {
   const { favoritesArray, setFavoritesArray } = useContext(GlobalContext);
   const [isActive, setIsActive] = useState(false);
 
@@ -36,8 +36,13 @@ export default function FavoritesButton({ pokemon }) {
         setIsActive((prev) => !prev);
         handleToggleFavorite();
       }}
-      size="small"
-      sx={{ position: "absolute", top: "30px", left: "30px" }}
+      sx={{
+        position: "absolute",
+        top: sizing === "small" ? "5%" : "10%",
+        right: sizing === "small" ? "5%" : "10%",
+        width: "36px",
+        height: "36px",
+      }}
     >
       {isActive ? <Favorite /> : <FavoriteBorder />}
     </Fab>

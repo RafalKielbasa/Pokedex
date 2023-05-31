@@ -6,70 +6,47 @@ import { useContext } from "react";
 
 export default function NavBar() {
   const navigate = useNavigate();
-  const { loginState, setLoginState } = useContext(GlobalContext);
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "space-between",
-        flexWrap: "wrap",
-      }}
-    >
-      <Button
-        onClick={() => {
-          navigate("/");
+  const { loginState, setLoginState, readyToDisplay } =
+    useContext(GlobalContext);
+  if (readyToDisplay) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          height: "6%",
+          width: "100%",
         }}
       >
-        <img src={PokedexLogo} alt="pokedex-logo" height="60px" width="120px" />
-      </Button>
-      <ButtonGroup variant="text">
         <Button
           onClick={() => {
-            navigate("/pokemons/");
+            navigate("/");
           }}
         >
-          Pokemony
-        </Button>
-        <Button
-          onClick={() => {
-            navigate("/favorites");
-          }}
-        >
-          Ulubione
-        </Button>
-        <Button
-          onClick={() => {
-            navigate("/arena");
-          }}
-        >
-          Arena
+          <img
+            src={PokedexLogo}
+            alt="pokedex-logo"
+            height="100%"
+            width="60px"
+          />
         </Button>
         {!loginState && (
-          <Button
-            onClick={() => {
-              navigate("/login");
-            }}
-          >
-            Logowanie
-          </Button>
-        )}
-        {!loginState && (
-          <Button
-            onClick={() => {
-              navigate("/register");
-            }}
-          >
-            Rejestracja
-          </Button>
-        )}
-        {loginState && (
-          <Button
-            onClick={() => {
-              navigate("/edit");
-            }}
-          >
-            Edycja
-          </Button>
+          <ButtonGroup>
+            <Button
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Logowanie
+            </Button>
+            <Button
+              onClick={() => {
+                navigate("/register");
+              }}
+            >
+              Rejestracja
+            </Button>
+          </ButtonGroup>
         )}
         {loginState && (
           <Button
@@ -81,15 +58,7 @@ export default function NavBar() {
             Wyloguj
           </Button>
         )}
-      </ButtonGroup>
-      <Box
-        sx={{
-          backgroundColor: "primary.light",
-          alignSelf: "flex-end",
-          width: "100%",
-          height: "3%",
-        }}
-      />
-    </Box>
-  );
+      </Box>
+    );
+  }
 }

@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
-import PokemonTile from "../components/PokemonTile";
+
 import CircularProgress from "@mui/material/CircularProgress";
+import PokemonTileSmall from "../components/PokemonTileSmall";
 import { useContext, useState } from "react";
 import ArrowButton from "../components/ArrowButton";
 import TableProperties from "../components/TableProperties";
@@ -12,7 +13,7 @@ export default function Pokemons() {
 
   console.log(pokemonTypes);
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentItemsPerPage, setCurrentItemsPerPage] = useState(15);
+  const [currentItemsPerPage, setCurrentItemsPerPage] = useState(6);
   if (!currentArray || !pokemonTypes) {
     return (
       <Box sx={{ position: "relative", height: "100%", width: "100%" }}>
@@ -35,8 +36,8 @@ export default function Pokemons() {
     <Box
       sx={{
         display: "flex",
-        justifyContent: "space-between",
         width: "100%",
+        height: "83vh",
       }}
     >
       {currentPage > 1 ? (
@@ -50,11 +51,12 @@ export default function Pokemons() {
         <Box sx={{ width: "10%" }} />
       )}
       <Box
+        id="pokemonsMiddleSection"
         sx={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "center",
           width: "80%",
+          overflow: currentItemsPerPage > 6 ? "scroll" : "hidden",
         }}
       >
         {pokemons.data && (
@@ -72,10 +74,14 @@ export default function Pokemons() {
           sx={{
             display: "flex",
             flexWrap: "wrap",
+            alignContent: "start",
+            justifyContent: "space-between",
             width: "100%",
-            justifyContent: "center",
+            height: "70vh",
+            paddingBottom: "3%",
             minHeight: "700px",
           }}
+          id="pokemonDisplay"
         >
           {currentArray &&
             currentArray.map((element, index) => {
@@ -85,7 +91,10 @@ export default function Pokemons() {
                 index <= currentPage * currentItemsPerPage - 1
               ) {
                 return (
-                  <PokemonTile key={`${element.name}Tile`} pokemon={element} />
+                  <PokemonTileSmall
+                    key={`${element.name}Tile`}
+                    pokemon={element}
+                  />
                 );
               }
             })}
