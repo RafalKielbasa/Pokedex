@@ -1,0 +1,185 @@
+import React, { useEffect, useState } from "react";
+
+import { Form, Formik } from "formik";
+
+import { useOutletContext } from "react-router-dom";
+
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+
+import { enqueueSnackbar } from "notistack";
+
+import {
+  fetchPokemonNamesList,
+  fetchOnePokemon,
+} from "src/api/fetchDataFunctions";
+import { editedCreatedPostData } from "src/api/postDataFunctions";
+
+import {
+  MyTextField,
+  StyledSubmitButton,
+  FormContainer,
+  FormHeader,
+  SelectPokemon,
+} from "src/components/formComponents";
+
+import { editValidationSchema } from "src/validationSchemas";
+
+const EditPage = () => {
+  const queryClient = useQueryClient();
+
+  const { editedList, editedStatus } = useOutletContext();
+
+  const { data: pokemonDataToEdit } = useQuery({
+    queryKey: ["AllPokemonsNamesList"],
+    queryFn: () => fetchPokemonNamesList(editedList),
+    staleTime: 10 * (60 * 1000),
+  });
+
+  const [action, setAction] = useState(null);
+  const [chosedPokemon, setChosedPokemon] = useState("");
+  const [initialValues, setInitialValues] = useState({
+    abilities: [
+      {
+        ability: {
+          name: "",
+        },
+      },
+    ],
+    base_experience: "",
+    height: "",
+    id: "",
+    name: "",
+    sprites: "",
+    weight: "",
+    winCount: "",
+    lossCount: "",
+    tieCount: "",
+  });
+
+  const { data: detailPokemon, status } = useQuery({
+    queryKey: ["pokemon", chosedPokemon],
+    queryFn: () => fetchOnePokemon(editedList, chosedPokemon),
+    enabled: editedStatus === "success" && chosedPokemon !== "",
+    staleTime: 10 * (60 * 1000),
+  });
+
+  useEffect(() => {
+    if (status === "success" && chosedPokemon !== "") {
+      const {
+        abilities,
+        base_experience,
+        height,
+        id,
+        name,
+        sprites,
+        weight,
+        winCount,
+        lossCount,
+        tieCount,
+      } = detailPokemon;
+      setInitialValues({
+        abilities,
+        base_experience,
+        height,
+        id,
+        name,
+        sprites,
+        weight,
+        winCount,
+        lossCount,
+        tieCount,
+      });
+    }
+  }, [status, chosedPokemon, detailPokemon]);
+
+  const { mutate, error } = useMutation({
+    mutationFn: (data) =>
+      editedCreatedPostData(data, data?.name, editedList, action),
+  });
+  return (
+    <Formik
+      initialValues={initialValues}
+      enableReinitialize={true}
+      validationSchema={editValidationSchema}
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        mutate(values, {
+          onSuccess: () => {
+            setSubmitting(false);
+            setAction(null);
+            queryClient.setQueryData(["editedPokemons"], (prev) => [
+              ...prev,
+              values?.name,
+            ]);
+            queryClient.setQueryData(["pokemon", values?.name], values);
+            resetForm();
+            enqueueSnackbar("Operacja zakończona sukcesem", {
+              variant: "success",
+            });
+          },
+          onError: () => {
+            enqueueSnackbar(error, { variant: "error" });
+            setSubmitting(false);
+          },
+        });
+      }}
+    >
+      {({ isSubmitting, values }) => (
+        <FormContainer>
+          <FormHeader value={"Wybierz pokemona do edycji/ lub stwórz nowego"} />
+          <SelectPokemon
+            pokemonDataToEdit={pokemonDataToEdit}
+            setChosedPokemon={setChosedPokemon}
+          />
+          <Form
+            style={{
+              display: "flex",
+              width: "70%",
+              flexDirection: "column",
+              fontSize: "24px",
+            }}
+          >
+            <MyTextField name="name" label="Nazwa Pokemona" type="text" />
+            <MyTextField
+              name="base_experience"
+              label="Doświadczenie bazowe"
+              type="number"
+            />
+            <MyTextField
+              name="abilities[0].ability.name"
+              label="Nazwa umiejętności"
+              type="text"
+            />
+            <MyTextField
+              name="height"
+              label="Wysokość pokemona"
+              type="number"
+            />
+            <MyTextField name="weight" label="Waga pokemona" type="number" />
+            <StyledSubmitButton
+              value={"Edytuj Pokemona"}
+              disableConditions={
+                values?.name === "" ||
+                isSubmitting ||
+                (values?.name !== "" &&
+                  !pokemonDataToEdit.includes(values?.name))
+              }
+              onClickActionsOtherThanSubmit={() => setAction("edit")}
+            />
+            <StyledSubmitButton
+              value={"Stwórz Nowego Pokemona"}
+              disableConditions={
+                values?.name === "" ||
+                isSubmitting ||
+                (values?.name !== "" &&
+                  pokemonDataToEdit.includes(values?.name))
+              }
+              onClickActionsOtherThanSubmit={() => setAction("create")}
+            />
+          </Form>
+        </FormContainer>
+      )}
+    </Formik>
+  );
+};
+
+export default EditPage;
