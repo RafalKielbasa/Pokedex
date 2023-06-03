@@ -1,0 +1,27 @@
+{
+  "user": [
+    {
+      "name": "123",
+      "email": "ostrach109@gmail.com",
+      "password": "123456",
+      "id": 1
+    },
+    {
+      "name": "kaskfas",
+      "email": "asknfs@wp.pl",
+      "password": "Testowy123!",
+      "id": 2
+    },
+    {
+      "name": "wiktort",
+      "email": "test123@wp.pl",
+      "password": "TestowyLogin123!",
+      "id": 3
+    }
+  ],
+  "battle": [],
+  "favorites": [],
+  "editedPokemon": [],
+  "newPokemon": [],
+  "battleHistory": []
+}
