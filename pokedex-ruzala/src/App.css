@@ -1,0 +1,19 @@
+.pokedex_svg {
+  height: 90%;
+}
+:focus {
+  outline: none !important;
+}
+
+::-webkit-scrollbar {
+  width: 1em;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 30px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: white;
+  border-radius: 30px;
+}

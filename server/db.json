@@ -1,0 +1,73 @@
+{
+  "users": [
+    {
+      "userName": "bob",
+      "email": "dwdawd@dwda.com",
+      "password": "Masdawd233@",
+      "confirmPassword": "Masdawd233@"
+    },
+    {
+      "id": 1,
+      "userName": "asdawda",
+      "email": "dawdawd@dawdaw.com",
+      "password": "Max1996-1996",
+      "confirmPassword": "Max1996-1996"
+    },
+    {
+      "id": 2,
+      "userName": "dawdawda",
+      "email": "dadwwad@dadwa.com",
+      "password": "Max1996-1996",
+      "confirmPassword": "Max1996-1996"
+    },
+    {
+      "id": 3,
+      "userName": "asdawda",
+      "email": "dawdadwad@dawdaw.com",
+      "password": "Max1996-1996",
+      "confirmPassword": "Max1996-1996"
+    },
+    {
+      "id": 4,
+      "userName": "adawdawd",
+      "email": "dawdawd@waddawd.com",
+      "password": "Max1996-1996",
+      "confirmPassword": "Max1996-1996"
+    },
+    {
+      "id": 5,
+      "userName": "dawdawda",
+      "email": "awdawd@dawdaw.com",
+      "password": "Max1996-1996",
+      "confirmPassword": "Max1996-1996"
+    },
+    {
+      "id": 6,
+      "userName": "adwdawd",
+      "email": "dawdawa@dawdwad.pl",
+      "password": "Max1996-1996",
+      "confirmPassword": "Max1996-1996"
+    },
+    {
+      "id": 7,
+      "userName": "ffwaoadd",
+      "email": "awjdawdj@wpdoakwd.pl",
+      "password": "Max1996-1996",
+      "confirmPassword": "Max1996-1996"
+    },
+    {
+      "id": 8,
+      "userName": "ruzi1996",
+      "email": "ruzi1996@gmail.com",
+      "password": "Max1996-1996",
+      "confirmPassword": "Max1996-1996"
+    },
+    {
+      "id": 9,
+      "userName": "matruz1903",
+      "email": "adawdwad@dadaw.com",
+      "password": "Max1996-1996",
+      "confirmPassword": "Max1996-1996"
+    }
+  ]
+}
