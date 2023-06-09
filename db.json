@@ -22,8 +22,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
       "weight": 69,
       "height": 7,
-      "types": ["grass", "poison"],
-      "abilities": ["overgrow", "chlorophyll"],
+      "types": [
+        "grass",
+        "poison"
+      ],
+      "abilities": [
+        "overgrow",
+        "chlorophyll"
+      ],
       "baseExperience": 64,
       "id": 1
     },
@@ -32,8 +38,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
       "weight": 130,
       "height": 10,
-      "types": ["grass", "poison"],
-      "abilities": ["overgrow", "chlorophyll"],
+      "types": [
+        "grass",
+        "poison"
+      ],
+      "abilities": [
+        "overgrow",
+        "chlorophyll"
+      ],
       "baseExperience": 142,
       "id": 2
     },
@@ -42,8 +54,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
       "weight": 1000,
       "height": 20,
-      "types": ["grass", "poison"],
-      "abilities": ["overgrow", "chlorophyll"],
+      "types": [
+        "grass",
+        "poison"
+      ],
+      "abilities": [
+        "overgrow",
+        "chlorophyll"
+      ],
       "baseExperience": 263,
       "id": 3
     },
@@ -52,8 +70,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
       "weight": 85,
       "height": 6,
-      "types": ["fire"],
-      "abilities": ["blaze", "solar-power"],
+      "types": [
+        "fire"
+      ],
+      "abilities": [
+        "blaze",
+        "solar-power"
+      ],
       "baseExperience": 62,
       "id": 4
     },
@@ -62,8 +85,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
       "weight": 190,
       "height": 11,
-      "types": ["fire"],
-      "abilities": ["blaze", "solar-power"],
+      "types": [
+        "fire"
+      ],
+      "abilities": [
+        "blaze",
+        "solar-power"
+      ],
       "baseExperience": 142,
       "id": 5
     },
@@ -72,8 +100,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
       "weight": 905,
       "height": 17,
-      "types": ["fire", "flying"],
-      "abilities": ["blaze", "solar-power"],
+      "types": [
+        "fire",
+        "flying"
+      ],
+      "abilities": [
+        "blaze",
+        "solar-power"
+      ],
       "baseExperience": 267,
       "id": 6
     },
@@ -82,8 +116,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png",
       "weight": 90,
       "height": 5,
-      "types": ["water"],
-      "abilities": ["torrent", "rain-dish"],
+      "types": [
+        "water"
+      ],
+      "abilities": [
+        "torrent",
+        "rain-dish"
+      ],
       "baseExperience": 63,
       "id": 7
     },
@@ -92,8 +131,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/8.png",
       "weight": 225,
       "height": 10,
-      "types": ["water"],
-      "abilities": ["torrent", "rain-dish"],
+      "types": [
+        "water"
+      ],
+      "abilities": [
+        "torrent",
+        "rain-dish"
+      ],
       "baseExperience": 142,
       "id": 8
     },
@@ -102,8 +146,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png",
       "weight": 855,
       "height": 16,
-      "types": ["water"],
-      "abilities": ["torrent", "rain-dish"],
+      "types": [
+        "water"
+      ],
+      "abilities": [
+        "torrent",
+        "rain-dish"
+      ],
       "baseExperience": 265,
       "id": 9
     },
@@ -112,8 +161,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10.png",
       "weight": 29,
       "height": 3,
-      "types": ["bug"],
-      "abilities": ["shield-dust", "run-away"],
+      "types": [
+        "bug"
+      ],
+      "abilities": [
+        "shield-dust",
+        "run-away"
+      ],
       "baseExperience": 39,
       "id": 10
     },
@@ -122,8 +176,12 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/11.png",
       "weight": 99,
       "height": 7,
-      "types": ["bug"],
-      "abilities": ["shed-skin"],
+      "types": [
+        "bug"
+      ],
+      "abilities": [
+        "shed-skin"
+      ],
       "baseExperience": 72,
       "id": 11
     },
@@ -132,8 +190,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/13.png",
       "weight": 32,
       "height": 3,
-      "types": ["bug", "poison"],
-      "abilities": ["shield-dust", "run-away"],
+      "types": [
+        "bug",
+        "poison"
+      ],
+      "abilities": [
+        "shield-dust",
+        "run-away"
+      ],
       "baseExperience": 39,
       "id": 12
     },
@@ -142,8 +206,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/15.png",
       "weight": 295,
       "height": 10,
-      "types": ["bug", "poison"],
-      "abilities": ["swarm", "sniper"],
+      "types": [
+        "bug",
+        "poison"
+      ],
+      "abilities": [
+        "swarm",
+        "sniper"
+      ],
       "baseExperience": 178,
       "id": 13
     },
@@ -152,8 +222,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/16.png",
       "weight": 18,
       "height": 3,
-      "types": ["normal", "flying"],
-      "abilities": ["keen-eye", "tangled-feet", "big-pecks"],
+      "types": [
+        "normal",
+        "flying"
+      ],
+      "abilities": [
+        "keen-eye",
+        "tangled-feet",
+        "big-pecks"
+      ],
       "baseExperience": 50,
       "id": 14
     },
@@ -162,8 +239,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/12.png",
       "weight": 320,
       "height": 11,
-      "types": ["bug", "flying"],
-      "abilities": ["compound-eyes", "tinted-lens"],
+      "types": [
+        "bug",
+        "flying"
+      ],
+      "abilities": [
+        "compound-eyes",
+        "tinted-lens"
+      ],
       "baseExperience": 198,
       "id": 15
     },
@@ -172,8 +255,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/14.png",
       "weight": 100,
       "height": 6,
-      "types": ["bug", "poison"],
-      "abilities": ["shed-skin"],
+      "types": [
+        "bug",
+        "poison"
+      ],
+      "abilities": [
+        "shed-skin"
+      ],
       "baseExperience": 72,
       "id": 16
     },
@@ -182,8 +270,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/17.png",
       "weight": 300,
       "height": 11,
-      "types": ["normal", "flying"],
-      "abilities": ["keen-eye", "tangled-feet", "big-pecks"],
+      "types": [
+        "normal",
+        "flying"
+      ],
+      "abilities": [
+        "keen-eye",
+        "tangled-feet",
+        "big-pecks"
+      ],
       "baseExperience": 122,
       "id": 17
     },
@@ -192,8 +287,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/18.png",
       "weight": 395,
       "height": 15,
-      "types": ["normal", "flying"],
-      "abilities": ["keen-eye", "tangled-feet", "big-pecks"],
+      "types": [
+        "normal",
+        "flying"
+      ],
+      "abilities": [
+        "keen-eye",
+        "tangled-feet",
+        "big-pecks"
+      ],
       "baseExperience": 216,
       "id": 18
     },
@@ -202,8 +304,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/19.png",
       "weight": 35,
       "height": 3,
-      "types": ["normal"],
-      "abilities": ["run-away", "guts", "hustle"],
+      "types": [
+        "normal"
+      ],
+      "abilities": [
+        "run-away",
+        "guts",
+        "hustle"
+      ],
       "baseExperience": 51,
       "id": 19
     },
@@ -212,8 +320,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/20.png",
       "weight": 185,
       "height": 7,
-      "types": ["normal"],
-      "abilities": ["run-away", "guts", "hustle"],
+      "types": [
+        "normal"
+      ],
+      "abilities": [
+        "run-away",
+        "guts",
+        "hustle"
+      ],
       "baseExperience": 145,
       "id": 20
     },
@@ -222,8 +336,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/21.png",
       "weight": 20,
       "height": 3,
-      "types": ["normal", "flying"],
-      "abilities": ["keen-eye", "sniper"],
+      "types": [
+        "normal",
+        "flying"
+      ],
+      "abilities": [
+        "keen-eye",
+        "sniper"
+      ],
       "baseExperience": 52,
       "id": 21
     },
@@ -232,8 +352,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/22.png",
       "weight": 380,
       "height": 12,
-      "types": ["normal", "flying"],
-      "abilities": ["keen-eye", "sniper"],
+      "types": [
+        "normal",
+        "flying"
+      ],
+      "abilities": [
+        "keen-eye",
+        "sniper"
+      ],
       "baseExperience": 155,
       "id": 22
     },
@@ -242,8 +368,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/23.png",
       "weight": 69,
       "height": 20,
-      "types": ["poison"],
-      "abilities": ["intimidate", "shed-skin", "unnerve"],
+      "types": [
+        "poison"
+      ],
+      "abilities": [
+        "intimidate",
+        "shed-skin",
+        "unnerve"
+      ],
       "baseExperience": 58,
       "id": 23
     },
@@ -252,8 +384,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/24.png",
       "weight": 650,
       "height": 35,
-      "types": ["poison"],
-      "abilities": ["intimidate", "shed-skin", "unnerve"],
+      "types": [
+        "poison"
+      ],
+      "abilities": [
+        "intimidate",
+        "shed-skin",
+        "unnerve"
+      ],
       "baseExperience": 157,
       "id": 24
     },
@@ -262,8 +400,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
       "weight": 60,
       "height": 4,
-      "types": ["electric"],
-      "abilities": ["static", "lightning-rod"],
+      "types": [
+        "electric"
+      ],
+      "abilities": [
+        "static",
+        "lightning-rod"
+      ],
       "baseExperience": 112,
       "id": 25
     },
@@ -272,8 +415,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/26.png",
       "weight": 300,
       "height": 8,
-      "types": ["electric"],
-      "abilities": ["static", "lightning-rod"],
+      "types": [
+        "electric"
+      ],
+      "abilities": [
+        "static",
+        "lightning-rod"
+      ],
       "baseExperience": 243,
       "id": 26
     },
@@ -282,8 +430,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/27.png",
       "weight": 120,
       "height": 6,
-      "types": ["ground"],
-      "abilities": ["sand-veil", "sand-rush"],
+      "types": [
+        "ground"
+      ],
+      "abilities": [
+        "sand-veil",
+        "sand-rush"
+      ],
       "baseExperience": 60,
       "id": 27
     },
@@ -292,8 +445,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/28.png",
       "weight": 295,
       "height": 10,
-      "types": ["ground"],
-      "abilities": ["sand-veil", "sand-rush"],
+      "types": [
+        "ground"
+      ],
+      "abilities": [
+        "sand-veil",
+        "sand-rush"
+      ],
       "baseExperience": 158,
       "id": 28
     },
@@ -302,8 +460,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/29.png",
       "weight": 70,
       "height": 4,
-      "types": ["poison"],
-      "abilities": ["poison-point", "rivalry", "hustle"],
+      "types": [
+        "poison"
+      ],
+      "abilities": [
+        "poison-point",
+        "rivalry",
+        "hustle"
+      ],
       "baseExperience": 55,
       "id": 29
     },
@@ -312,8 +476,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/30.png",
       "weight": 200,
       "height": 8,
-      "types": ["poison"],
-      "abilities": ["poison-point", "rivalry", "hustle"],
+      "types": [
+        "poison"
+      ],
+      "abilities": [
+        "poison-point",
+        "rivalry",
+        "hustle"
+      ],
       "baseExperience": 128,
       "id": 30
     },
@@ -322,8 +492,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/31.png",
       "weight": 600,
       "height": 13,
-      "types": ["poison", "ground"],
-      "abilities": ["poison-point", "rivalry", "sheer-force"],
+      "types": [
+        "poison",
+        "ground"
+      ],
+      "abilities": [
+        "poison-point",
+        "rivalry",
+        "sheer-force"
+      ],
       "baseExperience": 253,
       "id": 31
     },
@@ -332,8 +509,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/34.png",
       "weight": 620,
       "height": 14,
-      "types": ["poison", "ground"],
-      "abilities": ["poison-point", "rivalry", "sheer-force"],
+      "types": [
+        "poison",
+        "ground"
+      ],
+      "abilities": [
+        "poison-point",
+        "rivalry",
+        "sheer-force"
+      ],
       "baseExperience": 253,
       "id": 32
     },
@@ -342,8 +526,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/32.png",
       "weight": 90,
       "height": 5,
-      "types": ["poison"],
-      "abilities": ["poison-point", "rivalry", "hustle"],
+      "types": [
+        "poison"
+      ],
+      "abilities": [
+        "poison-point",
+        "rivalry",
+        "hustle"
+      ],
       "baseExperience": 55,
       "id": 33
     },
@@ -352,8 +542,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/33.png",
       "weight": 195,
       "height": 9,
-      "types": ["poison"],
-      "abilities": ["poison-point", "rivalry", "hustle"],
+      "types": [
+        "poison"
+      ],
+      "abilities": [
+        "poison-point",
+        "rivalry",
+        "hustle"
+      ],
       "baseExperience": 128,
       "id": 34
     },
@@ -362,8 +558,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/36.png",
       "weight": 400,
       "height": 13,
-      "types": ["fairy"],
-      "abilities": ["cute-charm", "magic-guard", "unaware"],
+      "types": [
+        "fairy"
+      ],
+      "abilities": [
+        "cute-charm",
+        "magic-guard",
+        "unaware"
+      ],
       "baseExperience": 242,
       "id": 35
     },
@@ -372,8 +574,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/37.png",
       "weight": 99,
       "height": 6,
-      "types": ["fire"],
-      "abilities": ["flash-fire", "drought"],
+      "types": [
+        "fire"
+      ],
+      "abilities": [
+        "flash-fire",
+        "drought"
+      ],
       "baseExperience": 60,
       "id": 36
     },
@@ -382,8 +589,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/35.png",
       "weight": 75,
       "height": 6,
-      "types": ["fairy"],
-      "abilities": ["cute-charm", "magic-guard", "friend-guard"],
+      "types": [
+        "fairy"
+      ],
+      "abilities": [
+        "cute-charm",
+        "magic-guard",
+        "friend-guard"
+      ],
       "baseExperience": 113,
       "id": 37
     },
@@ -392,8 +605,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/38.png",
       "weight": 199,
       "height": 11,
-      "types": ["fire"],
-      "abilities": ["flash-fire", "drought"],
+      "types": [
+        "fire"
+      ],
+      "abilities": [
+        "flash-fire",
+        "drought"
+      ],
       "baseExperience": 177,
       "id": 38
     },
@@ -402,8 +620,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png",
       "weight": 55,
       "height": 5,
-      "types": ["normal", "fairy"],
-      "abilities": ["cute-charm", "competitive", "friend-guard"],
+      "types": [
+        "normal",
+        "fairy"
+      ],
+      "abilities": [
+        "cute-charm",
+        "competitive",
+        "friend-guard"
+      ],
       "baseExperience": 95,
       "id": 39
     },
@@ -412,8 +637,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/40.png",
       "weight": 120,
       "height": 10,
-      "types": ["normal", "fairy"],
-      "abilities": ["cute-charm", "competitive", "frisk"],
+      "types": [
+        "normal",
+        "fairy"
+      ],
+      "abilities": [
+        "cute-charm",
+        "competitive",
+        "frisk"
+      ],
       "baseExperience": 218,
       "id": 40
     },
@@ -422,8 +654,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/41.png",
       "weight": 75,
       "height": 8,
-      "types": ["poison", "flying"],
-      "abilities": ["inner-focus", "infiltrator"],
+      "types": [
+        "poison",
+        "flying"
+      ],
+      "abilities": [
+        "inner-focus",
+        "infiltrator"
+      ],
       "baseExperience": 49,
       "id": 41
     },
@@ -432,8 +670,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/42.png",
       "weight": 550,
       "height": 16,
-      "types": ["poison", "flying"],
-      "abilities": ["inner-focus", "infiltrator"],
+      "types": [
+        "poison",
+        "flying"
+      ],
+      "abilities": [
+        "inner-focus",
+        "infiltrator"
+      ],
       "baseExperience": 159,
       "id": 42
     },
@@ -442,8 +686,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/44.png",
       "weight": 86,
       "height": 8,
-      "types": ["grass", "poison"],
-      "abilities": ["chlorophyll", "stench"],
+      "types": [
+        "grass",
+        "poison"
+      ],
+      "abilities": [
+        "chlorophyll",
+        "stench"
+      ],
       "baseExperience": 138,
       "id": 43
     },
@@ -452,8 +702,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/43.png",
       "weight": 54,
       "height": 5,
-      "types": ["grass", "poison"],
-      "abilities": ["chlorophyll", "run-away"],
+      "types": [
+        "grass",
+        "poison"
+      ],
+      "abilities": [
+        "chlorophyll",
+        "run-away"
+      ],
       "baseExperience": 64,
       "id": 44
     },
@@ -462,8 +718,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/45.png",
       "weight": 186,
       "height": 12,
-      "types": ["grass", "poison"],
-      "abilities": ["chlorophyll", "effect-spore"],
+      "types": [
+        "grass",
+        "poison"
+      ],
+      "abilities": [
+        "chlorophyll",
+        "effect-spore"
+      ],
       "baseExperience": 245,
       "id": 45
     },
@@ -472,8 +734,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/46.png",
       "weight": 54,
       "height": 3,
-      "types": ["bug", "grass"],
-      "abilities": ["effect-spore", "dry-skin", "damp"],
+      "types": [
+        "bug",
+        "grass"
+      ],
+      "abilities": [
+        "effect-spore",
+        "dry-skin",
+        "damp"
+      ],
       "baseExperience": 57,
       "id": 46
     },
@@ -482,8 +751,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/47.png",
       "weight": 295,
       "height": 10,
-      "types": ["bug", "grass"],
-      "abilities": ["effect-spore", "dry-skin", "damp"],
+      "types": [
+        "bug",
+        "grass"
+      ],
+      "abilities": [
+        "effect-spore",
+        "dry-skin",
+        "damp"
+      ],
       "baseExperience": 142,
       "id": 47
     },
@@ -492,8 +768,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/48.png",
       "weight": 300,
       "height": 10,
-      "types": ["bug", "poison"],
-      "abilities": ["compound-eyes", "tinted-lens", "run-away"],
+      "types": [
+        "bug",
+        "poison"
+      ],
+      "abilities": [
+        "compound-eyes",
+        "tinted-lens",
+        "run-away"
+      ],
       "baseExperience": 61,
       "id": 48
     },
@@ -502,8 +785,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/49.png",
       "weight": 125,
       "height": 15,
-      "types": ["bug", "poison"],
-      "abilities": ["shield-dust", "tinted-lens", "wonder-skin"],
+      "types": [
+        "bug",
+        "poison"
+      ],
+      "abilities": [
+        "shield-dust",
+        "tinted-lens",
+        "wonder-skin"
+      ],
       "baseExperience": 158,
       "id": 49
     },
@@ -512,8 +802,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/50.png",
       "weight": 8,
       "height": 2,
-      "types": ["ground"],
-      "abilities": ["sand-veil", "arena-trap", "sand-force"],
+      "types": [
+        "ground"
+      ],
+      "abilities": [
+        "sand-veil",
+        "arena-trap",
+        "sand-force"
+      ],
       "baseExperience": 53,
       "id": 50
     },
@@ -522,8 +818,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/51.png",
       "weight": 333,
       "height": 7,
-      "types": ["ground"],
-      "abilities": ["sand-veil", "arena-trap", "sand-force"],
+      "types": [
+        "ground"
+      ],
+      "abilities": [
+        "sand-veil",
+        "arena-trap",
+        "sand-force"
+      ],
       "baseExperience": 149,
       "id": 51
     },
@@ -532,8 +834,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/52.png",
       "weight": 42,
       "height": 4,
-      "types": ["normal"],
-      "abilities": ["pickup", "technician", "unnerve"],
+      "types": [
+        "normal"
+      ],
+      "abilities": [
+        "pickup",
+        "technician",
+        "unnerve"
+      ],
       "baseExperience": 58,
       "id": 52
     },
@@ -542,8 +850,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/53.png",
       "weight": 320,
       "height": 10,
-      "types": ["normal"],
-      "abilities": ["limber", "technician", "unnerve"],
+      "types": [
+        "normal"
+      ],
+      "abilities": [
+        "limber",
+        "technician",
+        "unnerve"
+      ],
       "baseExperience": 154,
       "id": 53
     },
@@ -552,8 +866,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/54.png",
       "weight": 196,
       "height": 8,
-      "types": ["water"],
-      "abilities": ["damp", "cloud-nine", "swift-swim"],
+      "types": [
+        "water"
+      ],
+      "abilities": [
+        "damp",
+        "cloud-nine",
+        "swift-swim"
+      ],
       "baseExperience": 64,
       "id": 54
     },
@@ -562,8 +882,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/55.png",
       "weight": 766,
       "height": 17,
-      "types": ["water"],
-      "abilities": ["damp", "cloud-nine", "swift-swim"],
+      "types": [
+        "water"
+      ],
+      "abilities": [
+        "damp",
+        "cloud-nine",
+        "swift-swim"
+      ],
       "baseExperience": 175,
       "id": 55
     },
@@ -572,8 +898,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/56.png",
       "weight": 280,
       "height": 5,
-      "types": ["fighting"],
-      "abilities": ["vital-spirit", "anger-point", "defiant"],
+      "types": [
+        "fighting"
+      ],
+      "abilities": [
+        "vital-spirit",
+        "anger-point",
+        "defiant"
+      ],
       "baseExperience": 61,
       "id": 56
     },
@@ -582,8 +914,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/57.png",
       "weight": 320,
       "height": 10,
-      "types": ["fighting"],
-      "abilities": ["vital-spirit", "anger-point", "defiant"],
+      "types": [
+        "fighting"
+      ],
+      "abilities": [
+        "vital-spirit",
+        "anger-point",
+        "defiant"
+      ],
       "baseExperience": 159,
       "id": 57
     },
@@ -592,8 +930,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/58.png",
       "weight": 190,
       "height": 7,
-      "types": ["fire"],
-      "abilities": ["intimidate", "flash-fire", "justified"],
+      "types": [
+        "fire"
+      ],
+      "abilities": [
+        "intimidate",
+        "flash-fire",
+        "justified"
+      ],
       "baseExperience": 70,
       "id": 58
     },
@@ -602,8 +946,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/59.png",
       "weight": 1550,
       "height": 19,
-      "types": ["fire"],
-      "abilities": ["intimidate", "flash-fire", "justified"],
+      "types": [
+        "fire"
+      ],
+      "abilities": [
+        "intimidate",
+        "flash-fire",
+        "justified"
+      ],
       "baseExperience": 194,
       "id": 59
     },
@@ -612,8 +962,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/60.png",
       "weight": 124,
       "height": 6,
-      "types": ["water"],
-      "abilities": ["water-absorb", "damp", "swift-swim"],
+      "types": [
+        "water"
+      ],
+      "abilities": [
+        "water-absorb",
+        "damp",
+        "swift-swim"
+      ],
       "baseExperience": 60,
       "id": 60
     },
@@ -622,8 +978,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/61.png",
       "weight": 200,
       "height": 10,
-      "types": ["water"],
-      "abilities": ["water-absorb", "damp", "swift-swim"],
+      "types": [
+        "water"
+      ],
+      "abilities": [
+        "water-absorb",
+        "damp",
+        "swift-swim"
+      ],
       "baseExperience": 135,
       "id": 61
     },
@@ -632,8 +994,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/62.png",
       "weight": 540,
       "height": 13,
-      "types": ["water", "fighting"],
-      "abilities": ["water-absorb", "damp", "swift-swim"],
+      "types": [
+        "water",
+        "fighting"
+      ],
+      "abilities": [
+        "water-absorb",
+        "damp",
+        "swift-swim"
+      ],
       "baseExperience": 255,
       "id": 62
     },
@@ -642,8 +1011,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/63.png",
       "weight": 195,
       "height": 9,
-      "types": ["psychic"],
-      "abilities": ["synchronize", "inner-focus", "magic-guard"],
+      "types": [
+        "psychic"
+      ],
+      "abilities": [
+        "synchronize",
+        "inner-focus",
+        "magic-guard"
+      ],
       "baseExperience": 62,
       "id": 63
     },
@@ -652,8 +1027,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/64.png",
       "weight": 565,
       "height": 13,
-      "types": ["psychic"],
-      "abilities": ["synchronize", "inner-focus", "magic-guard"],
+      "types": [
+        "psychic"
+      ],
+      "abilities": [
+        "synchronize",
+        "inner-focus",
+        "magic-guard"
+      ],
       "baseExperience": 140,
       "id": 64
     },
@@ -662,8 +1043,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/65.png",
       "weight": 480,
       "height": 15,
-      "types": ["psychic"],
-      "abilities": ["synchronize", "inner-focus", "magic-guard"],
+      "types": [
+        "psychic"
+      ],
+      "abilities": [
+        "synchronize",
+        "inner-focus",
+        "magic-guard"
+      ],
       "baseExperience": 250,
       "id": 65
     },
@@ -672,8 +1059,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/66.png",
       "weight": 195,
       "height": 8,
-      "types": ["fighting"],
-      "abilities": ["guts", "no-guard", "steadfast"],
+      "types": [
+        "fighting"
+      ],
+      "abilities": [
+        "guts",
+        "no-guard",
+        "steadfast"
+      ],
       "baseExperience": 61,
       "id": 66
     },
@@ -682,8 +1075,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/67.png",
       "weight": 705,
       "height": 15,
-      "types": ["fighting"],
-      "abilities": ["guts", "no-guard", "steadfast"],
+      "types": [
+        "fighting"
+      ],
+      "abilities": [
+        "guts",
+        "no-guard",
+        "steadfast"
+      ],
       "baseExperience": 142,
       "id": 67
     },
@@ -692,8 +1091,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/68.png",
       "weight": 1300,
       "height": 16,
-      "types": ["fighting"],
-      "abilities": ["guts", "no-guard", "steadfast"],
+      "types": [
+        "fighting"
+      ],
+      "abilities": [
+        "guts",
+        "no-guard",
+        "steadfast"
+      ],
       "baseExperience": 253,
       "id": 68
     },
@@ -702,8 +1107,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/69.png",
       "weight": 40,
       "height": 7,
-      "types": ["grass", "poison"],
-      "abilities": ["chlorophyll", "gluttony"],
+      "types": [
+        "grass",
+        "poison"
+      ],
+      "abilities": [
+        "chlorophyll",
+        "gluttony"
+      ],
       "baseExperience": 60,
       "id": 69
     },
@@ -712,8 +1123,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/70.png",
       "weight": 64,
       "height": 10,
-      "types": ["grass", "poison"],
-      "abilities": ["chlorophyll", "gluttony"],
+      "types": [
+        "grass",
+        "poison"
+      ],
+      "abilities": [
+        "chlorophyll",
+        "gluttony"
+      ],
       "baseExperience": 137,
       "id": 70
     },
@@ -722,8 +1139,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/71.png",
       "weight": 155,
       "height": 17,
-      "types": ["grass", "poison"],
-      "abilities": ["chlorophyll", "gluttony"],
+      "types": [
+        "grass",
+        "poison"
+      ],
+      "abilities": [
+        "chlorophyll",
+        "gluttony"
+      ],
       "baseExperience": 221,
       "id": 71
     },
@@ -732,8 +1155,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/78.png",
       "weight": 950,
       "height": 17,
-      "types": ["fire"],
-      "abilities": ["run-away", "flash-fire", "flame-body"],
+      "types": [
+        "fire"
+      ],
+      "abilities": [
+        "run-away",
+        "flash-fire",
+        "flame-body"
+      ],
       "baseExperience": 175,
       "id": 72
     },
@@ -742,8 +1171,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/73.png",
       "weight": 550,
       "height": 16,
-      "types": ["water", "poison"],
-      "abilities": ["clear-body", "liquid-ooze", "rain-dish"],
+      "types": [
+        "water",
+        "poison"
+      ],
+      "abilities": [
+        "clear-body",
+        "liquid-ooze",
+        "rain-dish"
+      ],
       "baseExperience": 180,
       "id": 73
     },
@@ -752,8 +1188,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/72.png",
       "weight": 455,
       "height": 9,
-      "types": ["water", "poison"],
-      "abilities": ["clear-body", "liquid-ooze", "rain-dish"],
+      "types": [
+        "water",
+        "poison"
+      ],
+      "abilities": [
+        "clear-body",
+        "liquid-ooze",
+        "rain-dish"
+      ],
       "baseExperience": 67,
       "id": 74
     },
@@ -762,8 +1205,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/74.png",
       "weight": 200,
       "height": 4,
-      "types": ["rock", "ground"],
-      "abilities": ["rock-head", "sturdy", "sand-veil"],
+      "types": [
+        "rock",
+        "ground"
+      ],
+      "abilities": [
+        "rock-head",
+        "sturdy",
+        "sand-veil"
+      ],
       "baseExperience": 60,
       "id": 75
     },
@@ -772,8 +1222,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/75.png",
       "weight": 1050,
       "height": 10,
-      "types": ["rock", "ground"],
-      "abilities": ["rock-head", "sturdy", "sand-veil"],
+      "types": [
+        "rock",
+        "ground"
+      ],
+      "abilities": [
+        "rock-head",
+        "sturdy",
+        "sand-veil"
+      ],
       "baseExperience": 137,
       "id": 76
     },
@@ -782,8 +1239,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/76.png",
       "weight": 3000,
       "height": 14,
-      "types": ["rock", "ground"],
-      "abilities": ["rock-head", "sturdy", "sand-veil"],
+      "types": [
+        "rock",
+        "ground"
+      ],
+      "abilities": [
+        "rock-head",
+        "sturdy",
+        "sand-veil"
+      ],
       "baseExperience": 223,
       "id": 77
     },
@@ -792,8 +1256,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/77.png",
       "weight": 300,
       "height": 10,
-      "types": ["fire"],
-      "abilities": ["run-away", "flash-fire", "flame-body"],
+      "types": [
+        "fire"
+      ],
+      "abilities": [
+        "run-away",
+        "flash-fire",
+        "flame-body"
+      ],
       "baseExperience": 82,
       "id": 78
     },
@@ -802,8 +1272,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/79.png",
       "weight": 360,
       "height": 12,
-      "types": ["water", "psychic"],
-      "abilities": ["oblivious", "own-tempo", "regenerator"],
+      "types": [
+        "water",
+        "psychic"
+      ],
+      "abilities": [
+        "oblivious",
+        "own-tempo",
+        "regenerator"
+      ],
       "baseExperience": 63,
       "id": 79
     },
@@ -812,8 +1289,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/80.png",
       "weight": 785,
       "height": 16,
-      "types": ["water", "psychic"],
-      "abilities": ["oblivious", "own-tempo", "regenerator"],
+      "types": [
+        "water",
+        "psychic"
+      ],
+      "abilities": [
+        "oblivious",
+        "own-tempo",
+        "regenerator"
+      ],
       "baseExperience": 172,
       "id": 80
     },
@@ -822,8 +1306,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/81.png",
       "weight": 60,
       "height": 3,
-      "types": ["electric", "steel"],
-      "abilities": ["magnet-pull", "sturdy", "analytic"],
+      "types": [
+        "electric",
+        "steel"
+      ],
+      "abilities": [
+        "magnet-pull",
+        "sturdy",
+        "analytic"
+      ],
       "baseExperience": 65,
       "id": 81
     },
@@ -832,8 +1323,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/85.png",
       "weight": 852,
       "height": 18,
-      "types": ["normal", "flying"],
-      "abilities": ["run-away", "early-bird", "tangled-feet"],
+      "types": [
+        "normal",
+        "flying"
+      ],
+      "abilities": [
+        "run-away",
+        "early-bird",
+        "tangled-feet"
+      ],
       "baseExperience": 165,
       "id": 82
     },
@@ -842,8 +1340,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/82.png",
       "weight": 600,
       "height": 10,
-      "types": ["electric", "steel"],
-      "abilities": ["magnet-pull", "sturdy", "analytic"],
+      "types": [
+        "electric",
+        "steel"
+      ],
+      "abilities": [
+        "magnet-pull",
+        "sturdy",
+        "analytic"
+      ],
       "baseExperience": 163,
       "id": 83
     },
@@ -852,8 +1357,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/83.png",
       "weight": 150,
       "height": 8,
-      "types": ["normal", "flying"],
-      "abilities": ["keen-eye", "inner-focus", "defiant"],
+      "types": [
+        "normal",
+        "flying"
+      ],
+      "abilities": [
+        "keen-eye",
+        "inner-focus",
+        "defiant"
+      ],
       "baseExperience": 132,
       "id": 84
     },
@@ -862,8 +1374,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/84.png",
       "weight": 392,
       "height": 14,
-      "types": ["normal", "flying"],
-      "abilities": ["run-away", "early-bird", "tangled-feet"],
+      "types": [
+        "normal",
+        "flying"
+      ],
+      "abilities": [
+        "run-away",
+        "early-bird",
+        "tangled-feet"
+      ],
       "baseExperience": 62,
       "id": 85
     },
@@ -872,8 +1391,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/86.png",
       "weight": 900,
       "height": 11,
-      "types": ["water"],
-      "abilities": ["thick-fat", "hydration", "ice-body"],
+      "types": [
+        "water"
+      ],
+      "abilities": [
+        "thick-fat",
+        "hydration",
+        "ice-body"
+      ],
       "baseExperience": 65,
       "id": 86
     },
@@ -882,8 +1407,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/87.png",
       "weight": 1200,
       "height": 17,
-      "types": ["water", "ice"],
-      "abilities": ["thick-fat", "hydration", "ice-body"],
+      "types": [
+        "water",
+        "ice"
+      ],
+      "abilities": [
+        "thick-fat",
+        "hydration",
+        "ice-body"
+      ],
       "baseExperience": 166,
       "id": 87
     },
@@ -892,8 +1424,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/91.png",
       "weight": 1325,
       "height": 15,
-      "types": ["water", "ice"],
-      "abilities": ["shell-armor", "skill-link", "overcoat"],
+      "types": [
+        "water",
+        "ice"
+      ],
+      "abilities": [
+        "shell-armor",
+        "skill-link",
+        "overcoat"
+      ],
       "baseExperience": 184,
       "id": 88
     },
@@ -902,8 +1441,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/92.png",
       "weight": 1,
       "height": 13,
-      "types": ["ghost", "poison"],
-      "abilities": ["levitate"],
+      "types": [
+        "ghost",
+        "poison"
+      ],
+      "abilities": [
+        "levitate"
+      ],
       "baseExperience": 62,
       "id": 89
     },
@@ -912,8 +1456,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/93.png",
       "weight": 1,
       "height": 16,
-      "types": ["ghost", "poison"],
-      "abilities": ["levitate"],
+      "types": [
+        "ghost",
+        "poison"
+      ],
+      "abilities": [
+        "levitate"
+      ],
       "baseExperience": 142,
       "id": 90
     },
@@ -922,8 +1471,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png",
       "weight": 405,
       "height": 15,
-      "types": ["ghost", "poison"],
-      "abilities": ["cursed-body"],
+      "types": [
+        "ghost",
+        "poison"
+      ],
+      "abilities": [
+        "cursed-body"
+      ],
       "baseExperience": 250,
       "id": 91
     },
@@ -932,8 +1486,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/95.png",
       "weight": 2100,
       "height": 88,
-      "types": ["rock", "ground"],
-      "abilities": ["rock-head", "sturdy", "weak-armor"],
+      "types": [
+        "rock",
+        "ground"
+      ],
+      "abilities": [
+        "rock-head",
+        "sturdy",
+        "weak-armor"
+      ],
       "baseExperience": 77,
       "id": 92
     },
@@ -942,8 +1503,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/96.png",
       "weight": 324,
       "height": 10,
-      "types": ["psychic"],
-      "abilities": ["insomnia", "forewarn", "inner-focus"],
+      "types": [
+        "psychic"
+      ],
+      "abilities": [
+        "insomnia",
+        "forewarn",
+        "inner-focus"
+      ],
       "baseExperience": 66,
       "id": 93
     },
@@ -952,8 +1519,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/97.png",
       "weight": 756,
       "height": 16,
-      "types": ["psychic"],
-      "abilities": ["insomnia", "forewarn", "inner-focus"],
+      "types": [
+        "psychic"
+      ],
+      "abilities": [
+        "insomnia",
+        "forewarn",
+        "inner-focus"
+      ],
       "baseExperience": 169,
       "id": 94
     },
@@ -962,8 +1535,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/98.png",
       "weight": 65,
       "height": 4,
-      "types": ["water"],
-      "abilities": ["hyper-cutter", "shell-armor", "sheer-force"],
+      "types": [
+        "water"
+      ],
+      "abilities": [
+        "hyper-cutter",
+        "shell-armor",
+        "sheer-force"
+      ],
       "baseExperience": 65,
       "id": 95
     },
@@ -972,8 +1551,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/99.png",
       "weight": 600,
       "height": 13,
-      "types": ["water"],
-      "abilities": ["hyper-cutter", "shell-armor", "sheer-force"],
+      "types": [
+        "water"
+      ],
+      "abilities": [
+        "hyper-cutter",
+        "shell-armor",
+        "sheer-force"
+      ],
       "baseExperience": 166,
       "id": 96
     },
@@ -982,8 +1567,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/100.png",
       "weight": 104,
       "height": 5,
-      "types": ["electric"],
-      "abilities": ["soundproof", "static", "aftermath"],
+      "types": [
+        "electric"
+      ],
+      "abilities": [
+        "soundproof",
+        "static",
+        "aftermath"
+      ],
       "baseExperience": 66,
       "id": 97
     },
@@ -992,8 +1583,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/101.png",
       "weight": 666,
       "height": 12,
-      "types": ["electric"],
-      "abilities": ["soundproof", "static", "aftermath"],
+      "types": [
+        "electric"
+      ],
+      "abilities": [
+        "soundproof",
+        "static",
+        "aftermath"
+      ],
       "baseExperience": 172,
       "id": 98
     },
@@ -1002,8 +1599,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/103.png",
       "weight": 1200,
       "height": 20,
-      "types": ["grass", "psychic"],
-      "abilities": ["chlorophyll", "harvest"],
+      "types": [
+        "grass",
+        "psychic"
+      ],
+      "abilities": [
+        "chlorophyll",
+        "harvest"
+      ],
       "baseExperience": 186,
       "id": 99
     },
@@ -1012,8 +1615,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/105.png",
       "weight": 450,
       "height": 10,
-      "types": ["ground"],
-      "abilities": ["rock-head", "lightning-rod", "battle-armor"],
+      "types": [
+        "ground"
+      ],
+      "abilities": [
+        "rock-head",
+        "lightning-rod",
+        "battle-armor"
+      ],
       "baseExperience": 149,
       "id": 100
     },
@@ -1022,8 +1631,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/106.png",
       "weight": 498,
       "height": 15,
-      "types": ["fighting"],
-      "abilities": ["limber", "reckless", "unburden"],
+      "types": [
+        "fighting"
+      ],
+      "abilities": [
+        "limber",
+        "reckless",
+        "unburden"
+      ],
       "baseExperience": 159,
       "id": 101
     },
@@ -1032,8 +1647,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/102.png",
       "weight": 25,
       "height": 4,
-      "types": ["grass", "psychic"],
-      "abilities": ["chlorophyll", "harvest"],
+      "types": [
+        "grass",
+        "psychic"
+      ],
+      "abilities": [
+        "chlorophyll",
+        "harvest"
+      ],
       "baseExperience": 65,
       "id": 102
     },
@@ -1042,8 +1663,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/104.png",
       "weight": 65,
       "height": 4,
-      "types": ["ground"],
-      "abilities": ["rock-head", "lightning-rod", "battle-armor"],
+      "types": [
+        "ground"
+      ],
+      "abilities": [
+        "rock-head",
+        "lightning-rod",
+        "battle-armor"
+      ],
       "baseExperience": 64,
       "id": 103
     },
@@ -1052,8 +1679,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/107.png",
       "weight": 502,
       "height": 14,
-      "types": ["fighting"],
-      "abilities": ["keen-eye", "iron-fist", "inner-focus"],
+      "types": [
+        "fighting"
+      ],
+      "abilities": [
+        "keen-eye",
+        "iron-fist",
+        "inner-focus"
+      ],
       "baseExperience": 159,
       "id": 104
     },
@@ -1062,8 +1695,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/108.png",
       "weight": 655,
       "height": 12,
-      "types": ["normal"],
-      "abilities": ["own-tempo", "oblivious", "cloud-nine"],
+      "types": [
+        "normal"
+      ],
+      "abilities": [
+        "own-tempo",
+        "oblivious",
+        "cloud-nine"
+      ],
       "baseExperience": 77,
       "id": 105
     },
@@ -1072,8 +1711,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/109.png",
       "weight": 10,
       "height": 6,
-      "types": ["poison"],
-      "abilities": ["levitate", "neutralizing-gas", "stench"],
+      "types": [
+        "poison"
+      ],
+      "abilities": [
+        "levitate",
+        "neutralizing-gas",
+        "stench"
+      ],
       "baseExperience": 68,
       "id": 106
     },
@@ -1082,8 +1727,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/110.png",
       "weight": 95,
       "height": 12,
-      "types": ["poison"],
-      "abilities": ["levitate", "neutralizing-gas", "stench"],
+      "types": [
+        "poison"
+      ],
+      "abilities": [
+        "levitate",
+        "neutralizing-gas",
+        "stench"
+      ],
       "baseExperience": 172,
       "id": 107
     },
@@ -1092,8 +1743,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/111.png",
       "weight": 1150,
       "height": 10,
-      "types": ["ground", "rock"],
-      "abilities": ["lightning-rod", "rock-head", "reckless"],
+      "types": [
+        "ground",
+        "rock"
+      ],
+      "abilities": [
+        "lightning-rod",
+        "rock-head",
+        "reckless"
+      ],
       "baseExperience": 69,
       "id": 108
     },
@@ -1102,8 +1760,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/112.png",
       "weight": 1200,
       "height": 19,
-      "types": ["ground", "rock"],
-      "abilities": ["lightning-rod", "rock-head", "reckless"],
+      "types": [
+        "ground",
+        "rock"
+      ],
+      "abilities": [
+        "lightning-rod",
+        "rock-head",
+        "reckless"
+      ],
       "baseExperience": 170,
       "id": 109
     },
@@ -1112,8 +1777,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/115.png",
       "weight": 800,
       "height": 22,
-      "types": ["normal"],
-      "abilities": ["early-bird", "scrappy", "inner-focus"],
+      "types": [
+        "normal"
+      ],
+      "abilities": [
+        "early-bird",
+        "scrappy",
+        "inner-focus"
+      ],
       "baseExperience": 172,
       "id": 110
     },
@@ -1122,8 +1793,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/113.png",
       "weight": 346,
       "height": 11,
-      "types": ["normal"],
-      "abilities": ["natural-cure", "serene-grace", "healer"],
+      "types": [
+        "normal"
+      ],
+      "abilities": [
+        "natural-cure",
+        "serene-grace",
+        "healer"
+      ],
       "baseExperience": 395,
       "id": 111
     },
@@ -1132,8 +1809,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/114.png",
       "weight": 350,
       "height": 10,
-      "types": ["grass"],
-      "abilities": ["chlorophyll", "leaf-guard", "regenerator"],
+      "types": [
+        "grass"
+      ],
+      "abilities": [
+        "chlorophyll",
+        "leaf-guard",
+        "regenerator"
+      ],
       "baseExperience": 87,
       "id": 112
     },
@@ -1142,8 +1825,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/119.png",
       "weight": 390,
       "height": 13,
-      "types": ["water"],
-      "abilities": ["swift-swim", "water-veil", "lightning-rod"],
+      "types": [
+        "water"
+      ],
+      "abilities": [
+        "swift-swim",
+        "water-veil",
+        "lightning-rod"
+      ],
       "baseExperience": 158,
       "id": 113
     },
@@ -1152,8 +1841,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/116.png",
       "weight": 80,
       "height": 4,
-      "types": ["water"],
-      "abilities": ["swift-swim", "sniper", "damp"],
+      "types": [
+        "water"
+      ],
+      "abilities": [
+        "swift-swim",
+        "sniper",
+        "damp"
+      ],
       "baseExperience": 59,
       "id": 114
     },
@@ -1162,8 +1857,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/117.png",
       "weight": 250,
       "height": 12,
-      "types": ["water"],
-      "abilities": ["poison-point", "sniper", "damp"],
+      "types": [
+        "water"
+      ],
+      "abilities": [
+        "poison-point",
+        "sniper",
+        "damp"
+      ],
       "baseExperience": 154,
       "id": 115
     },
@@ -1172,8 +1873,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/118.png",
       "weight": 150,
       "height": 6,
-      "types": ["water"],
-      "abilities": ["swift-swim", "water-veil", "lightning-rod"],
+      "types": [
+        "water"
+      ],
+      "abilities": [
+        "swift-swim",
+        "water-veil",
+        "lightning-rod"
+      ],
       "baseExperience": 64,
       "id": 116
     },
@@ -1182,8 +1889,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/120.png",
       "weight": 345,
       "height": 8,
-      "types": ["water"],
-      "abilities": ["illuminate", "natural-cure", "analytic"],
+      "types": [
+        "water"
+      ],
+      "abilities": [
+        "illuminate",
+        "natural-cure",
+        "analytic"
+      ],
       "baseExperience": 68,
       "id": 117
     },
@@ -1192,8 +1905,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/121.png",
       "weight": 800,
       "height": 11,
-      "types": ["water", "psychic"],
-      "abilities": ["illuminate", "natural-cure", "analytic"],
+      "types": [
+        "water",
+        "psychic"
+      ],
+      "abilities": [
+        "illuminate",
+        "natural-cure",
+        "analytic"
+      ],
       "baseExperience": 182,
       "id": 118
     },
@@ -1202,8 +1922,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/122.png",
       "weight": 545,
       "height": 13,
-      "types": ["psychic", "fairy"],
-      "abilities": ["soundproof", "filter", "technician"],
+      "types": [
+        "psychic",
+        "fairy"
+      ],
+      "abilities": [
+        "soundproof",
+        "filter",
+        "technician"
+      ],
       "baseExperience": 161,
       "id": 119
     },
@@ -1212,8 +1939,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/123.png",
       "weight": 560,
       "height": 15,
-      "types": ["bug", "flying"],
-      "abilities": ["swarm", "technician", "steadfast"],
+      "types": [
+        "bug",
+        "flying"
+      ],
+      "abilities": [
+        "swarm",
+        "technician",
+        "steadfast"
+      ],
       "baseExperience": 100,
       "id": 120
     },
@@ -1222,8 +1956,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/124.png",
       "weight": 406,
       "height": 14,
-      "types": ["ice", "psychic"],
-      "abilities": ["oblivious", "forewarn", "dry-skin"],
+      "types": [
+        "ice",
+        "psychic"
+      ],
+      "abilities": [
+        "oblivious",
+        "forewarn",
+        "dry-skin"
+      ],
       "baseExperience": 159,
       "id": 121
     },
@@ -1232,8 +1973,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/125.png",
       "weight": 300,
       "height": 11,
-      "types": ["electric"],
-      "abilities": ["static", "vital-spirit"],
+      "types": [
+        "electric"
+      ],
+      "abilities": [
+        "static",
+        "vital-spirit"
+      ],
       "baseExperience": 172,
       "id": 122
     },
@@ -1242,8 +1988,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/126.png",
       "weight": 445,
       "height": 13,
-      "types": ["fire"],
-      "abilities": ["flame-body", "vital-spirit"],
+      "types": [
+        "fire"
+      ],
+      "abilities": [
+        "flame-body",
+        "vital-spirit"
+      ],
       "baseExperience": 173,
       "id": 123
     },
@@ -1252,8 +2003,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/127.png",
       "weight": 550,
       "height": 15,
-      "types": ["bug"],
-      "abilities": ["hyper-cutter", "mold-breaker", "moxie"],
+      "types": [
+        "bug"
+      ],
+      "abilities": [
+        "hyper-cutter",
+        "mold-breaker",
+        "moxie"
+      ],
       "baseExperience": 175,
       "id": 124
     },
@@ -1262,8 +2019,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/128.png",
       "weight": 884,
       "height": 14,
-      "types": ["normal"],
-      "abilities": ["intimidate", "anger-point", "sheer-force"],
+      "types": [
+        "normal"
+      ],
+      "abilities": [
+        "intimidate",
+        "anger-point",
+        "sheer-force"
+      ],
       "baseExperience": 172,
       "id": 125
     },
@@ -1272,8 +2035,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/129.png",
       "weight": 100,
       "height": 9,
-      "types": ["water"],
-      "abilities": ["swift-swim", "rattled"],
+      "types": [
+        "water"
+      ],
+      "abilities": [
+        "swift-swim",
+        "rattled"
+      ],
       "baseExperience": 40,
       "id": 126
     },
@@ -1282,8 +2050,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/130.png",
       "weight": 2350,
       "height": 65,
-      "types": ["water", "flying"],
-      "abilities": ["intimidate", "moxie"],
+      "types": [
+        "water",
+        "flying"
+      ],
+      "abilities": [
+        "intimidate",
+        "moxie"
+      ],
       "baseExperience": 189,
       "id": 127
     },
@@ -1292,8 +2066,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/131.png",
       "weight": 2200,
       "height": 25,
-      "types": ["water", "ice"],
-      "abilities": ["water-absorb", "shell-armor", "hydration"],
+      "types": [
+        "water",
+        "ice"
+      ],
+      "abilities": [
+        "water-absorb",
+        "shell-armor",
+        "hydration"
+      ],
       "baseExperience": 187,
       "id": 128
     },
@@ -1302,8 +2083,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png",
       "weight": 40,
       "height": 3,
-      "types": ["normal"],
-      "abilities": ["limber", "imposter"],
+      "types": [
+        "normal"
+      ],
+      "abilities": [
+        "limber",
+        "imposter"
+      ],
       "baseExperience": 101,
       "id": 129
     },
@@ -1312,8 +2098,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/133.png",
       "weight": 65,
       "height": 3,
-      "types": ["normal"],
-      "abilities": ["run-away", "adaptability", "anticipation"],
+      "types": [
+        "normal"
+      ],
+      "abilities": [
+        "run-away",
+        "adaptability",
+        "anticipation"
+      ],
       "baseExperience": 65,
       "id": 130
     },
@@ -1322,8 +2114,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/134.png",
       "weight": 290,
       "height": 10,
-      "types": ["water"],
-      "abilities": ["water-absorb", "hydration"],
+      "types": [
+        "water"
+      ],
+      "abilities": [
+        "water-absorb",
+        "hydration"
+      ],
       "baseExperience": 184,
       "id": 131
     },
@@ -1332,8 +2129,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/135.png",
       "weight": 245,
       "height": 8,
-      "types": ["electric"],
-      "abilities": ["volt-absorb", "quick-feet"],
+      "types": [
+        "electric"
+      ],
+      "abilities": [
+        "volt-absorb",
+        "quick-feet"
+      ],
       "baseExperience": 184,
       "id": 132
     },
@@ -1342,8 +2144,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/136.png",
       "weight": 250,
       "height": 9,
-      "types": ["fire"],
-      "abilities": ["flash-fire", "guts"],
+      "types": [
+        "fire"
+      ],
+      "abilities": [
+        "flash-fire",
+        "guts"
+      ],
       "baseExperience": 184,
       "id": 133
     },
@@ -1352,8 +2159,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/137.png",
       "weight": 365,
       "height": 8,
-      "types": ["normal"],
-      "abilities": ["trace", "download", "analytic"],
+      "types": [
+        "normal"
+      ],
+      "abilities": [
+        "trace",
+        "download",
+        "analytic"
+      ],
       "baseExperience": 79,
       "id": 134
     },
@@ -1362,8 +2175,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/138.png",
       "weight": 75,
       "height": 4,
-      "types": ["rock", "water"],
-      "abilities": ["swift-swim", "shell-armor", "weak-armor"],
+      "types": [
+        "rock",
+        "water"
+      ],
+      "abilities": [
+        "swift-swim",
+        "shell-armor",
+        "weak-armor"
+      ],
       "baseExperience": 71,
       "id": 135
     },
@@ -1372,8 +2192,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/139.png",
       "weight": 350,
       "height": 10,
-      "types": ["rock", "water"],
-      "abilities": ["swift-swim", "shell-armor", "weak-armor"],
+      "types": [
+        "rock",
+        "water"
+      ],
+      "abilities": [
+        "swift-swim",
+        "shell-armor",
+        "weak-armor"
+      ],
       "baseExperience": 173,
       "id": 136
     },
@@ -1382,8 +2209,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/140.png",
       "weight": 115,
       "height": 5,
-      "types": ["rock", "water"],
-      "abilities": ["swift-swim", "battle-armor", "weak-armor"],
+      "types": [
+        "rock",
+        "water"
+      ],
+      "abilities": [
+        "swift-swim",
+        "battle-armor",
+        "weak-armor"
+      ],
       "baseExperience": 71,
       "id": 137
     },
@@ -1392,8 +2226,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/141.png",
       "weight": 405,
       "height": 13,
-      "types": ["rock", "water"],
-      "abilities": ["swift-swim", "battle-armor", "weak-armor"],
+      "types": [
+        "rock",
+        "water"
+      ],
+      "abilities": [
+        "swift-swim",
+        "battle-armor",
+        "weak-armor"
+      ],
       "baseExperience": 173,
       "id": 138
     },
@@ -1402,8 +2243,15 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/142.png",
       "weight": 590,
       "height": 18,
-      "types": ["rock", "flying"],
-      "abilities": ["rock-head", "pressure", "unnerve"],
+      "types": [
+        "rock",
+        "flying"
+      ],
+      "abilities": [
+        "rock-head",
+        "pressure",
+        "unnerve"
+      ],
       "baseExperience": 180,
       "id": 139
     },
@@ -1412,8 +2260,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/146.png",
       "weight": 600,
       "height": 20,
-      "types": ["fire", "flying"],
-      "abilities": ["pressure", "flame-body"],
+      "types": [
+        "fire",
+        "flying"
+      ],
+      "abilities": [
+        "pressure",
+        "flame-body"
+      ],
       "baseExperience": 290,
       "id": 140
     },
@@ -1422,8 +2276,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/143.png",
       "weight": 4600,
       "height": 21,
-      "types": ["normal"],
-      "abilities": ["immunity", "thick-fat", "gluttony"],
+      "types": [
+        "normal"
+      ],
+      "abilities": [
+        "immunity",
+        "thick-fat",
+        "gluttony"
+      ],
       "baseExperience": 189,
       "id": 141
     },
@@ -1432,8 +2292,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/144.png",
       "weight": 554,
       "height": 17,
-      "types": ["ice", "flying"],
-      "abilities": ["pressure", "snow-cloak"],
+      "types": [
+        "ice",
+        "flying"
+      ],
+      "abilities": [
+        "pressure",
+        "snow-cloak"
+      ],
       "baseExperience": 290,
       "id": 142
     },
@@ -1442,8 +2308,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/145.png",
       "weight": 526,
       "height": 16,
-      "types": ["electric", "flying"],
-      "abilities": ["pressure", "static"],
+      "types": [
+        "electric",
+        "flying"
+      ],
+      "abilities": [
+        "pressure",
+        "static"
+      ],
       "baseExperience": 290,
       "id": 143
     },
@@ -1452,8 +2324,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/147.png",
       "weight": 33,
       "height": 18,
-      "types": ["dragon"],
-      "abilities": ["shed-skin", "marvel-scale"],
+      "types": [
+        "dragon"
+      ],
+      "abilities": [
+        "shed-skin",
+        "marvel-scale"
+      ],
       "baseExperience": 60,
       "id": 144
     },
@@ -1462,8 +2339,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/148.png",
       "weight": 165,
       "height": 40,
-      "types": ["dragon"],
-      "abilities": ["shed-skin", "marvel-scale"],
+      "types": [
+        "dragon"
+      ],
+      "abilities": [
+        "shed-skin",
+        "marvel-scale"
+      ],
       "baseExperience": 147,
       "id": 145
     },
@@ -1472,8 +2354,14 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png",
       "weight": 2100,
       "height": 22,
-      "types": ["dragon", "flying"],
-      "abilities": ["inner-focus", "multiscale"],
+      "types": [
+        "dragon",
+        "flying"
+      ],
+      "abilities": [
+        "inner-focus",
+        "multiscale"
+      ],
       "baseExperience": 300,
       "id": 146
     },
@@ -1482,8 +2370,13 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png",
       "weight": 1220,
       "height": 20,
-      "types": ["psychic"],
-      "abilities": ["pressure", "unnerve"],
+      "types": [
+        "psychic"
+      ],
+      "abilities": [
+        "pressure",
+        "unnerve"
+      ],
       "baseExperience": 340,
       "id": 147
     },
@@ -1492,8 +2385,12 @@
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/151.png",
       "weight": 40,
       "height": 4,
-      "types": ["psychic"],
-      "abilities": ["synchronize"],
+      "types": [
+        "psychic"
+      ],
+      "abilities": [
+        "synchronize"
+      ],
       "baseExperience": 300,
       "id": 148
     }

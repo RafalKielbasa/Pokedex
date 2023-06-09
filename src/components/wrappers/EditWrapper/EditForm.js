@@ -1,8 +1,8 @@
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { Input, Label } from "./EditWrapper.style";
-import { Button } from "@mui/material";
-import { useEditMutation } from "../../../hooks/useEdit";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { Input, Label } from './EditWrapper.style';
+import { Button } from '@mui/material';
+import { useEditMutation } from '../../../hooks/useEdit';
 
 const editSchema = Yup.object().shape({
   height: Yup.number(),
@@ -78,9 +78,7 @@ export const EditForm = ({ data, setCurrentButton, currentButton }) => {
           setCurrentButton(btn.target.innerText);
           formik.handleSubmit();
         }}
-      >
-        Save as new!
-      </Button>
+      ></Button>
       <Button
         variant="contained"
         type="submit"

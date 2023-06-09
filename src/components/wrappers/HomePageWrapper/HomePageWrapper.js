@@ -1,24 +1,24 @@
-import { TextField } from "@mui/material";
-import { PokemonCard } from "../../PokemonCard/PokemonCard";
+import { TextField } from '@mui/material';
+import { PokemonCard } from '../../PokemonCard/PokemonCard';
 import {
   Header,
   PageWrapper,
   PaginationWrapper,
   PokemonWrapper,
-} from "./HomePageWrapper.styles";
-import { useState } from "react";
-import { useSearchPokemonQuery } from "../../../hooks/useSearchPokemon";
-import { useDebounce } from "../../../hooks/useDebounce";
-import { usePaginationQuery } from "../../../hooks/usePagination";
-import { PagePagination } from "../../PagePagination";
-import { v4 } from "uuid";
+} from './HomePageWrapper.styles';
+import { useState } from 'react';
+import { useSearchPokemonQuery } from '../../../hooks/useSearchPokemon';
+import { useDebounce } from '../../../hooks/useDebounce';
+import { usePaginationQuery } from '../../../hooks/usePagination';
+import { PagePagination } from '../../PagePagination';
+import { v4 } from 'uuid';
 
 export const HomePageWrapper = ({ pokemonData }) => {
   const [page, setPage] = useState();
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
   const debouncedSearch = useDebounce(value);
   const { data: searchPokemon } = useSearchPokemonQuery(debouncedSearch);
-  const { data: allPokemon } = usePaginationQuery("pokemon", page);
+  const { data: allPokemon } = usePaginationQuery('pokemon', page);
 
   return (
     <PageWrapper>
@@ -40,7 +40,9 @@ export const HomePageWrapper = ({ pokemonData }) => {
             })}
       </PokemonWrapper>
       <PaginationWrapper>
-        <PagePagination setCurrentPage={setPage} pokemonData={pokemonData} />
+        {!value ? (
+          <PagePagination setCurrentPage={setPage} pokemonData={pokemonData} />
+        ) : null}
       </PaginationWrapper>
     </PageWrapper>
   );
