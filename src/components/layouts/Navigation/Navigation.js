@@ -1,24 +1,24 @@
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import pokedexLogo from "../../../assets/pokedexLogo.png";
-import { Container } from "./Navigation.styles";
-import { useContext } from "react";
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import pokedexLogo from '../../../assets/pokedexLogo.png';
+import { Container } from './Navigation.styles';
+import { useContext } from 'react';
 import {
   NavigationButtonsLogout,
   NavigationButtonsLogin,
-} from "../../../context/NavigationButtons";
-import { v4 } from "uuid";
-import { useNavigate } from "react-router-dom";
-import { ProjectUrl } from "../../../const/ProjectUrl";
-import { UserContext } from "../../../context/UserContext";
+} from '../../../context/NavigationButtons';
+import { v4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
+import { ProjectUrl } from '../../../const/ProjectUrl';
+import { UserContext } from '../../../context/UserContext';
 
 export const Navigation = () => {
   const user = useContext(UserContext);
   const navigate = useNavigate();
 
   const logout = (button) => {
-    if (button === "SIGN OUT") {
-      localStorage.removeItem("Pokedex-user");
+    if (button === 'LOG OUT') {
+      localStorage.removeItem('Pokedex-user');
       navigate(ProjectUrl.Home);
     }
   };
