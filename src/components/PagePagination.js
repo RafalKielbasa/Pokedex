@@ -1,13 +1,19 @@
-import { Pagination } from "@mui/material";
+import { Pagination } from '@mui/material';
 
-export const PagePagination = ({ pokemonData, setCurrentPage }) => {
-  const pageNumber = Math.ceil(pokemonData?.length / 15);
+export const PagePagination = ({
+  setPage,
+  page,
+  setOffset,
+  limit,
+  setLimit,
+}) => {
+  const pageNumber = Math.ceil(151 / 15);
+
+  page === 1 ? setOffset(0) : setOffset(page * 15 - 15);
 
   const handleChange = (_, i) => {
-    setCurrentPage(i);
+    setPage(i);
   };
 
-  return (
-    <Pagination count={pageNumber || 0} onChange={handleChange} size="large" />
-  );
+  return <Pagination count={pageNumber} onChange={handleChange} size="large" />;
 };

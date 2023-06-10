@@ -1,9 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-import { getPaginatedPokemon } from "../services/api";
+import { useQuery } from '@tanstack/react-query';
+import { getPaginatedPokemon } from '../services/api';
 
-export const usePaginationQuery = (url, currentPage) => {
+export const usePaginationQuery = (offset, limit) => {
   return useQuery({
-    queryKey: ["pagination", currentPage, url],
-    queryFn: () => getPaginatedPokemon(url, currentPage),
+    queryKey: ['pagination', offset, limit],
+    queryFn: () => getPaginatedPokemon(offset, limit),
   });
 };

@@ -6,19 +6,19 @@ import {
   PaginationWrapper,
   PokemonWrapper,
 } from './HomePageWrapper.styles';
-import { useState } from 'react';
-import { useSearchPokemonQuery } from '../../../hooks/useSearchPokemon';
-import { useDebounce } from '../../../hooks/useDebounce';
 import { usePaginationQuery } from '../../../hooks/usePagination';
+import { useState } from 'react';
+import { useDebounce } from '../../../hooks/useDebounce';
 import { PagePagination } from '../../PagePagination';
 import { v4 } from 'uuid';
 
 export const HomePageWrapper = ({ pokemonData }) => {
-  const [page, setPage] = useState();
+  const [offset, setOffset] = useState(0);
+  const [limit, setLimit] = useState(15);
+  const [page, setPage] = useState(1);
   const [value, setValue] = useState('');
   const debouncedSearch = useDebounce(value);
-  const { data: searchPokemon } = useSearchPokemonQuery(debouncedSearch);
-  const { data: allPokemon } = usePaginationQuery('pokemon', page);
+  const { data: paginationedPokemons } = usePaginationQuery(offset, limit);
 
   return (
     <PageWrapper>
@@ -32,16 +32,22 @@ export const HomePageWrapper = ({ pokemonData }) => {
       </Header>
       <PokemonWrapper>
         {value?.length > 0
-          ? searchPokemon?.data?.map((pokemon) => {
-              return <PokemonCard props={pokemon} key={v4()} />;
-            })
-          : allPokemon?.data?.map((pokemon) => {
+          ? pokemonData
+              ?.filter((pokemon) => {
+                return pokemon.name.startsWith(debouncedSearch)
+                  ? pokemon
+                  : null;
+              })
+              .map((pokemon) => {
+                return <PokemonCard props={pokemon} key={v4()} />;
+              })
+          : pokemonData?.map((pokemon) => {
               return <PokemonCard props={pokemon} key={v4()} />;
             })}
       </PokemonWrapper>
       <PaginationWrapper>
         {!value ? (
-          <PagePagination setCurrentPage={setPage} pokemonData={pokemonData} />
+          <PagePagination setPage={setPage} page={page} setOffset={setOffset} />
         ) : null}
       </PaginationWrapper>
     </PageWrapper>
