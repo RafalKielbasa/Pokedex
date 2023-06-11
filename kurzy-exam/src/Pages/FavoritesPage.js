@@ -60,7 +60,7 @@ const FavoritesPage = () => {
   const favoritesIds = favorites?.map((item) => item.id);
 
   const getBattle = async () => {
-    const response = await axios.get(`http://localhost:3000/battle/`);
+    const response = await axios.get(`http://localhost:3001/battle/`);
     setBattle(response.data);
     const getBattleIds = response?.data?.map((item) => item.id);
     setBattleIds(getBattleIds);

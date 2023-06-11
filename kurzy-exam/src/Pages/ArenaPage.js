@@ -57,7 +57,7 @@ const ArenaPage = () => {
   const navigate = useNavigate();
 
   const getBattle = async () => {
-    const response = await axios.get(`http://localhost:3000/battle/`);
+    const response = await axios.get(`http://localhost:3001/battle/`);
     setBattle(response.data);
     const getBattleIds = response?.data?.map((item) => item.id);
     setBattleIds(getBattleIds);
@@ -68,7 +68,7 @@ const ArenaPage = () => {
   }, []);
 
   const getAfterTheBattle = async () => {
-    const response = await axios.get(`http://localhost:3000/afterTheBattle/`);
+    const response = await axios.get(`http://localhost:3001/afterTheBattle/`);
     setAfterBattle(response.data);
     const getBattleIds = response?.data?.map((item) => item.id);
     setAfterBattleIds(getBattleIds);
@@ -80,7 +80,7 @@ const ArenaPage = () => {
 
   const removeFromArena1 = () => {
     if (battle[0]) {
-      axios.delete(`http://localhost:3000/battle/${battle[0].id}`);
+      axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
       enqueueSnackbar(`Pokemon ${battle[0].name} został usunięty z Areny`, {
         preventDuplicate: true,
         autoHideDuration: 5000,
@@ -92,7 +92,7 @@ const ArenaPage = () => {
   };
   const removeFromArena2 = () => {
     if (battle[1]) {
-      axios.delete(`http://localhost:3000/battle/${battle[1].id}`);
+      axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
       enqueueSnackbar(`Pokemon ${battle[1].name} został usunięty z Areny`, {
         preventDuplicate: true,
         autoHideDuration: 5000,
@@ -134,15 +134,15 @@ const ArenaPage = () => {
         battle[0].weight,
         battle[0].abilitie
       );
-      axios.delete(`http://localhost:3000/battle/${battle[0].id}`);
-      axios.delete(`http://localhost:3000/battle/${battle[1].id}`);
+      axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
+      axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
       setOpen(false);
       navigate("/");
     } else if (
       fighter1Stat > fighter2Stat &&
       afterBattleIds.includes(battle[0].id)
     ) {
-      axios.delete(`http://localhost:3000/afterTheBattle/${battle[0].id}`);
+      axios.delete(`http://localhost:3001/afterTheBattle/${battle[0].id}`);
       postData(
         "afterTheBattle",
         battle[0].id,
@@ -154,8 +154,8 @@ const ArenaPage = () => {
         battle[0].weight,
         battle[0].abilitie
       );
-      axios.delete(`http://localhost:3000/battle/${battle[0].id}`);
-      axios.delete(`http://localhost:3000/battle/${battle[1].id}`);
+      axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
+      axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
       setOpen(false);
       navigate("/");
     } else if (
@@ -173,15 +173,15 @@ const ArenaPage = () => {
         battle[1].weight,
         battle[1].abilitie
       );
-      axios.delete(`http://localhost:3000/battle/${battle[0].id}`);
-      axios.delete(`http://localhost:3000/battle/${battle[1].id}`);
+      axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
+      axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
       setOpen(false);
       navigate("/");
     } else if (
       fighter1Stat < fighter2Stat &&
       afterBattleIds.includes(battle[1].id)
     ) {
-      axios.delete(`http://localhost:3000/afterTheBattle/${battle[1].id}`);
+      axios.delete(`http://localhost:3001/afterTheBattle/${battle[1].id}`);
       postData(
         "afterTheBattle",
         battle[1].id,
@@ -193,13 +193,13 @@ const ArenaPage = () => {
         battle[1].weight,
         battle[1].abilitie
       );
-      axios.delete(`http://localhost:3000/battle/${battle[0].id}`);
-      axios.delete(`http://localhost:3000/battle/${battle[1].id}`);
+      axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
+      axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
       setOpen(false);
       navigate("/");
     } else if (fighter1Stat === fighter2Stat) {
-      axios.delete(`http://localhost:3000/battle/${battle[0].id}`);
-      axios.delete(`http://localhost:3000/battle/${battle[1].id}`);
+      axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
+      axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
       setOpen2(false);
       navigate("/");
     }

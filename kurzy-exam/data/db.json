@@ -19,6 +19,45 @@
       "baseexp": 137,
       "weight": 1050,
       "abilitie": "rock-head"
+    },
+    {
+      "id": 4,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/4.svg",
+      "name": "charmander",
+      "height": 6,
+      "baseexp": 62,
+      "weight": 85,
+      "abilitie": "blaze"
+    },
+    {
+      "id": 6,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/6.svg",
+      "name": "charizard",
+      "height": 17,
+      "baseexp": 267,
+      "weight": 905,
+      "abilitie": "blaze"
+    },
+    {
+      "id": 14,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/14.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/14.svg",
+      "name": "kakuna",
+      "height": 6,
+      "baseexp": 72,
+      "weight": 100,
+      "abilitie": "shed-skin"
+    },
+    {
+      "id": 60,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/60.png",
+      "name": "poliwag",
+      "height": 6,
+      "baseexp": 60,
+      "weight": 124,
+      "abilitie": "water-absorb"
     }
   ],
   "battle": [
@@ -44,15 +83,6 @@
       "abilitie": "rock-head"
     },
     {
-      "id": 47,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/47.png",
-      "name": "parasect",
-      "height": 10,
-      "baseexp": 152,
-      "weight": 295,
-      "abilitie": "effect-spore"
-    },
-    {
       "id": 5,
       "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
       "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
@@ -71,15 +101,6 @@
       "baseexp": 132,
       "weight": 60,
       "abilitie": "static"
-    },
-    {
-      "id": 3,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
-      "name": "venusaur",
-      "height": 20,
-      "baseexp": 293,
-      "weight": 1000,
-      "abilitie": "overgrow"
     }
   ]
 }

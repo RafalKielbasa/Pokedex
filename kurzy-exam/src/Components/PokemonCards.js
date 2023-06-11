@@ -13,7 +13,7 @@ import { GiCrossedSwords } from "react-icons/gi";
 import { CardActionArea } from "@mui/material";
 import { postData } from "src/api/postData";
 import { bawpikachu } from "src/Images";
-import { useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { ThemeContext } from "src/context/ThemeContext";
 
 const CardsWrapper = styled.div`
@@ -38,11 +38,14 @@ export default function PokemonCard({
   weight,
   abilitie,
   expFullPokemonDataFormated,
-  favorites,
-  favoritesIds,
+  // favorites,
+  // favoritesIds,
   battle,
   battleIds,
 }) {
+  const [favorites, setFavorites] = useState([]);
+  const [favoritesIds, setFavoritesIds] = useState([]);
+  const [isFavorite, setIsFavorite] = useState();
   const { enqueueSnackbar } = useSnackbar();
   const { toggleTheme, isDark } = useContext(ThemeContext);
   const navigate = useNavigate();
@@ -53,8 +56,24 @@ export default function PokemonCard({
     });
   };
 
+  useEffect(() => {
+    const getFavorites = async () => {
+      const response = await axios.get(`http://localhost:3001/favoriteData/`);
+      setFavorites(response.data);
+      const getFavoritesIds = response?.data?.map((item) => item.id);
+      setFavoritesIds(getFavoritesIds);
+    };
+    getFavorites();
+  }, [isFavorite]);
+
+  useEffect(() => {
+    setIsFavorite(favoritesIds.includes(id));
+  }),
+    [favoritesIds];
+
   const handleFavorite = () => {
     if (!favoritesIds.includes(id)) {
+      // setIsFavorite((prev) => !prev);
       postData(
         "favoriteData",
         id,
@@ -70,18 +89,13 @@ export default function PokemonCard({
         preventDuplicate: true,
         autoHideDuration: 5000,
       });
-      setTimeout(function () {
-        window.location.reload();
-      }, 1200);
     } else {
-      axios.delete(`http://localhost:3000/favoriteData/${id}`);
+      // setIsFavorite((prev) => !prev);
+      axios.delete(`http://localhost:3001/favoriteData/${id}`);
       enqueueSnackbar(`Pokemon ${name} został usunięty z "Ulubionych"`, {
         preventDuplicate: true,
         autoHideDuration: 5000,
       });
-      setTimeout(function () {
-        window.location.reload();
-      }, 1200);
     }
   };
 
@@ -106,15 +120,12 @@ export default function PokemonCard({
         window.location.reload();
       }, 1200);
     } else if (!battleIds.includes(id) && battle.length === 2) {
-      enqueueSnackbar(
-        `To nie ustawka kiboli. Na Arenie mogą znajdować się tylko 2 pokemony.`,
-        {
-          preventDuplicate: true,
-          autoHideDuration: 5000,
-        }
-      );
+      enqueueSnackbar(`Na Arenie mogą znajdować się tylko 2 pokemony.`, {
+        preventDuplicate: true,
+        autoHideDuration: 5000,
+      });
     } else if (battleIds.includes(id)) {
-      axios.delete(`http://localhost:3000/battle/${id}`);
+      axios.delete(`http://localhost:3001/battle/${id}`);
       enqueueSnackbar(`Pokemon ${name} został usunięty z Areny`, {
         preventDuplicate: true,
         autoHideDuration: 5000,
@@ -230,9 +241,12 @@ export default function PokemonCard({
             style={{ color: battleIds.includes(id) ? "red" : "grey" }}
           />
           <FavIcon
-            onClick={() => handleFavorite()}
+            onClick={() => {
+              handleFavorite();
+              setIsFavorite((prev) => !prev);
+            }}
             sx={{
-              color: favoritesIds.includes(id) ? "red" : "grey",
+              color: isFavorite ? "red" : "grey",
             }}
           />
         </CardActions>

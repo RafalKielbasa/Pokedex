@@ -15,11 +15,11 @@ export const getFullResults = async () => {
 };
 
 export const getFavorites = async () => {
-  const response = await axios.get(`http://localhost:3000/favoriteData/`);
+  const response = await axios.get(`http://localhost:3001/favoriteData/`);
   return response;
 };
 
 export const getBattleResults = async () => {
-  const response = await axios.get(`http://localhost:3000/battle/`);
+  const response = await axios.get(`http://localhost:3001/battle/`);
   return response;
 };

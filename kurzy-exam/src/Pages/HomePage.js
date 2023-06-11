@@ -56,8 +56,8 @@ const HomePage = () => {
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
   const [inputText, setInputText] = useState();
-  const [favorites, setFavorites] = useState([]);
-  const [favoritesIds, setFavoritesIds] = useState([]);
+  // const [favorites, setFavorites] = useState([]);
+  // const [favoritesIds, setFavoritesIds] = useState([]);
   const [battle, setBattle] = useState([]);
   const [battleIds, setBattleIds] = useState([]);
   const [afterBattle, setAfterBattle] = useState([]);
@@ -76,12 +76,17 @@ const HomePage = () => {
   const { enqueueSnackbar } = useSnackbar();
   const queryFullData = useQuery([`/`], () => getFullResults());
 
-  const getFavorites = async () => {
-    const response = await axios.get(`http://localhost:3000/favoriteData/`);
-    setFavorites(response.data);
-    const getFavoritesIds = response?.data?.map((item) => item.id);
-    setFavoritesIds(getFavoritesIds);
-  };
+  // useEffect(() => {
+  //   const getFavorites = async () => {
+  //     const response = await axios.get(`http://localhost:3001/favoriteData/`);
+  //     setFavorites(response.data);
+  //     const getFavoritesIds = response?.data?.map((item) => item.id);
+  //     setFavoritesIds(getFavoritesIds);
+  //   };
+  //   getFavorites();
+  // }, [favorites]);
+
+  // console.log(`responseData`, responseData);
 
   useEffect(() => {
     enqueueSnackbar(`Załadowano bazę danych Pokemonów`, {
@@ -90,12 +95,10 @@ const HomePage = () => {
     });
   }, [queryFullData.status === "success"]);
 
-  useEffect(() => {
-    getFavorites();
-  }, []);
+  // ;
 
   const getBattle = async () => {
-    const response = await axios.get(`http://localhost:3000/battle/`);
+    const response = await axios.get(`http://localhost:3001/battle/`);
     setBattle(response.data);
     const getBattleIds = response?.data?.map((item) => item.id);
     setBattleIds(getBattleIds);
@@ -106,7 +109,7 @@ const HomePage = () => {
   }, []);
 
   const getAfterTheBattle = async () => {
-    const response = await axios.get(`http://localhost:3000/afterTheBattle/`);
+    const response = await axios.get(`http://localhost:3001/afterTheBattle/`);
     setAfterBattle(response.data);
     const getBattleIds = response?.data?.map((item) => item.id);
     setAfterBattleIds(getBattleIds);
@@ -246,8 +249,8 @@ const HomePage = () => {
                   partialPokemonData={partialPokemonData}
                   fullPokemonDataFiltered={expFullPokemonDataFiltered}
                   expFullPokemonDataFormated={expFullPokemonDataFormated}
-                  favorites={favorites}
-                  favoritesIds={favoritesIds}
+                  // favorites={favorites}
+                  // favoritesIds={favoritesIds}
                   battle={battle}
                   battleIds={battleIds}
                 />
@@ -322,8 +325,8 @@ const HomePage = () => {
                 partialPokemonData={partialPokemonData}
                 fullPokemonDataFiltered={expFullPokemonDataFiltered}
                 expFullPokemonDataFormated={expFullPokemonDataFormated}
-                favorites={favorites}
-                favoritesIds={favoritesIds}
+                // favorites={favorites}
+                // favoritesIds={favoritesIds}
                 battle={battle}
                 battleIds={battleIds}
               />

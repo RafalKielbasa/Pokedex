@@ -12,7 +12,7 @@ export const postData = (
   abilitie
 ) => {
   try {
-    axios.post(`http://localhost:3000/${catalog}`, {
+    axios.post(`http://localhost:3001/${catalog}`, {
       id,
       pic,
       picDet,
