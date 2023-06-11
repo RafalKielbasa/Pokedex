@@ -1,26 +1,24 @@
-import { TextField } from "@mui/material";
-import { PokemonCard } from "../../PokemonCard/PokemonCard";
+import { TextField } from '@mui/material';
+import { PokemonCard } from '../../PokemonCard/PokemonCard';
 import {
   Header,
   PageWrapper,
   PaginationWrapper,
   PokemonWrapper,
-} from "./HomePageWrapper.styles";
-import { usePaginationQuery } from "../../../hooks/usePagination";
-import { useState } from "react";
-import { useDebounce } from "../../../hooks/useDebounce";
-import { PagePagination } from "../../PagePagination";
-import { v4 } from "uuid";
+} from './HomePageWrapper.styles';
+import { usePaginationQuery } from '../../../hooks/usePagination';
+import { useState } from 'react';
+import { useDebounce } from '../../../hooks/useDebounce';
+import { PagePagination } from '../../PagePagination';
+import { v4 } from 'uuid';
 
 export const HomePageWrapper = ({ pokemonData }) => {
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(15);
   const [page, setPage] = useState(1);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
   const debouncedSearch = useDebounce(value);
   const { data: paginatedPokemons } = usePaginationQuery(offset, limit);
-
-  console.log("pagination", paginatedPokemons);
 
   return (
     <PageWrapper>
