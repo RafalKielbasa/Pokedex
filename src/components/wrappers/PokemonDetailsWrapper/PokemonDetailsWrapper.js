@@ -1,5 +1,5 @@
-import { Button } from "@mui/material";
-import { ProjectUrl } from "../../../const/ProjectUrl";
+import { Button } from '@mui/material';
+import { ProjectUrl } from '../../../const/ProjectUrl';
 import {
   Container,
   DetailsSign,
@@ -16,21 +16,20 @@ import {
   PropsDiv,
   PropsName,
   PropsValue,
-} from "./PokemonDetailsWrapper.style";
-import { useAddToFavMutation } from "../../../hooks/useAddToFav";
-import { useFavoritesQuery } from "../../../hooks/useFavorites";
-import { useContext } from "react";
-import { UserContext } from "../../../context/UserContext";
-import { useDeleteFromFavMutation } from "../../../hooks/useDeleteFromFav";
+} from './PokemonDetailsWrapper.style';
+import { useAddToFavMutation } from '../../../hooks/useAddToFav';
+import { useDeleteFromFavMutation } from '../../../hooks/useDeleteFromFav';
+import { useAllFavoritesPokemonDataQuery } from '../../../hooks/useAllFavoritesPokemonData';
 
 export const PokemonDetailsWrapper = ({ pokemonData }) => {
-  const user = useContext(UserContext);
-  const { name, height, baseExperience, weight, abilities, image, id } =
-    pokemonData[0];
-  const { data: allFavorites } = useFavoritesQuery(user?.id);
+  const { name, height, base_experience, weight, sprites, id } =
+    pokemonData || {};
+  const { data: favoritesPokemonData } = useAllFavoritesPokemonDataQuery();
   const { mutate: deleteFromFavorites } = useDeleteFromFavMutation();
-  const { mutate: addToFav } = useAddToFavMutation(user?.id);
-  const checkIfPokemonIsInFav = allFavorites?.findIndex((e) => e.id === id);
+  const { mutate: addToFav } = useAddToFavMutation();
+  const checkIfPokemonIsInFav = favoritesPokemonData?.findIndex(
+    (e) => e.name === name
+  );
 
   const handleFavClick = () => {
     if (checkIfPokemonIsInFav < 0) {
@@ -46,7 +45,7 @@ export const PokemonDetailsWrapper = ({ pokemonData }) => {
         <DetailsSign>Pokemon Details</DetailsSign>
         <IconsDiv>
           <FavIcon
-            color={checkIfPokemonIsInFav < 0 ? "black" : "red"}
+            color={checkIfPokemonIsInFav < 0 ? 'black' : 'red'}
             onClick={() => handleFavClick()}
           />
           <FightIcon />
@@ -54,7 +53,10 @@ export const PokemonDetailsWrapper = ({ pokemonData }) => {
       </Header>
       <PokedexSign>POKEDEX</PokedexSign>
       <PokemonDetailsWrap>
-        <PokemonImg src={image} alt={`pokemon ${name}`}></PokemonImg>
+        <PokemonImg
+          src={sprites?.front_default}
+          alt={`pokemon ${name}`}
+        ></PokemonImg>
         <PokemonInfo>
           <PokemonName>{name}</PokemonName>
           <Container>
@@ -64,7 +66,7 @@ export const PokemonDetailsWrapper = ({ pokemonData }) => {
             </PropsDiv>
             <PropsDiv>
               <PropsName>Base Experience</PropsName>
-              <PropsValue>{baseExperience}</PropsValue>
+              <PropsValue>{base_experience}</PropsValue>
             </PropsDiv>
             <PropsDiv>
               <PropsName>Weight</PropsName>
@@ -72,7 +74,9 @@ export const PokemonDetailsWrapper = ({ pokemonData }) => {
             </PropsDiv>
             <PropsDiv>
               <PropsName>Ability</PropsName>
-              <PropsValue>{abilities[0]}</PropsValue>
+              <PropsValue>
+                {pokemonData?.abilities[0]?.ability?.name}
+              </PropsValue>
             </PropsDiv>
           </Container>
         </PokemonInfo>
