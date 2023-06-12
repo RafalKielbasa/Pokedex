@@ -56,10 +56,6 @@ const HomePage = () => {
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
   const [inputText, setInputText] = useState();
-  // const [favorites, setFavorites] = useState([]);
-  // const [favoritesIds, setFavoritesIds] = useState([]);
-  const [battle, setBattle] = useState([]);
-  const [battleIds, setBattleIds] = useState([]);
   const [afterBattle, setAfterBattle] = useState([]);
   const [afterBattleIds, setAfterBattleIds] = useState([]);
   const [fullPokemonData, setFullPokemonData] = useState([]);
@@ -74,19 +70,22 @@ const HomePage = () => {
   const { theme } = useContext(ThemeContext);
   const { toggleTheme, isDark } = useContext(ThemeContext);
   const { enqueueSnackbar } = useSnackbar();
-  const queryFullData = useQuery([`/`], () => getFullResults());
 
-  // useEffect(() => {
-  //   const getFavorites = async () => {
-  //     const response = await axios.get(`http://localhost:3001/favoriteData/`);
-  //     setFavorites(response.data);
-  //     const getFavoritesIds = response?.data?.map((item) => item.id);
-  //     setFavoritesIds(getFavoritesIds);
-  //   };
-  //   getFavorites();
-  // }, [favorites]);
+  const queryFullData = useQuery({
+    queryKey: ["urls"],
+    queryFn: () => getFullResults(),
+    // staleTime: 1000000,
+  });
 
-  // console.log(`responseData`, responseData);
+  // const queryUrlsData = useQuery({
+  //   queryKey: ["fullPokemonData"],
+  //   queryFn: () => getUrlsData(queryFullData.data),
+  //   staleTime: 1000000,
+  //   enabled: queryFullData ? true : false,
+  // });
+
+  console.log(`queryFullData`, queryFullData.data);
+  // console.log(`queryUrlsData`, queryUrlsData);
 
   useEffect(() => {
     enqueueSnackbar(`Załadowano bazę danych Pokemonów`, {
@@ -95,27 +94,13 @@ const HomePage = () => {
     });
   }, [queryFullData.status === "success"]);
 
-  // ;
-
-  const getBattle = async () => {
-    const response = await axios.get(`http://localhost:3001/battle/`);
-    setBattle(response.data);
-    const getBattleIds = response?.data?.map((item) => item.id);
-    setBattleIds(getBattleIds);
-  };
-
   useEffect(() => {
-    getBattle();
-  }, []);
-
-  const getAfterTheBattle = async () => {
-    const response = await axios.get(`http://localhost:3001/afterTheBattle/`);
-    setAfterBattle(response.data);
-    const getBattleIds = response?.data?.map((item) => item.id);
-    setAfterBattleIds(getBattleIds);
-  };
-
-  useEffect(() => {
+    const getAfterTheBattle = async () => {
+      const response = await axios.get(`http://localhost:3001/afterTheBattle/`);
+      setAfterBattle(response.data);
+      const getBattleIds = response?.data?.map((item) => item.id);
+      setAfterBattleIds(getBattleIds);
+    };
     getAfterTheBattle();
   }, []);
 
@@ -134,6 +119,8 @@ const HomePage = () => {
     setFullPokemonData([]);
     getPokemonData();
   }, [queryFullData.status === "success", page]);
+
+  // console.log(`FullPokemonData`, fullPokemonData);
 
   useEffect(() => {
     if (fullPokemonData.length === 150) {
@@ -249,10 +236,6 @@ const HomePage = () => {
                   partialPokemonData={partialPokemonData}
                   fullPokemonDataFiltered={expFullPokemonDataFiltered}
                   expFullPokemonDataFormated={expFullPokemonDataFormated}
-                  // favorites={favorites}
-                  // favoritesIds={favoritesIds}
-                  battle={battle}
-                  battleIds={battleIds}
                 />
               ))}
             </PokemonWrapper>
@@ -325,10 +308,6 @@ const HomePage = () => {
                 partialPokemonData={partialPokemonData}
                 fullPokemonDataFiltered={expFullPokemonDataFiltered}
                 expFullPokemonDataFormated={expFullPokemonDataFormated}
-                // favorites={favorites}
-                // favoritesIds={favoritesIds}
-                battle={battle}
-                battleIds={battleIds}
               />
             ))}
           </PokemonWrapper>

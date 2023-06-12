@@ -48,27 +48,52 @@ const theme2 = createTheme({
 
 const FavoritesPage = () => {
   const [page, setPage] = useState(1);
+  // const [favorites, setFavorites] = useState([]);
+  // const [favoritesIds, setFavoritesIds] = useState([]);
   const [battle, setBattle] = useState([]);
   const [battleIds, setBattleIds] = useState([]);
+  const [open, setOpen] = React.useState(false);
+  // const handleClose = () => ;
 
   const { theme } = useContext(ThemeContext);
   const { toggleTheme, isDark } = useContext(ThemeContext);
-  const queryFavoritesData = useQuery(["favorites"], () => getFavorites());
+  const queryFavoritesData = useQuery({
+    queryKey: ["favorites"],
+    queryFn: () => getFavorites(),
+    refetchInterval: 5000,
+    refetchOnWindowFocus: true,
+  });
   const { data } = queryFavoritesData;
+
+  console.log(`queryFavoritesData`, queryFavoritesData);
+  console.log(`data`, data);
 
   const favorites = data?.data;
   const favoritesIds = favorites?.map((item) => item.id);
 
-  const getBattle = async () => {
-    const response = await axios.get(`http://localhost:3001/battle/`);
-    setBattle(response.data);
-    const getBattleIds = response?.data?.map((item) => item.id);
-    setBattleIds(getBattleIds);
-  };
+  // console.log(`open`, open);
+
+  // useEffect(() => {
+  //   const getFavorites = async () => {
+  //     const response = await axios.get(`http://localhost:3001/favoriteData/`);
+  //     setFavorites(response.data);
+  //     const getFavoritesIds = response?.data?.map((item) => item.id);
+  //     setFavoritesIds(getFavoritesIds);
+  //   };
+  //   getFavorites();
+  // }, []);
 
   useEffect(() => {
+    const getBattle = async () => {
+      const response = await axios.get(`http://localhost:3001/battle/`);
+      setBattle(response.data);
+      const getBattleIds = response?.data?.map((item) => item.id);
+      setBattleIds(getBattleIds);
+    };
     getBattle();
   }, []);
+
+  console.log(`favorites`, favorites);
 
   return (
     <FavoritePageWrapper theme={theme}>
@@ -99,10 +124,10 @@ const FavoritesPage = () => {
               baseexp={item.baseexp}
               weight={item.weight}
               abilitie={item.abilitie}
-              favorites={favorites}
-              favoritesIds={favoritesIds}
-              battle={battle}
-              battleIds={battleIds}
+              // favorites={favorites}
+              // favoritesIds={favoritesIds}
+              // battle={battle}
+              // battleIds={battleIds}
             />
           ))}
         </PokemonWrapper>

@@ -38,14 +38,13 @@ export default function PokemonCard({
   weight,
   abilitie,
   expFullPokemonDataFormated,
-  // favorites,
-  // favoritesIds,
-  battle,
-  battleIds,
 }) {
   const [favorites, setFavorites] = useState([]);
   const [favoritesIds, setFavoritesIds] = useState([]);
   const [isFavorite, setIsFavorite] = useState();
+  const [battle, setBattle] = useState([]);
+  const [battleIds, setBattleIds] = useState([]);
+  const [isBattle, setIsBattle] = useState();
   const { enqueueSnackbar } = useSnackbar();
   const { toggleTheme, isDark } = useContext(ThemeContext);
   const navigate = useNavigate();
@@ -73,7 +72,6 @@ export default function PokemonCard({
 
   const handleFavorite = () => {
     if (!favoritesIds.includes(id)) {
-      // setIsFavorite((prev) => !prev);
       postData(
         "favoriteData",
         id,
@@ -90,7 +88,6 @@ export default function PokemonCard({
         autoHideDuration: 5000,
       });
     } else {
-      // setIsFavorite((prev) => !prev);
       axios.delete(`http://localhost:3001/favoriteData/${id}`);
       enqueueSnackbar(`Pokemon ${name} został usunięty z "Ulubionych"`, {
         preventDuplicate: true,
@@ -98,6 +95,21 @@ export default function PokemonCard({
       });
     }
   };
+
+  useEffect(() => {
+    const getBattle = async () => {
+      const response = await axios.get(`http://localhost:3001/battle/`);
+      setBattle(response.data);
+      const getBattleIds = response?.data?.map((item) => item.id);
+      setBattleIds(getBattleIds);
+    };
+    getBattle();
+  }, [isBattle]);
+
+  useEffect(() => {
+    setIsBattle(battleIds.includes(id));
+  }),
+    [battleIds];
 
   const handleBattle = () => {
     if (!battleIds.includes(id) && battle.length < 2) {
@@ -116,9 +128,6 @@ export default function PokemonCard({
         preventDuplicate: true,
         autoHideDuration: 5000,
       });
-      setTimeout(function () {
-        window.location.reload();
-      }, 1200);
     } else if (!battleIds.includes(id) && battle.length === 2) {
       enqueueSnackbar(`Na Arenie mogą znajdować się tylko 2 pokemony.`, {
         preventDuplicate: true,
@@ -130,9 +139,6 @@ export default function PokemonCard({
         preventDuplicate: true,
         autoHideDuration: 5000,
       });
-      setTimeout(function () {
-        window.location.reload();
-      }, 1200);
     }
   };
 
@@ -237,15 +243,18 @@ export default function PokemonCard({
           }}
         >
           <BattleIcon
-            onClick={() => handleBattle()}
-            style={{ color: battleIds.includes(id) ? "red" : "grey" }}
+            onClick={() => {
+              handleBattle();
+              setIsBattle((prev) => !prev);
+            }}
+            style={{ color: isBattle ? "red" : "grey" }}
           />
           <FavIcon
             onClick={() => {
               handleFavorite();
               setIsFavorite((prev) => !prev);
             }}
-            sx={{
+            style={{
               color: isFavorite ? "red" : "grey",
             }}
           />
