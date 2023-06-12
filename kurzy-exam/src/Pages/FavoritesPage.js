@@ -61,7 +61,7 @@ const FavoritesPage = () => {
     queryKey: ["favorites"],
     queryFn: () => getFavorites(),
     refetchInterval: 5000,
-    refetchOnWindowFocus: true,
+    // refetchOnWindowFocus: true,
   });
   const { data } = queryFavoritesData;
 

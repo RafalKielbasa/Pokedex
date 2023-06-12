@@ -14,9 +14,9 @@ export const getFullResults = async () => {
     const response = await axios.get(`${BASE_URL}?limit=150&offset=0`);
     const fullData = response?.data?.results;
     fullData?.map(async (item) => {
-      const responseurls = await axios.get(item.url);
+      const responseurls = await axios.get(item?.url);
       const urlsData = responseurls?.data;
-      fullResults.push(urlsData);
+      fullResults?.push(urlsData);
       // console.log(`data2`, data2);
     });
   } catch (error) {

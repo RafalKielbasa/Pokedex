@@ -74,8 +74,16 @@ const HomePage = () => {
   const queryFullData = useQuery({
     queryKey: ["urls"],
     queryFn: () => getFullResults(),
-    // staleTime: 1000000,
+    staleTime: 500000,
   });
+
+  const { data, isLoading, isRefetching } = queryFullData;
+
+  console.log(`queryFullData`, queryFullData);
+
+  // if (isSuccess) setFullPokemonData(queryFullData?.data);
+
+  useEffect(() => setFullPokemonData(data), [queryFullData]);
 
   // const queryUrlsData = useQuery({
   //   queryKey: ["fullPokemonData"],
@@ -84,8 +92,7 @@ const HomePage = () => {
   //   enabled: queryFullData ? true : false,
   // });
 
-  console.log(`queryFullData`, queryFullData.data);
-  // console.log(`queryUrlsData`, queryUrlsData);
+  console.log(`fullPokemonData`, fullPokemonData);
 
   useEffect(() => {
     enqueueSnackbar(`Załadowano bazę danych Pokemonów`, {
@@ -104,26 +111,26 @@ const HomePage = () => {
     getAfterTheBattle();
   }, []);
 
-  useEffect(() => {
-    async function getPokemonData() {
-      queryFullData?.data?.map(async (item) => {
-        const result = await axios.get(item?.url);
-        setFullPokemonData((resultUrl) => {
-          resultUrl = [...resultUrl, result?.data].sort((a, b) =>
-            a.id > b.id ? 1 : -1
-          );
-          return resultUrl;
-        });
-      });
-    }
-    setFullPokemonData([]);
-    getPokemonData();
-  }, [queryFullData.status === "success", page]);
+  // useEffect(() => {
+  //   async function getPokemonData() {
+  //     queryFullData?.data?.map(async (item) => {
+  //       const result = await axios.get(item?.url);
+  //       setFullPokemonData((resultUrl) => {
+  //         resultUrl = [...resultUrl, result?.data].sort((a, b) =>
+  //           a.id > b.id ? 1 : -1
+  //         );
+  //         return resultUrl;
+  //       });
+  //     });
+  //   }
+  //   setFullPokemonData([]);
+  //   getPokemonData();
+  // }, [queryFullData.status === "success", page]);
 
   // console.log(`FullPokemonData`, fullPokemonData);
 
   useEffect(() => {
-    if (fullPokemonData.length === 150) {
+    if (fullPokemonData) {
       const getfullPokemonDataFormated = fullPokemonData?.map((item) => ({
         id: item.id,
         pic: item.sprites.front_default,
@@ -155,7 +162,7 @@ const HomePage = () => {
     }
   }, [fullPokemonDataFormated, afterBattle, page]);
 
-  fullPokemonData.length > 150 ? window.location.reload() : null;
+  // fullPokemonData.length > 150 ? window.location.reload() : null;
 
   // const pageCount = fullPokemonData?.length / 15;
   const partialPokemonData = expFullPokemonDataFormated
