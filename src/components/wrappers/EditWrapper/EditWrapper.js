@@ -1,38 +1,33 @@
 import {
-  Container,
   DetailsSign,
   PageWrapper,
   PokemonDetailsWrap,
   PokemonImg,
   PokemonInfo,
-  PokemonName,
 } from '../PokemonDetailsWrapper/PokemonDetailsWrapper.style';
-// import { useCorrectPokemonQuery } from "../../../hooks/useCorrecrtPokemon";
-import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
 import { EditForm } from './EditForm';
+import { InputWrapper } from './EditWrapper.style';
 
-export const EditWrapper = () => {
+export const EditWrapper = ({ pokemon, length }) => {
   const [currentButton, setCurrentButton] = useState();
-  const [searchParams] = useSearchParams();
-  // const { data } = useCorrectPokemonQuery(searchParams.get("name"));
 
-  // return (
-  //   <PageWrapper>
-  //     <DetailsSign>Edit Pokemon</DetailsSign>
-  //     <PokemonDetailsWrap>
-  //       <PokemonImg alt={data?.data[0]?.name} src={data?.data[0]?.image} />
-  //       <PokemonInfo>
-  //         <PokemonName>{data?.data[0]?.name}</PokemonName>
-  //         <Container>
-  //           <EditForm
-  //             data={data}
-  //             setCurrentButton={setCurrentButton}
-  //             currentButton={currentButton}
-  //           />
-  //         </Container>
-  //       </PokemonInfo>
-  //     </PokemonDetailsWrap>
-  //   </PageWrapper>
-  // );
+  return (
+    <PageWrapper>
+      <DetailsSign>Edit Pokemon</DetailsSign>
+      <PokemonDetailsWrap>
+        <PokemonImg alt={pokemon?.name} src={pokemon?.image} />
+        <PokemonInfo>
+          <InputWrapper>
+            <EditForm
+              pokemon={pokemon}
+              setCurrentButton={setCurrentButton}
+              currentButton={currentButton}
+              length={length}
+            />
+          </InputWrapper>
+        </PokemonInfo>
+      </PokemonDetailsWrap>
+    </PageWrapper>
+  );
 };

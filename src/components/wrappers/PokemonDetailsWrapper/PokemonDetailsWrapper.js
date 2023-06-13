@@ -22,18 +22,22 @@ import { useDeleteFromFavMutation } from '../../../hooks/useDeleteFromFav';
 import { useAllFavoritesPokemonDataQuery } from '../../../hooks/useAllFavoritesPokemonData';
 
 export const PokemonDetailsWrapper = ({ pokemonData }) => {
-  const { name, height, base_experience, weight, sprites, id } =
-    pokemonData || {};
+  const { name, height, baseExperience, weight, image, id } = pokemonData || {};
   const { data: favoritesPokemonData } = useAllFavoritesPokemonDataQuery();
   const { mutate: deleteFromFavorites } = useDeleteFromFavMutation();
   const { mutate: addToFav } = useAddToFavMutation();
-  const checkIfPokemonIsInFav = favoritesPokemonData?.findIndex(
-    (e) => e.name === name
+
+  console.log(pokemonData);
+
+  console.log(favoritesPokemonData);
+
+  const pokemonIndexInFav = favoritesPokemonData?.findIndex(
+    (pokemon) => pokemon.name === name
   );
 
   const handleFavClick = () => {
-    if (checkIfPokemonIsInFav < 0) {
-      addToFav(id);
+    if (pokemonIndexInFav < 0) {
+      addToFav(pokemonData);
     } else {
       deleteFromFavorites(id);
     }
@@ -45,7 +49,7 @@ export const PokemonDetailsWrapper = ({ pokemonData }) => {
         <DetailsSign>Pokemon Details</DetailsSign>
         <IconsDiv>
           <FavIcon
-            color={checkIfPokemonIsInFav < 0 ? 'black' : 'red'}
+            color={pokemonIndexInFav < 0 ? 'black' : 'red'}
             onClick={() => handleFavClick()}
           />
           <FightIcon />
@@ -53,10 +57,7 @@ export const PokemonDetailsWrapper = ({ pokemonData }) => {
       </Header>
       <PokedexSign>POKEDEX</PokedexSign>
       <PokemonDetailsWrap>
-        <PokemonImg
-          src={sprites?.front_default}
-          alt={`pokemon ${name}`}
-        ></PokemonImg>
+        <PokemonImg src={image} alt={`pokemon ${name}`}></PokemonImg>
         <PokemonInfo>
           <PokemonName>{name}</PokemonName>
           <Container>
@@ -66,7 +67,7 @@ export const PokemonDetailsWrapper = ({ pokemonData }) => {
             </PropsDiv>
             <PropsDiv>
               <PropsName>Base Experience</PropsName>
-              <PropsValue>{base_experience}</PropsValue>
+              <PropsValue>{baseExperience}</PropsValue>
             </PropsDiv>
             <PropsDiv>
               <PropsName>Weight</PropsName>
@@ -74,9 +75,7 @@ export const PokemonDetailsWrapper = ({ pokemonData }) => {
             </PropsDiv>
             <PropsDiv>
               <PropsName>Ability</PropsName>
-              <PropsValue>
-                {pokemonData?.abilities[0]?.ability?.name}
-              </PropsValue>
+              <PropsValue>{pokemonData?.abilities[0]}</PropsValue>
             </PropsDiv>
           </Container>
         </PokemonInfo>

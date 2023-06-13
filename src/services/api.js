@@ -3,13 +3,28 @@ import { LocalStorage } from '../const/LocalStorage';
 import axios from 'axios';
 
 const pokemonMapper = (pokemon) => ({
-  name: pokemon.name,
+  name: pokemon?.name,
   image: pokemon?.sprites?.front_default,
-  weight: pokemon.weight,
-  height: pokemon.height,
-  abilities: pokemon?.abilities?.map((ability) => ability.ability.name),
-  baseExperience: pokemon.base_experience,
+  weight: pokemon?.weight,
+  height: pokemon?.height,
+  abilities: pokemon?.abilities?.map((ability) => ability?.ability?.name),
+  baseExperience: pokemon?.base_experience,
+  id: pokemon?.id,
 });
+
+export const getSavedAsNewPokemon = () => {
+  return dbFetcher({
+    url: 'savedAsNew',
+    method: 'GET',
+  });
+};
+
+const getEditedPokemon = () => {
+  return dbFetcher({
+    url: 'edited',
+    method: 'GET',
+  });
+};
 
 export const fetchAllPokemon = async (limit = 151) => {
   const pokemon = await fetcher({
@@ -32,43 +47,22 @@ export const fetchAllPokemon = async (limit = 151) => {
 
   const allPokemon = await Promise.all(pokemonPromises);
 
-  return allPokemon?.map((pokemon) => {
+  const correctData = allPokemon?.map((pokemon) => {
     return pokemonMapper(pokemon);
   });
-};
 
-export const getCorrectPokemon = (name) => {
-  return fetcher({
-    url: `pokemon/${name}`,
-    method: 'GET',
-  });
-};
+  const savedAsNewPokemon = await getSavedAsNewPokemon();
+  const editedPokemon = await getEditedPokemon();
 
-export const getPaginatedPokemon = async (offset, limit) => {
-  const pokemon = await fetcher({
-    url: 'pokemon',
-    method: 'GET',
-    params: {
-      offset,
-      limit,
-    },
+  const updatedAllPokemon = correctData?.map((pokemon) => {
+    const edited = editedPokemon?.data?.findIndex(
+      (p) => p.name === pokemon?.name
+    );
+
+    return edited === -1 ? pokemon : editedPokemon?.data[edited];
   });
 
-  const pokemonData = pokemon?.data?.results || [];
-
-  const pokemonPromises = pokemonData.map(async ({ url }) => {
-    const response = await axios({
-      url,
-      method: 'GET',
-    });
-    return response.data;
-  });
-
-  const allPokemon = await Promise.all(pokemonPromises);
-
-  return allPokemon?.map((pokemon) => {
-    return pokemonMapper(pokemon);
-  });
+  return [...updatedAllPokemon, ...savedAsNewPokemon?.data];
 };
 
 export const getAllFavoritesPokemonData = async () => {
@@ -77,27 +71,14 @@ export const getAllFavoritesPokemonData = async () => {
     method: 'GET',
   });
 
-  const correctData = favoritesPokemon?.data || [];
-
-  const favoritesPokemonData = correctData?.map(async ({ id }) => {
-    return await fetcher({
-      url: `pokemon/${id}`,
-      method: 'GET',
-    });
-  });
-
-  const allPokemon = await Promise.all(favoritesPokemonData);
-
-  return allPokemon?.map((pokemon) => {
-    return pokemonMapper(pokemon?.data);
-  });
+  return favoritesPokemon?.data;
 };
 
-export const addToFavorites = (pokemonId) => {
+export const addToFavorites = (pokemon) => {
   return dbFetcher({
     url: 'favorites',
     method: 'POST',
-    data: { id: pokemonId },
+    data: pokemon,
   });
 };
 
@@ -128,7 +109,7 @@ const getUser = (email) => {
 
 export const getCurrentUser = (id) => {
   return dbFetcher({
-    url: `users?id=${id}&_embed=favorites`,
+    url: `users?id=${id}`,
     method: 'GET',
   });
 };
@@ -168,18 +149,18 @@ export const signIn = async (userData) => {
   }
 };
 
-export const editPost = (pokemon) => {
+export const addToEddited = (pokemon) => {
   return dbFetcher({
-    url: 'pokemon',
+    url: 'edited',
     method: 'POST',
     data: pokemon,
   });
 };
 
-export const editPut = (pokemon, id) => {
+export const addAsNew = (pokemon) => {
   return dbFetcher({
-    url: `pokemon/${id}`,
-    method: 'PUT',
+    url: `savedAsNew`,
+    method: 'POST',
     data: pokemon,
   });
 };

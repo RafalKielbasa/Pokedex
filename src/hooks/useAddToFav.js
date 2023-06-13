@@ -5,8 +5,8 @@ import { enqueueSnackbar } from 'notistack';
 export const useAddToFavMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (id) => {
-      addToFavorites(id);
+    mutationFn: (pokemon) => {
+      addToFavorites(pokemon);
     },
     onError: (err) => enqueueSnackbar(`${err}`, { variant: 'error' }),
     onSuccess: () =>

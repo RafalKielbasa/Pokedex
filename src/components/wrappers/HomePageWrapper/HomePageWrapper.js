@@ -6,11 +6,11 @@ import {
   PaginationWrapper,
   PokemonWrapper,
 } from './HomePageWrapper.styles';
-import { usePaginationQuery } from '../../../hooks/usePagination';
 import { useState } from 'react';
 import { useDebounce } from '../../../hooks/useDebounce';
 import { PagePagination } from '../../PagePagination';
 import { v4 } from 'uuid';
+import { useAllPokemonQuery } from '../../../hooks/useAllPokemon';
 
 export const HomePageWrapper = ({ pokemonData }) => {
   const [offset, setOffset] = useState(0);
@@ -18,7 +18,7 @@ export const HomePageWrapper = ({ pokemonData }) => {
   const [page, setPage] = useState(1);
   const [value, setValue] = useState('');
   const debouncedSearch = useDebounce(value);
-  const { data: paginatedPokemons } = usePaginationQuery(offset, limit);
+  const { data: allPokemon } = useAllPokemonQuery();
 
   return (
     <PageWrapper>
@@ -41,7 +41,7 @@ export const HomePageWrapper = ({ pokemonData }) => {
               .map((pokemon) => {
                 return <PokemonCard props={pokemon} key={v4()} />;
               })
-          : paginatedPokemons?.map((pokemon) => {
+          : allPokemon?.map((pokemon) => {
               return <PokemonCard props={pokemon} key={v4()} />;
             })}
       </PokemonWrapper>

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { DefaultLayout } from '../components/layouts/Default/DefaultLayout';
 import { HomePageWrapper } from '../components/wrappers/HomePageWrapper/HomePageWrapper';
 import { useAllPokemonQuery } from '../hooks/useAllPokemon';

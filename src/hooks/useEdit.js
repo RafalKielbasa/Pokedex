@@ -1,28 +1,23 @@
-import { useMutation } from "@tanstack/react-query";
-import { editPost, editPut } from "../services/api";
-import { enqueueSnackbar } from "notistack";
-import { useNavigate } from "react-router-dom";
-import { ProjectUrl } from "../const/ProjectUrl";
+import { useMutation } from '@tanstack/react-query';
+import { enqueueSnackbar } from 'notistack';
+import { addAsNew, addToEddited } from '../services/api';
+import questionmarkImage from '../assets/new_pokemon_image.png';
 
-export const useEditMutation = (button, id) => {
-  const navigate = useNavigate();
-
+export const useEditMutation = (button, pokemon, formik) => {
   return useMutation({
     mutationFn: (pokemonData) => {
-      if (button === "SAVE AS NEW!") {
-        enqueueSnackbar("Added to database", { variant: "success" });
-        setTimeout(() => {
-          localStorage.removeItem("Pokedex-user");
-          navigate(ProjectUrl.Home);
-          return editPost(pokemonData);
-        }, 2000);
+      if (button === 'SAVE AS NEW') {
+        if (pokemon?.name === formik.values.name) {
+          enqueueSnackbar('you have to change name', { variant: 'error' });
+        } else {
+          pokemonData.image = questionmarkImage;
+          addAsNew(pokemonData);
+          enqueueSnackbar('Added to database', { variant: 'success' });
+        }
       } else {
-        enqueueSnackbar("Pokemon edited", { variant: "success" });
-        setTimeout(() => {
-          localStorage.removeItem("Pokedex-user");
-          navigate(ProjectUrl.Home);
-          return editPut(pokemonData, id);
-        }, 2000);
+        pokemonData.id = pokemon?.id;
+        addToEddited(pokemonData);
+        enqueueSnackbar('Pokemon edited', { variant: 'success' });
       }
     },
   });

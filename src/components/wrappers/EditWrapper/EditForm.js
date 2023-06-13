@@ -1,96 +1,96 @@
-import { useFormik } from 'formik';
+import { FormikProvider, useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Input, Label } from './EditWrapper.style';
 import { Button } from '@mui/material';
 import { useEditMutation } from '../../../hooks/useEdit';
+import { FormField } from './FormField';
+import { ButtonsWrapper } from './EditWrapper.style';
 
 const editSchema = Yup.object().shape({
-  height: Yup.number(),
-  weight: Yup.number(),
-  base_experience: Yup.number(),
-  abilities: Yup.string(),
+  name: Yup?.string().required('Name required'),
+  height: Yup.number().notRequired(),
+  weight: Yup.number().notRequired(),
+  base_experience: Yup.number().notRequired(),
+  abilities: Yup.string().notRequired(),
 });
 
-export const EditForm = ({ data, setCurrentButton, currentButton }) => {
-  const { mutate } = useEditMutation(currentButton, data?.data[0]?.id);
-
+export const EditForm = ({
+  pokemon,
+  setCurrentButton,
+  currentButton,
+  length,
+}) => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      name: `${data?.data[0]?.name}(Edited)`,
-      image: data?.data[0]?.image,
-      height: data?.data[0]?.height,
-      weight: data?.data[0]?.weight,
-      baseExperience: data?.data[0]?.baseExperience,
-      abilities: [data?.data[0]?.abilities[0]],
+      name: pokemon?.name,
+      image: pokemon?.image,
+      height: pokemon?.height || '',
+      weight: pokemon?.weight || '',
+      baseExperience: pokemon?.baseExperience || '',
+      abilities: pokemon?.abilities[0] || '',
+      id: length + 1,
     },
     validationSchema: editSchema,
     onSubmit: (values) => {
-      mutate(values);
+      mutate({ ...values, abilities: [values.abilities] });
     },
   });
 
+  const { mutate } = useEditMutation(currentButton, pokemon, formik);
+
   return (
-    <>
-      <Label htmlFor="height">Height</Label>
-      <Input
+    <FormikProvider value={formik}>
+      <FormField name="name" label="Name" placeholder="Name" />
+
+      <FormField
         name="height"
-        type="number"
-        value={formik.values.height}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
+        label="Height"
         placeholder="Height"
-      />
-      <Label htmlFor="height">Base Experience</Label>
-      <Input
-        name="baseExperience"
         type="number"
-        value={formik.values.baseExperience}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        placeholder="Base Experience"
-      />
-      <Label htmlFor="height">Weight</Label>
-      <Input
-        name="weight"
-        type="number"
-        value={formik.values.weight}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        placeholder="Weight"
-      />
-      <Label htmlFor="height">Abilities</Label>
-      <Input
-        name="abilities"
-        type="text"
-        value={[formik.values.abilities]}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        placeholder="Abilities"
       />
 
-      <Button
-        variant="contained"
-        type="submit"
-        fullWidth
-        sx={{ marginTop: 12 }}
-        onClick={(btn) => {
-          setCurrentButton(btn.target.innerText);
-          formik.handleSubmit();
-        }}
-      ></Button>
-      <Button
-        variant="contained"
-        type="submit"
-        fullWidth
-        sx={{ marginTop: 12 }}
-        onClick={(btn) => {
-          setCurrentButton(btn.target.innerText);
-          formik.handleSubmit();
-        }}
-      >
-        Edit
-      </Button>
-    </>
+      <FormField
+        name="weight"
+        label="Weight"
+        placeholder="Weight"
+        type="number"
+      />
+
+      <FormField
+        name="baseExperience"
+        label="Base Experience"
+        placeholder="Base Experience"
+        type="number"
+      />
+
+      <FormField name="abilities" label="Abilities" placeholder="Abilities" />
+
+      <ButtonsWrapper>
+        <Button
+          variant="contained"
+          type="submit"
+          fullWidth
+          sx={{ marginTop: 12 }}
+          onClick={(btn) => {
+            setCurrentButton(btn.target.innerText);
+            formik.handleSubmit();
+          }}
+        >
+          Save as new
+        </Button>
+        <Button
+          variant="contained"
+          type="submit"
+          fullWidth
+          sx={{ marginTop: 12 }}
+          onClick={(btn) => {
+            setCurrentButton(btn.target.innerText);
+            formik.handleSubmit();
+          }}
+        >
+          Edit
+        </Button>
+      </ButtonsWrapper>
+    </FormikProvider>
   );
 };

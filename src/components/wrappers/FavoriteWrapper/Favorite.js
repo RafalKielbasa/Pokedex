@@ -8,6 +8,8 @@ import { v4 } from 'uuid';
 export const Favorite = () => {
   const { data: favoritesPokemonData } = useAllFavoritesPokemonDataQuery();
 
+  console.log(favoritesPokemonData);
+
   if (favoritesPokemonData?.length === 0) {
     return <H1>There's nothing here yet</H1>;
   } else {
