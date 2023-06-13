@@ -27,10 +27,6 @@ export const PokemonDetailsWrapper = ({ pokemonData }) => {
   const { mutate: deleteFromFavorites } = useDeleteFromFavMutation();
   const { mutate: addToFav } = useAddToFavMutation();
 
-  console.log(pokemonData);
-
-  console.log(favoritesPokemonData);
-
   const pokemonIndexInFav = favoritesPokemonData?.findIndex(
     (pokemon) => pokemon.name === name
   );

@@ -8,16 +8,23 @@ export const useEditMutation = (button, pokemon, formik) => {
     mutationFn: (pokemonData) => {
       if (button === 'SAVE AS NEW') {
         if (pokemon?.name === formik.values.name) {
-          enqueueSnackbar('you have to change name', { variant: 'error' });
+          enqueueSnackbar('You have to change name', { variant: 'error' });
         } else {
           pokemonData.image = questionmarkImage;
           addAsNew(pokemonData);
           enqueueSnackbar('Added to database', { variant: 'success' });
         }
       } else {
-        pokemonData.id = pokemon?.id;
-        addToEddited(pokemonData);
-        enqueueSnackbar('Pokemon edited', { variant: 'success' });
+        if (pokemon.name === formik.values.name) {
+          pokemonData.id = pokemon?.id;
+          addToEddited(pokemonData);
+          enqueueSnackbar('Pokemon edited', { variant: 'success' });
+        } else {
+          enqueueSnackbar(
+            'If you want to update already existing pokemon you have to stay with original pokemon name',
+            { variant: 'error' }
+          );
+        }
       }
     },
   });
