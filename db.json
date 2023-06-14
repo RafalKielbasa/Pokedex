@@ -9,30 +9,6 @@
     }
   ],
   "favorites": [],
-  "edited": [
-    {
-      "name": "bulbasaur",
-      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-      "height": 1,
-      "weight": 1,
-      "baseExperience": 1,
-      "abilities": [
-        "dawanie dupska"
-      ],
-      "id": 1
-    }
-  ],
-  "savedAsNew": [
-    {
-      "name": "dupsko",
-      "image": "data:image/png;base64,UklGRrQCAABXRUJQVlA4TKcCAAAv58P5EC9AFmCycxghhB1KiGQBJjuHEULYoYRFFmCycxghhB1KWATZNp3K/R0f255EWyqg/wOERpIcSWcIOAKOwN/OMth9Bn/82djpnnkfEf1n5LZtJPoFsx2DrjMDzA3P9Wbe55spkTLfzMf1Zua2h//47182Y2lTJv7jP+H6LN5SvcjEf/xnfmPpdyb+4z/OKymyuJnN9vVZLm6mpAj/8Z/UlahZL27mlDuLm3kLexPyH/8Z3NiQW6pPN+HEf/xHbSVSTv1LqMIa/uM/nDufomYbKaeoGfiP/zxubEiZzBMDrsgxDIyGFNZM/Md/wtW/MpmhRE0/Tiz/8R+vnSpnFakaZv+iopftzVwiVdwcahfW8B//idpYexDZ1cdxXfuWCtvuyKW1l2LiP/4zsXwtYyQcwXZrT9PAf/wHZ/kawBhSlMnstjdTHs/2Zo4pCmvO+ZpJ4T/+867rrVSvCWnUNRpyHFu+JkxquLNfXvmP/4Sr9hAtqvfdqR/ydYCqes0U//EfcVU+TdWb5eisVzVIkmNQF/zHf8SVvKtRlQ/6VZeidn+tQs3KU9xOVvEf/yFcpDwxtImEXY3iP/7jv2CST3MT//Ef/6V3DrW4dPzHf+6Wb+wWTZSjTCb5eD34j/9MLPkcO1VR+dGIezaaO69S/Md/wpV9LSS6keaufwX/8Z9wJV+z6nxXNe4T0Nx1yuY//kOtVu0tphwdhwo1JVDN3U9O/Md/RtXBPeDaKskvBf/xn4l9zd/PCP7jP6L6mr9TcfzHfyb2NX/fqfmP/1Tra/5d2uA//mOpr/m3ZIn/+M/HvubfeT7+4z/V+pp/j1v5j/9Q62v+3fTmP/6DrK/5/+2B//hPtb7m/yEg/uM/yPqa/y/i+I//IOtr/l8P5T/+U60/S5kBAA==",
-      "height": 1,
-      "weight": 1,
-      "baseExperience": 1,
-      "abilities": [
-        "dawanie dupska"
-      ],
-      "id": 152
-    }
-  ]
+  "edited": [],
+  "savedAsNew": []
 }

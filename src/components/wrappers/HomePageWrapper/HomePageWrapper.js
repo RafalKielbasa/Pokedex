@@ -10,15 +10,12 @@ import { useState } from 'react';
 import { useDebounce } from '../../../hooks/useDebounce';
 import { PagePagination } from '../../PagePagination';
 import { v4 } from 'uuid';
-import { useAllPokemonQuery } from '../../../hooks/useAllPokemon';
 
 export const HomePageWrapper = ({ pokemonData }) => {
-  const [offset, setOffset] = useState(0);
-  const [limit, setLimit] = useState(15);
-  const [page, setPage] = useState(1);
   const [value, setValue] = useState('');
   const debouncedSearch = useDebounce(value);
-  const { data: allPokemon } = useAllPokemonQuery();
+  const [posts, setPosts] = useState([pokemonData || []]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   return (
     <PageWrapper>
@@ -41,19 +38,18 @@ export const HomePageWrapper = ({ pokemonData }) => {
               .map((pokemon) => {
                 return <PokemonCard props={pokemon} key={v4()} />;
               })
-          : allPokemon?.map((pokemon) => {
+          : posts?.map((pokemon) => {
               return <PokemonCard props={pokemon} key={v4()} />;
             })}
       </PokemonWrapper>
       <PaginationWrapper>
         {!value ? (
           <PagePagination
-            setPage={setPage}
-            page={page}
-            setOffset={setOffset}
-            offset={offset}
-            limit={limit}
-            setLimit={setLimit}
+            allPokemon={pokemonData}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            setPosts={setPosts}
+            posts={posts}
           />
         ) : null}
       </PaginationWrapper>

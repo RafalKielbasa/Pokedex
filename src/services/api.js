@@ -165,12 +165,12 @@ export const addAsNew = (pokemon) => {
   });
 };
 
-export const checkIfUserIsLogged = () => {
-  const user = localStorage.getItem('Pokedex-user');
+// export const checkIfUserIsLogged = () => {
+//   const user = localStorage.getItem('Pokedex-user');
 
-  if (user === null) {
-    return false;
-  } else {
-    return true;
-  }
-};
+//   if (user === null) {
+//     return false;
+//   } else {
+//     return true;
+//   }
+// };

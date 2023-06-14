@@ -1,34 +1,28 @@
 import { Pagination } from '@mui/material';
 import { useEffect } from 'react';
 
+const PAGE_LIMIT = 15;
+
 export const PagePagination = ({
-  setPage,
-  page,
-  setOffset,
-  offset,
-  limit,
-  setLimit,
+  allPokemon,
+  setPosts,
+  currentPage,
+  setCurrentPage,
 }) => {
-  const pageLimit = 15;
-  const pokemonLimit = 151;
-  const pageNumber = Math.ceil(pokemonLimit / pageLimit);
+  const pageNumber = Math.ceil(allPokemon?.length / PAGE_LIMIT);
 
   useEffect(() => {
-    if (page !== 11) {
-      setOffset(page * limit - 15);
-      setLimit(15);
-    } else if (page === 1) {
-      setOffset(0);
-      setLimit(15);
-    } else {
-      setOffset(150);
-      setLimit(1);
-    }
-  }, [limit, page, setLimit, setOffset]);
+    const indexOfLastPost = currentPage * PAGE_LIMIT;
+    const indexOfFirstPost = indexOfLastPost - PAGE_LIMIT;
+    const currentPosts = allPokemon?.slice(indexOfFirstPost, indexOfLastPost);
+    setPosts(currentPosts);
+  }, [allPokemon, currentPage, setPosts]);
 
   const handleChange = (_, i) => {
-    setPage(i);
+    setCurrentPage(i);
   };
 
-  return <Pagination count={pageNumber} onChange={handleChange} size="large" />;
+  return (
+    <Pagination count={pageNumber || 0} size="large" onChange={handleChange} />
+  );
 };
