@@ -3,7 +3,7 @@ import { RouterProvider } from "react-router-dom";
 import { router } from "./Routes/Routes";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { SnackbarProvider } from "notistack";
-import ThemeContextProvider from "src/context/ThemeContext";
+import AppContextProvider from "src/context/AppContext";
 
 function App() {
   const queryClient = new QueryClient();
@@ -12,9 +12,9 @@ function App() {
     <>
       <SnackbarProvider>
         <QueryClientProvider client={queryClient}>
-          <ThemeContextProvider>
+          <AppContextProvider>
             <RouterProvider router={router} />
-          </ThemeContextProvider>
+          </AppContextProvider>
         </QueryClientProvider>
       </SnackbarProvider>
     </>

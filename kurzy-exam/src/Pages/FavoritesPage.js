@@ -6,7 +6,7 @@ import PokemonCard from "src/Components/PokemonCards";
 import styled, { css } from "styled-components";
 import { useQuery } from "react-query";
 import { getFavorites } from "src/api/source";
-import { ThemeContext } from "src/context/ThemeContext";
+import { AppContext } from "src/context/AppContext";
 import { useEffect, useState, useContext } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -55,12 +55,12 @@ const FavoritesPage = () => {
   const [open, setOpen] = React.useState(false);
   // const handleClose = () => ;
 
-  const { theme } = useContext(ThemeContext);
-  const { toggleTheme, isDark } = useContext(ThemeContext);
+  // const { theme } = useContext(ThemeContext);
+  const { theme, toggleTheme, isDark } = useContext(AppContext);
   const queryFavoritesData = useQuery({
     queryKey: ["favorites"],
     queryFn: () => getFavorites(),
-    refetchInterval: 5000,
+    // refetchInterval: 5000,
     // refetchOnWindowFocus: true,
   });
   const { data } = queryFavoritesData;

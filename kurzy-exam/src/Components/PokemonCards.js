@@ -14,7 +14,7 @@ import { CardActionArea } from "@mui/material";
 import { postData } from "src/api/postData";
 import { bawpikachu } from "src/Images";
 import { useState, useEffect, useContext } from "react";
-import { ThemeContext } from "src/context/ThemeContext";
+import { AppContext } from "src/context/AppContext";
 
 const CardsWrapper = styled.div`
   margin: 20px;
@@ -46,7 +46,7 @@ export default function PokemonCard({
   const [battleIds, setBattleIds] = useState([]);
   const [isBattle, setIsBattle] = useState();
   const { enqueueSnackbar } = useSnackbar();
-  const { toggleTheme, isDark } = useContext(ThemeContext);
+  const { toggleTheme, isDark } = useContext(AppContext);
   const navigate = useNavigate();
   const handleClick = () => {
     const path = "/details";
@@ -273,7 +273,7 @@ export function ArenaPokemonCard({
   weight,
   abilitie,
 }) {
-  const { toggleTheme, isDark } = useContext(ThemeContext);
+  const { toggleTheme, isDark } = useContext(AppContext);
 
   return (
     <CardsWrapper>
@@ -377,7 +377,7 @@ export function ArenaPokemonCard({
 }
 
 export function BlankPokemonCard() {
-  const { toggleTheme, isDark } = useContext(ThemeContext);
+  const { toggleTheme, isDark } = useContext(AppContext);
 
   return (
     <CardsWrapper>

@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import { pokelogo } from "src/Images";
 import { useContext } from "react";
-import { ThemeContext } from "src/context/ThemeContext";
+import { AppContext } from "src/context/AppContext";
 
 const theme = createTheme({
   palette: {
@@ -70,7 +70,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const Navigation = () => {
-  const { toggleTheme, isDark } = useContext(ThemeContext);
+  const { toggleTheme, isDark } = useContext(AppContext);
 
   return (
     <>

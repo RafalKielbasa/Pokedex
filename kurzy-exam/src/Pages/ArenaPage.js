@@ -9,7 +9,7 @@ import { BlankPokemonCard, ArenaPokemonCard } from "../Components/PokemonCards";
 import { postData } from "src/api/postData";
 import { useNavigate } from "react-router-dom";
 import { vs } from "src/Images";
-import { ThemeContext } from "src/context/ThemeContext";
+import { AppContext } from "src/context/AppContext";
 import { useEffect, useState, useContext } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -51,8 +51,8 @@ const ArenaPage = () => {
   const [open2, setOpen2] = React.useState(false);
   const handleClose = () => setOpen(false);
 
-  const { theme } = useContext(ThemeContext);
-  const { toggleTheme, isDark } = useContext(ThemeContext);
+  // const {  } = useContext(ThemeContext);
+  const { theme, toggleTheme, isDark } = useContext(AppContext);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 

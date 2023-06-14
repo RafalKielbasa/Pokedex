@@ -6,7 +6,7 @@ import Stack from "@mui/material/Stack";
 import styled, { css } from "styled-components";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { ThemeContext } from "src/context/ThemeContext";
+import { AppContext } from "src/context/AppContext";
 import { useContext } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -30,8 +30,8 @@ const theme2 = createTheme({
 });
 
 const DetailsPage = () => {
-  const { theme } = useContext(ThemeContext);
-  const { toggleTheme, isDark } = useContext(ThemeContext);
+  // const {  } = useContext(ThemeContext);
+  const { theme, toggleTheme, isDark } = useContext(AppContext);
   const location = useLocation();
   const id = location.state?.id;
   const expFullPokemonDataFormated = location.state?.expFullPokemonDataFormated;

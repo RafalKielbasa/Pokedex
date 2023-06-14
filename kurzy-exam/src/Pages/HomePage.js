@@ -9,8 +9,9 @@ import styled, { css } from "styled-components";
 import { useEffect, useState, useContext } from "react";
 import { useQuery } from "react-query";
 import { getFullResults } from "src/api/source";
+// import { getFullResultsFormated } from "src/api/source";
 import { useSnackbar } from "notistack";
-import { ThemeContext } from "src/context/ThemeContext";
+import { AppContext } from "src/context/AppContext";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -56,113 +57,105 @@ const HomePage = () => {
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
   const [inputText, setInputText] = useState();
-  const [afterBattle, setAfterBattle] = useState([]);
-  const [afterBattleIds, setAfterBattleIds] = useState([]);
-  const [fullPokemonData, setFullPokemonData] = useState([]);
-  const [fullPokemonDataFormated, setFullPokemonDataFormated] = useState([]);
-  const [expFullPokemonDataFormated, setExpFullPokemonDataFormated] = useState(
-    []
-  );
+  // const [afterBattle, setAfterBattle] = useState([]);
+  // const [afterBattleIds, setAfterBattleIds] = useState([]);
+  // const [expFullPokemonDataFormated, setExpFullPokemonDataFormated] = useState(
+  //   []
+  // );
   const [expFullPokemonDataFiltered, setExpFullPokemonDataFiltered] = useState(
     []
   );
 
-  const { theme } = useContext(ThemeContext);
-  const { toggleTheme, isDark } = useContext(ThemeContext);
+  // const {  } = useContext(ThemeContext);
+  const { toggleTheme, isDark, theme, isSuccess, expFullPokemonDataFormated } =
+    useContext(AppContext);
   const { enqueueSnackbar } = useSnackbar();
 
-  const queryFullData = useQuery({
-    queryKey: ["urls"],
-    queryFn: () => getFullResults(),
-    staleTime: 500000,
-  });
-
-  const { data, isLoading, isRefetching } = queryFullData;
-
-  console.log(`queryFullData`, queryFullData);
-
-  // if (isSuccess) setFullPokemonData(queryFullData?.data);
-
-  useEffect(() => setFullPokemonData(data), [queryFullData]);
-
-  // const queryUrlsData = useQuery({
-  //   queryKey: ["fullPokemonData"],
-  //   queryFn: () => getUrlsData(queryFullData.data),
+  // const queryFullData = useQuery({
+  //   queryKey: ["fullData"],
+  //   queryFn: () => getFullResults(),
   //   staleTime: 1000000,
-  //   enabled: queryFullData ? true : false,
   // });
 
-  console.log(`fullPokemonData`, fullPokemonData);
+  // const { data, isSuccess, isLoading, isFetching } = queryFullData;
+
+  // console.log(`queryFullData`, queryFullData);
 
   useEffect(() => {
     enqueueSnackbar(`Załadowano bazę danych Pokemonów`, {
       preventDuplicate: true,
       autoHideDuration: 3500,
     });
-  }, [queryFullData.status === "success"]);
-
-  useEffect(() => {
-    const getAfterTheBattle = async () => {
-      const response = await axios.get(`http://localhost:3001/afterTheBattle/`);
-      setAfterBattle(response.data);
-      const getBattleIds = response?.data?.map((item) => item.id);
-      setAfterBattleIds(getBattleIds);
-    };
-    getAfterTheBattle();
-  }, []);
+  }, [isSuccess]);
 
   // useEffect(() => {
-  //   async function getPokemonData() {
-  //     queryFullData?.data?.map(async (item) => {
-  //       const result = await axios.get(item?.url);
-  //       setFullPokemonData((resultUrl) => {
-  //         resultUrl = [...resultUrl, result?.data].sort((a, b) =>
-  //           a.id > b.id ? 1 : -1
-  //         );
-  //         return resultUrl;
-  //       });
+  //   const getAfterTheBattle = async () => {
+  //     const response = await axios.get(`http://localhost:3001/afterTheBattle/`);
+  //     setAfterBattle(response.data);
+  //     const getBattleIds = response?.data?.map((item) => item.id);
+  //     setAfterBattleIds(getBattleIds);
+  //   };
+  //   getAfterTheBattle();
+  // }, []);
+
+  // useEffect(() => {
+  //   setFullPokemonDataFormated([]);
+  //   data?.map(async (item) => {
+  //     const responseurls = await axios.get(item?.url);
+  //     const urlsData = responseurls?.data;
+  //     setFullPokemonDataFormated((state) => {
+  //       state = [...state, urlsData];
+  //       return state;
   //     });
-  //   }
-  //   setFullPokemonData([]);
-  //   getPokemonData();
-  // }, [queryFullData.status === "success", page]);
+  //   });
+  // }, [isSuccess]);
+  console.log(`expFullPokemonDataFormated`, expFullPokemonDataFormated);
 
+  // useEffect(
+  //   () => setFullPokemonData(data),
+  //   [queryFullData.status === "success"]
+  // );
+
+  // console.log(`fullPokemonData`, fullPokemonData);
+
+  // useEffect(() => {
+  // const mmm =
+  //   fullPokemonData !== undefined
+  //     ? fullPokemonData?.map((item) => ({
+  //         id: item.id,
+  //         pic: item.sprites.front_default,
+  //         picDet: item.sprites.other.dream_world.front_default,
+  //         name: item.name,
+  //         height: item.height,
+  //         baseexp: item.base_experience,
+  //         weight: item.weight,
+  //         abilitie: item.abilities[0].ability.name,
+  //       }))
+  //     : [];
+  // console.log(`mmm`, mmm);
+  // }, [data]);
+
+  /// const mapa = data?.map((item)
+
+  // useEffect(() => {
+  //   // if (fullPokemonDataFormated.length === 150) {
+  //   const array = fullPokemonDataFormated?.filter((fPDelem) => {
+  //     return afterBattleIds?.some((fIele) => {
+  //       return fPDelem.id === fIele;
+  //     });
+  //   });
+  //   const filterFPD = fullPokemonDataFormated?.filter(
+  //     (n) => !array.includes(n)
+  //   );
+  //   const getExpFPD = afterBattle
+  //     .concat(filterFPD)
+  //     .sort((a, b) => (a.id > b.id ? 1 : -1));
+  //   setExpFullPokemonDataFormated(getExpFPD);
+  //   // }
+  // }, []);
+
+  // console.log(`data`, data);
   // console.log(`FullPokemonData`, fullPokemonData);
-
-  useEffect(() => {
-    if (fullPokemonData) {
-      const getfullPokemonDataFormated = fullPokemonData?.map((item) => ({
-        id: item.id,
-        pic: item.sprites.front_default,
-        picDet: item.sprites.other.dream_world.front_default,
-        name: item.name,
-        height: item.height,
-        baseexp: item.base_experience,
-        weight: item.weight,
-        abilitie: item.abilities[0].ability.name,
-      }));
-      setFullPokemonDataFormated(getfullPokemonDataFormated);
-    }
-  }, [fullPokemonData, page]);
-
-  useEffect(() => {
-    if (fullPokemonDataFormated.length === 150) {
-      const array = fullPokemonDataFormated?.filter((fPDelem) => {
-        return afterBattleIds?.some((fIele) => {
-          return fPDelem.id === fIele;
-        });
-      });
-      const filterFPD = fullPokemonDataFormated?.filter(
-        (n) => !array.includes(n)
-      );
-      const getExpFPD = afterBattle
-        .concat(filterFPD)
-        .sort((a, b) => (a.id > b.id ? 1 : -1));
-      setExpFullPokemonDataFormated(getExpFPD);
-    }
-  }, [fullPokemonDataFormated, afterBattle, page]);
-
-  // fullPokemonData.length > 150 ? window.location.reload() : null;
 
   // const pageCount = fullPokemonData?.length / 15;
   const partialPokemonData = expFullPokemonDataFormated
