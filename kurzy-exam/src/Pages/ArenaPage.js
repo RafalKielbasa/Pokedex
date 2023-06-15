@@ -49,57 +49,51 @@ const ArenaPage = () => {
   const [winnerPic, setWinnerPic] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
+  const [changeParticipant, setChangeParticipant] = useState(false);
   const handleClose = () => setOpen(false);
 
-  // const {  } = useContext(ThemeContext);
   const { theme, toggleTheme, isDark } = useContext(AppContext);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
-  const getBattle = async () => {
-    const response = await axios.get(`http://localhost:3001/battle/`);
-    setBattle(response.data);
-    const getBattleIds = response?.data?.map((item) => item.id);
-    setBattleIds(getBattleIds);
-  };
-
   useEffect(() => {
+    const getBattle = async () => {
+      const response = await axios.get(`http://localhost:3001/battle/`);
+      setBattle(response.data);
+      const getBattleIds = response?.data?.map((item) => item.id);
+      setBattleIds(getBattleIds);
+    };
     getBattle();
-  }, []);
-
-  const getAfterTheBattle = async () => {
-    const response = await axios.get(`http://localhost:3001/afterTheBattle/`);
-    setAfterBattle(response.data);
-    const getBattleIds = response?.data?.map((item) => item.id);
-    setAfterBattleIds(getBattleIds);
-  };
+  }, [changeParticipant]);
 
   useEffect(() => {
+    const getAfterTheBattle = async () => {
+      const response = await axios.get(`http://localhost:3001/afterTheBattle/`);
+      setAfterBattle(response.data);
+      const getBattleIds = response?.data?.map((item) => item.id);
+      setAfterBattleIds(getBattleIds);
+    };
     getAfterTheBattle();
   }, []);
 
   const removeFromArena1 = () => {
     if (battle[0]) {
       axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
+      setChangeParticipant((prev) => !prev);
       enqueueSnackbar(`Pokemon ${battle[0].name} został usunięty z Areny`, {
         preventDuplicate: true,
         autoHideDuration: 5000,
       });
-      setTimeout(function () {
-        window.location.reload();
-      }, 1200);
     }
   };
   const removeFromArena2 = () => {
     if (battle[1]) {
       axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
+      setChangeParticipant((prev) => !prev);
       enqueueSnackbar(`Pokemon ${battle[1].name} został usunięty z Areny`, {
         preventDuplicate: true,
         autoHideDuration: 5000,
       });
-      setTimeout(function () {
-        window.location.reload();
-      }, 1200);
     }
   };
 

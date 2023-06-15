@@ -1,16 +1,6 @@
 {
   "favoriteData": [
     {
-      "id": 2,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
-      "name": "ivysaur",
-      "height": 10,
-      "baseexp": 142,
-      "weight": 130,
-      "abilitie": "overgrow"
-    },
-    {
       "id": 75,
       "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/75.png",
       "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/75.svg",
@@ -21,56 +11,67 @@
       "abilitie": "rock-head"
     },
     {
-      "id": 6,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/6.svg",
-      "name": "charizard",
-      "height": 17,
-      "baseexp": 267,
-      "weight": 905,
-      "abilitie": "blaze"
-    },
-    {
-      "id": 105,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/105.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/105.svg",
-      "name": "marowak",
-      "height": 10,
-      "baseexp": 149,
-      "weight": 450,
-      "abilitie": "rock-head"
-    },
-    {
-      "id": 138,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/138.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/138.svg",
-      "name": "omanyte",
+      "id": 25,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg",
+      "name": "pikachu",
       "height": 4,
-      "baseexp": 71,
-      "weight": 75,
-      "abilitie": "swift-swim"
-    }
-  ],
-  "battle": [
-    {
-      "id": 4,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
-      "name": "charmander",
-      "height": 6,
-      "baseexp": 62,
-      "weight": 85,
-      "abilitie": "blaze"
+      "baseexp": 132,
+      "weight": 60,
+      "abilitie": "static"
     },
     {
-      "id": 105,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/105.png",
-      "name": "marowak",
+      "id": 15,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/15.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/15.svg",
+      "name": "beedrill",
       "height": 10,
-      "baseexp": 149,
-      "weight": 450,
+      "baseexp": 178,
+      "weight": 295,
+      "abilitie": "swarm"
+    },
+    {
+      "id": 74,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/74.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/74.svg",
+      "name": "geodude",
+      "height": 4,
+      "baseexp": 60,
+      "weight": 200,
       "abilitie": "rock-head"
+    },
+    {
+      "id": 73,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/73.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/73.svg",
+      "name": "tentacruel",
+      "height": 16,
+      "baseexp": 180,
+      "weight": 550,
+      "abilitie": "clear-body"
+    },
+    {
+      "id": 89,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/89.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/89.svg",
+      "name": "muk",
+      "height": 12,
+      "baseexp": 175,
+      "weight": 300,
+      "abilitie": "stench"
+    },
+    {
+      "id": 47,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/47.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/47.svg",
+      "name": "parasect",
+      "height": 10,
+      "baseexp": 152,
+      "weight": 295,
+      "abilitie": "effect-spore"
     }
   ],
+  "battle": [],
   "afterTheBattle": [
     {
       "id": 95,
@@ -83,16 +84,6 @@
       "abilitie": "rock-head"
     },
     {
-      "id": 5,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
-      "name": "charmeleon",
-      "height": 11,
-      "baseexp": 192,
-      "weight": 190,
-      "abilitie": "blaze"
-    },
-    {
       "id": 25,
       "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
       "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg",
@@ -101,6 +92,26 @@
       "baseexp": 132,
       "weight": 60,
       "abilitie": "static"
+    },
+    {
+      "id": 5,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
+      "name": "charmeleon",
+      "height": 11,
+      "baseexp": 152,
+      "weight": 190,
+      "abilitie": "blaze"
+    },
+    {
+      "id": 47,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/47.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/47.svg",
+      "name": "parasect",
+      "height": 10,
+      "baseexp": 152,
+      "weight": 295,
+      "abilitie": "effect-spore"
     }
   ]
 }

@@ -30,22 +30,19 @@ const theme2 = createTheme({
 });
 
 const DetailsPage = () => {
-  // const {  } = useContext(ThemeContext);
   const { theme, toggleTheme, isDark } = useContext(AppContext);
   const location = useLocation();
   const id = location.state?.id;
+
   const expFullPokemonDataFormated = location.state?.expFullPokemonDataFormated;
-  let pokemonDataFiltered = [];
-  expFullPokemonDataFormated === undefined
-    ? []
-    : (pokemonDataFiltered = expFullPokemonDataFormated?.filter(
-        (item) => item.id === id
-      ));
+  const pokemonDataFiltered =
+    expFullPokemonDataFormated === undefined
+      ? []
+      : expFullPokemonDataFormated?.filter((item) => item.id === id);
+
   const favorites = location.state?.favorites;
-  let favoritesFiltered = [];
-  favorites === undefined
-    ? []
-    : (favoritesFiltered = favorites?.filter((item) => item.id === id));
+  const favoritesFiltered =
+    favorites === undefined ? [] : favorites?.filter((item) => item.id === id);
 
   const navigate = useNavigate();
   const handleClick = () => {

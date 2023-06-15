@@ -38,6 +38,7 @@ export default function PokemonCard({
   weight,
   abilitie,
   expFullPokemonDataFormated,
+  onClick,
 }) {
   const [favorites, setFavorites] = useState([]);
   const [favoritesIds, setFavoritesIds] = useState([]);
@@ -152,6 +153,7 @@ export default function PokemonCard({
             transform: "scale(1.10)",
           },
         }}
+        onClick={onClick}
       >
         <CardActionArea onClick={handleClick}>
           <CardMedia style={{ textAlign: "center" }}>

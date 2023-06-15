@@ -4,10 +4,8 @@ import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
 import PokemonCard from "src/Components/PokemonCards";
 import styled, { css } from "styled-components";
-import { useQuery } from "react-query";
-import { getFavorites } from "src/api/source";
 import { AppContext } from "src/context/AppContext";
-import { useEffect, useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const FavoritePageWrapper = styled("div")(
@@ -48,52 +46,22 @@ const theme2 = createTheme({
 
 const FavoritesPage = () => {
   const [page, setPage] = useState(1);
-  // const [favorites, setFavorites] = useState([]);
-  // const [favoritesIds, setFavoritesIds] = useState([]);
-  const [battle, setBattle] = useState([]);
-  const [battleIds, setBattleIds] = useState([]);
-  const [open, setOpen] = React.useState(false);
-  // const handleClose = () => ;
+  const [favorites, setFavorites] = useState([]);
+  const [changeFav, setChangeFav] = useState(false);
 
-  // const { theme } = useContext(ThemeContext);
   const { theme, toggleTheme, isDark } = useContext(AppContext);
-  const queryFavoritesData = useQuery({
-    queryKey: ["favorites"],
-    queryFn: () => getFavorites(),
-    // refetchInterval: 5000,
-    // refetchOnWindowFocus: true,
-  });
-  const { data } = queryFavoritesData;
-
-  console.log(`queryFavoritesData`, queryFavoritesData);
-  console.log(`data`, data);
-
-  const favorites = data?.data;
-  const favoritesIds = favorites?.map((item) => item.id);
-
-  // console.log(`open`, open);
-
-  // useEffect(() => {
-  //   const getFavorites = async () => {
-  //     const response = await axios.get(`http://localhost:3001/favoriteData/`);
-  //     setFavorites(response.data);
-  //     const getFavoritesIds = response?.data?.map((item) => item.id);
-  //     setFavoritesIds(getFavoritesIds);
-  //   };
-  //   getFavorites();
-  // }, []);
 
   useEffect(() => {
-    const getBattle = async () => {
-      const response = await axios.get(`http://localhost:3001/battle/`);
-      setBattle(response.data);
-      const getBattleIds = response?.data?.map((item) => item.id);
-      setBattleIds(getBattleIds);
+    const getFavorites = async () => {
+      const response = await axios.get(`http://localhost:3001/favoriteData/`);
+      setFavorites(response?.data);
     };
-    getBattle();
-  }, []);
+    getFavorites();
+  }, [changeFav]);
 
-  console.log(`favorites`, favorites);
+  const change = () => {
+    setChangeFav((prev) => !prev);
+  };
 
   return (
     <FavoritePageWrapper theme={theme}>
@@ -114,20 +82,18 @@ const FavoritesPage = () => {
 
       {favorites?.length > 0 ? (
         <PokemonWrapper>
-          {favorites.map((item, index) => (
+          {favorites?.map((item, index) => (
             <PokemonCard
               key={index}
               id={item.id}
               pic={item.pic}
+              picDet={item.picDet}
               name={item.name}
               height={item.height}
               baseexp={item.baseexp}
               weight={item.weight}
               abilitie={item.abilitie}
-              // favorites={favorites}
-              // favoritesIds={favoritesIds}
-              // battle={battle}
-              // battleIds={battleIds}
+              onClick={change}
             />
           ))}
         </PokemonWrapper>

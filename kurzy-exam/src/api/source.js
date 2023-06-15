@@ -9,28 +9,10 @@ export const getPartialResults = async (offset) => {
 };
 
 export const getFullResults = async () => {
-  // const fullResults = [];
   try {
     const response = await axios.get(`${BASE_URL}?limit=150&offset=0`);
     const fullData = response?.data?.results;
     return fullData;
-    // response &&
-    //   fullData?.map(async (item) => {
-    //     const responseurls = await axios.get(item?.url);
-    //     const urlsData = responseurls?.data;
-
-    // console.log(`urlsData`, urlsData);
-    // if (urlsData) {
-    //   urlsData?.map((item) => {
-    //     cost((state) => {
-    //       state = [...state, item];
-    //       console.log(`state`, state);
-    //     });
-    //   });
-    // }
-
-    // fullResults?.push(urlsData);
-    // });
   } catch (error) {
     console.log(error.responseurls);
   }
