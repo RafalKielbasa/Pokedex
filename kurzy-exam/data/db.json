@@ -31,16 +31,6 @@
       "abilitie": "swarm"
     },
     {
-      "id": 74,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/74.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/74.svg",
-      "name": "geodude",
-      "height": 4,
-      "baseexp": 60,
-      "weight": 200,
-      "abilitie": "rock-head"
-    },
-    {
       "id": 73,
       "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/73.png",
       "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/73.svg",
@@ -112,6 +102,16 @@
       "baseexp": 152,
       "weight": 295,
       "abilitie": "effect-spore"
+    },
+    {
+      "id": 49,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/49.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/49.svg",
+      "name": "venomoth",
+      "height": 15,
+      "baseexp": 168,
+      "weight": 125,
+      "abilitie": "shield-dust"
     }
   ]
 }
