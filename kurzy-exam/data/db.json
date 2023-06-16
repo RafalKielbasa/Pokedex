@@ -59,6 +59,16 @@
       "baseexp": 152,
       "weight": 295,
       "abilitie": "effect-spore"
+    },
+    {
+      "id": 3,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
+      "name": "venusaur",
+      "height": 20,
+      "baseexp": 263,
+      "weight": 1000,
+      "abilitie": "overgrow"
     }
   ],
   "battle": [],

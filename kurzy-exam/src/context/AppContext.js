@@ -53,7 +53,7 @@ const AppContextProvider = ({ children }) => {
 
   return (
     <AppContext.Provider
-      value={(context, { isSuccess, fullPokemonDataFormated })}
+      value={{ context, isSuccess, fullPokemonDataFormated }}
     >
       {children}
     </AppContext.Provider>
