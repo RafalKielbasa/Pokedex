@@ -47,7 +47,9 @@ export default function PokemonCard({
   const [battleIds, setBattleIds] = useState([]);
   const [isBattle, setIsBattle] = useState();
   const { enqueueSnackbar } = useSnackbar();
+
   const { toggleTheme, isDark } = useContext(AppContext);
+
   const navigate = useNavigate();
   const handleClick = () => {
     const path = "/details";

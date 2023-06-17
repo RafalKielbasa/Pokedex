@@ -5,12 +5,19 @@ import { useEffect, useState } from "react";
 import { lightTheme, darkTheme } from "src/theme/theme";
 import { useQuery } from "react-query";
 import { getFullResults, getFavorites } from "src/api/source";
-import { PokemonCard } from "src/Components/PokemonCards";
+import { Login } from "src/Pages/LoginPage";
+import { Registration } from "src/Pages/RegistrationPage";
+import { LoginPage, RegistrationPage } from "src/Pages";
 
 export const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
+  // const [currentForm, setCurrentForm] = useState("login");
   const [fullPokemonDataFormated, setFullPokemonDataFormated] = useState([]);
+
+  // const toggleForm = (formName) => {
+  //   setCurrentForm(formName);
+  // };
 
   const [isDark, setIsDark] = useState(false);
   const toggleTheme = () => setIsDark((prev) => !prev);

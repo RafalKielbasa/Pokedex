@@ -1,4 +1,18 @@
 {
+  "users": [
+    {
+      "name": "Piotr",
+      "email": "abc@gmail.com",
+      "pass": "123info",
+      "id": 1
+    },
+    {
+      "name": "Piotr Kurzydym",
+      "email": "abddc@gmail.com",
+      "pass": "123info22",
+      "id": 2
+    }
+  ],
   "favoriteData": [
     {
       "id": 75,
@@ -71,7 +85,18 @@
       "abilitie": "overgrow"
     }
   ],
-  "battle": [],
+  "battle": [
+    {
+      "id": 3,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
+      "name": "venusaur",
+      "height": 20,
+      "baseexp": 263,
+      "weight": 1000,
+      "abilitie": "overgrow"
+    }
+  ],
   "afterTheBattle": [
     {
       "id": 95,

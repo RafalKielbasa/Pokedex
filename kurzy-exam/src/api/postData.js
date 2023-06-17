@@ -26,3 +26,15 @@ export const postData = (
     console.error(error);
   }
 };
+
+export const postUsersData = (catalog, name, email, pass) => {
+  try {
+    axios.post(`http://localhost:3001/${catalog}`, {
+      name,
+      email,
+      pass,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};

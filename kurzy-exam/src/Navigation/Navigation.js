@@ -70,7 +70,9 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const Navigation = () => {
-  const { toggleTheme, isDark } = useContext(AppContext);
+  const { toggleTheme, isDark, currentForm } = useContext(AppContext);
+
+  // console.log(`currentForm`, currentForm);
 
   return (
     <>
