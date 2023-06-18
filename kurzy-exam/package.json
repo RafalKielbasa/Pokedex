@@ -11,6 +11,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
+    "formik": "^2.4.2",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "notistack": "^3.0.1",
@@ -23,7 +24,9 @@
     "react-scripts": "5.0.1",
     "sort-by": "^1.2.0",
     "styled-components": "^5.3.10",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.2.0",
+    "yup-password": "^0.2.2"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -69,6 +69,7 @@ const HomePage = () => {
 
   useEffect(() => {
     enqueueSnackbar(`Załadowano bazę danych Pokemonów`, {
+      variant: "success",
       preventDuplicate: true,
       autoHideDuration: 3500,
     });

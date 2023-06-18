@@ -1,16 +1,10 @@
 {
   "users": [
     {
-      "name": "Piotr",
-      "email": "abc@gmail.com",
-      "pass": "123info",
-      "id": 1
-    },
-    {
       "name": "Piotr Kurzydym",
-      "email": "abddc@gmail.com",
-      "pass": "123info22",
-      "id": 2
+      "email": "pkurzydym@gmail.com",
+      "pass": "123krakbet!K",
+      "id": 1
     }
   ],
   "favoriteData": [
