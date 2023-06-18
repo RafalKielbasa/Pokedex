@@ -1,18 +1,5 @@
 {
-  "users": [
-    {
-      "name": "Piotr Kurzydym",
-      "email": "pkurzydym@gmail.com",
-      "pass": "123krakbet!K",
-      "id": 1
-    },
-    {
-      "name": "Aleksandra",
-      "email": "oligatolka@o2.pl",
-      "pass": "Pikachu_83",
-      "id": 2
-    }
-  ],
+  "users": [],
   "favoriteData": [
     {
       "id": 75,
