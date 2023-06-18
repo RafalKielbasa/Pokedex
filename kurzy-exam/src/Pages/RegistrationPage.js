@@ -1,17 +1,16 @@
 import React from "react";
 import axios from "axios";
-import { useEffect, useState, useContext } from "react";
-import { Stack, Button, Input } from "@mui/material";
-import { postUsersData } from "src/api/postData";
-import { AppContext } from "src/context/AppContext";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
-import { useSnackbar } from "notistack";
-import styled, { css } from "styled-components";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
-
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import styled, { css } from "styled-components";
+import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
+import { postUsersData } from "src/api/postData";
+import { AppContext } from "src/context/AppContext";
+import { Button, Input } from "@mui/material";
+import { useEffect, useState, useContext } from "react";
+import { Formik, Form, ErrorMessage } from "formik";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const SiteWrapper = styled("div")(
   css`
@@ -31,6 +30,7 @@ const FormWrapper = styled(Form)(
     border: 1px solid black;
     border-radius: 10px;
     padding: 50px;
+    width: 313px;
   `
 );
 
@@ -71,6 +71,7 @@ const theme2 = createTheme({
 const Registration = () => {
   const [usersEmails, setUsersEmails] = useState([]);
 
+  const { theme, toggleTheme, isDark } = useContext(AppContext);
   const { enqueueSnackbar } = useSnackbar();
 
   const navigate = useNavigate();
@@ -90,8 +91,6 @@ const Registration = () => {
 
   console.log(`usersEmails`, usersEmails);
 
-  const { theme, toggleTheme, isDark } = useContext(AppContext);
-
   const handleOnSubmit = (values) => {
     getUsers();
     if (
@@ -100,7 +99,7 @@ const Registration = () => {
     ) {
       postUsersData("users", values);
       enqueueSnackbar(
-        `Użutkownik ${values.name} został zarejestrowany. Zaloguj się aby uzyskać dostęp do wszystkich funckji aplikacji.`,
+        `Użytkownik ${values.name} został zarejestrowany. Zaloguj się aby uzyskać dostęp do wszystkich funckji aplikacji`,
         {
           variant: "success",
           preventDuplicate: true,
@@ -108,8 +107,19 @@ const Registration = () => {
         }
       );
       navigate("/login");
-    } else {
-      enqueueSnackbar(`Podane hasła nie są zgodne`, {
+    }
+    if ((values.pass === values.repPass) & usersEmails.includes(values.email)) {
+      enqueueSnackbar(
+        `Podany przez Ciebie e-mail znajduję się już w bazie danych`,
+        {
+          variant: "error",
+          preventDuplicate: true,
+          autoHideDuration: 5000,
+        }
+      );
+    }
+    if (values.pass !== values.repPass) {
+      enqueueSnackbar(`Podane przez Ciebie hasła nie są ze sobą zgodne`, {
         variant: "error",
         preventDuplicate: true,
         autoHideDuration: 5000,
@@ -128,6 +138,7 @@ const Registration = () => {
           {({ values, handleChange, handleSubmit }) => {
             return (
               <FormWrapper onSubmit={handleSubmit}>
+                <h2>Rejestracja</h2>
                 <Input
                   name="name"
                   placeholder="Imię"
@@ -148,6 +159,7 @@ const Registration = () => {
                   value={values.pass}
                   placeholder="Hasło"
                   type="password"
+                  className="password"
                   onChange={handleChange}
                 />
                 <ErrorMessage name="pass" />
@@ -156,6 +168,7 @@ const Registration = () => {
                   value={values.repPass}
                   placeholder="Powtórz hasło"
                   type="password"
+                  className="repPassword"
                   onChange={handleChange}
                 />
                 <ErrorMessage name="repPass" />

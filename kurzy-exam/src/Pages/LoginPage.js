@@ -1,10 +1,35 @@
 import React from "react";
-import { useEffect, useState, useContext } from "react";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import { AppContext } from "src/context/AppContext";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
+import styled, { css } from "styled-components";
+import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "src/context/AppContext";
+import { Button, Input } from "@mui/material";
+import { useEffect, useState, useContext } from "react";
+import { Formik, Form, ErrorMessage } from "formik";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const SiteWrapper = styled("div")(
+  css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+  `
+);
+const FormWrapper = styled(Form)(
+  css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 50px;
+    width: 313px;
+  `
+);
 
 const theme2 = createTheme({
   palette: {
@@ -18,74 +43,118 @@ const theme2 = createTheme({
 });
 
 const Login = () => {
-  const [email, setEmail] = useState(``);
-  const [pass, setPass] = useState(``);
+  const [usersData, setUsersData] = useState([]);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const { theme, toggleTheme, isDark } = useContext(AppContext);
+  const { enqueueSnackbar } = useSnackbar();
 
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/registration");
   };
 
-  const { theme, toggleTheme, isDark } = useContext(AppContext);
+  const getUsers = async () => {
+    const response = await axios.get(`http://localhost:3001/users/`);
+    const getUsersData = response?.data;
+    setUsersData(getUsersData);
+  };
 
-  // console.log(`email`, email);
-  // console.log(`pass`, pass);
+  useEffect(() => {
+    getUsers();
+  }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(`email`, email);
-    console.log(`pass`, pass);
+  console.log(`usersData`, usersData);
+  console.log(`isSubmitted`, isSubmitted);
+
+  const handleOnSubmit = (values) => {
+    console.log(`values`, values);
+    getUsers();
+
+    const userData = usersData.find((user) => user.email === values.logEmail);
+    console.log(`userData`, userData);
+
+    if (userData) {
+      if (userData.pass !== values.logPass) {
+        enqueueSnackbar(`Podane przez Ciebie hasło jest nieprawidłowe`, {
+          variant: "error",
+          preventDuplicate: true,
+          autoHideDuration: 5000,
+        });
+      } else {
+        setIsSubmitted(true);
+        enqueueSnackbar(
+          `Użytkownik ${userData.name} został zalogowany do systemu`,
+          {
+            variant: "success",
+            preventDuplicate: true,
+            autoHideDuration: 5000,
+          }
+        );
+        navigate("/edition");
+      }
+    } else {
+      enqueueSnackbar(`Niepoprawny e-mail`, {
+        variant: "error",
+        preventDuplicate: true,
+        autoHideDuration: 5000,
+      });
+    }
   };
 
   return (
-    <>
+    <SiteWrapper>
       <ThemeProvider theme={theme2}>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="email">email</label>
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            placeholder="podaj e-mail"
-            id="email"
-            name="email"
-          />
-          <label htmlFor="password">password</label>
-          <input
-            value={pass}
-            onChange={(e) => setPass(e.target.value)}
-            type="password"
-            placeholder="**********"
-            id="password"
-            name="password"
-          />
+        <Formik
+          initialValues={{ logEmail: "", logPass: "" }}
+          onSubmit={handleOnSubmit}
+          // validationSchema={userSchema}
+        >
+          {({ values, handleChange, handleSubmit }) => {
+            return (
+              <FormWrapper onSubmit={handleSubmit}>
+                <h2>Logowanie</h2>
+                <Input
+                  name="logEmail"
+                  value={values.email}
+                  placeholder="E-mail"
+                  type="email"
+                  onChange={handleChange}
+                />
+                <ErrorMessage name="email" />
+                <Input
+                  name="logPass"
+                  value={values.pass}
+                  placeholder="Hasło"
+                  type="password"
+                  className="password"
+                  onChange={handleChange}
+                />
+                <ErrorMessage name="pass" />
 
-          <Stack
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              // justifyContent: "center",
-              // gap: "800px",
-              backgroundColor: isDark ? "#616161" : "white",
-            }}
-          >
-            <Button
-              type="submit"
-              className="loginform"
-              variant="outlined"
-              color={isDark ? "secondary" : "primary"}
-            >
-              Log In
-            </Button>
-          </Stack>
-        </form>
-        <Stack>
-          <Button onClick={handleClick}>
-            Nie masz konta ? Zarejestruj się tu.
-          </Button>
-        </Stack>
+                <Button
+                  style={{ marginTop: "25px" }}
+                  variant="outlined"
+                  type="submit"
+                >
+                  Zaloguj się
+                </Button>
+                <Button
+                  style={{
+                    marginTop: "25px",
+                    background: "none",
+                    textDecoration: "underline",
+                  }}
+                  onClick={handleClick}
+                >
+                  Nie masz konta ? Zarejestruj się tu
+                </Button>
+              </FormWrapper>
+            );
+          }}
+        </Formik>
       </ThemeProvider>
-    </>
+    </SiteWrapper>
   );
 };
 export default Login;
