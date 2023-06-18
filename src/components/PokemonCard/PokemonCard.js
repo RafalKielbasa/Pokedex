@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import {
   Body,
   Container,
@@ -7,8 +7,8 @@ import {
   PokemonName,
   PokemonPropName,
   PokemonPropValue,
-} from "./PokemonCard.styles";
-import { ProjectUrl } from "../../const/ProjectUrl";
+} from './PokemonCard.styles';
+import { ProjectUrl } from '../../const/ProjectUrl';
 
 export const PokemonCard = ({ props }) => {
   const { name, height, baseExperience, weight, abilities, image } = props;
@@ -16,7 +16,7 @@ export const PokemonCard = ({ props }) => {
   return (
     <WrapperDiv>
       <img
-        style={{ width: 200, margin: "auto" }}
+        style={{ width: 200, margin: 'auto' }}
         src={image}
         alt={`${name} pokemon`}
       ></img>

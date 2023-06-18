@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const WrapperDiv = styled.div`
   display: flex;
@@ -8,6 +8,7 @@ export const WrapperDiv = styled.div`
   box-shadow: 0px 0px 20px -5px rgba(66, 68, 90, 1);
   background-color: #f5f5f5;
   transition: 0.2s all ease-in;
+  color: ${(props) => props.color};
 
   &:hover {
     transform: scale(1.1);

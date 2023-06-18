@@ -10,6 +10,8 @@ const pokemonMapper = (pokemon) => ({
   abilities: pokemon?.abilities?.map((ability) => ability?.ability?.name),
   baseExperience: pokemon?.base_experience,
   id: pokemon?.id,
+  win: 0,
+  loss: 0,
 });
 
 export const getSavedAsNewPokemon = () => {
@@ -165,12 +167,62 @@ export const addAsNew = (pokemon) => {
   });
 };
 
-// export const checkIfUserIsLogged = () => {
-//   const user = localStorage.getItem('Pokedex-user');
+export const updateAfterFight = async (fighters, setResult) => {
+  const editedPokemon = await getEditedPokemon();
 
-//   if (user === null) {
-//     return false;
-//   } else {
-//     return true;
-//   }
-// };
+  const pokemonWithHighestAttack = () => {
+    let highestScore = null;
+    let pokemonWithHighestScore = null;
+
+    for (let i = 0; i < fighters.length; i++) {
+      const pokemon = fighters[i];
+      const { weight, baseExperience } = pokemon;
+      const score = weight * baseExperience;
+
+      if (score > highestScore) {
+        highestScore = score;
+        pokemonWithHighestScore = pokemon;
+      }
+    }
+
+    return pokemonWithHighestScore;
+  };
+
+  const winner = pokemonWithHighestAttack(fighters);
+
+  const isInEdited = editedPokemon?.data?.findIndex(
+    (pokemon) => pokemon?.name === winner?.name
+  );
+
+  const stats = fighters?.map(
+    (pokemon) => pokemon?.baseExperience * pokemon?.weight
+  );
+
+  if (stats?.length === 2 && stats[0] === stats[1]) {
+    setResult('draw!');
+  } else {
+    if (isInEdited > -1) {
+      setResult(`${winner?.name} win!`);
+      return dbFetcher({
+        url: `edited/${winner?.id}`,
+        method: 'PUT',
+        data: {
+          ...winner,
+          win: winner?.win + 1,
+          baseExperience: winner?.baseExperience + 10,
+        },
+      });
+    } else {
+      setResult(`${winner?.name} win!`);
+      return dbFetcher({
+        url: 'edited',
+        method: 'POST',
+        data: {
+          ...winner,
+          win: winner?.win + 1,
+          baseExperience: winner?.baseExperience + 10,
+        },
+      });
+    }
+  }
+};

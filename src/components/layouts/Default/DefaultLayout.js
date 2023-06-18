@@ -1,5 +1,5 @@
-import { Navigation } from "../Navigation/Navigation";
-import { MainWrapper } from "./DefaultLayout.style";
+import { Navigation } from '../Navigation/Navigation';
+import { MainWrapper } from './DefaultLayout.style';
 
 export const DefaultLayout = ({ children }) => {
   return (

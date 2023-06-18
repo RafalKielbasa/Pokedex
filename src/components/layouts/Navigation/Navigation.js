@@ -11,6 +11,8 @@ import { v4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import { ProjectUrl } from '../../../const/ProjectUrl';
 import { UserContext } from '../../../context/UserContext';
+import { ThemeSwitch } from '../../Theme/ThemeSwitch';
+import { CssBaseline } from '@mui/material';
 
 export const Navigation = () => {
   const user = useContext(UserContext);
@@ -49,6 +51,7 @@ export const Navigation = () => {
                 </Button>
               );
             })}
+        <ThemeSwitch />
       </Stack>
     </Container>
   );

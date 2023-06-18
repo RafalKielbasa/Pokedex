@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import SportsMmaIcon from "@mui/icons-material/SportsMma";
+import styled from 'styled-components';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import SportsMmaIcon from '@mui/icons-material/SportsMma';
 
 export const PageWrapper = styled.div`
   display: flex;
@@ -89,6 +89,7 @@ export const FavIcon = styled(FavoriteIcon)`
 `;
 
 export const FightIcon = styled(SportsMmaIcon)`
+  color: ${(props) => props.color};
   &:hover {
     transform: scale(1.3);
   }
