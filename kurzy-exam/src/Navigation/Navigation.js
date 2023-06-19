@@ -5,7 +5,7 @@ import Switch from "@mui/material/Switch";
 import Stack from "@mui/material/Stack";
 import NavigationWrapper from "src/Navigation/NavigationWrapper";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import { pokelogo } from "src/Images";
 import { useContext } from "react";
@@ -72,6 +72,8 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 const Navigation = () => {
   const { toggleTheme, toggleLoggedIn, isDark, isLoggedIn } =
     useContext(AppContext);
+
+  const navigate = useNavigate();
 
   console.log(`isLoggedIn`, isLoggedIn);
 
@@ -158,6 +160,7 @@ const Navigation = () => {
                 onClick={() => {
                   localStorage.setItem("isLoggedIn", JSON.stringify(false));
                   toggleLoggedIn();
+                  navigate("/");
                 }}
               >
                 WYLOGUJ
