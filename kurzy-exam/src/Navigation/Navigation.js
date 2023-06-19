@@ -70,9 +70,10 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const Navigation = () => {
-  const { toggleTheme, isDark, currentForm } = useContext(AppContext);
+  const { toggleTheme, toggleLoggedIn, isDark, isLoggedIn } =
+    useContext(AppContext);
 
-  // console.log(`currentForm`, currentForm);
+  console.log(`isLoggedIn`, isLoggedIn);
 
   return (
     <>
@@ -121,32 +122,47 @@ const Navigation = () => {
               </Button>
             </Link>
             <Link to="login">
-              <Button
-                color={isDark ? "secondary" : "primary"}
-                variant="outlined"
-              >
-                LOGOWANIE
-              </Button>
+              {isLoggedIn === "false" && (
+                <Button
+                  color={isDark ? "secondary" : "primary"}
+                  variant="outlined"
+                >
+                  LOGOWANIE
+                </Button>
+              )}
             </Link>
             <Link to="registration">
-              <Button
-                color={isDark ? "secondary" : "primary"}
-                variant="outlined"
-              >
-                REJESTRACJA
-              </Button>
+              {isLoggedIn === "false" && (
+                <Button
+                  color={isDark ? "secondary" : "primary"}
+                  variant="outlined"
+                >
+                  REJESTRACJA
+                </Button>
+              )}
             </Link>
             <Link to="edition">
+              {isLoggedIn === "true" && (
+                <Button
+                  color={isDark ? "secondary" : "primary"}
+                  variant="outlined"
+                >
+                  EDYCJA
+                </Button>
+              )}
+            </Link>
+            {isLoggedIn === "true" && (
               <Button
                 color={isDark ? "secondary" : "primary"}
                 variant="outlined"
+                onClick={() => {
+                  localStorage.setItem("isLoggedIn", JSON.stringify(false));
+                  toggleLoggedIn();
+                }}
               >
-                EDYCJA
+                WYLOGUJ
               </Button>
-            </Link>
-            <Button color={isDark ? "secondary" : "primary"} variant="outlined">
-              WYLOGUJ
-            </Button>
+            )}
           </Stack>
         </ThemeProvider>
       </NavigationWrapper>

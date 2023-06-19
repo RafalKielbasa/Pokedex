@@ -12,15 +12,23 @@ import { LoginPage, RegistrationPage } from "src/Pages";
 export const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
-  // const [currentForm, setCurrentForm] = useState("login");
+  const [isDark, setIsDark] = useState(false);
+  const [loggedChange, setLoggedChange] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState("");
   const [fullPokemonDataFormated, setFullPokemonDataFormated] = useState([]);
 
-  // const toggleForm = (formName) => {
-  //   setCurrentForm(formName);
-  // };
+  useEffect(() => {
+    const isLoggedInfromLS = localStorage.getItem("isLoggedIn");
+    setIsLoggedIn(isLoggedInfromLS);
+    // console.log(`isLoggedInfromLS`, isLoggedInfromLS);
+  }, [loggedChange]);
 
-  const [isDark, setIsDark] = useState(false);
-  const toggleTheme = () => setIsDark((prev) => !prev);
+  // useEffect(() => {
+  //   const getIsSubmitted = () => {
+  //     const isSubmittedfromLS = localStorage.getItem("isLoggedIn");
+  //     console.log(`isSubmittedfromLS`, isSubmittedfromLS);
+  //   };
+  //   getIsSubmitted();
 
   const queryFullData = useQuery({
     queryKey: ["fullData"],
@@ -52,6 +60,9 @@ const AppContextProvider = ({ children }) => {
     });
   }, [isSuccess]);
 
+  const toggleTheme = () => setIsDark((prev) => !prev);
+  const toggleLoggedIn = () => setLoggedChange((prev) => !prev);
+
   const context = {
     theme: isDark ? darkTheme : lightTheme,
     toggleTheme,
@@ -60,7 +71,15 @@ const AppContextProvider = ({ children }) => {
 
   return (
     <AppContext.Provider
-      value={{ context, isSuccess, fullPokemonDataFormated }}
+      value={{
+        context,
+        // isDark,
+        // toggleTheme,
+        toggleLoggedIn,
+        isSuccess,
+        fullPokemonDataFormated,
+        isLoggedIn,
+      }}
     >
       {children}
     </AppContext.Provider>

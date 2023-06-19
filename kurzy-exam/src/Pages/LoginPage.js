@@ -44,9 +44,9 @@ const theme2 = createTheme({
 
 const Login = () => {
   const [usersData, setUsersData] = useState([]);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  // const [isSubmitted, setIsSubmitted] = useState(true);
 
-  const { theme, toggleTheme, isDark } = useContext(AppContext);
+  const { theme, toggleTheme, toggleLoggedIn, isDark } = useContext(AppContext);
   const { enqueueSnackbar } = useSnackbar();
 
   const navigate = useNavigate();
@@ -64,15 +64,14 @@ const Login = () => {
     getUsers();
   }, []);
 
-  console.log(`usersData`, usersData);
-  console.log(`isSubmitted`, isSubmitted);
+  // console.log(`usersData`, usersData.name);
+  // console.log(`isSubmitted`, isSubmitted);
 
   const handleOnSubmit = (values) => {
-    console.log(`values`, values);
     getUsers();
 
     const userData = usersData.find((user) => user.email === values.logEmail);
-    console.log(`userData`, userData);
+    console.log(`userData`, userData.name);
 
     if (userData) {
       if (userData.pass !== values.logPass) {
@@ -82,7 +81,9 @@ const Login = () => {
           autoHideDuration: 5000,
         });
       } else {
-        setIsSubmitted(true);
+        localStorage.setItem("isLoggedIn", JSON.stringify(true));
+        toggleLoggedIn();
+
         enqueueSnackbar(
           `Użytkownik ${userData.name} został zalogowany do systemu`,
           {

@@ -1,5 +1,12 @@
 {
-  "users": [],
+  "users": [
+    {
+      "name": "Piotr Kurzydym",
+      "email": "abc@gmail.com",
+      "pass": "123Infoinfo!",
+      "id": 1
+    }
+  ],
   "favoriteData": [
     {
       "id": 75,
