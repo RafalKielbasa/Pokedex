@@ -1,8 +1,8 @@
 import "./App.css";
 import MainLayout from "../layout/MainLayout";
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
+import { AppProvider } from "../src/AppContext"; // Dodane
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -26,11 +26,12 @@ function App() {
   }
 
   return (
-    <MainLayout>
+    <AppProvider>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
+        <MainLayout />
       </ThemeProvider>
-    </MainLayout>
+    </AppProvider>
   );
 }
 

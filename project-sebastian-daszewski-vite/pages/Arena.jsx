@@ -1,6 +1,6 @@
 import React from "react";
 import MainLayout from "../layout/MainLayout";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
@@ -8,8 +8,10 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import Modal from "../Components/Modal";
 import axios from "axios";
+import { AppContext } from "../src/AppContext";
 
 function Arena() {
+  const { pokesData } = useContext(AppContext);
   const [pokeData, setPokeData] = useState([]);
   const [favoritePokemons, setFavoritePokemons] = useState([]);
   const [bookmarkedPokemons, setBookmarkedPokemons] = useState([]);
@@ -19,23 +21,7 @@ function Arena() {
   const [isOpen, setIsOpen] = useState(false);
   const [winnerName, setWinnerName] = useState("");
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!pokemonData) {
-      return;
-    }
-
-    axios
-      .get("http://localhost:4100/pokemonData")
-      .then((response) => {
-        setPokemonData(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Wystąpił błąd podczas pobierania danych:", error);
-        setLoading(false);
-      });
-  }, [pokemonData]);
+  const [pokemonLocalData, setPokemonLocalData] = useState([]);
 
   useEffect(() => {
     const favoritesId = JSON.parse(localStorage.getItem("favoritesId"));
@@ -52,12 +38,26 @@ function Arena() {
   }, []);
 
   useEffect(() => {
-    const filteredData = pokemonData.filter((item) =>
-      bookmarkedId.includes(item.id)
-    );
-    setPokeData(filteredData);
-    setBookmarkedPokemons(bookmarkedId);
-  }, [pokemonData, bookmarkedId]);
+    if (pokesData && pokesData.length > 0) {
+      const filteredData = pokesData.filter((item) =>
+        bookmarkedId.includes(item.id)
+      );
+      setPokeData(filteredData);
+      setBookmarkedPokemons(bookmarkedId);
+      setLoading(false);
+    }
+  }, [bookmarkedId]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const pokemonData = await axios.get(
+        "http://localhost:4100/pokemonDataToFight"
+      );
+      setPokeData(pokemonData.data);
+    };
+
+    fetchData();
+  }, []);
 
   const toggleFavoritePokemon = (id) => {
     setFavoritePokemons((prevFavoritePokemons) => {
@@ -130,7 +130,7 @@ function Arena() {
 
       const updatedSecondPlayer = {
         ...pokeData[1],
-        losses: pokeData[1].losses + 1,
+        loses: pokeData[1].loses + 1,
       };
 
       axios
@@ -184,7 +184,7 @@ function Arena() {
 
       const updatedFirstPlayer = {
         ...pokeData[0],
-        losses: pokeData[0].losses + 1,
+        loses: pokeData[0].loses + 1,
       };
 
       const updatedSecondPlayer = {
@@ -242,9 +242,37 @@ function Arena() {
   };
 
   const handleRemoveBookmarkedPokemon = () => {
-    const updatedPokemons = "";
-
+    const updatedPokemons = [];
+    const first = pokeData[0].id;
+    const second = pokeData[1].id;
     setBookmarkedPokemons(updatedPokemons);
+
+    axios
+      .delete(`http://localhost:4100/pokemonDataToFight/${first}`)
+      .then(() => {
+        axios
+          .delete(`http://localhost:4100/pokemonDataToFight/${second}`)
+          .then((response) => {
+            console.log(
+              "Wszystkie pokemony zostały usunięte z pokemonDataToFight:",
+              response.data
+            );
+            setPokemonData([]);
+          })
+          .catch((error) => {
+            console.error(
+              "Wystąpił błąd podczas usuwania drugiego pokemona z pokemonDataToFight:",
+              error
+            );
+          });
+      })
+      .catch((error) => {
+        console.error(
+          "Wystąpił błąd podczas usuwania pierwszego pokemona z pokemonDataToFight:",
+          error
+        );
+      });
+
     localStorage.setItem("bookmarkedId", JSON.stringify(updatedPokemons));
   };
 

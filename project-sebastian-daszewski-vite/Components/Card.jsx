@@ -8,14 +8,14 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Card = ({ query, nextUrl, prevUrl }) => {
+const Card = ({ query, nextUrl, prevUrl, pokeData }) => {
   const [favoritePokemons, setFavoritePokemons] = useState([]);
   const [bookmarkedPokemons, setBookmarkedPokemons] = useState([]);
   const loggedIn = window.localStorage.getItem("isLoggedIn");
   const [pokemonData, setPokemonData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const { number } = useParams();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const navigateTo = useNavigate();
 
   useEffect(() => {
@@ -23,23 +23,6 @@ const Card = ({ query, nextUrl, prevUrl }) => {
       setCurrentPage(parseInt(number));
     }
   }, [number]);
-
-  useEffect(() => {
-    if (!pokemonData) {
-      return;
-    }
-
-    axios
-      .get("http://localhost:4100/pokemonData")
-      .then((response) => {
-        setPokemonData(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Wystąpił błąd podczas pobierania danych:", error);
-        setLoading(false);
-      });
-  }, [pokemonData]);
 
   useEffect(() => {
     const favoritesId = JSON.parse(localStorage.getItem("favoritesId"));
@@ -72,6 +55,61 @@ const Card = ({ query, nextUrl, prevUrl }) => {
         ? prevBookmarkedPokemons.filter((prevId) => prevId !== id)
         : [...prevBookmarkedPokemons, id];
 
+      const existingPokemon = pokeData.find((pokemon) => pokemon.id === id);
+      if (existingPokemon) {
+        const newPokemon = {
+          id: existingPokemon.id,
+          name: existingPokemon.name,
+          height: existingPokemon.height,
+          weight: existingPokemon.weight,
+          base_experience: existingPokemon.base_experience,
+          ability: existingPokemon.ability,
+          wins: existingPokemon.wins || 0,
+          loses: existingPokemon.loses || 0,
+        };
+
+        if (!updatedBookmarked.includes(id)) {
+          // Jeśli pokemona odznaczono (nie jest już zakładkowany),
+          // usuń go z pokemonDataToFight
+          axios
+            .delete(`http://localhost:4100/pokemonDataToFight/${id}`)
+            .then((response) => {
+              console.log(
+                "Pokemon został usunięty z pokemonDataToFight:",
+                response.data
+              );
+              setPokemonData((prevPokemonData) =>
+                prevPokemonData.filter((pokemon) => pokemon.id !== id)
+              );
+            })
+            .catch((error) => {
+              console.error(
+                "Wystąpił błąd podczas usuwania pokemona z pokemonDataToFight:",
+                error
+              );
+            });
+        } else {
+          // Jeśli pokemona zaznaczono (jest zakładkowany),
+          // dodaj go do pokemonDataToFight
+          axios
+            .post("http://localhost:4100/pokemonDataToFight", newPokemon)
+            .then((response) => {
+              axios.post("http://localhost:4100/pokemonData", newPokemon);
+              console.log("Nowy pokemon został zapisany:", response.data);
+              setPokemonData((prevPokemonData) => [
+                ...prevPokemonData,
+                response.data,
+              ]);
+            })
+            .catch((error) => {
+              console.error(
+                "Wystąpił błąd podczas zapisywania nowego pokemona:",
+                error
+              );
+            });
+        }
+      }
+
       localStorage.setItem("bookmarkedId", JSON.stringify(updatedBookmarked));
       return updatedBookmarked;
     });
@@ -89,16 +127,28 @@ const Card = ({ query, nextUrl, prevUrl }) => {
     return data.filter((item) => item.name.toLowerCase().includes(query));
   };
 
+  useEffect(() => {
+    // Przy zmianie query aktualizuj wyniki wyszukiwania i wróć na pierwszą stronę
+    setCurrentPage(1);
+    navigateTo(`/pokedex/${currentPage}`);
+  }, [query]);
+
+  const visiblePokeData = query !== "" ? search(pokeData) : pokeData;
+  const slicedPokeData = visiblePokeData.slice(
+    (currentPage - 1) * 15,
+    currentPage * 15
+  );
+
   const handlePrevPage = () => {
     if (currentPage > 1) {
-      currentPage - 1;
+      setCurrentPage(currentPage - 1);
       navigateTo(`/pokedex/${currentPage - 1}`);
     }
   };
 
   const handleNextPage = () => {
     if (currentPage < 11) {
-      currentPage + 1;
+      setCurrentPage(currentPage + 1);
       navigateTo(`/pokedex/${currentPage + 1}`);
     }
   };
@@ -109,75 +159,77 @@ const Card = ({ query, nextUrl, prevUrl }) => {
         <h1>Loading...</h1>
       ) : (
         <>
-          {search(pokemonData)
-            .slice((currentPage - 1) * 15, currentPage * 15)
-            .map((item) => {
-              const isFavorite = favoritePokemons.includes(item.id);
-              const isBookmarked = bookmarkedPokemons.includes(item.id);
+          {slicedPokeData.map((item) => {
+            const isFavorite = favoritePokemons.includes(item.id);
+            const isBookmarked = bookmarkedPokemons.includes(item.id);
+            return (
+              <div
+                className="card"
+                key={item.id}
+                onClick={(event) => handleCardClick(event, item.id)}
+              >
+                <div className="checkbox">
+                  <Checkbox
+                    checked={isFavorite}
+                    onChange={() => toggleFavoritePokemon(item.id)}
+                    icon={<FavoriteBorder />}
+                    checkedIcon={<Favorite />}
+                  />
+                  <Checkbox
+                    checked={isBookmarked}
+                    onChange={() => toggleBookmarkedPokemon(item.id)}
+                    icon={<BookmarkBorderIcon />}
+                    checkedIcon={<BookmarkIcon />}
+                    disabled={!isBookmarked && bookmarkedPokemons.length >= 2}
+                  />
+                </div>
+                <Link to={`/pokemon/${item.id}`}>
+                  <img
+                    id="cardImg"
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${item.id}.svg`}
+                    alt=""
+                  />
+                </Link>
 
-              return (
-                <div
-                  className="card"
-                  key={item.id}
-                  onClick={(event) => handleCardClick(event, item.id)}
-                >
-                  <div className="checkbox">
-                    <Checkbox
-                      checked={isFavorite}
-                      onChange={() => toggleFavoritePokemon(item.id)}
-                      icon={<FavoriteBorder />}
-                      checkedIcon={<Favorite />}
-                    />
-                    <Checkbox
-                      checked={isBookmarked}
-                      onChange={() => toggleBookmarkedPokemon(item.id)}
-                      icon={<BookmarkBorderIcon />}
-                      checkedIcon={<BookmarkIcon />}
-                      disabled={!isBookmarked && bookmarkedPokemons.length >= 2}
-                    />
+                <h1 className="cardName">
+                  {item.name &&
+                    item.name.charAt(0).toUpperCase() + item.name.slice(1)}
+                </h1>
+                <div className="detailsFirstLine">
+                  <div className="height">
+                    <h4 className="heightValue">{item.height}</h4>
+                    <h3>Height</h3>
                   </div>
-                  <Link to={`/pokemon/${item.id}`}>
-                    <img
-                      id="cardImg"
-                      src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${item.id}.svg`}
-                      alt=""
-                    />
-                  </Link>
-
-                  <h1 className="cardName">
-                    {item.name &&
-                      item.name.charAt(0).toUpperCase() + item.name.slice(1)}
-                  </h1>
-                  <div className="detailsFirstLine">
-                    <div className="height">
-                      <h4 className="heightValue">{item.height}</h4>
-                      <h3>Height</h3>
-                    </div>
-                    <div className="experience">
-                      <h4 className="experienceValue">
-                        {item.base_experience}
-                      </h4>
-                      <h3>Base experience</h3>
-                    </div>
-                  </div>
-                  <div className="detailsSecondLine">
-                    <div className="weight">
-                      <h4 className="weightValue">{item.weight}</h4>
-                      <h3>Weight</h3>
-                    </div>
-                    <div className="ability">
-                      <h4 className="abilityValue">{item.ability}</h4>
-                      <h3 className="ability">Ability</h3>
-                    </div>
+                  <div className="experience">
+                    <h4 className="experienceValue">{item.base_experience}</h4>
+                    <h3>Base experience</h3>
                   </div>
                 </div>
-              );
-            })}
+                <div className="detailsSecondLine">
+                  <div className="weight">
+                    <h4 className="weightValue">{item.weight}</h4>
+                    <h3>Weight</h3>
+                  </div>
+                  <div className="ability">
+                    <h4 className="abilityValue">
+                      {item.abilities && item.abilities.length > 0
+                        ? item.abilities[0].ability.name
+                        : item.ability}
+                    </h4>
+                    <h3 className="ability">Ability</h3>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
 
           <div className="btn-group">
             <button
               className="btn-prev-page"
-              style={{ display: query !== "" ? "none" : "inline-block" }}
+              style={{
+                display:
+                  query !== "" || currentPage === 1 ? "none" : "inline-block",
+              }}
               onClick={handlePrevPage}
             >
               Poprzednia

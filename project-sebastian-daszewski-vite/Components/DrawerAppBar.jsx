@@ -141,10 +141,10 @@ function DrawerAppBar(props) {
   }, []);
 
   const logout = () => {
-    window.localStorage.removeItem("isLoggedIn");
     window.location.reload();
     localStorage.setItem("bookmarkedId", JSON.stringify([]));
     localStorage.setItem("favoritesId", JSON.stringify([]));
+    localStorage.setItem("isLoggedIn", false);
   };
   return (
     <ThemeProvider theme={theme}>
@@ -187,7 +187,7 @@ function DrawerAppBar(props) {
               <Button>
                 <Link to="/arena">Arena</Link>
               </Button>
-              {loggedIn ? (
+              {loggedIn === "true" ? (
                 <>
                   <Button>
                     <Link to="/edycja">Edycja</Link>
