@@ -1,15 +1,17 @@
 import * as React from "react";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import Stack from "@mui/material/Stack";
+import { useContext } from "react";
 import NavigationWrapper from "src/Navigation/NavigationWrapper";
-import Button from "@mui/material/Button";
+import {
+  Stack,
+  Button,
+  Switch,
+  FormGroup,
+  FormControlLabel,
+} from "@mui/material";
+import { pokelogo } from "src/Images";
+import { AppContext } from "src/context/AppContext";
 import { Link, useNavigate } from "react-router-dom";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-import { pokelogo } from "src/Images";
-import { useContext } from "react";
-import { AppContext } from "src/context/AppContext";
 
 const theme = createTheme({
   palette: {
@@ -75,8 +77,6 @@ const Navigation = () => {
 
   const navigate = useNavigate();
 
-  console.log(`isLoggedIn`, isLoggedIn);
-
   return (
     <>
       <FormGroup>
@@ -123,42 +123,43 @@ const Navigation = () => {
                 ARENA
               </Button>
             </Link>
-            <Link to="login">
-              {isLoggedIn === "false" && (
+            {isLoggedIn == "false" && (
+              <Link to="login">
                 <Button
                   color={isDark ? "secondary" : "primary"}
                   variant="outlined"
                 >
                   LOGOWANIE
                 </Button>
-              )}
-            </Link>
-            <Link to="registration">
-              {isLoggedIn === "false" && (
+              </Link>
+            )}
+            {isLoggedIn == "false" && (
+              <Link to="registration">
                 <Button
                   color={isDark ? "secondary" : "primary"}
                   variant="outlined"
                 >
                   REJESTRACJA
                 </Button>
-              )}
-            </Link>
-            <Link to="edition">
-              {isLoggedIn === "true" && (
+              </Link>
+            )}
+            {isLoggedIn == "true" && (
+              <Link to="edition">
                 <Button
                   color={isDark ? "secondary" : "primary"}
                   variant="outlined"
                 >
                   EDYCJA
                 </Button>
-              )}
-            </Link>
-            {isLoggedIn === "true" && (
+              </Link>
+            )}
+            {isLoggedIn == "true" && (
               <Button
                 color={isDark ? "secondary" : "primary"}
                 variant="outlined"
                 onClick={() => {
                   localStorage.setItem("isLoggedIn", JSON.stringify(false));
+                  localStorage.removeItem("user");
                   toggleLoggedIn();
                   navigate("/");
                 }}

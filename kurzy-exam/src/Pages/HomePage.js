@@ -68,14 +68,6 @@ const HomePage = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    enqueueSnackbar(`Załadowano bazę danych Pokemonów`, {
-      variant: "success",
-      preventDuplicate: true,
-      autoHideDuration: 3500,
-    });
-  }, [isSuccess]);
-
-  useEffect(() => {
     const getAfterTheBattle = async () => {
       const response = await axios.get(`http://localhost:3001/afterTheBattle/`);
       setAfterBattle(response.data);

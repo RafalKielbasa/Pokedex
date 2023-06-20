@@ -1,4 +1,5 @@
 import styled from "styled-components";
+// import { Button } from "@mui/material";
 
 const NavContainer = styled.div`
   display: flex;
@@ -7,6 +8,14 @@ const NavContainer = styled.div`
   padding: 50px 40px 50px 40px;
   width: 100vw;
 `;
+// const ButtonContainer = styled(Button)`
+//   // display: flex;
+//   // justify-content: space-between;
+//   // align-items: right;
+//   // margin-right: 120px;
+//   padding: 0.25em 1em;
+//   width: 750px;
+// `;
 
 const NavigationWrapper = ({ children, src, alt, isDark }) => {
   return (

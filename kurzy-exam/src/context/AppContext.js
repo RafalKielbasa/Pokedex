@@ -4,23 +4,21 @@ import { createContext } from "react";
 import { useEffect, useState } from "react";
 import { lightTheme, darkTheme } from "src/theme/theme";
 import { useQuery } from "react-query";
-import { getFullResults, getFavorites } from "src/api/source";
-import { Login } from "src/Pages/LoginPage";
-import { Registration } from "src/Pages/RegistrationPage";
-import { LoginPage, RegistrationPage } from "src/Pages";
+import { getFullResults } from "src/api/source";
 
 export const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
   const [isDark, setIsDark] = useState(false);
   const [loggedChange, setLoggedChange] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState("false");
   const [fullPokemonDataFormated, setFullPokemonDataFormated] = useState([]);
 
   useEffect(() => {
     const isLoggedInfromLS = localStorage.getItem("isLoggedIn");
-    setIsLoggedIn(isLoggedInfromLS);
-    // console.log(`isLoggedInfromLS`, isLoggedInfromLS);
+    if (isLoggedInfromLS) {
+      setIsLoggedIn(isLoggedInfromLS);
+    }
   }, [loggedChange]);
 
   // useEffect(() => {

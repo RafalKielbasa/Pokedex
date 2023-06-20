@@ -89,8 +89,6 @@ const Registration = () => {
     getUsers();
   }, []);
 
-  console.log(`usersEmails`, usersEmails);
-
   const handleOnSubmit = (values) => {
     getUsers();
     if (

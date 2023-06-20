@@ -64,9 +64,6 @@ const Login = () => {
     getUsers();
   }, []);
 
-  // console.log(`usersData`, usersData.name);
-  // console.log(`isSubmitted`, isSubmitted);
-
   const handleOnSubmit = (values) => {
     getUsers();
 
@@ -82,6 +79,7 @@ const Login = () => {
         });
       } else {
         localStorage.setItem("isLoggedIn", JSON.stringify(true));
+        localStorage.setItem("user", JSON.stringify(userData.name));
         toggleLoggedIn();
 
         enqueueSnackbar(

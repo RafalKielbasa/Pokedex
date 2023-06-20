@@ -77,6 +77,16 @@
       "baseexp": 263,
       "weight": 1000,
       "abilitie": "overgrow"
+    },
+    {
+      "id": 63,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/63.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/63.svg",
+      "name": "abra",
+      "height": 9,
+      "baseexp": 62,
+      "weight": 195,
+      "abilitie": "synchronize"
     }
   ],
   "battle": [
