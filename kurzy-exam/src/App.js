@@ -1,9 +1,8 @@
 // import "./App.css";
-import { RouterProvider } from "react-router-dom";
-import { router } from "./Routes/Routes";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { SnackbarProvider } from "notistack";
 import AppContextProvider from "src/context/AppContext";
+import RouterWrapper from "src/Routes/Routes";
 
 function App() {
   const queryClient = new QueryClient();
@@ -13,7 +12,7 @@ function App() {
       <SnackbarProvider>
         <QueryClientProvider client={queryClient}>
           <AppContextProvider>
-            <RouterProvider router={router} />
+            <RouterWrapper />
           </AppContextProvider>
         </QueryClientProvider>
       </SnackbarProvider>

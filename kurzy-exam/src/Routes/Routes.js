@@ -1,6 +1,11 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { AppContext } from "src/context/AppContext";
-import { createBrowserRouter } from "react-router-dom";
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
 import {
   ArenaPage,
   EditionPage,
@@ -12,34 +17,28 @@ import {
   DetailsPage,
 } from "src/Pages";
 
-export const RouterWrapper = () => {
+const RouterWrapper = () => {
   const { isLoggedIn } = useContext(AppContext);
 
-  console.log(`isLoggedIn`, isLoggedIn);
+  //
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<MainPage />}>
+        <Route exact path="/" element={<HomePage />} />
+        <Route path="favorites" element={<FavoritesPage />} />
+        <Route path="arena" element={<ArenaPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="registration" element={<RegistrationPage />} />
+        {isLoggedIn == "true" && (
+          <Route path="edition" element={<EditionPage />} />
+        )}
+        <Route path="details" element={<DetailsPage />} />
+      </Route>
+    )
+  );
+  return <RouterProvider router={router} />;
 };
-//
-export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <MainPage />,
-    children: [
-      {
-        path: "/",
-        element: <HomePage />,
-      },
-      {
-        path: "favorites",
-        element: <FavoritesPage />,
-      },
-      { path: "arena", element: <ArenaPage /> },
-      { path: "login", element: <LoginPage /> },
-      { path: "registration", element: <RegistrationPage /> },
-      { path: "edition", element: <EditionPage /> },
-      { path: "details", element: <DetailsPage /> },
-    ],
-  },
-]);
-
+export default RouterWrapper;
 // export const router = createBrowserRouter([
 //   {
 //     path: "/",

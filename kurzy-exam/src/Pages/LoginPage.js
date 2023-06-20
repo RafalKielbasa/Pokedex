@@ -46,7 +46,8 @@ const Login = () => {
   const [usersData, setUsersData] = useState([]);
   // const [isSubmitted, setIsSubmitted] = useState(true);
 
-  const { theme, toggleTheme, toggleLoggedIn, isDark } = useContext(AppContext);
+  const { theme, toggleTheme, toggleLoggedIn, isLoggedIn, isDark } =
+    useContext(AppContext);
   const { enqueueSnackbar } = useSnackbar();
 
   const navigate = useNavigate();
@@ -68,7 +69,6 @@ const Login = () => {
     getUsers();
 
     const userData = usersData.find((user) => user.email === values.logEmail);
-    console.log(`userData`, userData.name);
 
     if (userData) {
       if (userData.pass !== values.logPass) {
@@ -90,7 +90,6 @@ const Login = () => {
             autoHideDuration: 5000,
           }
         );
-        navigate("/edition");
       }
     } else {
       enqueueSnackbar(`Niepoprawny e-mail`, {
@@ -100,6 +99,8 @@ const Login = () => {
       });
     }
   };
+
+  isLoggedIn == "true" && navigate("/edition");
 
   return (
     <SiteWrapper>
