@@ -1,16 +1,18 @@
 import * as React from "react";
 import axios from "axios";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
+  CardActionArea,
+} from "@mui/material";
 import styled from "styled-components";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import { GiCrossedSwords } from "react-icons/gi";
-import { CardActionArea } from "@mui/material";
 import { postData } from "src/api/postData";
 import { bawpikachu } from "src/Images";
 import { useState, useEffect, useContext } from "react";

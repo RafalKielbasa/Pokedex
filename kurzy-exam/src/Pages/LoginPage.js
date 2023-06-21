@@ -44,7 +44,6 @@ const theme2 = createTheme({
 
 const Login = () => {
   const [usersData, setUsersData] = useState([]);
-  // const [isSubmitted, setIsSubmitted] = useState(true);
 
   const { theme, toggleTheme, toggleLoggedIn, isLoggedIn, isDark } =
     useContext(AppContext);
@@ -108,7 +107,6 @@ const Login = () => {
         <Formik
           initialValues={{ logEmail: "", logPass: "" }}
           onSubmit={handleOnSubmit}
-          // validationSchema={userSchema}
         >
           {({ values, handleChange, handleSubmit }) => {
             return (
@@ -121,7 +119,7 @@ const Login = () => {
                   type="email"
                   onChange={handleChange}
                 />
-                <ErrorMessage name="email" />
+                <ErrorMessage name="logEmail" />
                 <Input
                   name="logPass"
                   value={values.pass}
@@ -130,7 +128,7 @@ const Login = () => {
                   className="password"
                   onChange={handleChange}
                 />
-                <ErrorMessage name="pass" />
+                <ErrorMessage name="logPass" />
 
                 <Button
                   style={{ marginTop: "25px" }}

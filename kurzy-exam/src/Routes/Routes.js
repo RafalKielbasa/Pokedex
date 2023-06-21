@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { AppContext } from "src/context/AppContext";
 import {
   Route,
+  Navigate,
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
@@ -20,7 +21,8 @@ import {
 const RouterWrapper = () => {
   const { isLoggedIn } = useContext(AppContext);
 
-  //
+  console.log(`isLoggedIn`, isLoggedIn);
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainPage />}>
@@ -28,10 +30,28 @@ const RouterWrapper = () => {
         <Route path="favorites" element={<FavoritesPage />} />
         <Route path="arena" element={<ArenaPage />} />
         <Route path="login" element={<LoginPage />} />
-        <Route path="registration" element={<RegistrationPage />} />
-        {isLoggedIn == "true" && (
-          <Route path="edition" element={<EditionPage />} />
-        )}
+        <Route
+          path="registration"
+          element={
+            isLoggedIn == "false" ? (
+              <RegistrationPage />
+            ) : (
+              <Navigate replace to={"/"} />
+            )
+          }
+        />
+
+        <Route
+          path="edition"
+          element={
+            isLoggedIn == "true" ? (
+              <EditionPage />
+            ) : (
+              <Navigate replace to={"/"} />
+            )
+          }
+        />
+
         <Route path="details" element={<DetailsPage />} />
       </Route>
     )
@@ -39,24 +59,3 @@ const RouterWrapper = () => {
   return <RouterProvider router={router} />;
 };
 export default RouterWrapper;
-// export const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <MainPage />,
-//     children: [
-//       {
-//         path: "/",
-//         element: <HomePage />,
-//       },
-//       {
-//         path: "favorites",
-//         element: <FavoritesPage />,
-//       },
-//       { path: "arena", element: <ArenaPage /> },
-//       { path: "login", element: <LoginPage /> },
-//       { path: "registration", element: <RegistrationPage /> },
-//       { path: "edition", element: <EditionPage /> },
-//       { path: "details", element: <DetailsPage /> },
-//     ],
-//   },
-// ]);

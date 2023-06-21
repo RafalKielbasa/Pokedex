@@ -21,7 +21,6 @@ const HomePageWrapper = styled("div")(
       background-color: ${theme.bgColor};
     `
 );
-
 const PaginationWrapper = styled.div`
   display: flex;
   align-items: top;

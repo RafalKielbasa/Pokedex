@@ -128,7 +128,7 @@
       "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
       "name": "charmeleon",
       "height": 11,
-      "baseexp": 152,
+      "baseexp": 172,
       "weight": 190,
       "abilitie": "blaze"
     },
