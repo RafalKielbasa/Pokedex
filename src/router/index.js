@@ -8,6 +8,7 @@ import { FavoritePage } from '../pages/FavoritePage';
 import { PvpPage } from '../pages/PvpPage';
 import { EditAndLogoutPage } from '../pages/EditAndLogoutPage';
 import { EditPage } from '../pages/EditPage';
+import { Ranking } from '../pages/Ranking';
 
 export const router = createBrowserRouter([
   {
@@ -41,5 +42,9 @@ export const router = createBrowserRouter([
   {
     path: ProjectUrl.Edit,
     element: <EditPage />,
+  },
+  {
+    path: ProjectUrl.Ranking,
+    element: <Ranking />,
   },
 ]);

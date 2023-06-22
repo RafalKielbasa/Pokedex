@@ -7,14 +7,18 @@ import {
   PokemonName,
   PokemonPropName,
   PokemonPropValue,
+  PokemonPlace,
 } from './PokemonCard.styles';
 import { ProjectUrl } from '../../const/ProjectUrl';
 
-export const PokemonCard = ({ props }) => {
+export const PokemonCard = ({ props, sortedPokemon, isSort }) => {
   const { name, height, baseExperience, weight, abilities, image } = props;
 
   return (
     <WrapperDiv>
+      <PokemonPlace>
+        {isSort ? sortedPokemon?.indexOf(props) + 1 : null}
+      </PokemonPlace>
       <img
         style={{ width: 200, margin: 'auto' }}
         src={image}

@@ -1,37 +1,43 @@
+import { ProjectUrl } from '../const/ProjectUrl';
+
 export const NavigationButtonsLogout = [
   {
     label: 'Favorite',
-    href: '/favorite',
+    href: ProjectUrl.Favorite,
   },
   {
     label: 'PvP',
-    href: '/pvp',
+    href: ProjectUrl.PvP,
   },
   {
     label: 'Sign in',
-    href: '/signIn',
+    href: ProjectUrl.SignIn,
   },
   {
     label: 'Sign up',
-    href: '/signUp',
+    href: ProjectUrl.SingUp,
   },
 ];
 
 export const NavigationButtonsLogin = [
   {
     label: 'Favorite',
-    href: '/favorite',
+    href: ProjectUrl.Favorite,
   },
   {
     label: 'PvP',
-    href: '/pvp',
+    href: ProjectUrl.PvP,
   },
   {
     label: 'Edit',
-    href: '/editAndLogOut',
+    href: ProjectUrl.EditAndLogout,
   },
   {
     label: 'Log out',
-    href: '/',
+    href: ProjectUrl.Home,
+  },
+  {
+    label: 'Ranking',
+    href: ProjectUrl.Ranking,
   },
 ];

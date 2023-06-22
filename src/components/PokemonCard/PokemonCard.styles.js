@@ -55,3 +55,9 @@ export const PokemonPropValue = styled.span`
   font-weight: 500;
   color: #615858;
 `;
+
+export const PokemonPlace = styled.h1`
+  display: flex;
+  justify-content: end;
+  margin: 0;
+`;
