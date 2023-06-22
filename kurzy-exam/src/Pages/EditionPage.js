@@ -16,9 +16,18 @@ import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 
-const CardsWrapper = styled.div`
+const CardWrapper = styled.div`
   margin-left: 40px;
   margin-bottom: 50px;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+`;
+const MediaWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  align-items: center;
 `;
 
 const ContainerPageWrapper = styled("div")(
@@ -58,30 +67,30 @@ const EditionWrapper = styled.div`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  // justify-content: center;
+  justify-content: center;
   // align-items: center;
-  flex-direction: row;
-  gap: 50px;
+  // flex-direction: column;
+  gap: 20px;
   // border: 1px solid black;
   // border-radius: 10px;
-  //padding: 50px;
+  margin-top: 50px;
   // width: 313px;
 `;
 
-// const MyButton = styled(Button)(
-//   css`
-//     // display: flex;
-//     // justify-content: center;
-//     // align-items: center;
-//     // flex-direction: row;
-//     // gap: 15px;
-//     // border: 1px solid black;
-//     // border-radius: 10px;
-//     // padding: 50px;
-//     // width: 313px;
-//     margin-left: 50px;
-//   `
-// );
+const MyButton = styled(Button)(
+  css`
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // flex-direction: row;
+    // gap: 15px;
+    // border: 1px solid black;
+    // border-radius: 10px;
+    // padding: 50px;
+    width: 315px;
+    // margin-left: 50px;
+  `
+);
 
 const EditionPage = () => {
   const [afterBattle, setAfterBattle] = useState();
@@ -91,7 +100,10 @@ const EditionPage = () => {
   );
   const [personName, setPersonName] = useState(["bulbasaur"]);
   const [userData, setUsersData] = useState([]);
-  const [initialValues, setinItialValues] = useState("bulbasaur");
+  const [initialValues, setinItialValues] = useState({
+    name: "bulbasaur",
+    pic: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+  });
 
   const {
     theme,
@@ -121,7 +133,7 @@ const EditionPage = () => {
   console.log(`personName`, personName);
 
   const handleOnSubmit = (values) => {
-    console.log(values);
+    console.log(`values`, values);
   };
 
   useEffect(() => {
@@ -155,28 +167,39 @@ const EditionPage = () => {
   // console.log(`expFullPokemonDataFormated`, expFullPokemonDataFormated[0]);
 
   console.log(`initialValues`, initialValues);
+  // console.log(`expFullPokemonDataFormated`, expFullPokemonDataFormated[0]);
 
   useEffect(() => {
     setinItialValues({
-      name: userData.name,
-      // pic: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-      // weight: pokemonData?.weight || "",
-      // ability: pokemonData?.ability || "",
-      // height: pokemonData?.height || "",
-      // baseExperience: pokemonData?.base_experience || "",
+      id: userData?.id,
+      pic: userData?.pic,
+      picDet: userData?.picDet,
+      name: userData?.name,
+      height: userData?.height,
+      baseexp: userData?.baseexp,
+      weight: userData?.weight,
+      abilitie: userData?.abilitie,
     });
   }, [userData]);
 
   return (
     <ContainerPageWrapper>
-      <Formik initialValues={initialValues} onSubmit={handleOnSubmit}>
+      <Formik
+        enableReinitialize
+        initialValues={initialValues}
+        onSubmit={handleOnSubmit}
+      >
         {({ values, handleChange, handleSubmit }) => {
           return (
             <EditionWrapper>
-              <FormWrapper onSubmit={handleSubmit}>
+              <FormWrapper>
                 <FormControl
                   fullWidth
-                  style={{ m: 1, minWidth: 200, maxWidth: 300 }}
+                  style={{
+                    m: 1,
+                    minWidth: 200,
+                    maxWidth: 300,
+                  }}
                 >
                   <InputLabel shrink htmlFor="select-multiple-native">
                     Wybierz Pokemona do edycji
@@ -187,8 +210,11 @@ const EditionPage = () => {
                     value={personName}
                     onChange={handleChangeMultiple}
                     label="Wybierz Pokemona do edycji"
-                    inputProps={{
-                      id: "select-multiple-native",
+                    // inputProps={{
+                    //   id: "select-multiple-native",
+                    // }}
+                    style={{
+                      height: "130px",
                     }}
                   >
                     {expFullPokemonDataFormated?.map((item) => (
@@ -205,24 +231,37 @@ const EditionPage = () => {
                   </Select>
                 </FormControl>
 
-                <CardsWrapper>
+                <CardWrapper>
                   <Card
                     style={{
                       backgroundColor: isDark ? "#bcaaa4" : "white",
                       width: 320,
                     }}
                   >
-                    <CardMedia style={{ textAlign: "center" }}>
-                      {/* <img src={pic} alt={"picture"} key={id} /> */}
-                    </CardMedia>
+                    <MediaWrapper>
+                      <CardMedia style={{ textAlign: "center" }}>
+                        {
+                          <img
+                            src={initialValues.pic}
+                            alt={"picture"}
+                            key={initialValues.id}
+                          />
+                        }
+                      </CardMedia>
 
-                    <Field
-                      name="name"
-                      placeholder="name"
-                      style={{ textAlign: "center" }}
-                    >
-                      {/* {name} */}
-                    </Field>
+                      <Field
+                        name="name"
+                        placeholder="Imię"
+                        value={values.name}
+                        onChange={handleChange}
+                        style={{
+                          textAlign: "center",
+                          fontSize: "22px",
+                          marginTop: "10px",
+                          width: "200px",
+                        }}
+                      />
+                    </MediaWrapper>
 
                     <CardContent
                       sx={{
@@ -293,27 +332,28 @@ const EditionPage = () => {
                       </CardContent>
                     </CardContent>
 
-                    <CardActions
+                    {/* <CardActions
                       sx={{
                         display: "flex",
                         justifyContent: "center",
                       }}
-                    ></CardActions>
+                    ></CardActions> */}
                   </Card>
-                </CardsWrapper>
+
+                  <ButtonWrapper>
+                    <MyButton
+                      variant="outlined"
+                      type="submit"
+                      style={{ width: "175px" }}
+                    >
+                      Edytuj
+                    </MyButton>
+                    <Button variant="outlined" type="submit">
+                      Zapisz jako nowy
+                    </Button>
+                  </ButtonWrapper>
+                </CardWrapper>
               </FormWrapper>
-              <ButtonWrapper>
-                <Button
-                  variant="outlined"
-                  type="submit"
-                  style={{ width: "175px" }}
-                >
-                  Edytuj
-                </Button>
-                <Button variant="outlined" type="submit">
-                  Zapisz jako nowy
-                </Button>
-              </ButtonWrapper>
             </EditionWrapper>
           );
         }}
