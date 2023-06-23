@@ -21,13 +21,6 @@ const AppContextProvider = ({ children }) => {
     }
   }, [loggedChange]);
 
-  // useEffect(() => {
-  //   const getIsSubmitted = () => {
-  //     const isSubmittedfromLS = localStorage.getItem("isLoggedIn");
-  //     console.log(`isSubmittedfromLS`, isSubmittedfromLS);
-  //   };
-  //   getIsSubmitted();
-
   const queryFullData = useQuery({
     queryKey: ["fullData"],
     queryFn: () => getFullResults(),
@@ -77,6 +70,7 @@ const AppContextProvider = ({ children }) => {
         isSuccess,
         fullPokemonDataFormated,
         isLoggedIn,
+        loggedChange,
       }}
     >
       {children}

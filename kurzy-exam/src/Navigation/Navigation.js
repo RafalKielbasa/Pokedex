@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import NavigationWrapper from "src/Navigation/NavigationWrapper";
 import {
   Stack,
@@ -72,10 +72,19 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const Navigation = () => {
-  const { toggleTheme, toggleLoggedIn, isDark, isLoggedIn } =
+  const [user, setUser] = useState();
+
+  const { toggleTheme, toggleLoggedIn, isDark, isLoggedIn, loggedChange } =
     useContext(AppContext);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const userfromLS = localStorage.getItem("user");
+    if (userfromLS) {
+      setUser(userfromLS);
+    } else setUser("");
+  }, [loggedChange]);
 
   return (
     <>
@@ -95,6 +104,17 @@ const Navigation = () => {
             top: "10px",
           }}
         />
+        {isLoggedIn == "true" && (
+          <h5
+            style={{
+              position: "absolute",
+              right: "10%",
+              top: "4px",
+            }}
+          >
+            Zalogowany użytkownik: {user.slice(1, user.length - 1)}
+          </h5>
+        )}
       </FormGroup>
       <NavigationWrapper src={pokelogo} alt={`Logo`} isDark={isDark}>
         <ThemeProvider theme={theme}>

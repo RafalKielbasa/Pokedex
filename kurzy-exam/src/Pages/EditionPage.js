@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import { AppContext } from "src/context/AppContext";
-// import * as React from "react";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -15,21 +14,31 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
+import { blankpicture } from "src/Images";
 
 const CardWrapper = styled.div`
   margin-left: 40px;
   margin-bottom: 50px;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
 `;
 const MediaWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  // justify-content: center;
   align-items: center;
 `;
-
+const CardContentWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 60px;
+  margin-bottom: 50px;
+`;
+const CardValuesWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 const ContainerPageWrapper = styled("div")(
   css`
     display: flex;
@@ -37,20 +46,11 @@ const ContainerPageWrapper = styled("div")(
     justify-content: center;
     align-items: top;
     margin-top: 50px;
-    // height: 100vh;
   `
 );
 const FormWrapper = styled(Form)(
   css`
     display: flex;
-    // justify-content: center;
-    // align-items: center;
-    // flex-direction: column;
-    // gap: 15px;
-    // border: 1px solid black;
-    // border-radius: 10px;
-    //padding: 50px;
-    // width: 313px;
   `
 );
 const EditionWrapper = styled.div`
@@ -58,37 +58,16 @@ const EditionWrapper = styled.div`
   //justify-content: center;
   align-items: center;
   flex-direction: column;
-  // gap: 15px;
-  // border: 1px solid black;
-  // border-radius: 10px;
-  //padding: 50px;
-  // width: 313px;
 `;
-
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
-  // align-items: center;
-  // flex-direction: column;
   gap: 20px;
-  // border: 1px solid black;
-  // border-radius: 10px;
   margin-top: 50px;
-  // width: 313px;
 `;
-
 const MyButton = styled(Button)(
   css`
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
-    // flex-direction: row;
-    // gap: 15px;
-    // border: 1px solid black;
-    // border-radius: 10px;
-    // padding: 50px;
-    width: 315px;
-    // margin-left: 50px;
+    width: 150px;
   `
 );
 
@@ -98,11 +77,17 @@ const EditionPage = () => {
   const [expFullPokemonDataFormated, setExpFullPokemonDataFormated] = useState(
     []
   );
-  const [personName, setPersonName] = useState(["bulbasaur"]);
+  const [personName, setPersonName] = useState([]);
   const [userData, setUsersData] = useState([]);
   const [initialValues, setinItialValues] = useState({
-    name: "bulbasaur",
-    pic: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+    id: "",
+    pic: "",
+    picDet: "",
+    name: "",
+    height: "",
+    baseexp: "",
+    weight: "",
+    abilitie: "",
   });
 
   const {
@@ -129,8 +114,6 @@ const EditionPage = () => {
     }
     setPersonName(value);
   };
-
-  console.log(`personName`, personName);
 
   const handleOnSubmit = (values) => {
     console.log(`values`, values);
@@ -164,11 +147,6 @@ const EditionPage = () => {
     setExpFullPokemonDataFormated(getExpFPD);
   }, [afterBattle, fullPokemonDataFormated]);
 
-  // console.log(`expFullPokemonDataFormated`, expFullPokemonDataFormated[0]);
-
-  console.log(`initialValues`, initialValues);
-  // console.log(`expFullPokemonDataFormated`, expFullPokemonDataFormated[0]);
-
   useEffect(() => {
     setinItialValues({
       id: userData?.id,
@@ -189,7 +167,7 @@ const EditionPage = () => {
         initialValues={initialValues}
         onSubmit={handleOnSubmit}
       >
-        {({ values, handleChange, handleSubmit }) => {
+        {({ values, handleChange }) => {
           return (
             <EditionWrapper>
               <FormWrapper>
@@ -210,9 +188,9 @@ const EditionPage = () => {
                     value={personName}
                     onChange={handleChangeMultiple}
                     label="Wybierz Pokemona do edycji"
-                    // inputProps={{
-                    //   id: "select-multiple-native",
-                    // }}
+                    inputProps={{
+                      id: "select-multiple-native",
+                    }}
                     style={{
                       height: "130px",
                     }}
@@ -242,7 +220,11 @@ const EditionPage = () => {
                       <CardMedia style={{ textAlign: "center" }}>
                         {
                           <img
-                            src={initialValues.pic}
+                            src={
+                              initialValues.pic !== undefined
+                                ? initialValues.pic
+                                : blankpicture
+                            }
                             alt={"picture"}
                             key={initialValues.id}
                           />
@@ -263,65 +245,79 @@ const EditionPage = () => {
                       />
                     </MediaWrapper>
 
-                    <CardContent
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "center",
-                        alignItems: "flex-start",
-                      }}
-                    >
-                      <CardContent
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <Typography variant="body2" color="text.secondary">
-                          {/* {height} */}
-                        </Typography>
+                    <CardContentWrapper>
+                      <CardValuesWrapper>
+                        <Field
+                          name="height"
+                          placeholder="Wzrost"
+                          value={values.height}
+                          onChange={handleChange}
+                          style={{
+                            textAlign: "center",
+                            width: "110px",
+                            marginRight: "10px",
+                          }}
+                        />
                         <Typography
-                          sx={{ fontWeight: "bold", paddingBottom: "20px" }}
+                          style={{
+                            fontWeight: "bold",
+                            paddingBottom: "30px",
+                            marginRight: "10px",
+                          }}
                           variant="body2"
                           color="text.secondary"
                         >
                           Height
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          {/* {baseexp} */}
-                        </Typography>
+
+                        <Field
+                          name="baseexp"
+                          placeholder="Doświadczenie"
+                          value={values.baseexp}
+                          onChange={handleChange}
+                          style={{
+                            textAlign: "center",
+                            width: "110px",
+                            marginRight: "10px",
+                          }}
+                        />
                         <Typography
-                          sx={{ fontWeight: "bold" }}
+                          sx={{ fontWeight: "bold", marginRight: "10px" }}
                           variant="body2"
                           color="text.secondary"
                         >
                           Base experience
                         </Typography>
-                      </CardContent>
+                      </CardValuesWrapper>
 
-                      <CardContent
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <Typography variant="body2" color="text.secondary">
-                          {/* {weight} */}
-                        </Typography>
+                      <CardValuesWrapper>
+                        <Field
+                          name="weight"
+                          placeholder="Waga"
+                          value={values.weight}
+                          onChange={handleChange}
+                          style={{
+                            textAlign: "center",
+                            width: "110px",
+                          }}
+                        />
                         <Typography
-                          sx={{ fontWeight: "bold", paddingBottom: "20px" }}
+                          sx={{ fontWeight: "bold", paddingBottom: "30px" }}
                           variant="body2"
                           color="text.secondary"
                         >
                           Weight
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          {/* {abilitie} */}
-                        </Typography>
+                        <Field
+                          name="abilitie"
+                          placeholder="Zdolność"
+                          value={values.abilitie}
+                          onChange={handleChange}
+                          style={{
+                            textAlign: "center",
+                            width: "110px",
+                          }}
+                        />
                         <Typography
                           sx={{ fontWeight: "bold" }}
                           variant="body2"
@@ -329,28 +325,25 @@ const EditionPage = () => {
                         >
                           Abilitie
                         </Typography>
-                      </CardContent>
-                    </CardContent>
-
-                    {/* <CardActions
-                      sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    ></CardActions> */}
+                      </CardValuesWrapper>
+                    </CardContentWrapper>
                   </Card>
 
                   <ButtonWrapper>
                     <MyButton
                       variant="outlined"
                       type="submit"
-                      style={{ width: "175px" }}
+                      // style={{ width: "165px" }}
                     >
                       Edytuj
                     </MyButton>
-                    <Button variant="outlined" type="submit">
+                    <MyButton
+                      variant="outlined"
+                      type="submit"
+                      // style={{ width: "165px" }}
+                    >
                       Zapisz jako nowy
-                    </Button>
+                    </MyButton>
                   </ButtonWrapper>
                 </CardWrapper>
               </FormWrapper>
