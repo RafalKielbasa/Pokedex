@@ -2,16 +2,22 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import { AppContext } from "src/context/AppContext";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+
+import {
+  InputLabel,
+  FormControl,
+  Select,
+  Card,
+  CardMedia,
+  Typography,
+  Button,
+} from "@mui/material";
+
 import styled, { css } from "styled-components";
-import { Button, Input, TextField, MenuItem, MenuList } from "@mui/material";
+// import {Input, TextField, MenuItem, MenuList } from "@mui/material";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import { BlankPokemonCard, ArenaPokemonCard } from "../Components/PokemonCards";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
+
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import { blankpicture } from "src/Images";
