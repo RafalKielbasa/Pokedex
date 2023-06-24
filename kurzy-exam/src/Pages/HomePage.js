@@ -67,13 +67,15 @@ const HomePage = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    const getAfterTheBattle = async () => {
-      const response = await axios.get(`http://localhost:3001/afterTheBattle/`);
+    const getAfterTheBattleAndEdit = async () => {
+      const response = await axios.get(
+        `http://localhost:3001/afterTheBattleAndEdit/`
+      );
       setAfterBattle(response.data);
       const getBattleIds = response?.data?.map((item) => item.id);
       setAfterBattleIds(getBattleIds);
     };
-    getAfterTheBattle();
+    getAfterTheBattleAndEdit();
   }, []);
 
   useEffect(() => {
@@ -94,7 +96,11 @@ const HomePage = () => {
     setExpFullPokemonDataFormated(getExpFPD);
   }, [afterBattle, fullPokemonDataFormated]);
 
-  // const pageCount = fullPokemonData?.length / 15;
+  const pageCountPartialData =
+    expFullPokemonDataFormated.length > 0
+      ? Math.ceil(expFullPokemonDataFormated?.length / 15)
+      : 10;
+
   const partialPokemonData = expFullPokemonDataFormated
     .slice(offset, offset + 15)
     .sort((a, b) => (a.id > b.id ? 1 : -1));
@@ -219,7 +225,7 @@ const HomePage = () => {
               <Stack spacing={2}>
                 <Pagination
                   page={page}
-                  count={10}
+                  count={pageCountPartialData}
                   variant="outlined"
                   shape="rounded"
                   onChange={handleChange}
@@ -254,7 +260,7 @@ const HomePage = () => {
               <Stack spacing={2}>
                 <Pagination
                   page={page}
-                  count={10}
+                  count={pageCountPartialData}
                   variant="outlined"
                   shape="rounded"
                   sx={{ marginTop: 2, paddingBottom: 40 }}

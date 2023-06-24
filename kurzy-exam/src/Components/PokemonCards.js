@@ -134,7 +134,7 @@ export default function PokemonCard({
         autoHideDuration: 5000,
       });
     } else if (!battleIds.includes(id) && battle.length === 2) {
-      enqueueSnackbar(`Na Arenie mogą znajdować się tylko 2 pokemony.`, {
+      enqueueSnackbar(`Na Arenie mogą znajdować się tylko 2 pokemony`, {
         preventDuplicate: true,
         autoHideDuration: 5000,
       });

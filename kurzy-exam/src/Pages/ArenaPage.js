@@ -67,13 +67,15 @@ const ArenaPage = () => {
   }, [changeParticipant]);
 
   useEffect(() => {
-    const getAfterTheBattle = async () => {
-      const response = await axios.get(`http://localhost:3001/afterTheBattle/`);
+    const getAfterTheBattleAndEdit = async () => {
+      const response = await axios.get(
+        `http://localhost:3001/afterTheBattleAndEdit/`
+      );
       setAfterBattle(response.data);
       const getBattleIds = response?.data?.map((item) => item.id);
       setAfterBattleIds(getBattleIds);
     };
-    getAfterTheBattle();
+    getAfterTheBattleAndEdit();
   }, []);
 
   const removeFromArena1 = () => {
@@ -118,7 +120,7 @@ const ArenaPage = () => {
     const fighter2Stat = battle[1].baseexp * battle[1].weight;
     if (fighter1Stat > fighter2Stat && !afterBattleIds.includes(battle[0].id)) {
       postData(
-        "afterTheBattle",
+        "afterTheBattleAndEdit",
         battle[0].id,
         battle[0].pic,
         battle[0].picDet,
@@ -136,9 +138,11 @@ const ArenaPage = () => {
       fighter1Stat > fighter2Stat &&
       afterBattleIds.includes(battle[0].id)
     ) {
-      axios.delete(`http://localhost:3001/afterTheBattle/${battle[0].id}`);
+      axios.delete(
+        `http://localhost:3001/afterTheBattleAndEdit/${battle[0].id}`
+      );
       postData(
-        "afterTheBattle",
+        "afterTheBattleAndEdit",
         battle[0].id,
         battle[0].pic,
         battle[0].picDet,
@@ -157,7 +161,7 @@ const ArenaPage = () => {
       !afterBattleIds.includes(battle[1].id)
     ) {
       postData(
-        "afterTheBattle",
+        "afterTheBattleAndEdit",
         battle[1].id,
         battle[1].pic,
         battle[1].picDet,
@@ -175,9 +179,11 @@ const ArenaPage = () => {
       fighter1Stat < fighter2Stat &&
       afterBattleIds.includes(battle[1].id)
     ) {
-      axios.delete(`http://localhost:3001/afterTheBattle/${battle[1].id}`);
+      axios.delete(
+        `http://localhost:3001/afterTheBattleAndEdit/${battle[1].id}`
+      );
       postData(
-        "afterTheBattle",
+        "afterTheBattleAndEdit",
         battle[1].id,
         battle[1].pic,
         battle[1].picDet,

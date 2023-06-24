@@ -21,8 +21,6 @@ import {
 const RouterWrapper = () => {
   const { isLoggedIn } = useContext(AppContext);
 
-  console.log(`isLoggedIn`, isLoggedIn);
-
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainPage />}>

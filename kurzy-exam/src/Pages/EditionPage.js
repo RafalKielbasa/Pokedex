@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useMemo } from "react";
 import { AppContext } from "src/context/AppContext";
 
 import {
@@ -15,12 +15,31 @@ import {
 
 import styled, { css } from "styled-components";
 // import {Input, TextField, MenuItem, MenuList } from "@mui/material";
-import { Formik, Form, ErrorMessage, Field } from "formik";
+import {
+  Formik,
+  Form,
+  ErrorMessage,
+  Field,
+  useFormikContext,
+  getIn,
+} from "formik";
 import { BlankPokemonCard, ArenaPokemonCard } from "../Components/PokemonCards";
 
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import { blankpicture } from "src/Images";
+import { useSnackbar } from "notistack";
+import { postData } from "src/api/postData";
+
+const ContainerPageWrapper = styled("div")(
+  css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: top;
+    margin-top: 50px;
+  `
+);
 
 const CardWrapper = styled.div`
   margin-left: 40px;
@@ -45,15 +64,7 @@ const CardValuesWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const ContainerPageWrapper = styled("div")(
-  css`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: top;
-    margin-top: 50px;
-  `
-);
+
 const FormWrapper = styled(Form)(
   css`
     display: flex;
@@ -65,15 +76,22 @@ const EditionWrapper = styled.div`
   align-items: center;
   flex-direction: column;
 `;
+const SubmitButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 35px;
+  margin-bottom: 15px;
+`;
+
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin-top: 50px;
+  margin-top: 20px;
 `;
 const MyButton = styled(Button)(
   css`
-    width: 150px;
+    width: 200px;
   `
 );
 
@@ -95,7 +113,7 @@ const EditionPage = () => {
     weight: "",
     abilitie: "",
   });
-
+  const [newValues, setNewValues] = useState(null);
   const {
     theme,
     toggleTheme,
@@ -105,8 +123,11 @@ const EditionPage = () => {
     isSuccess,
     fullPokemonDataFormated,
   } = useContext(AppContext);
+  const [editButton, setEditButton] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleChangeMultiple = (event) => {
+    setNewValues(null);
     const { options } = event.target;
     const value = [];
     for (let i = 0, l = options.length; i < l; i += 1) {
@@ -121,18 +142,60 @@ const EditionPage = () => {
     setPersonName(value);
   };
 
+  // const wynik = useMemo(() => {
+  //   return initialValues === newValues ? true : false;
+  // }, [initialValues, newValues]);
+  // console.log(`wynik`, wynik);
+
   const handleOnSubmit = (values) => {
-    console.log(`values`, values);
+    setNewValues(values);
+    if (values === initialValues) {
+      setEditButton(false);
+      enqueueSnackbar(`Nie dokonałeś zmiany żadnej z wartości`, {
+        variant: "error",
+        preventDuplicate: true,
+        autoHideDuration: 5000,
+      });
+    }
+    if (values !== initialValues) {
+      setEditButton(true);
+    }
+  };
+
+  // console.log(`newValues === initialValues`, newValues === initialValues);
+  console.log(`initialValues`, initialValues);
+  console.log(`newValues`, newValues);
+
+  const edit = () => {
+    // if (fighter1Stat > fighter2Stat && !afterBattleIds.includes(battle[0].id)) {
+    postData(
+      "afterTheBattleAndEdit",
+      newValues.id,
+      newValues.pic,
+      newValues.picDet,
+      newValues.name,
+      newValues.height,
+      newValues.baseexp,
+      newValues.weight,
+      newValues.abilitie
+    );
+    //   axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
+    //   axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
+    //   setOpen(false);
+    //   navigate("/");
+    // }
   };
 
   useEffect(() => {
-    const getAfterTheBattle = async () => {
-      const response = await axios.get(`http://localhost:3001/afterTheBattle/`);
+    const getAfterTheBattleAndEdit = async () => {
+      const response = await axios.get(
+        `http://localhost:3001/afterTheBattleAndEdit/`
+      );
       setAfterBattle(response.data);
       const getBattleIds = response?.data?.map((item) => item.id);
       setAfterBattleIds(getBattleIds);
     };
-    getAfterTheBattle();
+    getAfterTheBattleAndEdit();
   }, []);
 
   useEffect(() => {
@@ -173,7 +236,7 @@ const EditionPage = () => {
         initialValues={initialValues}
         onSubmit={handleOnSubmit}
       >
-        {({ values, handleChange }) => {
+        {({ values, handleChange, setFieldValue }) => {
           return (
             <EditionWrapper>
               <FormWrapper>
@@ -256,6 +319,7 @@ const EditionPage = () => {
                         <Field
                           name="height"
                           placeholder="Wzrost"
+                          type="number"
                           value={values.height}
                           onChange={handleChange}
                           style={{
@@ -279,6 +343,7 @@ const EditionPage = () => {
                         <Field
                           name="baseexp"
                           placeholder="Doświadczenie"
+                          type="number"
                           value={values.baseexp}
                           onChange={handleChange}
                           style={{
@@ -300,6 +365,7 @@ const EditionPage = () => {
                         <Field
                           name="weight"
                           placeholder="Waga"
+                          type="number"
                           value={values.weight}
                           onChange={handleChange}
                           style={{
@@ -317,6 +383,7 @@ const EditionPage = () => {
                         <Field
                           name="abilitie"
                           placeholder="Zdolność"
+                          type="text"
                           value={values.abilitie}
                           onChange={handleChange}
                           style={{
@@ -333,30 +400,42 @@ const EditionPage = () => {
                         </Typography>
                       </CardValuesWrapper>
                     </CardContentWrapper>
+                    <SubmitButtonWrapper>
+                      <MyButton variant="outlined" type="submit">
+                        Zapisz zmiany
+                      </MyButton>
+                    </SubmitButtonWrapper>
                   </Card>
-
-                  <ButtonWrapper>
-                    <MyButton
-                      variant="outlined"
-                      type="submit"
-                      // style={{ width: "165px" }}
-                    >
-                      Edytuj
-                    </MyButton>
-                    <MyButton
-                      variant="outlined"
-                      type="submit"
-                      // style={{ width: "165px" }}
-                    >
-                      Zapisz jako nowy
-                    </MyButton>
-                  </ButtonWrapper>
                 </CardWrapper>
               </FormWrapper>
             </EditionWrapper>
           );
         }}
       </Formik>
+      <ButtonWrapper>
+        <MyButton
+          variant="outlined"
+          type="submit"
+          onClick={edit}
+          disabled={
+            newValues === initialValues ||
+            newValues === null ||
+            editButton === false
+              ? true
+              : false
+          }
+        >
+          Edytuj
+        </MyButton>
+        <MyButton
+          variant="outlined"
+          type="submit"
+          // onClick={edit}
+          // disabled={false}
+        >
+          Zapisz jako nowy
+        </MyButton>
+      </ButtonWrapper>
     </ContainerPageWrapper>
   );
 };

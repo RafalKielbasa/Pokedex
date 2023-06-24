@@ -112,7 +112,7 @@ const Navigation = () => {
               top: "4px",
             }}
           >
-            Zalogowany użytkownik: {user.slice(1, user.length - 1)}
+            Zalogowany użytkownik: {user ? user.slice(1, user.length - 1) : ""}
           </h5>
         )}
       </FormGroup>
