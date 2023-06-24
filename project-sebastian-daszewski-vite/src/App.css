@@ -1,0 +1,1585 @@
+.buttons {
+  display: flex;
+  flex-direction: wrap;
+  justify-content: end;
+  margin-right: 100px;
+}
+
+.btnDarkMode {
+  position: relative;
+  left: 0px;
+  border-radius: 100px;
+}
+
+.MuiBox-root.css-130f8nx {
+  position: absolute;
+  right: 10px;
+}
+
+#root {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.cardFavorites {
+  width: 230px;
+  height: 400px;
+  background-color: rgb(186, 184, 184);
+  border-radius: 1rem;
+  box-shadow: 0 5px 5px rgba(36, 34, 34, 0.5);
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+  margin: 20px;
+  margin-top: 100px;
+}
+
+.allCardsFavorites {
+  display: flex !important;
+  flex-wrap: nowrap;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.search {
+  position: absolute;
+  left: 20px;
+  top: 100px;
+}
+
+.pokedex a {
+  right: 100px;
+  font-weight: 900;
+  font-size: 30px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navButtons a {
+  font-weight: 400;
+  font-size: 20px;
+  color: white;
+  margin: 5px;
+  text-align: right;
+}
+
+.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-regular.css-hyum1k-MuiToolbar-root {
+  width: 100%;
+  text-align: center;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+}
+body {
+  background-color: #fceec8;
+}
+.container {
+  width: 90%;
+  margin: auto;
+  padding-top: 100px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+}
+
+.left-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 0.5fr));
+  grid-gap: 2rem;
+}
+.card {
+  width: 230px;
+  height: 400px;
+  background-color: rgb(186, 184, 184);
+  border-radius: 1rem;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+.card:hover {
+  transform: scale(1.05, 1.07);
+  transition-timing-function: ease-out;
+  transition-duration: 250ms;
+}
+
+#cardImg {
+  position: relative;
+  top: -50px;
+  width: 90%;
+  height: 220px;
+}
+
+.cardName {
+  color: black;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: -50px;
+}
+
+.detailsFirstLine {
+  position: relative;
+  top: -80px;
+  margin-top: 45px;
+
+  color: black;
+
+  font-size: 10px;
+  display: flex;
+}
+.height {
+  margin-right: 50px;
+}
+
+.heightValue {
+  margin-left: 13px;
+  color: grey;
+}
+
+.experience {
+  width: 100px;
+}
+
+.experienceValue {
+  margin-left: 35px;
+  color: grey;
+}
+.detailsSecondLine {
+  position: relative;
+  top: -80px;
+  color: black;
+  font-size: 10px;
+  display: flex;
+  margin-top: 20px;
+}
+
+.weight {
+  margin-right: 70px;
+}
+
+.weightValue {
+  margin-left: 10px;
+  color: grey;
+}
+
+.abilityValue {
+  width: 100px;
+  color: grey;
+}
+
+.abilities {
+  width: 70%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+.abilities .group {
+  background-color: #b74555;
+  color: white;
+  padding: 0.5rem;
+  font-size: 12px;
+  border-radius: 8px;
+  margin-left: 1rem;
+}
+.base-stat {
+  margin-top: 2rem;
+}
+
+.btn-group {
+  position: absolute;
+  left: 50%;
+  top: 90px;
+  transform: translateX(-50%);
+}
+
+.btn-group button {
+  outline: none;
+  width: 150px;
+  padding: 0.3rem 0;
+  margin: 1rem;
+  font-size: 17px;
+  font-weight: bold;
+  color: white;
+  background-color: grey;
+  border-radius: 8px;
+}
+
+.current {
+  position: absolute;
+  right: 100px;
+  top: 100px;
+  transform: translateX(-50%);
+  font-size: 20px;
+}
+
+.current-disabled {
+  display: none;
+}
+
+.modalInfo {
+  position: absolute;
+  top: 100px;
+  width: 100%;
+}
+
+#pokedex {
+  position: relative;
+  left: 40%;
+}
+
+.nameDetails {
+  position: relative;
+  left: 60%;
+  top: -270px;
+  margin-right: 400px;
+}
+
+#imgDetails {
+  margin-left: 100px;
+  display: inline-block;
+}
+
+#imgSize {
+  width: 300px;
+  height: 300px;
+}
+
+.details {
+  position: relative;
+  left: 30%;
+  bottom: 200px;
+  width: 300px;
+  margin-bottom: -170px;
+}
+
+.heightAndWeight {
+  text-align: center;
+  position: relative;
+  left: 200px;
+  top: 100px;
+  width: 50%;
+}
+
+.experienceAndAbility {
+  text-align: center;
+  position: relative;
+  left: 600px;
+  bottom: 12px;
+  width: 50%;
+}
+
+.heightAndWeight > h5 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.experienceAndAbility > h5 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.homePageButton {
+  width: 99%;
+  margin-left: 7px;
+  height: 40px;
+  color: rgb(245, 81, 154);
+  background-color: white;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  border-color: rgb(245, 81, 154);
+}
+
+h5 {
+  color: gray;
+}
+
+.checkbox {
+  width: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  left: 200px;
+}
+.arena {
+  width: 100vh;
+  height: 100vh;
+  background-color: rgb(238, 238, 238);
+}
+.arenaSpots {
+  background-color: rgb(238, 238, 238);
+  position: absolute;
+  top: 100px;
+  left: 30%;
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-self: center;
+  margin: auto;
+}
+
+.fight {
+  position: absolute;
+  top: 100px;
+  left: 300px;
+}
+
+.arenaFirstSpot {
+  width: 230px;
+  height: 400px;
+  background-color: rgb(186, 184, 184);
+  border-radius: 1rem;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+  margin: 20px;
+  margin-top: 100px;
+  margin-right: 100px;
+}
+
+.arenaSecondSpot {
+  width: 230px;
+  height: 400px;
+  background-color: rgb(186, 184, 184);
+  border-radius: 1rem;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+  position: absolute;
+  top: 100px;
+  left: 440px;
+}
+
+.cardBookmarked1 {
+  width: 230px;
+  height: 400px;
+  background-color: rgb(186, 184, 184);
+  border-radius: 1rem;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+  margin: 20px;
+  margin-top: 100px;
+  margin-right: 100px;
+  position: absolute;
+  top: 150px;
+  left: 30%;
+}
+
+.cardBookmarked1-opacity {
+  width: 230px;
+  height: 400px;
+  background-color: rgb(186, 184, 184);
+  border-radius: 1rem;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+  margin: 20px;
+  margin-top: 100px;
+  margin-right: 100px;
+  position: absolute;
+  top: 150px;
+  left: 30%;
+  opacity: 0.3;
+}
+
+.cardBookmarked2 {
+  width: 230px;
+  height: 400px;
+  background-color: rgb(186, 184, 184);
+  border-radius: 1rem;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+  margin: 20px;
+  margin-top: 100px;
+  margin-right: 100px;
+  position: absolute;
+  top: 150px;
+  left: 60%;
+}
+
+.cardBookmarked2-opacity {
+  width: 230px;
+  height: 400px;
+  background-color: rgb(186, 184, 184);
+  border-radius: 1rem;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+  margin: 20px;
+  margin-top: 100px;
+  margin-right: 100px;
+  position: absolute;
+  top: 150px;
+  left: 850px;
+  opacity: 0.3;
+}
+
+/* MODAL */
+
+.darkBG {
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal {
+  position: relative;
+  top: -200px;
+  left: 20%;
+  width: 300px;
+  height: 120px;
+  background: #1976d2;
+  color: white;
+  z-index: 10;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+}
+
+.modalHeader {
+  height: 50px;
+  background: #1976d2;
+  overflow: hidden;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.heading {
+  margin: 0;
+  margin-top: 10px;
+  padding: 10px;
+  color: #eff2f4;
+  font-weight: 500;
+  font-size: 22px;
+  text-align: center;
+}
+
+.modalContent {
+  padding: 10px;
+  font-size: 14px;
+  color: #2c3e50;
+  text-align: center;
+  position: absolute;
+  top: 30px;
+  left: 70px;
+}
+
+.modalActions {
+  position: absolute;
+  bottom: 2px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.actionsContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.closeBtn {
+  cursor: pointer;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: none;
+  font-size: 18px;
+  color: #2c3e50;
+  background: white;
+  transition: all 0.25s ease;
+  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.06);
+  position: absolute;
+  right: 0;
+  top: 0;
+  align-self: flex-end;
+  margin-top: -7px;
+  margin-right: -7px;
+}
+
+.closeBtn:hover {
+  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+  transform: translate(-4px, 4px);
+}
+
+.deleteBtn {
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 11px 28px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  border: none;
+  color: #fff;
+  background: #ff3e4e;
+  transition: all 0.25s ease;
+}
+
+.deleteBtn:hover {
+  box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.6);
+  transform: translateY(-5px);
+  background: #ff3e4e;
+}
+
+.cancelBtn {
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 11px 28px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  border: none;
+  color: #2c3e50;
+  background: #fcfcfc;
+  transition: all 0.25s ease;
+}
+
+.cancelBtn:hover {
+  box-shadow: none;
+  transform: none;
+  background: whitesmoke;
+}
+
+.form {
+  width: 500px;
+  height: 400px;
+  position: absolute;
+  left: 30%;
+  top: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 7px;
+}
+
+.headingRegistration {
+  font-size: 30px;
+  margin: 10px;
+  font-weight: 900;
+}
+
+.haveAccount {
+  font-size: 12px;
+  position: relative;
+  right: -160px;
+  bottom: 0px;
+}
+
+.login-row {
+  position: absolute;
+  width: 400px;
+  left: 35%;
+  top: 20%;
+  padding: 40px;
+  border: 1px solid black;
+  border-radius: 7px;
+}
+
+.login-card-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form-control {
+  font-size: 16px;
+  text-align: center;
+  border: 1px solid black;
+  width: 280px;
+  height: 70px;
+  border-radius: 7px;
+  background: none;
+  margin-bottom: 5px;
+  color: black;
+  background-color: #fcfcfc;
+}
+
+.login-btn-primary {
+  position: relative;
+  left: 25%;
+  border: 1px solid black;
+  margin: 15px 0px 0px 0px;
+  width: 150px;
+  height: 50px;
+  font-weight: 900;
+  background-color: white;
+  color: #1976d2;
+}
+
+.loginContainer {
+  display: flex;
+  align-items: center;
+}
+
+.login-card-body {
+  text-align: center;
+}
+
+.dont-have-account {
+  font-size: 12px;
+  position: relative;
+  right: -110px;
+  bottom: -30px;
+}
+
+.pokeEditingH1 {
+  font-weight: 900;
+  position: relative;
+  text-align: center;
+  margin: 30px 0 30px 0;
+}
+.pokeEditing {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 25px;
+}
+
+.pokeEditingCard {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin: 20px;
+  border: 1px solid black;
+  border-radius: 7px;
+  padding: 10px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.pokeEditingName {
+  font-size: 30px;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  margin-bottom: 20px;
+}
+
+.poke-edit-row {
+  width: 270px;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.poke-edit-button {
+  width: 280px;
+  background-color: #fcfcfc;
+  color: #1976d2;
+  border: 1px solid #1976d2;
+  margin: 1px;
+  font-weight: 900;
+}
+
+.poke-edit-input {
+  width: 150px;
+  background-color: #fcfcfc;
+  color: black;
+  border: 0.1px solid black;
+  margin: 1px;
+  text-align: center;
+}
+
+.noFavoritesModal {
+  position: relative;
+  left: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 7px;
+  height: 200px;
+}
+
+.noFavorites {
+  margin: 20px;
+  position: relative;
+}
+
+.noFavoritesLink {
+  position: relative;
+}
+
+.light {
+  width: 100%;
+}
+
+@media only screen and (min-width: 1450px) {
+  .arenaSpots {
+    position: absolute;
+    top: 150px;
+    left: 30%;
+    display: flex !important;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-self: center;
+    margin: auto;
+  }
+
+  .fight {
+    position: absolute;
+    top: 100px;
+    left: 300px;
+  }
+
+  .arenaFirstSpot {
+    width: 300px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 0px;
+    margin-right: 100px;
+    position: absolute;
+    top: 100px;
+    left: -170px;
+  }
+
+  .arenaSecondSpot {
+    width: 300px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    position: absolute;
+    top: 100px;
+    left: 550px;
+  }
+
+  .cardBookmarked1 {
+    width: 300px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 100px;
+    margin-right: 100px;
+    position: absolute;
+    top: 150px;
+    left: 20%;
+  }
+
+  .cardBookmarked1-opacity {
+    width: 300px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 100px;
+    margin-right: 100px;
+    position: absolute;
+    top: 150px;
+    left: 20%;
+    opacity: 0.3;
+  }
+
+  .cardBookmarked2 {
+    width: 300px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 100px;
+    margin-right: 100px;
+    position: absolute;
+    top: 150px;
+    left: 1100px;
+  }
+
+  .cardBookmarked2-opacity {
+    width: 300px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 100px;
+    margin-right: 100px;
+    position: absolute;
+    top: 150px;
+    left: 1100px;
+    opacity: 0.3;
+  }
+
+  .modal {
+    position: relative;
+    top: -320px;
+    left: -40px;
+    width: 300px;
+    height: 120px;
+    background: #1976d2;
+    color: white;
+    z-index: 10;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+  }
+
+  .card {
+    width: 300px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+  .card:hover {
+    transform: scale(1.05, 1.07);
+    transition-timing-function: ease-out;
+    transition-duration: 250ms;
+  }
+
+  #cardImg {
+    position: relative;
+    top: -50px;
+    width: 90%;
+    height: 220px;
+  }
+
+  .cardName {
+    color: black;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: -50px;
+  }
+
+  .detailsFirstLine {
+    position: relative;
+    top: -80px;
+    margin-top: 45px;
+
+    color: black;
+
+    font-size: 10px;
+    display: flex;
+  }
+  .height {
+    margin-right: 50px;
+  }
+
+  .heightValue {
+    margin-left: 13px;
+    color: grey;
+  }
+
+  .experience {
+    width: 100px;
+    margin-left: 60px;
+  }
+
+  .experienceValue {
+    margin-left: 40px;
+    color: grey;
+  }
+  .detailsSecondLine {
+    position: relative;
+    top: -80px;
+    color: black;
+    font-size: 10px;
+    display: flex;
+    margin-top: 20px;
+  }
+
+  .weight {
+    margin-right: 70px;
+  }
+
+  .weightValue {
+    margin-left: 10px;
+    color: grey;
+  }
+
+  .abilityValue {
+    width: 100px;
+    color: grey;
+    margin-left: 40%;
+  }
+
+  .ability {
+    margin-left: 40px;
+  }
+
+  .abilities {
+    width: 70%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  .checkbox {
+    width: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    left: 250px;
+  }
+
+  .cardFavorites {
+    width: 300px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  .allCardsFavorites {
+    display: flex !important;
+    flex-wrap: nowrap;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .abilityValueFavorites {
+    width: 100px;
+    color: grey;
+  }
+
+  .abilityFavorites {
+    margin-left: 25%;
+  }
+}
+
+@media only screen and (max-width: 1450px) {
+  /* .arenaSpots {
+    background-color: rgb(238, 238, 238);
+    position: absolute;
+    top: 100px;
+    left: 15%;
+    display: flex !important;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-self: center;
+    margin: auto;
+  }
+  .cardBookmarked1 {
+    width: 240px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 100px;
+    margin-right: 100px;
+    position: absolute;
+    top: 150px;
+    left: 10%;
+  }
+
+  .cardBookmarked1-opacity {
+    width: 240px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 100px;
+    margin-right: 100px;
+    position: absolute;
+    top: 150px;
+    left: 10%;
+    opacity: 0.3;
+  }
+
+  .cardBookmarked2 {
+    width: 240px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 100px;
+    margin-right: 100px;
+    position: absolute;
+    top: 150px;
+    left: 400px;
+  }
+
+  .cardBookmarked2-opacity {
+    width: 240px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 100px;
+    margin-right: 100px;
+    position: absolute;
+    top: 150px;
+    left: 1100px;
+    opacity: 0.3;
+  }
+   */
+  .modal {
+    position: relative;
+    top: -280px;
+    left: 50px;
+    width: 300px;
+    height: 120px;
+    background: #1976d2;
+    color: white;
+    z-index: 10;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+  }
+  .fight {
+    position: absolute;
+    top: 100px;
+    left: 290px;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .pokedex a {
+    right: 100px;
+    font-weight: 900;
+    font-size: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navButtons a {
+    font-weight: 400;
+    font-size: 14px;
+    color: white;
+    margin: -5px;
+    text-align: right;
+  }
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+    margin-top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .btn-group button {
+    outline: none;
+    width: 80px;
+    padding: 0.3rem 0;
+    margin: 1rem;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    background-color: grey;
+    border-radius: 8px;
+  }
+
+  .current {
+    position: absolute;
+    right: 20px;
+    top: 100px;
+    transform: translateX(-50%);
+    font-size: 20px;
+  }
+
+  .btnDarkMode {
+    width: 50px;
+    height: 40px;
+    position: relative;
+    border-radius: 20px;
+  }
+  .arena {
+    width: 800px;
+    height: 1500px;
+  }
+
+  .pokeEditingH1 {
+    font-size: 30px;
+    font-weight: 900;
+    position: relative;
+    text-align: center;
+    margin: 30px 0 30px 0;
+  }
+
+  .pokeEditing {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 25px;
+  }
+
+  .modal {
+    position: relative;
+    top: -320px;
+    left: -30px;
+    width: 300px;
+    height: 120px;
+    background: #1976d2;
+    color: white;
+    z-index: 10;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+  }
+  .fight {
+    position: absolute;
+    top: 50px;
+    left: 270px;
+  }
+
+  .cardBookmarked1 {
+    width: 230px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 100px;
+    margin-right: 100px;
+    position: absolute;
+    top: 100px;
+    left: 30%;
+  }
+
+  .cardBookmarked1-opacity {
+    width: 230px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 100px;
+    margin-right: 100px;
+    position: absolute;
+    top: 100px;
+    left: 30%;
+    opacity: 0.3;
+  }
+
+  .cardBookmarked2 {
+    width: 230px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 100px;
+    margin-right: 100px;
+    position: absolute;
+    top: 100px;
+    left: 60%;
+  }
+
+  .cardBookmarked2-opacity {
+    width: 230px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 100px;
+    margin-right: 100px;
+    position: absolute;
+    top: 100px;
+    left: 850px;
+    opacity: 0.3;
+  }
+
+  .arenaFirstSpot {
+    width: 240px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 100px;
+    margin-right: 100px;
+    position: absolute;
+    top: 50px;
+    left: -25px;
+  }
+
+  .arenaSecondSpot {
+    width: 240px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 100px;
+    margin-right: 100px;
+    position: absolute;
+    top: 50px;
+    left: 300px;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .pokedex a {
+    right: 100px;
+    font-weight: 900;
+    font-size: 14px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navButtons a {
+    font-weight: 800;
+    font-size: 8px;
+    color: white;
+    margin: -5px;
+    text-align: right;
+  }
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+    margin-top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .btn-group button {
+    outline: none;
+    width: 60px;
+    font-size: 8px;
+    font-weight: bold;
+    color: white;
+    background-color: grey;
+    border-radius: 8px;
+  }
+
+  .current {
+    position: absolute;
+    right: 20px;
+    top: 100px;
+    transform: translateX(-50%);
+    font-size: 12px;
+  }
+
+  .btnDarkMode {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    border-radius: 20px;
+  }
+  .cardBookmarked1 {
+    width: 230px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 50px;
+    margin-right: 0px;
+    top: 210px;
+    left: 150px;
+  }
+
+  .cardBookmarked1-opacity {
+    width: 230px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 50px;
+    margin-right: 0px;
+    top: 210px;
+    left: 150px;
+    opacity: 0.3;
+  }
+
+  .cardBookmarked2 {
+    width: 230px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 100px;
+    margin-right: 100px;
+    position: absolute;
+    top: 800px;
+    left: 150px;
+  }
+
+  .cardBookmarked2-opacity {
+    width: 230px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 100px;
+    margin-right: 100px;
+    position: absolute;
+    top: 800px;
+    left: 150px;
+    opacity: 0.3;
+  }
+
+  .fight {
+    position: absolute;
+    top: 690px;
+    left: 150px;
+  }
+  .modal {
+    position: relative;
+    top: -500px;
+    left: -100px;
+    width: 300px;
+    height: 120px;
+    background: #1976d2;
+    color: white;
+    z-index: 10;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .pokedex a {
+    right: 100px;
+    font-weight: 900;
+    font-size: 10px;
+    color: white;
+    position: absolute;
+    top: -15px;
+    right: -30px;
+  }
+
+  .navButtons a {
+    position: absolute;
+    right: -50px;
+    top: -10px;
+    padding: 30px;
+    font-weight: 800;
+    font-size: 8px;
+    color: white;
+    text-align: right;
+  }
+
+  .MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-regular.css-hyum1k-MuiToolbar-root {
+    height: 60px;
+  }
+  .btn-group {
+    position: absolute;
+
+    margin-top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .btn-prev-page {
+    position: relative;
+    left: -80px;
+  }
+
+  .btn-next-page {
+    position: relative;
+    top: -55px;
+    left: 20px;
+  }
+
+  .current {
+    position: absolute;
+    right: 20px;
+    top: 100px;
+    transform: translateX(-50%);
+    font-size: 12px;
+  }
+
+  .left-content {
+    display: flex !important;
+    width: 100%;
+    justify-content: center;
+  }
+  .pokeEditingCard {
+    width: 30vh;
+  }
+  .poke-edit-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .poke-edit-button {
+    width: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    left: 25%;
+  }
+
+  .arenaSpots {
+    background-color: rgb(238, 238, 238);
+    display: flex !important;
+  }
+  .arena {
+    width: 800px;
+    height: 1500px;
+  }
+
+  .cardBookmarked1 {
+    width: 230px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 50px;
+    margin-right: 0px;
+    top: 210px;
+    left: 150px;
+  }
+
+  .cardBookmarked1-opacity {
+    width: 230px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 50px;
+    margin-right: 0px;
+    top: 210px;
+    left: 150px;
+    opacity: 0.3;
+  }
+
+  .cardBookmarked2 {
+    width: 230px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 100px;
+    margin-right: 100px;
+    position: absolute;
+    top: 800px;
+    left: 150px;
+  }
+
+  .cardBookmarked2-opacity {
+    width: 230px;
+    height: 400px;
+    background-color: rgb(186, 184, 184);
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    margin: 20px;
+    margin-top: 100px;
+    margin-right: 100px;
+    position: absolute;
+    top: 800px;
+    left: 150px;
+    opacity: 0.3;
+  }
+
+  .modal {
+    position: relative;
+    top: -600px;
+    left: -100px;
+    width: 300px;
+    height: 120px;
+    background: #1976d2;
+    color: white;
+    z-index: 10;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+  }
+
+  .fight {
+    position: absolute;
+    top: 690px;
+    left: 150px;
+  }
+}
