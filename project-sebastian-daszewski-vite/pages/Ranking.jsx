@@ -8,6 +8,7 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../src/AppContext";
+import MainLayout from "../layout/MainLayout";
 
 const Ranking = ({ query, nextUrl, prevUrl, pokeData }) => {
   const [favoritePokemons, setFavoritePokemons] = useState([]);
@@ -19,12 +20,6 @@ const Ranking = ({ query, nextUrl, prevUrl, pokeData }) => {
   const [loading, setLoading] = useState(false);
   const navigateTo = useNavigate();
   const { pokesData } = useContext(AppContext);
-
-  useEffect(() => {
-    if (number) {
-      setCurrentPage(parseInt(number));
-    }
-  }, [number]);
 
   useEffect(() => {
     const favoritesId = JSON.parse(localStorage.getItem("favoritesId"));
@@ -125,127 +120,106 @@ const Ranking = ({ query, nextUrl, prevUrl, pokeData }) => {
     return data.filter((item) => item.name.toLowerCase().includes(query));
   };
 
-  useEffect(() => {
-    setCurrentPage(1);
-    navigateTo(`/pokedex/${currentPage}`);
-  }, [query]);
+  // useEffect(() => {
+  //   setCurrentPage(1);
+  //   navigateTo(`/pokedex/${currentPage}`);
+  // }, [query]);
 
-  const visiblePokeData = query !== "" ? search(pokesData) : pokesData;
-  const slicedPokeData = visiblePokeData.slice(
-    (currentPage - 1) * 15,
-    currentPage * 15
-  );
+  // const visiblePokeData = query !== "" ? search(pokesData) : pokesData;
+  // const slicedPokeData = visiblePokeData.slice(
+  //   (currentPage - 1) * 15,
+  //   currentPage * 15
+  // );
 
-  const handlePrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-      navigateTo(`/pokedex/${currentPage - 1}`);
-    }
-  };
+  // const handlePrevPage = () => {
+  //   if (currentPage > 1) {
+  //     setCurrentPage(currentPage - 1);
+  //     navigateTo(`/pokedex/${currentPage - 1}`);
+  //   }
+  // };
 
-  const handleNextPage = () => {
-    if (currentPage < 11) {
-      setCurrentPage(currentPage + 1);
-      navigateTo(`/pokedex/${currentPage + 1}`);
-    }
-  };
+  // const handleNextPage = () => {
+  //   if (currentPage < 11) {
+  //     setCurrentPage(currentPage + 1);
+  //     navigateTo(`/pokedex/${currentPage + 1}`);
+  //   }
+  // };
 
   return (
     <>
-      {loading ? (
-        <h1>Loading...</h1>
-      ) : (
-        <>
-          {slicedPokeData.map((item) => {
-            const isFavorite = favoritePokemons.includes(item.id);
-            const isBookmarked = bookmarkedPokemons.includes(item.id);
-            return (
-              <div
-                className="card"
-                key={item.id}
-                onClick={(event) => handleCardClick(event, item.id)}
-              >
-                <div className="checkbox">
-                  <Checkbox
-                    checked={isFavorite}
-                    onChange={() => toggleFavoritePokemon(item.id)}
-                    icon={<FavoriteBorder />}
-                    checkedIcon={<Favorite />}
-                  />
-                  <Checkbox
-                    checked={isBookmarked}
-                    onChange={() => toggleBookmarkedPokemon(item.id)}
-                    icon={<BookmarkBorderIcon />}
-                    checkedIcon={<BookmarkIcon />}
-                    disabled={!isBookmarked && bookmarkedPokemons.length >= 2}
-                  />
-                </div>
-                <Link to={`/pokemon/${item.id}`}>
-                  <img
-                    id="cardImg"
-                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${item.id}.svg`}
-                    alt=""
-                  />
-                </Link>
+      <MainLayout>
+        {loading ? (
+          <h1>Loading...</h1>
+        ) : (
+          <>
+            {pokesData.map((item) => {
+              const isFavorite = favoritePokemons.includes(item.id);
+              const isBookmarked = bookmarkedPokemons.includes(item.id);
+              return (
+                <div
+                  className="card"
+                  key={item.id}
+                  onClick={(event) => handleCardClick(event, item.id)}
+                >
+                  <div className="checkbox">
+                    <Checkbox
+                      checked={isFavorite}
+                      onChange={() => toggleFavoritePokemon(item.id)}
+                      icon={<FavoriteBorder />}
+                      checkedIcon={<Favorite />}
+                    />
+                    <Checkbox
+                      checked={isBookmarked}
+                      onChange={() => toggleBookmarkedPokemon(item.id)}
+                      icon={<BookmarkBorderIcon />}
+                      checkedIcon={<BookmarkIcon />}
+                      disabled={!isBookmarked && bookmarkedPokemons.length >= 2}
+                    />
+                  </div>
+                  <Link to={`/pokemon/${item.id}`}>
+                    <img
+                      id="cardImg"
+                      src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${item.id}.svg`}
+                      alt=""
+                    />
+                  </Link>
 
-                <h1 className="cardName">
-                  {item.name &&
-                    item.name.charAt(0).toUpperCase() + item.name.slice(1)}
-                </h1>
-                <div className="detailsFirstLine">
-                  <div className="height">
-                    <h4 className="heightValue">{item.height}</h4>
-                    <h3>Height</h3>
+                  <h1 className="cardName">
+                    {item.name &&
+                      item.name.charAt(0).toUpperCase() + item.name.slice(1)}
+                  </h1>
+                  <div className="detailsFirstLine">
+                    <div className="height">
+                      <h4 className="heightValue">{item.height}</h4>
+                      <h3>Height</h3>
+                    </div>
+                    <div className="experience">
+                      <h4 className="experienceValue">
+                        {item.base_experience}
+                      </h4>
+                      <h3>Base experience</h3>
+                    </div>
                   </div>
-                  <div className="experience">
-                    <h4 className="experienceValue">{item.base_experience}</h4>
-                    <h3>Base experience</h3>
+                  <div className="detailsSecondLine">
+                    <div className="weight">
+                      <h4 className="weightValue">{item.weight}</h4>
+                      <h3>Weight</h3>
+                    </div>
+                    <div className="ability">
+                      <h4 className="abilityValue">
+                        {item.abilities && item.abilities.length > 0
+                          ? item.abilities[0].ability.name
+                          : item.ability}
+                      </h4>
+                      <h3 className="ability">Ability</h3>
+                    </div>
                   </div>
                 </div>
-                <div className="detailsSecondLine">
-                  <div className="weight">
-                    <h4 className="weightValue">{item.weight}</h4>
-                    <h3>Weight</h3>
-                  </div>
-                  <div className="ability">
-                    <h4 className="abilityValue">
-                      {item.abilities && item.abilities.length > 0
-                        ? item.abilities[0].ability.name
-                        : item.ability}
-                    </h4>
-                    <h3 className="ability">Ability</h3>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-
-          <div className="btn-group">
-            <button
-              className="btn-prev-page"
-              style={{
-                display:
-                  query !== "" || currentPage === 1 ? "none" : "inline-block",
-              }}
-              onClick={handlePrevPage}
-            >
-              Poprzednia
-            </button>
-
-            <button
-              className="btn-next-page"
-              style={{
-                display:
-                  query !== "" || currentPage === 11 ? "none" : "inline-block",
-              }}
-              onClick={handleNextPage}
-            >
-              Następna
-            </button>
-          </div>
-          <div className="current">Strona nr. {currentPage}</div>
-        </>
-      )}
+              );
+            })}
+          </>
+        )}
+      </MainLayout>
     </>
   );
 };

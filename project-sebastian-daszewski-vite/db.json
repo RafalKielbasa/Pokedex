@@ -1,0 +1,116 @@
+{
+  "users": [
+    {
+      "username": "Mordziaty3",
+      "email": "Sebek665@o2.pl",
+      "password": "Mordziasty12#",
+      "passwordConfirm": "Mordziasty12#",
+      "id": 1
+    }
+  ],
+  "login": [],
+  "pokemonDataToFight": [
+    {
+      "id": 1,
+      "name": "bulbasaur",
+      "height": 7,
+      "weight": 69,
+      "base_experience": 64,
+      "wins": 0,
+      "loses": 1
+    },
+    {
+      "id": 2,
+      "name": "venusaurex",
+      "height": 20,
+      "weight": 1000,
+      "base_experience": 303,
+      "ability": "overgrow",
+      "wins": 2,
+      "loses": 0
+    }
+  ],
+  "pokemonData": [
+    {
+      "id": 3,
+      "name": "charmanderox",
+      "height": 6,
+      "weight": 85,
+      "base_experience": 62,
+      "ability": "blaze",
+      "wins": 0,
+      "loses": 2
+    },
+    {
+      "id": 2,
+      "name": "venusaurex",
+      "height": 20,
+      "weight": 1000,
+      "base_experience": 303,
+      "ability": "overgrow",
+      "wins": 2,
+      "loses": 0
+    },
+    {
+      "id": 4,
+      "name": "ivysaura",
+      "height": 1000,
+      "weight": 130,
+      "base_experience": 392,
+      "ability": "overgrow",
+      "wins": 5,
+      "loses": 0
+    },
+    {
+      "id": 5,
+      "name": "charmeleon",
+      "height": 11,
+      "weight": 190,
+      "base_experience": 152,
+      "wins": 1,
+      "loses": 0
+    },
+    {
+      "id": 1,
+      "name": "bulbasaur",
+      "height": 7,
+      "weight": 69,
+      "base_experience": 64,
+      "wins": 0,
+      "loses": 1
+    },
+    {
+      "name": "venusaurex",
+      "height": 20,
+      "weight": 1000,
+      "base_experience": 283,
+      "ability": "overgrow",
+      "new": true,
+      "wins": 0,
+      "loses": 0,
+      "id": 6
+    },
+    {
+      "name": "charmanderox",
+      "height": 6,
+      "weight": 85,
+      "base_experience": 62,
+      "ability": "blaze",
+      "new": true,
+      "wins": 0,
+      "loses": 0,
+      "id": 7
+    },
+    {
+      "name": "charmanderox",
+      "height": 6,
+      "weight": 85,
+      "base_experience": 62,
+      "ability": "blaze",
+      "new": true,
+      "wins": 0,
+      "loses": 0,
+      "id": 8
+    }
+  ]
+}
