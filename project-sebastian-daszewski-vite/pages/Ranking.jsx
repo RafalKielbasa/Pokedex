@@ -1,31 +1,30 @@
-import MainLayout from "../layout/MainLayout";
-import { useState, useEffect, useContext } from "react";
-import * as React from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useParams } from "react-router-dom";
 import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AppContext } from "../src/AppContext";
 
-function Favourites() {
-  const { pokesData } = useContext(AppContext);
-
-  const [pokeData, setPokeData] = useState([]);
+const Ranking = ({ query, nextUrl, prevUrl, pokeData }) => {
   const [favoritePokemons, setFavoritePokemons] = useState([]);
   const [bookmarkedPokemons, setBookmarkedPokemons] = useState([]);
+  const loggedIn = window.localStorage.getItem("isLoggedIn");
   const [pokemonData, setPokemonData] = useState([]);
-  const [favoritesId, setFavoritesId] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const { number } = useParams();
+  const [loading, setLoading] = useState(false);
+  const navigateTo = useNavigate();
+  const { pokesData } = useContext(AppContext);
 
   useEffect(() => {
-    const storedFavoritesId =
-      JSON.parse(localStorage.getItem("favoritesId")) || [];
-
-    setFavoritesId(storedFavoritesId);
-  }, []);
+    if (number) {
+      setCurrentPage(parseInt(number));
+    }
+  }, [number]);
 
   useEffect(() => {
     const favoritesId = JSON.parse(localStorage.getItem("favoritesId"));
@@ -40,17 +39,6 @@ function Favourites() {
       setBookmarkedPokemons(bookmarkedId);
     }
   }, []);
-
-  useEffect(() => {
-    if (pokesData && pokesData.length > 0) {
-      const filteredData = pokesData.filter((item) =>
-        favoritesId.includes(item.id)
-      );
-      setPokeData(filteredData);
-      setFavoritePokemons(favoritesId);
-      setLoading(false);
-    }
-  }, [pokesData, favoritesId]);
 
   const toggleFavoritePokemon = (id) => {
     setFavoritePokemons((prevFavoritePokemons) => {
@@ -128,28 +116,54 @@ function Favourites() {
   const handleCardClick = (event, id) => {
     if (event.target.tagName !== "INPUT") {
       if (!favoritePokemons.includes(id)) {
-        window.location.href = `/pokemon/${id}`;
+        navigateTo(`/pokemon/${id}`);
       }
     }
   };
 
+  const search = (data) => {
+    return data.filter((item) => item.name.toLowerCase().includes(query));
+  };
+
+  useEffect(() => {
+    setCurrentPage(1);
+    navigateTo(`/pokedex/${currentPage}`);
+  }, [query]);
+
+  const visiblePokeData = query !== "" ? search(pokesData) : pokesData;
+  const slicedPokeData = visiblePokeData.slice(
+    (currentPage - 1) * 15,
+    currentPage * 15
+  );
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      navigateTo(`/pokedex/${currentPage - 1}`);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < 11) {
+      setCurrentPage(currentPage + 1);
+      navigateTo(`/pokedex/${currentPage + 1}`);
+    }
+  };
+
   return (
-    <div className="allCardsFavorites">
+    <>
       {loading ? (
-        <div>Loading...</div>
-      ) : favoritesId && favoritesId.length > 0 ? (
-        <MainLayout>
-          {pokeData.map((item) => {
+        <h1>Loading...</h1>
+      ) : (
+        <>
+          {slicedPokeData.map((item) => {
             const isFavorite = favoritePokemons.includes(item.id);
             const isBookmarked = bookmarkedPokemons.includes(item.id);
-            const shouldDisplay = isBookmarked || isFavorite;
-
             return (
               <div
-                className="cardFavorites"
+                className="card"
                 key={item.id}
                 onClick={(event) => handleCardClick(event, item.id)}
-                style={{ display: shouldDisplay ? "inline-block" : "none" }}
               >
                 <div className="checkbox">
                   <Checkbox
@@ -166,14 +180,17 @@ function Favourites() {
                     disabled={!isBookmarked && bookmarkedPokemons.length >= 2}
                   />
                 </div>
+                <Link to={`/pokemon/${item.id}`}>
+                  <img
+                    id="cardImg"
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${item.id}.svg`}
+                    alt=""
+                  />
+                </Link>
 
-                <img
-                  id="cardImg"
-                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${item.id}.svg`}
-                  alt=""
-                />
                 <h1 className="cardName">
-                  {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
+                  {item.name &&
+                    item.name.charAt(0).toUpperCase() + item.name.slice(1)}
                 </h1>
                 <div className="detailsFirstLine">
                   <div className="height">
@@ -190,33 +207,47 @@ function Favourites() {
                     <h4 className="weightValue">{item.weight}</h4>
                     <h3>Weight</h3>
                   </div>
-                  <div className="abilityFavorites">
-                    <h4 className="abilityValueFavorites">
+                  <div className="ability">
+                    <h4 className="abilityValue">
                       {item.abilities && item.abilities.length > 0
                         ? item.abilities[0].ability.name
                         : item.ability}
                     </h4>
-                    <h3>Ability</h3>
+                    <h3 className="ability">Ability</h3>
                   </div>
                 </div>
               </div>
             );
           })}
-        </MainLayout>
-      ) : (
-        <MainLayout>
-          <div className="noFavoritesModal">
-            <h2 className="noFavorites">
-              Nie masz jeszcze ulubionych pokemonów
-            </h2>
-            <Link to="/pokedex/1">
-              <h3 className="noFavoritesLink">dodaj ulubione pokemony tutaj</h3>
-            </Link>
-          </div>
-        </MainLayout>
-      )}
-    </div>
-  );
-}
 
-export default Favourites;
+          <div className="btn-group">
+            <button
+              className="btn-prev-page"
+              style={{
+                display:
+                  query !== "" || currentPage === 1 ? "none" : "inline-block",
+              }}
+              onClick={handlePrevPage}
+            >
+              Poprzednia
+            </button>
+
+            <button
+              className="btn-next-page"
+              style={{
+                display:
+                  query !== "" || currentPage === 11 ? "none" : "inline-block",
+              }}
+              onClick={handleNextPage}
+            >
+              Następna
+            </button>
+          </div>
+          <div className="current">Strona nr. {currentPage}</div>
+        </>
+      )}
+    </>
+  );
+};
+
+export default Ranking;

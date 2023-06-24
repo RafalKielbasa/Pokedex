@@ -182,6 +182,9 @@ function DrawerAppBar(props) {
               className="navButtons"
             >
               <Button>
+                <Link to="/ranking">Ranking</Link>
+              </Button>
+              <Button>
                 <Link to="/ulubione">Ulubione</Link>
               </Button>
               <Button>

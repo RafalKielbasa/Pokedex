@@ -31,14 +31,12 @@ function Settings() {
 
     if (isCreateNew || existingPokemon.length == 0) {
       const newPokemon = {
-        id: isCreateNew
-          ? pokemonData.length + pokeData.length + 1
-          : editedPokemon.id,
         name: editedPokemon.name,
         height: editedPokemon.height,
         weight: editedPokemon.weight,
         base_experience: editedPokemon.base_experience,
         ability: editedPokemon.ability,
+        new: true,
         wins: 0,
         loses: 0,
       };
@@ -84,7 +82,7 @@ function Settings() {
           const updatedData = pokemonData.map((pokemon) =>
             pokemon.id === editedPokemon.id ? updatedPokemon : pokemon
           );
-          setPokemonData((prevPokemonData) => updatedData);
+          setPokemonData(updatedData);
         })
         .catch((error) => {
           enqueueSnackbar("Wystąpił błąd podczas aktualizacji danych");

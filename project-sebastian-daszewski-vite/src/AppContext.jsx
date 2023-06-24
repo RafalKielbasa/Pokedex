@@ -32,12 +32,14 @@ export const AppProvider = ({ children }) => {
     };
 
     fetchData();
-  }, []);
+  }, [pokesData]);
 
   function mergeData(pokeData, pokesData) {
     return pokesData.map((poke) => {
       const matchingPoke = pokeData.find((p) => p.id === poke.id);
-      if (matchingPoke) {
+      if (poke.new === true) {
+        return poke;
+      } else if (matchingPoke) {
         return matchingPoke;
       } else {
         return poke;

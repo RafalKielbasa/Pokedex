@@ -4,6 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 import Pokedex from "../pages/Pokedex.jsx";
 import Pokeinfo from "../Components/PokeInfo.jsx";
+import Ranking from "../pages/Ranking.jsx";
 import Favorites from "../pages/Favorites.jsx";
 import {
   createBrowserRouter,
@@ -63,6 +64,14 @@ const router = createBrowserRouter([
     element: (
       <AppProvider>
         <Pokeinfo />
+      </AppProvider>
+    ),
+  },
+  {
+    path: "/ranking",
+    element: (
+      <AppProvider>
+        <Ranking />
       </AppProvider>
     ),
   },

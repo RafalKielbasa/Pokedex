@@ -10,6 +10,7 @@ import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import Favorites from "./Favorites";
+import Ranking from "./Ranking";
 import { AppContext } from "../src/AppContext";
 
 const GlobalStyle = createGlobalStyle`
@@ -30,39 +31,6 @@ function Pokedex() {
   const [query, setQuery] = useState("");
   const loggedIn = window.localStorage.getItem("isLoggedIn");
   const [theme, setTheme] = useState(getInitialTheme);
-
-  // useEffect(() => {
-  //   const fetchPokemonData = async () => {
-  //     const res = await axios.get(
-  //       `https://pokeapi.co/api/v2/pokemon?limit=151`
-  //     );
-  //     setNextUrl(res.data.next);
-  //     setPrevUrl(res.data.previous);
-  //     const pokemonList = res.data.results;
-  //     const pokemonData = await Promise.all(
-  //       pokemonList.map(async (pokemon) => {
-  //         const response = await axios.get(pokemon.url);
-  //         const { id, name, height, weight, base_experience, abilities } =
-  //           response.data;
-
-  //         return {
-  //           id,
-  //           name,
-  //           height,
-  //           weight,
-  //           base_experience,
-  //           ability: abilities[0].ability.name,
-  //           wins: 0,
-  //           loses: 0,
-  //         };
-  //       })
-  //     );
-  //     setLoading(false);
-
-  //     setPokeData(pokemonData);
-  //   };
-  //   fetchPokemonData();
-  // }, []);
 
   useEffect(() => {
     document.body.className = theme.mode;
