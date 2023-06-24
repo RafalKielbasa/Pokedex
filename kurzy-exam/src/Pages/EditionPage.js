@@ -30,6 +30,7 @@ import CardActions from "@mui/material/CardActions";
 import { blankpicture } from "src/Images";
 import { useSnackbar } from "notistack";
 import { postData } from "src/api/postData";
+import { postNewData } from "src/api/postData";
 
 const ContainerPageWrapper = styled("div")(
   css`
@@ -124,7 +125,21 @@ const EditionPage = () => {
     fullPokemonDataFormated,
   } = useContext(AppContext);
   const [editButton, setEditButton] = useState(false);
+  const [saveAsNewButton, setSaveAsNewButton] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
+
+  const getAfterTheBattleAndEdit = async () => {
+    const response = await axios.get(
+      `http://localhost:3001/afterTheBattleAndEdit/`
+    );
+    setAfterBattle(response.data);
+    const getBattleIds = response?.data?.map((item) => item.id);
+    setAfterBattleIds(getBattleIds);
+  };
+
+  useEffect(() => {
+    getAfterTheBattleAndEdit();
+  }, [personName]);
 
   const handleChangeMultiple = (event) => {
     setNewValues(null);
@@ -142,15 +157,11 @@ const EditionPage = () => {
     setPersonName(value);
   };
 
-  // const wynik = useMemo(() => {
-  //   return initialValues === newValues ? true : false;
-  // }, [initialValues, newValues]);
-  // console.log(`wynik`, wynik);
-
   const handleOnSubmit = (values) => {
     setNewValues(values);
     if (values === initialValues) {
       setEditButton(false);
+      setSaveAsNewButton(false);
       enqueueSnackbar(`Nie dokonałeś zmiany żadnej z wartości`, {
         variant: "error",
         preventDuplicate: true,
@@ -160,6 +171,9 @@ const EditionPage = () => {
     if (values !== initialValues) {
       setEditButton(true);
     }
+    if (values.name !== initialValues.name) {
+      setSaveAsNewButton(true);
+    }
   };
 
   // console.log(`newValues === initialValues`, newValues === initialValues);
@@ -167,7 +181,6 @@ const EditionPage = () => {
   console.log(`newValues`, newValues);
 
   const edit = () => {
-    // if (fighter1Stat > fighter2Stat && !afterBattleIds.includes(battle[0].id)) {
     postData(
       "afterTheBattleAndEdit",
       newValues.id,
@@ -179,24 +192,49 @@ const EditionPage = () => {
       newValues.weight,
       newValues.abilitie
     );
-    //   axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
-    //   axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
-    //   setOpen(false);
-    //   navigate("/");
-    // }
+    setEditButton(false);
+    getAfterTheBattleAndEdit();
+    setinItialValues({
+      id: "",
+      pic: blankpicture,
+      picDet: "",
+      name: "",
+      height: "",
+      baseexp: "",
+      weight: "",
+      abilitie: "",
+    });
+
+    setPersonName([]);
   };
 
-  useEffect(() => {
-    const getAfterTheBattleAndEdit = async () => {
-      const response = await axios.get(
-        `http://localhost:3001/afterTheBattleAndEdit/`
-      );
-      setAfterBattle(response.data);
-      const getBattleIds = response?.data?.map((item) => item.id);
-      setAfterBattleIds(getBattleIds);
-    };
+  const saveAsNew = () => {
+    postNewData(
+      "afterTheBattleAndEdit",
+      newValues.id,
+      newValues.pic,
+      newValues.picDet,
+      newValues.name,
+      newValues.height,
+      newValues.baseexp,
+      newValues.weight,
+      newValues.abilitie
+    );
+    setSaveAsNewButton(true);
     getAfterTheBattleAndEdit();
-  }, []);
+    setinItialValues({
+      id: "",
+      pic: blankpicture,
+      picDet: "",
+      name: "",
+      height: "",
+      baseexp: "",
+      weight: "",
+      abilitie: "",
+    });
+
+    setPersonName([]);
+  };
 
   useEffect(() => {
     const array =
@@ -214,7 +252,7 @@ const EditionPage = () => {
         ? []
         : afterBattle.concat(filterFPD).sort((a, b) => (a.id > b.id ? 1 : -1));
     setExpFullPokemonDataFormated(getExpFPD);
-  }, [afterBattle, fullPokemonDataFormated]);
+  }, [afterBattle, fullPokemonDataFormated, personName]);
 
   useEffect(() => {
     setinItialValues({
@@ -417,21 +455,15 @@ const EditionPage = () => {
           variant="outlined"
           type="submit"
           onClick={edit}
-          disabled={
-            newValues === initialValues ||
-            newValues === null ||
-            editButton === false
-              ? true
-              : false
-          }
+          disabled={editButton === false ? true : false}
         >
           Edytuj
         </MyButton>
         <MyButton
           variant="outlined"
           type="submit"
-          // onClick={edit}
-          // disabled={false}
+          onClick={saveAsNew}
+          disabled={saveAsNewButton === false ? true : false}
         >
           Zapisz jako nowy
         </MyButton>
