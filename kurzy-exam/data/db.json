@@ -1,0 +1,156 @@
+{
+  "users": [
+    {
+      "name": "Piotr Kurzydym",
+      "email": "abc@gmail.com",
+      "pass": "123Infoinfo!",
+      "id": 1
+    }
+  ],
+  "favoriteData": [
+    {
+      "id": 75,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/75.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/75.svg",
+      "name": "graveler",
+      "height": 10,
+      "baseexp": 137,
+      "weight": 1050,
+      "abilitie": "rock-head"
+    },
+    {
+      "id": 25,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg",
+      "name": "pikachu",
+      "height": 4,
+      "baseexp": 132,
+      "weight": 60,
+      "abilitie": "static"
+    },
+    {
+      "id": 15,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/15.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/15.svg",
+      "name": "beedrill",
+      "height": 10,
+      "baseexp": 178,
+      "weight": 295,
+      "abilitie": "swarm"
+    },
+    {
+      "id": 73,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/73.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/73.svg",
+      "name": "tentacruel",
+      "height": 16,
+      "baseexp": 180,
+      "weight": 550,
+      "abilitie": "clear-body"
+    },
+    {
+      "id": 89,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/89.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/89.svg",
+      "name": "muk",
+      "height": 12,
+      "baseexp": 175,
+      "weight": 300,
+      "abilitie": "stench"
+    },
+    {
+      "id": 47,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/47.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/47.svg",
+      "name": "parasect",
+      "height": 10,
+      "baseexp": 152,
+      "weight": 295,
+      "abilitie": "effect-spore"
+    },
+    {
+      "id": 3,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
+      "name": "venusaur",
+      "height": 20,
+      "baseexp": 263,
+      "weight": 1000,
+      "abilitie": "overgrow"
+    },
+    {
+      "id": 63,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/63.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/63.svg",
+      "name": "abra",
+      "height": 9,
+      "baseexp": 62,
+      "weight": 195,
+      "abilitie": "synchronize"
+    }
+  ],
+  "battle": [
+    {
+      "id": 3,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
+      "name": "venusaur",
+      "height": 20,
+      "baseexp": 263,
+      "weight": 1000,
+      "abilitie": "overgrow"
+    }
+  ],
+  "afterTheBattle": [
+    {
+      "id": 95,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/95.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/95.svg",
+      "name": "onix",
+      "height": 88,
+      "baseexp": 107,
+      "weight": 2100,
+      "abilitie": "rock-head"
+    },
+    {
+      "id": 25,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg",
+      "name": "pikachu",
+      "height": 4,
+      "baseexp": 132,
+      "weight": 60,
+      "abilitie": "static"
+    },
+    {
+      "id": 5,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
+      "name": "charmeleon",
+      "height": 11,
+      "baseexp": 172,
+      "weight": 190,
+      "abilitie": "blaze"
+    },
+    {
+      "id": 47,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/47.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/47.svg",
+      "name": "parasect",
+      "height": 10,
+      "baseexp": 152,
+      "weight": 295,
+      "abilitie": "effect-spore"
+    },
+    {
+      "id": 49,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/49.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/49.svg",
+      "name": "venomoth",
+      "height": 15,
+      "baseexp": 168,
+      "weight": 125,
+      "abilitie": "shield-dust"
+    }
+  ]
+}
