@@ -1,6 +1,7 @@
 import axios from "axios";
 import { v4 } from "uuid";
 import { blankpicture } from "src/Images";
+import { blankpictureL } from "src/Images";
 
 export const postData = (
   catalog,
@@ -56,7 +57,7 @@ export const postNewData = (
     axios.post(`http://localhost:3001/${catalog}`, {
       id: v4(),
       pic: blankpicture,
-      picDet: "",
+      picDet: blankpictureL,
       name,
       height,
       baseexp,

@@ -89,18 +89,7 @@
       "abilitie": "shed-skin"
     }
   ],
-  "battle": [
-    {
-      "id": 15,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/15.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/15.svg",
-      "name": "beedrill",
-      "height": 10,
-      "baseexp": 178,
-      "weight": 295,
-      "abilitie": "swarm"
-    }
-  ],
+  "battle": [],
   "afterTheBattleAndEdit": [
     {
       "id": 95,

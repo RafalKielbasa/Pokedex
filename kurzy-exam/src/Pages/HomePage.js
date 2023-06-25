@@ -37,6 +37,13 @@ const InfoWrapper = styled.h1`
   justify-content: center;
   margin-top: 100px;
 `;
+const ServerErrorWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 50px;
+  font-weight: bold;
+`;
 
 const theme2 = createTheme({
   palette: {
@@ -101,9 +108,11 @@ const HomePage = () => {
       ? Math.ceil(expFullPokemonDataFormated?.length / 15)
       : 10;
 
-  const partialPokemonData = expFullPokemonDataFormated
-    .slice(offset, offset + 15)
-    .sort((a, b) => (a.id > b.id ? 1 : -1));
+  const partialPokemonData =
+    expFullPokemonDataFormated.length > 0 &&
+    expFullPokemonDataFormated
+      .slice(offset, offset + 15)
+      .sort((a, b) => (a.id > b.id ? 1 : -1));
 
   const inputHandler = (event) => {
     const textFieldText = event.target.value.toLowerCase();
@@ -129,6 +138,15 @@ const HomePage = () => {
     setPage(value);
     setOffset((value - 1) * 15);
   };
+
+  if (afterBattle === undefined)
+    return (
+      <ServerErrorWrapper>
+        Błąd !!! Następił błąd poboru danych z json-server. Proszę uruchomić
+        json-server komendą: "npm run json-server". Serwer uruchomii się na
+        localhost:3001. Data base znajduję się w katalogu "data/db.json"
+      </ServerErrorWrapper>
+    );
 
   return (
     <>
@@ -237,22 +255,23 @@ const HomePage = () => {
           </PaginationWrapper>
 
           <PokemonWrapper>
-            {partialPokemonData?.map((item, index) => (
-              <PokemonCard
-                key={index}
-                id={item.id}
-                pic={item.pic}
-                picDet={item.picDet}
-                name={item.name}
-                height={item.height}
-                baseexp={item.baseexp}
-                weight={item.weight}
-                abilitie={item.abilitie}
-                partialPokemonData={partialPokemonData}
-                fullPokemonDataFiltered={expFullPokemonDataFiltered}
-                expFullPokemonDataFormated={expFullPokemonDataFormated}
-              />
-            ))}
+            {partialPokemonData &&
+              partialPokemonData?.map((item, index) => (
+                <PokemonCard
+                  key={index}
+                  id={item.id}
+                  pic={item.pic}
+                  picDet={item.picDet}
+                  name={item.name}
+                  height={item.height}
+                  baseexp={item.baseexp}
+                  weight={item.weight}
+                  abilitie={item.abilitie}
+                  partialPokemonData={partialPokemonData}
+                  fullPokemonDataFiltered={expFullPokemonDataFiltered}
+                  expFullPokemonDataFormated={expFullPokemonDataFormated}
+                />
+              ))}
           </PokemonWrapper>
 
           <PaginationWrapper>

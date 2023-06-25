@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import * as Yup from "yup";
 import { useEffect, useState, useContext, useMemo } from "react";
 import { AppContext } from "src/context/AppContext";
 
@@ -95,6 +96,11 @@ const MyButton = styled(Button)(
     width: 200px;
   `
 );
+const EditionInfoWrapper = styled.p`
+  display: flex;
+  justify-content: center;
+  margin-top: 120px;
+`;
 
 const EditionPage = () => {
   const [afterBattle, setAfterBattle] = useState();
@@ -174,38 +180,95 @@ const EditionPage = () => {
     if (values.name !== initialValues.name) {
       setSaveAsNewButton(true);
     }
+    if (
+      (values.name !== initialValues.name) &
+      (values.height === initialValues.height) &
+      (values.baseexp === initialValues.baseexp) &
+      (values.weight === initialValues.weight) &
+      (values.abilitie === initialValues.abilitie)
+    ) {
+      setSaveAsNewButton(true);
+      setEditButton(false);
+    }
   };
 
-  // console.log(`newValues === initialValues`, newValues === initialValues);
   console.log(`initialValues`, initialValues);
   console.log(`newValues`, newValues);
 
   const edit = () => {
-    postData(
-      "afterTheBattleAndEdit",
-      newValues.id,
-      newValues.pic,
-      newValues.picDet,
-      newValues.name,
-      newValues.height,
-      newValues.baseexp,
-      newValues.weight,
-      newValues.abilitie
-    );
-    setEditButton(false);
-    getAfterTheBattleAndEdit();
-    setinItialValues({
-      id: "",
-      pic: blankpicture,
-      picDet: "",
-      name: "",
-      height: "",
-      baseexp: "",
-      weight: "",
-      abilitie: "",
-    });
+    if (!afterBattleIds.includes(newValues.id)) {
+      postData(
+        "afterTheBattleAndEdit",
+        newValues.id,
+        newValues.pic,
+        newValues.picDet,
+        newValues.name,
+        newValues.height,
+        newValues.baseexp,
+        newValues.weight,
+        newValues.abilitie
+      );
+      setEditButton(false);
+      getAfterTheBattleAndEdit();
+      setinItialValues({
+        id: "",
+        pic: blankpicture,
+        picDet: "",
+        name: "",
+        height: "",
+        baseexp: "",
+        weight: "",
+        abilitie: "",
+      });
 
-    setPersonName([]);
+      setPersonName([]);
+      enqueueSnackbar(
+        `Pokemon o imieniu ${newValues.name} został zmodyfikowany`,
+        {
+          variant: "success",
+          preventDuplicate: true,
+          autoHideDuration: 5000,
+        }
+      );
+    }
+    if (afterBattleIds.includes(newValues.id)) {
+      axios.delete(
+        `http://localhost:3001/afterTheBattleAndEdit/${newValues.id}`
+      );
+      postData(
+        "afterTheBattleAndEdit",
+        newValues.id,
+        newValues.pic,
+        newValues.picDet,
+        newValues.name,
+        newValues.height,
+        newValues.baseexp,
+        newValues.weight,
+        newValues.abilitie
+      );
+      setEditButton(false);
+      getAfterTheBattleAndEdit();
+      setinItialValues({
+        id: "",
+        pic: blankpicture,
+        picDet: "",
+        name: "",
+        height: "",
+        baseexp: "",
+        weight: "",
+        abilitie: "",
+      });
+
+      setPersonName([]);
+      enqueueSnackbar(
+        `Pokemon o imieniu ${newValues.name} został zmodyfikowany`,
+        {
+          variant: "success",
+          preventDuplicate: true,
+          autoHideDuration: 5000,
+        }
+      );
+    }
   };
 
   const saveAsNew = () => {
@@ -234,6 +297,11 @@ const EditionPage = () => {
     });
 
     setPersonName([]);
+    enqueueSnackbar(`Utworzono nowego Pokemona o imieniu ${newValues.name}`, {
+      variant: "success",
+      preventDuplicate: true,
+      autoHideDuration: 5000,
+    });
   };
 
   useEffect(() => {
@@ -267,12 +335,42 @@ const EditionPage = () => {
     });
   }, [userData]);
 
+  const userSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, "Imię musi zawierać minimum 2 znaki")
+      .max(16, "Imię może zawierać maksimum 16 znaków")
+      .required("To pole jest wymagane"),
+    height: Yup.number()
+      .min(1, "Minimalna wymagana wartość to 1")
+      .max(9999999999, "Maksymalna akceptowalna wartość to 9999999999")
+      .positive("Podana wartość nie może być mniejsza niż zero")
+      .integer("Podana wartość musi być liczbą całkowitą")
+      .required("To pole jest wymagane"),
+    baseexp: Yup.number()
+      .min(1, "Minimalna wymagana wartość to 1")
+      .max(9999999999, "Maksymalna akceptowalna wartość to 9999999999")
+      .positive("Podana wartość nie może być mniejsza niż zero")
+      .integer("Podana wartość musi być liczbą całkowitą")
+      .required("To pole jest wymagane"),
+    weight: Yup.number()
+      .min(1, "Minimalna wymagana wartość to 1")
+      .max(9999999999, "Maksymalna akceptowalna wartość to 9999999999")
+      .positive("Podana wartość nie może być mniejsza niż zero")
+      .integer("Podana wartość musi być liczbą całkowitą")
+      .required("To pole jest wymagane"),
+    abilitie: Yup.string()
+      .min(2, "Pole musi zawierać minimum 2 znaki")
+      .max(15, "Pole może zawierać maksimum 15 znaków")
+      .required("To pole jest wymagane"),
+  });
+
   return (
     <ContainerPageWrapper>
       <Formik
         enableReinitialize
         initialValues={initialValues}
         onSubmit={handleOnSubmit}
+        validationSchema={userSchema}
       >
         {({ values, handleChange, setFieldValue }) => {
           return (
@@ -349,7 +447,11 @@ const EditionPage = () => {
                           marginTop: "10px",
                           width: "200px",
                         }}
+                        // required
+                        // minlength="4"
+                        // maxlength="8"
                       />
+                      <ErrorMessage name="name" />
                     </MediaWrapper>
 
                     <CardContentWrapper>
@@ -366,6 +468,7 @@ const EditionPage = () => {
                             marginRight: "10px",
                           }}
                         />
+                        <ErrorMessage name="height" />
                         <Typography
                           style={{
                             fontWeight: "bold",
@@ -390,6 +493,7 @@ const EditionPage = () => {
                             marginRight: "10px",
                           }}
                         />
+                        <ErrorMessage name="baseexp" />
                         <Typography
                           sx={{ fontWeight: "bold", marginRight: "10px" }}
                           variant="body2"
@@ -411,6 +515,7 @@ const EditionPage = () => {
                             width: "110px",
                           }}
                         />
+                        <ErrorMessage name="weight" />
                         <Typography
                           sx={{ fontWeight: "bold", paddingBottom: "30px" }}
                           variant="body2"
@@ -429,6 +534,7 @@ const EditionPage = () => {
                             width: "110px",
                           }}
                         />
+                        <ErrorMessage name="abilitie" />
                         <Typography
                           sx={{ fontWeight: "bold" }}
                           variant="body2"
@@ -468,6 +574,11 @@ const EditionPage = () => {
           Zapisz jako nowy
         </MyButton>
       </ButtonWrapper>
+      <EditionInfoWrapper>
+        Wskazówki:<br></br> - aby dokonać edycji należy zmienić co najmniej
+        jeden z parametrów Pokemona,<br></br> - aby było możliwe stworzenie
+        nowego Pokemona należy nadać mu unikatowe Imię.
+      </EditionInfoWrapper>
     </ContainerPageWrapper>
   );
 };
