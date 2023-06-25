@@ -69,13 +69,20 @@ const fetchPokemons = async () => {
   }, {});
 
   // Replace the original pokemons with the edited ones
-  const allPokemons = originalPokemons.map((pokemon) => {
+  let allPokemons = originalPokemons.map((pokemon) => {
     if (editedPokemonsById[pokemon.id]) {
       return editedPokemonsById[pokemon.id];
     } else if (editedPokemonsByName[pokemon.name]) {
       return editedPokemonsByName[pokemon.name];
     } else {
       return pokemon;
+    }
+  });
+
+  // Add new pokemons that were not in the original API
+  editedPokemons.forEach((editedPokemon) => {
+    if (!allPokemons.find((pokemon) => pokemon.id === editedPokemon.id)) {
+      allPokemons.push(editedPokemon);
     }
   });
 
