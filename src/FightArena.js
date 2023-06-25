@@ -3,8 +3,17 @@ import { GlobalContext } from "./context/global";
 import PokemonCard from "./PokemonCard";
 import styled from "styled-components";
 import axios from "axios";
-import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+
+const Button = styled.button`
+  width: 250px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: ${({ swich }) => (swich ? "#03001C" : "#007bff")};
+  color: white;
+  font-weight: 700;
+`;
 
 const Body = styled.div`
   display: flex;
@@ -164,21 +173,21 @@ const FightArena = () => {
     <Body swich={swich}>
       <ButtonContainer>
         <Button
-          variant="contained"
+          swich={swich}
           onClick={deleteAllFight}
           disabled={fightPokemons.length < 1}
         >
           Delete All
         </Button>
         <Button
-          variant="contained"
+          swich={swich}
           onClick={fight}
           disabled={fightPokemons.length < 2}
         >
           COMBAT
         </Button>
         {leaveButton === 0 ? (
-          <Button variant="contained" onClick={navigateToHome}>
+          <Button swich={swich} onClick={navigateToHome}>
             LEAVE ARENA
           </Button>
         ) : null}

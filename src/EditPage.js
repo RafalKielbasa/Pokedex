@@ -53,7 +53,7 @@ const Button = styled.button`
   padding: 10px;
   border-radius: 5px;
   border: none;
-  background-color: #007bff;
+  background-color: ${({ swich }) => (swich ? "#03001C" : "#007bff")};
   color: white;
 `;
 
@@ -210,8 +210,10 @@ const EditPage = () => {
             />
             {errors.base_exp && <p>{errors.base_exp.message}</p>}
             <ButtonContainer>
-              <Button type="submit">SAVE</Button>
-              <Button type="button" onClick={saveAsNew}>
+              <Button swich={swich} type="submit">
+                SAVE
+              </Button>
+              <Button swich={swich} type="button" onClick={saveAsNew}>
                 SAVE AS NEW
               </Button>
             </ButtonContainer>
