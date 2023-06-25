@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import EditPage from "./EditPage";
+import { GlobalProvider } from "./context/global";
+import FetchData from "./FetchData";
+import { MoreInfoComponent } from "./MoreInfoComponent";
+import FavoriteCard from "./FavoriteCard";
+import FightArena from "./FightArena";
+import Navbar from "./Navbar";
+import Registration from "./Registration";
+import Login from "./Login";
+import { SnackbarProvider } from "notistack";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GlobalProvider>
+      <SnackbarProvider>
+        <header style={{ position: "sticky", top: 0, zIndex: 1000 }}>
+          <Navbar />
+        </header>
+
+        <Routes>
+          <Route path="/" element={<FetchData />} />
+          <Route path="/moreinfo" element={<MoreInfoComponent />} />
+          <Route path="/favorite" element={<FavoriteCard />} />
+          <Route path="/fight" element={<FightArena />} />
+          <Route path="/edited" element={<EditPage />} />
+          <Route path="/register" element={<Registration />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </SnackbarProvider>
+    </GlobalProvider>
   );
-}
+};
 
 export default App;
