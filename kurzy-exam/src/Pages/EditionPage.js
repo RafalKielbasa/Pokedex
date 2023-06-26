@@ -525,7 +525,8 @@ const EditionPage = () => {
         Wskazówki:<br></br> - aby dokonać edycji należy zmienić co najmniej
         jeden z parametrów Pokemona,<br></br> - aby było możliwe stworzenie
         nowego Pokemona należy nadać mu unikatowe Imię,<br></br> - nowego
-        Pokemona tworzymy modyfikując Pokemona już istniejącego w bazie danych.
+        Pokemona tworzymy modyfikując Pokemona już istniejącego w bazie
+        danych.fff
       </EditionInfoWrapper>
     </ContainerPageWrapper>
   );
