@@ -44,6 +44,7 @@ const AppContextProvider = ({ children }) => {
             baseexp: urlsData.base_experience,
             weight: urlsData.weight,
             abilitie: urlsData.abilities[0].ability.name,
+            wins: 0,
           },
         ];
         return state;

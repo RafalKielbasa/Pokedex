@@ -39,6 +39,7 @@ export default function PokemonCard({
   baseexp,
   weight,
   abilitie,
+  wins,
   expFullPokemonDataFormated,
   onClick,
 }) {
@@ -86,7 +87,8 @@ export default function PokemonCard({
         height,
         baseexp,
         weight,
-        abilitie
+        abilitie,
+        wins
       );
       enqueueSnackbar(`Pokemon ${name} został dodany do "Ulubionych"`, {
         preventDuplicate: true,
@@ -127,7 +129,8 @@ export default function PokemonCard({
         height,
         baseexp,
         weight,
-        abilitie
+        abilitie,
+        wins
       );
       enqueueSnackbar(`Pokemon ${name} poszedł walczyć na Arenę`, {
         preventDuplicate: true,
@@ -278,6 +281,7 @@ export function ArenaPokemonCard({
   baseexp,
   weight,
   abilitie,
+  wins,
 }) {
   const { toggleTheme, isDark } = useContext(AppContext);
 

@@ -12,7 +12,8 @@ export const postData = (
   height,
   baseexp,
   weight,
-  abilitie
+  abilitie,
+  wins
 ) => {
   try {
     axios.post(`http://localhost:3001/${catalog}`, {
@@ -24,6 +25,7 @@ export const postData = (
       baseexp,
       weight,
       abilitie,
+      wins,
     });
   } catch (error) {
     console.error(error);
@@ -51,7 +53,8 @@ export const postNewData = (
   height,
   baseexp,
   weight,
-  abilitie
+  abilitie,
+  wins
 ) => {
   try {
     axios.post(`http://localhost:3001/${catalog}`, {
@@ -63,6 +66,7 @@ export const postNewData = (
       baseexp,
       weight,
       abilitie,
+      wins,
     });
   } catch (error) {
     console.error(error);

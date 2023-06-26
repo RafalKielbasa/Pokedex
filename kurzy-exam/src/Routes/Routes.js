@@ -16,6 +16,7 @@ import {
   RegistrationPage,
   MainPage,
   DetailsPage,
+  RankingPage,
 } from "src/Pages";
 
 const RouterWrapper = () => {
@@ -27,6 +28,7 @@ const RouterWrapper = () => {
         <Route exact path="/" element={<HomePage />} />
         <Route path="favorites" element={<FavoritesPage />} />
         <Route path="arena" element={<ArenaPage />} />
+        <Route path="ranking" element={<RankingPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route
           path="registration"

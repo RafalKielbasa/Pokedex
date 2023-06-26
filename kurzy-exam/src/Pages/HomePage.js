@@ -148,6 +148,8 @@ const HomePage = () => {
       </ServerErrorWrapper>
     );
 
+  console.log(`expFullPokemonDataFormated`, expFullPokemonDataFormated);
+
   return (
     <>
       {inputText ? (
@@ -194,6 +196,7 @@ const HomePage = () => {
                   baseexp={item.baseexp}
                   weight={item.weight}
                   abilitie={item.abilitie}
+                  wins={item.wins}
                   partialPokemonData={partialPokemonData}
                   fullPokemonDataFiltered={expFullPokemonDataFiltered}
                   expFullPokemonDataFormated={expFullPokemonDataFormated}
@@ -267,6 +270,7 @@ const HomePage = () => {
                   baseexp={item.baseexp}
                   weight={item.weight}
                   abilitie={item.abilitie}
+                  wins={item.wins}
                   partialPokemonData={partialPokemonData}
                   fullPokemonDataFiltered={expFullPokemonDataFiltered}
                   expFullPokemonDataFormated={expFullPokemonDataFormated}

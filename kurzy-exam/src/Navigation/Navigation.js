@@ -161,6 +161,14 @@ const Navigation = () => {
                 ARENA
               </Button>
             </Link>
+            <Link to="ranking">
+              <Button
+                color={isDark ? "secondary" : "primary"}
+                variant="outlined"
+              >
+                RANKING
+              </Button>
+            </Link>
             {isLoggedIn == "false" && (
               <Link to="login">
                 <Button
