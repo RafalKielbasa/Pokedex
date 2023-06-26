@@ -45,10 +45,10 @@ export default function PokemonCard({
 }) {
   const [favorites, setFavorites] = useState([]);
   const [favoritesIds, setFavoritesIds] = useState([]);
-  const [isFavorite, setIsFavorite] = useState();
+  const [isFavorite, setIsFavorite] = useState(false);
   const [battle, setBattle] = useState([]);
   const [battleIds, setBattleIds] = useState([]);
-  const [isBattle, setIsBattle] = useState();
+  const [isBattle, setIsBattle] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
   const { toggleTheme, isDark } = useContext(AppContext);
@@ -74,7 +74,7 @@ export default function PokemonCard({
   useEffect(() => {
     setIsFavorite(favoritesIds.includes(id));
   }),
-    [favoritesIds];
+    [isFavorite];
 
   const handleFavorite = () => {
     if (!favoritesIds.includes(id)) {
@@ -136,7 +136,7 @@ export default function PokemonCard({
         preventDuplicate: true,
         autoHideDuration: 5000,
       });
-    } else if (!battleIds.includes(id) && battle.length === 2) {
+    } else if (!battleIds.includes(id) & (battle.length === 2)) {
       enqueueSnackbar(`Na Arenie mogą znajdować się tylko 2 pokemony`, {
         preventDuplicate: true,
         autoHideDuration: 5000,

@@ -144,6 +144,9 @@ const EditionPage = () => {
     }
     setPersonName(value);
   };
+  // console.log(`expFullPokemonDataFormated`, expFullPokemonDataFormated);
+  // console.log(`userData`, userData);
+  // console.log(`newValues`, newValues);
 
   const handleOnSubmit = (values) => {
     setNewValues(values);
@@ -185,7 +188,8 @@ const EditionPage = () => {
         newValues.height,
         newValues.baseexp,
         newValues.weight,
-        newValues.abilitie
+        newValues.abilitie,
+        userData.wins
       );
       setEditButton(false);
       getAfterTheBattleAndEdit();
@@ -223,7 +227,8 @@ const EditionPage = () => {
         newValues.height,
         newValues.baseexp,
         newValues.weight,
-        newValues.abilitie
+        newValues.abilitie,
+        userData.wins
       );
       setEditButton(false);
       getAfterTheBattleAndEdit();
@@ -260,7 +265,8 @@ const EditionPage = () => {
       newValues.height,
       newValues.baseexp,
       newValues.weight,
-      newValues.abilitie
+      newValues.abilitie,
+      userData.wins
     );
     setSaveAsNewButton(true);
     getAfterTheBattleAndEdit();

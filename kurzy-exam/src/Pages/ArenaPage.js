@@ -66,6 +66,8 @@ const ArenaPage = () => {
     getBattle();
   }, [changeParticipant]);
 
+  console.log(`battle`, battle);
+
   useEffect(() => {
     const getAfterTheBattleAndEdit = async () => {
       const response = await axios.get(
@@ -128,7 +130,8 @@ const ArenaPage = () => {
         battle[0].height,
         battle[0].baseexp + 10,
         battle[0].weight,
-        battle[0].abilitie
+        battle[0].abilitie,
+        battle[0].wins + 1
       );
       axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
       axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
@@ -150,7 +153,8 @@ const ArenaPage = () => {
         battle[0].height,
         battle[0].baseexp + 10,
         battle[0].weight,
-        battle[0].abilitie
+        battle[0].abilitie,
+        battle[0].wins + 1
       );
       axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
       axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
@@ -169,7 +173,8 @@ const ArenaPage = () => {
         battle[1].height,
         battle[1].baseexp + 10,
         battle[1].weight,
-        battle[1].abilitie
+        battle[1].abilitie,
+        battle[1].wins + 1
       );
       axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
       axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
@@ -191,7 +196,8 @@ const ArenaPage = () => {
         battle[1].height,
         battle[1].baseexp + 10,
         battle[1].weight,
-        battle[1].abilitie
+        battle[1].abilitie,
+        battle[1].wins + 1
       );
       axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
       axios.delete(`http://localhost:3001/battle/${battle[1].id}`);

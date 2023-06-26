@@ -148,7 +148,7 @@ const HomePage = () => {
       </ServerErrorWrapper>
     );
 
-  console.log(`expFullPokemonDataFormated`, expFullPokemonDataFormated);
+  // console.log(`expFullPokemonDataFormated`, expFullPokemonDataFormated);
 
   return (
     <>

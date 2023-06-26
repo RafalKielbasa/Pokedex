@@ -66,7 +66,7 @@ export const postNewData = (
       baseexp,
       weight,
       abilitie,
-      wins,
+      wins: 0,
     });
   } catch (error) {
     console.error(error);

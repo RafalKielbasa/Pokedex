@@ -93,7 +93,7 @@ const FavoritesPage = () => {
               baseexp={item.baseexp}
               weight={item.weight}
               abilitie={item.abilitie}
-              wins={wins}
+              wins={item.wins}
               onClick={change}
             />
           ))}
