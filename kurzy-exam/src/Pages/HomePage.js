@@ -197,8 +197,8 @@ const HomePage = () => {
                   weight={item.weight}
                   abilitie={item.abilitie}
                   wins={item.wins}
-                  partialPokemonData={partialPokemonData}
-                  fullPokemonDataFiltered={expFullPokemonDataFiltered}
+                  // partialPokemonData={partialPokemonData}
+                  // fullPokemonDataFiltered={expFullPokemonDataFiltered}
                   expFullPokemonDataFormated={expFullPokemonDataFormated}
                 />
               ))}
@@ -271,8 +271,8 @@ const HomePage = () => {
                   weight={item.weight}
                   abilitie={item.abilitie}
                   wins={item.wins}
-                  partialPokemonData={partialPokemonData}
-                  fullPokemonDataFiltered={expFullPokemonDataFiltered}
+                  // partialPokemonData={partialPokemonData}
+                  // fullPokemonDataFiltered={expFullPokemonDataFiltered}
                   expFullPokemonDataFormated={expFullPokemonDataFormated}
                 />
               ))}
