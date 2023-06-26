@@ -1,9 +1,6 @@
 import React from "react";
 import axios from "axios";
-import * as Yup from "yup";
-import { useEffect, useState, useContext, useMemo } from "react";
-import { AppContext } from "src/context/AppContext";
-
+import { useEffect, useState, useContext } from "react";
 import {
   InputLabel,
   FormControl,
@@ -13,25 +10,13 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-
-import styled, { css } from "styled-components";
-// import {Input, TextField, MenuItem, MenuList } from "@mui/material";
-import {
-  Formik,
-  Form,
-  ErrorMessage,
-  Field,
-  useFormikContext,
-  getIn,
-} from "formik";
-import { BlankPokemonCard, ArenaPokemonCard } from "../Components/PokemonCards";
-
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import { blankpicture } from "src/Images";
 import { useSnackbar } from "notistack";
-import { postData } from "src/api/postData";
-import { postNewData } from "src/api/postData";
+import { blankpicture } from "src/Images";
+import styled, { css } from "styled-components";
+import { AppContext } from "src/context/AppContext";
+import { postData, postNewData } from "src/api/postData";
+import { editionSchema } from "src/schemas/editionSchema";
+import { Formik, Form, ErrorMessage, Field } from "formik";
 
 const ContainerPageWrapper = styled("div")(
   css`
@@ -42,7 +27,6 @@ const ContainerPageWrapper = styled("div")(
     margin-top: 50px;
   `
 );
-
 const CardWrapper = styled.div`
   margin-left: 40px;
   margin-bottom: 50px;
@@ -66,7 +50,6 @@ const CardValuesWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
 const FormWrapper = styled(Form)(
   css`
     display: flex;
@@ -84,7 +67,6 @@ const SubmitButtonWrapper = styled.div`
   margin-top: 35px;
   margin-bottom: 15px;
 `;
-
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -191,9 +173,6 @@ const EditionPage = () => {
       setEditButton(false);
     }
   };
-
-  console.log(`initialValues`, initialValues);
-  console.log(`newValues`, newValues);
 
   const edit = () => {
     if (!afterBattleIds.includes(newValues.id)) {
@@ -335,42 +314,13 @@ const EditionPage = () => {
     });
   }, [userData]);
 
-  const userSchema = Yup.object().shape({
-    name: Yup.string()
-      .min(2, "Imię musi zawierać minimum 2 znaki")
-      .max(16, "Imię może zawierać maksimum 16 znaków")
-      .required("To pole jest wymagane"),
-    height: Yup.number()
-      .min(1, "Minimalna wymagana wartość to 1")
-      .max(9999999999, "Maksymalna akceptowalna wartość to 9999999999")
-      .positive("Podana wartość nie może być mniejsza niż zero")
-      .integer("Podana wartość musi być liczbą całkowitą")
-      .required("To pole jest wymagane"),
-    baseexp: Yup.number()
-      .min(1, "Minimalna wymagana wartość to 1")
-      .max(9999999999, "Maksymalna akceptowalna wartość to 9999999999")
-      .positive("Podana wartość nie może być mniejsza niż zero")
-      .integer("Podana wartość musi być liczbą całkowitą")
-      .required("To pole jest wymagane"),
-    weight: Yup.number()
-      .min(1, "Minimalna wymagana wartość to 1")
-      .max(9999999999, "Maksymalna akceptowalna wartość to 9999999999")
-      .positive("Podana wartość nie może być mniejsza niż zero")
-      .integer("Podana wartość musi być liczbą całkowitą")
-      .required("To pole jest wymagane"),
-    abilitie: Yup.string()
-      .min(2, "Pole musi zawierać minimum 2 znaki")
-      .max(15, "Pole może zawierać maksimum 15 znaków")
-      .required("To pole jest wymagane"),
-  });
-
   return (
     <ContainerPageWrapper>
       <Formik
         enableReinitialize
         initialValues={initialValues}
         onSubmit={handleOnSubmit}
-        validationSchema={userSchema}
+        validationSchema={editionSchema}
       >
         {({ values, handleChange, setFieldValue }) => {
           return (
@@ -447,9 +397,6 @@ const EditionPage = () => {
                           marginTop: "10px",
                           width: "200px",
                         }}
-                        // required
-                        // minlength="4"
-                        // maxlength="8"
                       />
                       <ErrorMessage name="name" />
                     </MediaWrapper>
@@ -577,7 +524,8 @@ const EditionPage = () => {
       <EditionInfoWrapper>
         Wskazówki:<br></br> - aby dokonać edycji należy zmienić co najmniej
         jeden z parametrów Pokemona,<br></br> - aby było możliwe stworzenie
-        nowego Pokemona należy nadać mu unikatowe Imię.
+        nowego Pokemona należy nadać mu unikatowe Imię,<br></br> - nowego
+        Pokemona tworzymy modyfikując Pokemona już istniejącego w bazie danych.
       </EditionInfoWrapper>
     </ContainerPageWrapper>
   );

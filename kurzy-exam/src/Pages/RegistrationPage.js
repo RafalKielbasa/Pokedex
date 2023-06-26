@@ -1,7 +1,5 @@
 import React from "react";
 import axios from "axios";
-import * as Yup from "yup";
-import YupPassword from "yup-password";
 import styled, { css } from "styled-components";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +9,7 @@ import { Button, Input } from "@mui/material";
 import { useEffect, useState, useContext } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { registrationSchema } from "src/schemas/registrationSchema";
 
 const SiteWrapper = styled("div")(
   css`
@@ -33,29 +32,6 @@ const FormWrapper = styled(Form)(
     width: 313px;
   `
 );
-
-const yup = require("yup");
-require("yup-password")(yup);
-YupPassword(yup);
-
-const userSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, "Nazwa Użytkownika musi zawierać minumum 2 znaki")
-    .required("To pole jest wymagane"),
-  email: Yup.string().email().required("To pole jest wymagane"),
-  pass: Yup.string()
-    .minUppercase(1, "Hasło musi posiadać przynajmniej jedną dużą literę")
-    .minNumbers(1, "Hasło musi posiadać przynajmniej jedną cyfrę")
-    .minSymbols(1, "Hasło musi posiadać przynajmniej jeden znak specjalny")
-    .min(8, "Hasło musi zawierać minimum 8 znaków")
-    .required("To pole jest wymagane"),
-  repPass: Yup.string()
-    .minUppercase(1, "Hasło musi posiadać przynajmniej jedną dużą literę")
-    .minNumbers(1, "Hasło musi posiadać przynajmniej jedną cyfrę")
-    .minSymbols(1, "Hasło musi posiadać przynajmniej jeden znak specjalny")
-    .min(8, "Hasło musi zawierać minimum 8 znaków")
-    .required("To pole jest wymagane"),
-});
 
 const theme2 = createTheme({
   palette: {
@@ -131,7 +107,7 @@ const Registration = () => {
         <Formik
           initialValues={{ name: "", email: "", pass: "", repPass: "" }}
           onSubmit={handleOnSubmit}
-          validationSchema={userSchema}
+          validationSchema={registrationSchema}
         >
           {({ values, handleChange, handleSubmit }) => {
             return (

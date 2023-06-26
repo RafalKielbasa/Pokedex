@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useEffect, useContext } from "react";
-import NavigationWrapper from "src/Navigation/NavigationWrapper";
+
 import {
   Stack,
   Button,
@@ -11,6 +11,7 @@ import {
 import { pokelogo } from "src/Images";
 import { AppContext } from "src/context/AppContext";
 import { Link, useNavigate } from "react-router-dom";
+import NavigationWrapper from "src/Navigation/NavigationWrapper";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -73,6 +74,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 const Navigation = () => {
   const [user, setUser] = useState();
+  const [switchIsDark, setswitchIsDark] = useState(false);
 
   const { toggleTheme, toggleLoggedIn, isDark, isLoggedIn, loggedChange } =
     useContext(AppContext);
@@ -86,6 +88,20 @@ const Navigation = () => {
     } else setUser("");
   }, [loggedChange]);
 
+  useEffect(() => {
+    const switchIsDarkfromLS = localStorage.getItem("switchIsDark");
+    if (switchIsDarkfromLS) {
+      setswitchIsDark(switchIsDarkfromLS);
+    }
+    return;
+  }, []);
+
+  const toggleSwitch = () => {
+    setswitchIsDark(!switchIsDark);
+    console.log(`switchIsDark`, !switchIsDark);
+    localStorage.setItem("switchIsDark", JSON.stringify(!switchIsDark));
+  };
+
   return (
     <>
       <FormGroup>
@@ -93,8 +109,10 @@ const Navigation = () => {
           control={
             <MaterialUISwitch
               sx={{ m: 1 }}
-              defaultChecked={false}
-              onClick={toggleTheme}
+              checked={
+                switchIsDark === true || switchIsDark === "true" ? true : false
+              }
+              onClick={toggleSwitch}
             />
           }
           label="Light/Dark Mode"
