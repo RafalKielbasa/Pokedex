@@ -78,7 +78,7 @@ const HomePage = () => {
       const response = await axios.get(
         `http://localhost:3001/afterTheBattleAndEdit/`
       );
-      setAfterBattle(response.data);
+      setAfterBattle(response?.data);
       const getBattleIds = response?.data?.map((item) => item.id);
       setAfterBattleIds(getBattleIds);
     };
@@ -147,8 +147,6 @@ const HomePage = () => {
         localhost:3001. Data base znajduję się w katalogu "data/db.json"
       </ServerErrorWrapper>
     );
-
-  // console.log(`expFullPokemonDataFormated`, expFullPokemonDataFormated);
 
   return (
     <>

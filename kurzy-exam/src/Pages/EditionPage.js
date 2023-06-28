@@ -30,6 +30,7 @@ const ContainerPageWrapper = styled("div")(
 const CardWrapper = styled.div`
   margin-left: 40px;
   margin-bottom: 50px;
+  margin-top: 10px;
 `;
 const MediaWrapper = styled.div`
   display: flex;

@@ -49,7 +49,7 @@ const FavoritesPage = () => {
   const [favorites, setFavorites] = useState([]);
   const [changeFav, setChangeFav] = useState(false);
 
-  const { theme, toggleTheme, isDark } = useContext(AppContext);
+  const { theme, toggleTheme, isDark, battleIds } = useContext(AppContext);
 
   useEffect(() => {
     const getFavorites = async () => {

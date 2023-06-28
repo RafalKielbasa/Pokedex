@@ -13,6 +13,8 @@ const AppContextProvider = ({ children }) => {
   const [loggedChange, setLoggedChange] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState("false");
   const [fullPokemonDataFormated, setFullPokemonDataFormated] = useState([]);
+  const [battleIds, setBattleIds] = useState([]);
+  const [battleChange, setBattleChange] = useState(false);
 
   useEffect(() => {
     const isLoggedInfromLS = localStorage.getItem("isLoggedIn");
@@ -20,6 +22,14 @@ const AppContextProvider = ({ children }) => {
       setIsLoggedIn(isLoggedInfromLS);
     }
   }, [loggedChange]);
+
+  useEffect(() => {
+    // const getBattle = () => {
+    axios.get(`http://localhost:3001/battle/`).then((response) => {
+      setBattleIds(response?.data?.map((item) => item.id));
+    });
+    // };
+  }, [battleChange]);
 
   const queryFullData = useQuery({
     queryKey: ["fullData"],
@@ -54,6 +64,7 @@ const AppContextProvider = ({ children }) => {
 
   const toggleTheme = () => setIsDark((prev) => !prev);
   const toggleLoggedIn = () => setLoggedChange((prev) => !prev);
+  const toggleBattleChange = () => setBattleChange((prev) => !prev);
 
   const context = {
     theme: isDark ? darkTheme : lightTheme,
@@ -67,11 +78,13 @@ const AppContextProvider = ({ children }) => {
         context,
         // isDark,
         // toggleTheme,
-        toggleLoggedIn,
         isSuccess,
         fullPokemonDataFormated,
+        toggleLoggedIn,
         isLoggedIn,
         loggedChange,
+        toggleBattleChange,
+        battleIds,
       }}
     >
       {children}

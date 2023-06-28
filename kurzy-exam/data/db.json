@@ -9,18 +9,52 @@
   ],
   "favoriteData": [
     {
-      "id": 47,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/47.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/47.svg",
-      "name": "parasect",
-      "height": 10,
+      "id": 5,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
+      "name": "charmeleon",
+      "height": 11,
       "baseexp": 142,
-      "weight": 295,
-      "abilitie": "effect-spore",
+      "weight": 190,
+      "abilitie": "blaze",
+      "wins": 0
+    },
+    {
+      "id": 6,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/6.svg",
+      "name": "charizard",
+      "height": 17,
+      "baseexp": 267,
+      "weight": 905,
+      "abilitie": "blaze",
+      "wins": 0
+    },
+    {
+      "id": 7,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/7.svg",
+      "name": "squirtle",
+      "height": 5,
+      "baseexp": 63,
+      "weight": 90,
+      "abilitie": "torrent",
       "wins": 0
     }
   ],
-  "battle": [],
+  "battle": [
+    {
+      "id": 5,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
+      "name": "charmeleon",
+      "height": 11,
+      "baseexp": 142,
+      "weight": 190,
+      "abilitie": "blaze",
+      "wins": 0
+    }
+  ],
   "afterTheBattleAndEdit": [
     {
       "id": 47,

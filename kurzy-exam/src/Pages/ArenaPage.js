@@ -56,17 +56,15 @@ const ArenaPage = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
+  const getBattle = async () => {
+    const response = await axios.get(`http://localhost:3001/battle/`);
+    setBattle(response.data);
+    const getBattleIds = response?.data?.map((item) => item.id);
+    setBattleIds(getBattleIds);
+  };
   useEffect(() => {
-    const getBattle = async () => {
-      const response = await axios.get(`http://localhost:3001/battle/`);
-      setBattle(response.data);
-      const getBattleIds = response?.data?.map((item) => item.id);
-      setBattleIds(getBattleIds);
-    };
     getBattle();
   }, [changeParticipant]);
-
-  console.log(`battle`, battle);
 
   useEffect(() => {
     const getAfterTheBattleAndEdit = async () => {
@@ -89,6 +87,7 @@ const ArenaPage = () => {
         autoHideDuration: 5000,
       });
     }
+    getBattle();
   };
   const removeFromArena2 = () => {
     if (battle[1]) {
@@ -99,6 +98,7 @@ const ArenaPage = () => {
         autoHideDuration: 5000,
       });
     }
+    getBattle();
   };
 
   const fight = () => {
