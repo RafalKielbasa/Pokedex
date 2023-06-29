@@ -39,7 +39,7 @@ export const Pvp = () => {
           props={pokemon}
           key={v4()}
           isInArena={true}
-          loser={result !== pokemon?.name ? 'true' : false}
+          loser={result !== pokemon?.name ? true : false}
         />
       ));
     } else if (fighters?.length === 1) {
