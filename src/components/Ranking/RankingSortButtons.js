@@ -1,48 +1,54 @@
 import { v4 } from 'uuid';
-import { ButtonsWrapper } from './RankingWrapper.styles';
-import { Button } from '@mui/material';
+import { SortButton } from './RankingWrapper.styles';
 
 export const SortButtons = ({
   pokemon,
   setSortedPokemon,
   setCurrentButton,
+  currentButton,
 }) => {
   const Buttons = ['Experience', 'Weight', 'Winnings'];
 
   const handleSort = (button) => {
     let sortedPokemon = [];
 
-    switch (button) {
-      case 'Weight':
-        setCurrentButton(button);
-        sortedPokemon = [...pokemon].sort(function (a, b) {
-          return b.weight - a.weight;
-        });
-        break;
-      case 'Experience':
-        setCurrentButton(button);
-        sortedPokemon = [...pokemon].sort(function (a, b) {
-          return b.baseExperience - a.baseExperience;
-        });
-        break;
-      case 'Winnings':
-        setCurrentButton(button);
-        sortedPokemon = [...pokemon].sort(function (a, b) {
-          return b.win - a.win;
-        });
-        break;
-      default:
-        break;
+    if (button === currentButton) {
+      setCurrentButton();
+    } else {
+      switch (button) {
+        case 'Weight':
+          setCurrentButton(button);
+          sortedPokemon = [...pokemon].sort(function (a, b) {
+            return b.weight - a.weight;
+          });
+          break;
+        case 'Experience':
+          setCurrentButton(button);
+          sortedPokemon = [...pokemon].sort(function (a, b) {
+            return b.baseExperience - a.baseExperience;
+          });
+          break;
+        case 'Winnings':
+          setCurrentButton(button);
+          sortedPokemon = [...pokemon].sort(function (a, b) {
+            return b.win - a.win;
+          });
+          break;
+        default:
+          break;
+      }
     }
 
     setSortedPokemon(sortedPokemon);
   };
 
   return Buttons?.map((btn) => {
+    const isActive = btn === currentButton;
+
     return (
-      <Button variant="outlined" onClick={() => handleSort(btn)} key={v4()}>
+      <SortButton onClick={() => handleSort(btn)} key={v4()} active={isActive}>
         {btn}
-      </Button>
+      </SortButton>
     );
   });
 };

@@ -17,6 +17,10 @@ export const NavigationButtonsLogout = [
     label: 'Sign up',
     href: ProjectUrl.SingUp,
   },
+  {
+    label: 'Ranking',
+    href: ProjectUrl.Ranking,
+  },
 ];
 
 export const NavigationButtonsLogin = [

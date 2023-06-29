@@ -9,6 +9,7 @@ export const WrapperDiv = styled.div`
   background-color: #f5f5f5;
   transition: 0.2s all ease-in;
   color: ${(props) => props.color};
+  min-height: 414px;
 
   &:hover {
     transform: scale(1.1);
@@ -60,4 +61,5 @@ export const PokemonPlace = styled.h1`
   display: flex;
   justify-content: end;
   margin: 0;
+  padding: 0;
 `;
