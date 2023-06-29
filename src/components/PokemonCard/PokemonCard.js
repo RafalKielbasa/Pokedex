@@ -8,15 +8,49 @@ import {
   PokemonPropName,
   PokemonPropValue,
   PokemonPlace,
+  DeleteButton,
 } from './PokemonCard.styles';
 import { ProjectUrl } from '../../const/ProjectUrl';
+import CloseIcon from '@mui/icons-material/Close';
+import useLocalStorage from 'use-local-storage';
 
-export const PokemonCard = ({ props, sortedPokemon, isSort }) => {
-  const { name, height, baseExperience, weight, abilities, image } = props;
+export const PokemonCard = ({
+  props,
+  sortedPokemon,
+  isSort,
+  isInArena,
+  loser,
+}) => {
+  const { name, height, baseExperience, weight, abilities, image, id } = props;
+
+  const [fighter, setFighter] = useLocalStorage('fighter');
+
+  const handleDeleteButton = () => {
+    const updatedFighter = [...fighter];
+
+    if (updatedFighter.includes(id)) {
+      updatedFighter.splice(updatedFighter.indexOf(id), 1);
+    } else {
+      if (updatedFighter.length < 2) {
+        updatedFighter.push(id);
+      }
+    }
+
+    setFighter(updatedFighter);
+  };
 
   return (
     <WrapperDiv>
       <PokemonPlace>
+        {isInArena ? (
+          <DeleteButton
+            onClick={() => {
+              handleDeleteButton();
+            }}
+          >
+            <CloseIcon />
+          </DeleteButton>
+        ) : null}
         {isSort ? sortedPokemon?.indexOf(props) + 1 : null}
       </PokemonPlace>
       <img

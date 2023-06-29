@@ -202,7 +202,7 @@ export const updateAfterFight = async (fighters, setResult) => {
     setResult('draw!');
   } else {
     if (isInEdited > -1) {
-      setResult(`${winner?.name} win!`);
+      setResult(`${winner?.name} `);
       return dbFetcher({
         url: `edited/${winner?.id}`,
         method: 'PUT',
@@ -213,7 +213,7 @@ export const updateAfterFight = async (fighters, setResult) => {
         },
       });
     } else {
-      setResult(`${winner?.name} win!`);
+      setResult(`${winner?.name}`);
       return dbFetcher({
         url: 'edited',
         method: 'POST',

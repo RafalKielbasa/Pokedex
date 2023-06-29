@@ -10,6 +10,7 @@ export const WrapperDiv = styled.div`
   transition: 0.2s all ease-in;
   color: ${(props) => props.color};
   min-height: 414px;
+  opacity: ${(props) => (props.loser ? 0.6 : 1)};
 
   &:hover {
     transform: scale(1.1);
@@ -62,4 +63,13 @@ export const PokemonPlace = styled.h1`
   justify-content: end;
   margin: 0;
   padding: 0;
+`;
+
+export const DeleteButton = styled.button`
+  background-color: inherit;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;

@@ -16,6 +16,7 @@ import fightWin from '../../../assets/battle-win.mp3';
 import { useState } from 'react';
 import { enqueueSnackbar } from 'notistack';
 import { useFightResultMutation } from '../../../hooks/useFightResult';
+import { ProgressBar } from './ProgressBar';
 
 export const Pvp = () => {
   const { data: allPokemon } = useAllPokemonQuery();
@@ -25,6 +26,8 @@ export const Pvp = () => {
   const [result, setResult] = useState();
   const { mutate: setNewStats } = useFightResultMutation(setResult);
 
+  const fightDuration = 15;
+
   const fighters = allPokemon?.filter((pokemon) =>
     fighter?.includes(pokemon.id)
   );
@@ -32,13 +35,23 @@ export const Pvp = () => {
   const renderCards = () => {
     if (fighters?.length === 2) {
       return fighters?.map((pokemon) => (
-        <PokemonCard color={'red'} props={pokemon} key={v4()} />
+        <PokemonCard
+          props={pokemon}
+          key={v4()}
+          isInArena={true}
+          loser={result !== pokemon?.name ? 'true' : false}
+        />
       ));
     } else if (fighters?.length === 1) {
       return (
         <>
           {fighters?.map((pokemon) => (
-            <PokemonCard props={pokemon} key={v4()} />
+            <PokemonCard
+              props={pokemon}
+              key={v4()}
+              isInArena={true}
+              className={result !== pokemon?.name ? 'loser' : ''}
+            />
           ))}
           <EmptyPokemonCard />
         </>
@@ -69,6 +82,7 @@ export const Pvp = () => {
         setTimeout(() => {
           winAudio.pause();
         }, 6000);
+        setIsFight(false);
         setNewStats(fighters);
         setAfterFight(true);
       }, 15000);
@@ -79,15 +93,20 @@ export const Pvp = () => {
     <Container>
       {afterFight ? (
         <WinnerAnnouncement>
-          {result}
+          {result} win!
           <EndButton onClick={() => setFighter()} variant="contained">
             QUIT
           </EndButton>
         </WinnerAnnouncement>
       ) : null}
-      <FightButton onClick={() => handleFight()}>
-        {isFight ? null : <img src={img} alt="Fight!" />}
-      </FightButton>
+      {isFight ? (
+        <ProgressBar duration={fightDuration} isFight={isFight} />
+      ) : null}
+      {afterFight || isFight ? null : (
+        <FightButton onClick={() => handleFight()}>
+          <img src={img} alt="Fight!" />
+        </FightButton>
+      )}
       <CardWrapper>{renderCards()}</CardWrapper>
     </Container>
   );
