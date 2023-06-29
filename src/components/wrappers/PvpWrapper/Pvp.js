@@ -34,24 +34,26 @@ export const Pvp = () => {
 
   const renderCards = () => {
     if (fighters?.length === 2) {
-      return fighters?.map((pokemon) => (
-        <PokemonCard
-          props={pokemon}
-          key={v4()}
-          isInArena={true}
-          loser={result !== pokemon?.name ? true : false}
-        />
-      ));
+      return fighters?.map((pokemon) => {
+        console.log(pokemon?.name + pokemon?.name?.length);
+        console.log(result + result?.length);
+        console.log('if', result != pokemon?.name ? true : false);
+
+        console.log('aaa', result !== pokemon?.name ? true : false);
+        return (
+          <PokemonCard
+            props={pokemon}
+            key={v4()}
+            isInArena={true}
+            loser={result !== pokemon?.name && afterFight ? true : false}
+          />
+        );
+      });
     } else if (fighters?.length === 1) {
       return (
         <>
           {fighters?.map((pokemon) => (
-            <PokemonCard
-              props={pokemon}
-              key={v4()}
-              isInArena={true}
-              className={result !== pokemon?.name ? 'loser' : ''}
-            />
+            <PokemonCard props={pokemon} key={v4()} isInArena={true} />
           ))}
           <EmptyPokemonCard />
         </>
@@ -85,7 +87,7 @@ export const Pvp = () => {
         setIsFight(false);
         setNewStats(fighters);
         setAfterFight(true);
-      }, 15000);
+      }, 1000);
     }
   };
 

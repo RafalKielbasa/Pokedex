@@ -13,6 +13,7 @@ import {
 import { ProjectUrl } from '../../const/ProjectUrl';
 import CloseIcon from '@mui/icons-material/Close';
 import useLocalStorage from 'use-local-storage';
+import { useEffect } from 'react';
 
 export const PokemonCard = ({
   props,
@@ -40,7 +41,7 @@ export const PokemonCard = ({
   };
 
   return (
-    <WrapperDiv>
+    <WrapperDiv loser={loser}>
       <PokemonPlace>
         {isInArena ? (
           <DeleteButton
