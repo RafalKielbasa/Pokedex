@@ -8,9 +8,7 @@ import { GiCrossedSwords } from "react-icons/gi";
 import { postData } from "src/api/postData";
 import { bawpikachu } from "src/Images";
 import { useState, useEffect, useContext } from "react";
-import { useQuery } from "react-query";
 import { AppContext } from "src/context/AppContext";
-import { getBattleResults } from "src/api/source";
 import { Card, CardContent, Typography, CardActionArea } from "@mui/material";
 
 const CardWrapper = styled.div`
@@ -78,19 +76,20 @@ export default function PokemonCard({
   abilitie,
   wins,
   expFullPokemonDataFormated,
-  onClick,
 }) {
-  const [favorites, setFavorites] = useState([]);
-  const [favoritesIds, setFavoritesIds] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
-  // const [battle, setBattle] = useState([]);
-  // const [battleIds, setBattleIds] = useState([]);
   const [isBattle, setIsBattle] = useState(false);
-  // const [battleChange, setBattleChange] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
-  const { toggleTheme, isDark, toggleBattleChange, battleIds } =
-    useContext(AppContext);
+  const {
+    toggleTheme,
+    isDark,
+    toggleBattleChange,
+    battleIds,
+    toggleFavoritesChange,
+    favorites,
+    favoritesIds,
+  } = useContext(AppContext);
 
   const navigate = useNavigate();
   const handleClick = () => {
@@ -101,19 +100,14 @@ export default function PokemonCard({
   };
 
   useEffect(() => {
-    const getFavorites = async () => {
-      const response = await axios.get(`http://localhost:3001/favoriteData/`);
-      setFavorites(response.data);
-      const getFavoritesIds = response?.data?.map((item) => item.id);
-      setFavoritesIds(getFavoritesIds);
-    };
-    getFavorites();
-  }, [isFavorite]);
-
-  useEffect(() => {
     setIsFavorite(favoritesIds.includes(id));
   }),
     [favoritesIds];
+
+  useEffect(() => {
+    setIsBattle(battleIds?.includes(id));
+  }),
+    [battleIds];
 
   const handleFavorite = () => {
     if (!favoritesIds.includes(id)) {
@@ -129,40 +123,20 @@ export default function PokemonCard({
         abilitie,
         wins
       );
+      toggleFavoritesChange();
       enqueueSnackbar(`Pokemon ${name} został dodany do "Ulubionych"`, {
         preventDuplicate: true,
         autoHideDuration: 5000,
       });
     } else {
       axios.delete(`http://localhost:3001/favoriteData/${id}`);
+      toggleFavoritesChange();
       enqueueSnackbar(`Pokemon ${name} został usunięty z "Ulubionych"`, {
         preventDuplicate: true,
         autoHideDuration: 5000,
       });
     }
   };
-  // console.log(`queryBattleResults`, queryBattleResults);
-  // console.log(`isSuccess `, isSuccess);
-  // console.log(`favoritesIds `, favoritesIds);
-
-  // const getBattle = () => {
-  //   axios.get(`http://localhost:3001/battle/`).then((response) => {
-  //     setBattleIds(response?.data?.map((item) => item.id));
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   getBattle();
-  // }, [expFullPokemonDataFormated]);
-
-  useEffect(() => {
-    setIsBattle(battleIds?.includes(id));
-  }),
-    [battleIds];
-
-  // console.log(`battleChange`, battleChange);
-  // console.log(`expFullPokemonDataFormated`, expFullPokemonDataFormated);
-  console.log(`battleIds`, battleIds);
 
   const handleBattle = () => {
     if (!battleIds.includes(id) && battleIds.length > 1 && !isBattle) {
@@ -189,9 +163,7 @@ export default function PokemonCard({
         autoHideDuration: 5000,
       });
     } else {
-      console.log("battleIds.includes(id");
       axios.delete(`http://localhost:3001/battle/${id}`);
-      // setIsBattle((prev) => !prev);
       toggleBattleChange();
       enqueueSnackbar(`Pokemon ${name} został usunięty z Areny`, {
         preventDuplicate: true,
@@ -210,7 +182,6 @@ export default function PokemonCard({
             transform: "scale(1.10)",
           },
         }}
-        onClick={onClick}
       >
         <CardActionArea onClick={handleClick}>
           <CardMediaWrapper>

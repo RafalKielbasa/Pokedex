@@ -13,8 +13,12 @@ const AppContextProvider = ({ children }) => {
   const [loggedChange, setLoggedChange] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState("false");
   const [fullPokemonDataFormated, setFullPokemonDataFormated] = useState([]);
+  const [battle, setBattle] = useState([]);
   const [battleIds, setBattleIds] = useState([]);
   const [battleChange, setBattleChange] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+  const [favoritesIds, setFavoritesIds] = useState([]);
+  const [favoritesChange, setFavoritesChange] = useState(false);
 
   useEffect(() => {
     const isLoggedInfromLS = localStorage.getItem("isLoggedIn");
@@ -24,12 +28,18 @@ const AppContextProvider = ({ children }) => {
   }, [loggedChange]);
 
   useEffect(() => {
-    // const getBattle = () => {
     axios.get(`http://localhost:3001/battle/`).then((response) => {
+      setBattle(response?.data);
       setBattleIds(response?.data?.map((item) => item.id));
     });
-    // };
   }, [battleChange]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:3001/favoriteData/`).then((response) => {
+      setFavorites(response.data);
+      setFavoritesIds(response?.data?.map((item) => item.id));
+    });
+  }, [favoritesChange]);
 
   const queryFullData = useQuery({
     queryKey: ["fullData"],
@@ -65,6 +75,7 @@ const AppContextProvider = ({ children }) => {
   const toggleTheme = () => setIsDark((prev) => !prev);
   const toggleLoggedIn = () => setLoggedChange((prev) => !prev);
   const toggleBattleChange = () => setBattleChange((prev) => !prev);
+  const toggleFavoritesChange = () => setFavoritesChange((prev) => !prev);
 
   const context = {
     theme: isDark ? darkTheme : lightTheme,
@@ -84,7 +95,11 @@ const AppContextProvider = ({ children }) => {
         isLoggedIn,
         loggedChange,
         toggleBattleChange,
+        battle,
         battleIds,
+        toggleFavoritesChange,
+        favorites,
+        favoritesIds,
       }}
     >
       {children}

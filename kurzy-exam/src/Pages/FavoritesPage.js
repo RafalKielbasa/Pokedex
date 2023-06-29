@@ -1,11 +1,10 @@
 import React from "react";
-import axios from "axios";
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
 import PokemonCard from "src/Components/PokemonCards";
 import styled, { css } from "styled-components";
 import { AppContext } from "src/context/AppContext";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const FavoritePageWrapper = styled("div")(
@@ -46,22 +45,8 @@ const theme2 = createTheme({
 
 const FavoritesPage = () => {
   const [page, setPage] = useState(1);
-  const [favorites, setFavorites] = useState([]);
-  const [changeFav, setChangeFav] = useState(false);
 
-  const { theme, toggleTheme, isDark, battleIds } = useContext(AppContext);
-
-  useEffect(() => {
-    const getFavorites = async () => {
-      const response = await axios.get(`http://localhost:3001/favoriteData/`);
-      setFavorites(response?.data);
-    };
-    getFavorites();
-  }, [changeFav]);
-
-  const change = () => {
-    setChangeFav((prev) => !prev);
-  };
+  const { theme, toggleTheme, isDark, favorites } = useContext(AppContext);
 
   return (
     <FavoritePageWrapper theme={theme}>
@@ -94,7 +79,6 @@ const FavoritesPage = () => {
               weight={item.weight}
               abilitie={item.abilitie}
               wins={item.wins}
-              onClick={change}
             />
           ))}
         </PokemonWrapper>

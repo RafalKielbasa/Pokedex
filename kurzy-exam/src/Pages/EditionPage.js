@@ -329,7 +329,7 @@ const EditionPage = () => {
         onSubmit={handleOnSubmit}
         validationSchema={editionSchema}
       >
-        {({ values, handleChange, setFieldValue }) => {
+        {({ values, handleChange }) => {
           return (
             <EditionWrapper>
               <FormWrapper>

@@ -52,7 +52,8 @@ const ArenaPage = () => {
   const [changeParticipant, setChangeParticipant] = useState(false);
   const handleClose = () => setOpen(false);
 
-  const { theme, toggleTheme, isDark } = useContext(AppContext);
+  const { theme, toggleTheme, toggleBattleChange, isDark } =
+    useContext(AppContext);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
@@ -87,7 +88,7 @@ const ArenaPage = () => {
         autoHideDuration: 5000,
       });
     }
-    getBattle();
+    toggleBattleChange();
   };
   const removeFromArena2 = () => {
     if (battle[1]) {
@@ -98,7 +99,7 @@ const ArenaPage = () => {
         autoHideDuration: 5000,
       });
     }
-    getBattle();
+    toggleBattleChange();
   };
 
   const fight = () => {
