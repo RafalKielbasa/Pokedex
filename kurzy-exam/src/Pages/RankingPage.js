@@ -4,12 +4,16 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import PokemonCard from "../Components/PokemonCards";
+import RankingPokemonCard from "../Components/PokemonCards";
 import styled, { css } from "styled-components";
 import { useEffect, useState, useContext } from "react";
 import { useSnackbar } from "notistack";
 import { AppContext } from "src/context/AppContext";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -25,7 +29,8 @@ const PaginationWrapper = styled.div`
   display: flex;
   align-items: top;
   justify-content: flex-end;
-  padding-right: 38px;y
+  padding-right: 38px;
+  gap: 150px;
 `;
 const PokemonWrapper = styled.div`
   display: flex;
@@ -62,6 +67,7 @@ const RankingPage = () => {
   const [inputText, setInputText] = useState();
   const [afterBattle, setAfterBattle] = useState();
   const [afterBattleIds, setAfterBattleIds] = useState();
+  const [selectValue, setSelectValue] = useState("");
   const [expFullPokemonDataFormated, setExpFullPokemonDataFormated] = useState(
     []
   );
@@ -72,6 +78,10 @@ const RankingPage = () => {
   const { toggleTheme, isDark, theme, isSuccess, fullPokemonDataFormated } =
     useContext(AppContext);
   const { enqueueSnackbar } = useSnackbar();
+
+  const handleSelectChange = (event) => {
+    setSelectValue(event.target.value);
+  };
 
   useEffect(() => {
     const getAfterTheBattleAndEdit = async () => {
@@ -97,11 +107,9 @@ const RankingPage = () => {
       (n) => !array?.includes(n)
     );
     const getExpFPD =
-      afterBattle === undefined
-        ? []
-        : afterBattle.concat(filterFPD).sort((a, b) => (a.id > b.id ? 1 : -1));
+      afterBattle === undefined ? [] : afterBattle.concat(filterFPD);
     setExpFullPokemonDataFormated(getExpFPD);
-  }, [afterBattle, fullPokemonDataFormated]);
+  }, [afterBattle, fullPokemonDataFormated, selectValue]);
 
   const pageCountPartialData =
     expFullPokemonDataFormated.length > 0
@@ -110,14 +118,21 @@ const RankingPage = () => {
 
   const partialPokemonData =
     expFullPokemonDataFormated.length > 0 &&
-    expFullPokemonDataFormated
-      .slice(offset, offset + 15)
-      .sort((a, b) => (a.id > b.id ? 1 : -1));
+    expFullPokemonDataFormated.slice(offset, offset + 15);
 
   const inputHandler = (event) => {
     const textFieldText = event.target.value.toLowerCase();
     setInputText(textFieldText);
   };
+
+  if (selectValue === "height") {
+    expFullPokemonDataFormated.sort((a, b) => (a.height > b.height ? -1 : 1));
+  }
+  if (selectValue === "baseexp") {
+    expFullPokemonDataFormated.sort((a, b) => (a.baseexp > b.baseexp ? -1 : 1));
+  }
+
+  console.log(`selectValue`, selectValue);
 
   useEffect(
     () =>
@@ -164,9 +179,33 @@ const RankingPage = () => {
                   label="Search"
                   variant="outlined"
                   onChange={inputHandler}
-                  sx={{ marginRight: "400px" }}
                   color={isDark ? "secondary" : "primary"}
                 />
+              </Box>
+              <Box sx={{ minWidth: 205 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                  <Select
+                    size="small"
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={selectValue}
+                    label="Age"
+                    onChange={handleSelectChange}
+                  >
+                    <MenuItem value={"height"}>Sortuj wg. wzrostu</MenuItem>
+                    <MenuItem value={"baseexp"}>
+                      Sortuj wg. doświadczenia
+                    </MenuItem>
+                    <MenuItem value={"weight"}>Sortuj wg. wagi</MenuItem>
+                    <MenuItem value={"abilitie"}>
+                      Sortuj wg. umiejętności
+                    </MenuItem>
+                    <MenuItem value={"wins"}>
+                      Sortuj wg. liczby wygranych walk
+                    </MenuItem>
+                  </Select>
+                </FormControl>
               </Box>
 
               <Stack spacing={2}>
@@ -186,7 +225,7 @@ const RankingPage = () => {
           {expFullPokemonDataFiltered.length > 0 ? (
             <PokemonWrapper>
               {expFullPokemonDataFiltered.map((item, index) => (
-                <PokemonCard
+                <RankingPokemonCard
                   key={index}
                   id={item.id}
                   pic={item.pic}
@@ -235,10 +274,36 @@ const RankingPage = () => {
                   label="Search"
                   variant="outlined"
                   onChange={inputHandler}
-                  sx={{ marginRight: "400px" }}
                   color={isDark ? "secondary" : "primary"}
                   borderColor="white"
                 />
+              </Box>
+              <Box sx={{ minWidth: 205 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Sortowanie
+                  </InputLabel>
+                  <Select
+                    size="small"
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={selectValue}
+                    label="Sortowanie"
+                    onChange={handleSelectChange}
+                  >
+                    <MenuItem value={"height"}>Sortuj wg. wzrostu</MenuItem>
+                    <MenuItem value={"baseexp"}>
+                      Sortuj wg. doświadczenia
+                    </MenuItem>
+                    <MenuItem value={"weight"}>Sortuj wg. wagi</MenuItem>
+                    <MenuItem value={"abilitie"}>
+                      Sortuj wg. umiejętności
+                    </MenuItem>
+                    <MenuItem value={"wins"}>
+                      Sortuj wg. liczby wygranych walk
+                    </MenuItem>
+                  </Select>
+                </FormControl>
               </Box>
 
               <Stack spacing={2}>
@@ -258,7 +323,7 @@ const RankingPage = () => {
           <PokemonWrapper>
             {partialPokemonData &&
               partialPokemonData?.map((item, index) => (
-                <PokemonCard
+                <RankingPokemonCard
                   key={index}
                   id={item.id}
                   pic={item.pic}

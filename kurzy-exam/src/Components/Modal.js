@@ -4,7 +4,6 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-// import { useSnackbar } from "notistack";
 
 const style = {
   position: "absolute",
@@ -25,8 +24,6 @@ export default function BasicModal({
   winnerPic,
   finalResults,
 }) {
-  // const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
   return (
     <Modal
       open={open}

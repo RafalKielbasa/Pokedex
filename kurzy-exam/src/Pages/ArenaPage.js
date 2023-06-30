@@ -41,31 +41,18 @@ const theme2 = createTheme({
 });
 
 const ArenaPage = () => {
-  const [battle, setBattle] = useState([]);
-  const [battleIds, setBattleIds] = useState([]);
   const [afterBattle, setAfterBattle] = useState([]);
   const [afterBattleIds, setAfterBattleIds] = useState([]);
   const [winner, setWinner] = useState([]);
   const [winnerPic, setWinnerPic] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
-  const [changeParticipant, setChangeParticipant] = useState(false);
   const handleClose = () => setOpen(false);
 
-  const { theme, toggleTheme, toggleBattleChange, isDark } =
+  const { theme, toggleTheme, isDark, toggleBattleChange, battle } =
     useContext(AppContext);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
-
-  const getBattle = async () => {
-    const response = await axios.get(`http://localhost:3001/battle/`);
-    setBattle(response.data);
-    const getBattleIds = response?.data?.map((item) => item.id);
-    setBattleIds(getBattleIds);
-  };
-  useEffect(() => {
-    getBattle();
-  }, [changeParticipant]);
 
   useEffect(() => {
     const getAfterTheBattleAndEdit = async () => {
@@ -82,24 +69,22 @@ const ArenaPage = () => {
   const removeFromArena1 = () => {
     if (battle[0]) {
       axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
-      setChangeParticipant((prev) => !prev);
+      toggleBattleChange();
       enqueueSnackbar(`Pokemon ${battle[0].name} został usunięty z Areny`, {
         preventDuplicate: true,
         autoHideDuration: 5000,
       });
     }
-    toggleBattleChange();
   };
   const removeFromArena2 = () => {
     if (battle[1]) {
       axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
-      setChangeParticipant((prev) => !prev);
+      toggleBattleChange();
       enqueueSnackbar(`Pokemon ${battle[1].name} został usunięty z Areny`, {
         preventDuplicate: true,
         autoHideDuration: 5000,
       });
     }
-    toggleBattleChange();
   };
 
   const fight = () => {
@@ -136,6 +121,7 @@ const ArenaPage = () => {
       );
       axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
       axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
+      toggleBattleChange();
       setOpen(false);
       navigate("/");
     } else if (
@@ -159,6 +145,7 @@ const ArenaPage = () => {
       );
       axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
       axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
+      toggleBattleChange();
       setOpen(false);
       navigate("/");
     } else if (
@@ -179,6 +166,7 @@ const ArenaPage = () => {
       );
       axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
       axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
+      toggleBattleChange();
       setOpen(false);
       navigate("/");
     } else if (
@@ -202,11 +190,13 @@ const ArenaPage = () => {
       );
       axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
       axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
+      toggleBattleChange();
       setOpen(false);
       navigate("/");
     } else if (fighter1Stat === fighter2Stat) {
       axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
       axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
+      toggleBattleChange();
       setOpen2(false);
       navigate("/");
     }

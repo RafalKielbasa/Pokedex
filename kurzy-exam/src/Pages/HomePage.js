@@ -110,9 +110,8 @@ const HomePage = () => {
 
   const partialPokemonData =
     expFullPokemonDataFormated.length > 0 &&
-    expFullPokemonDataFormated
-      .slice(offset, offset + 15)
-      .sort((a, b) => (a.id > b.id ? 1 : -1));
+    expFullPokemonDataFormated.slice(offset, offset + 15);
+  // .sort((a, b) => (a.id > b.id ? 1 : -1));
 
   const inputHandler = (event) => {
     const textFieldText = event.target.value.toLowerCase();
@@ -195,8 +194,6 @@ const HomePage = () => {
                   weight={item.weight}
                   abilitie={item.abilitie}
                   wins={item.wins}
-                  // partialPokemonData={partialPokemonData}
-                  // fullPokemonDataFiltered={expFullPokemonDataFiltered}
                   expFullPokemonDataFormated={expFullPokemonDataFormated}
                 />
               ))}
@@ -269,8 +266,6 @@ const HomePage = () => {
                   weight={item.weight}
                   abilitie={item.abilitie}
                   wins={item.wins}
-                  // partialPokemonData={partialPokemonData}
-                  // fullPokemonDataFiltered={expFullPokemonDataFiltered}
                   expFullPokemonDataFormated={expFullPokemonDataFormated}
                 />
               ))}

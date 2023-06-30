@@ -62,17 +62,6 @@
       "weight": 104,
       "abilitie": "soundproof",
       "wins": 0
-    },
-    {
-      "id": 64,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/64.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/64.svg",
-      "name": "kadabra",
-      "height": 13,
-      "baseexp": 140,
-      "weight": 565,
-      "abilitie": "synchronize",
-      "wins": 0
     }
   ],
   "battle": [],
@@ -89,15 +78,37 @@
       "wins": 2
     },
     {
-      "id": "99089a45-231c-4fb5-88a3-9c0d21710662",
-      "pic": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAIAAABt+uBvAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADUSURBVHhe7dCxAYAwDMCwwP8/h4W19QPS4t3P7g5n718ODAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYNDVzAf6mgO9RT2DVAAAAABJRU5ErkJggg==",
-      "picDet": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAIAAABt+uBvAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADUSURBVHhe7dCxAYAwDMCwwP8/h4W19QPS4t3P7g5n718ODAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYFAwKBgUDAoGBYOCQcGgYNDVzAf6mgO9RT2DVAAAAABJRU5ErkJggg==",
-      "name": "parasect666",
-      "height": 10666,
-      "baseexp": 162,
-      "weight": 295,
-      "abilitie": "effect-spore",
-      "wins": 0
+      "id": 106,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/106.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/106.svg",
+      "name": "hitmonlee",
+      "height": 15,
+      "baseexp": 169,
+      "weight": 498,
+      "abilitie": "limber",
+      "wins": 1
+    },
+    {
+      "id": 3,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
+      "name": "venusaur",
+      "height": 20,
+      "baseexp": 293,
+      "weight": 1000,
+      "abilitie": "overgrow",
+      "wins": 3
+    },
+    {
+      "id": 60,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/60.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/60.svg",
+      "name": "poliwag",
+      "height": 6,
+      "baseexp": 70,
+      "weight": 124,
+      "abilitie": "water-absorb",
+      "wins": 1
     }
   ]
 }
