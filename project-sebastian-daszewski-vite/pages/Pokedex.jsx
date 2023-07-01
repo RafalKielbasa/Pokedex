@@ -79,7 +79,6 @@ function Pokedex() {
             />
           </div>
         </div>
-        <div className="right-content"></div>
       </MainLayout>
     </ThemeProvider>
   );

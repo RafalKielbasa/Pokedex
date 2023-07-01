@@ -68,7 +68,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/ranking",
+    path: "/ranking/:number",
     element: (
       <AppProvider>
         <Ranking />

@@ -128,7 +128,6 @@ const Card = ({ query, nextUrl, prevUrl, pokeData }) => {
   };
 
   useEffect(() => {
-    // Przy zmianie query aktualizuj wyniki wyszukiwania i wróć na pierwszą stronę
     setCurrentPage(1);
     navigateTo(`/pokedex/${currentPage}`);
   }, [query]);

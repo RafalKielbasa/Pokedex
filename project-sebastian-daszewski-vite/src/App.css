@@ -88,12 +88,47 @@ body {
   margin-bottom: 30px;
 }
 
+.container-ranking {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
 .left-content {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   grid-template-columns: repeat(auto-fit, minmax(200px, 0.5fr));
   grid-gap: 2rem;
+}
+
+.left-content-ranking {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 0.5fr));
+  grid-gap: 2rem;
+}
+.ranking-number {
+  position: relative;
+  font-size: 25px;
+  left: 10px;
+  top: 10px;
+}
+
+.card-ranking {
+  width: 230px;
+  height: 440px;
+  background-color: rgb(186, 184, 184);
+  border-radius: 1rem;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+  padding: 0 1.5rem;
+  margin: 20px;
+  margin-left: 35px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 .card {
   width: 230px;

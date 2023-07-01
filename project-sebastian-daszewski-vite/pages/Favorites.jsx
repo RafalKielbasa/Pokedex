@@ -58,12 +58,15 @@ function Favourites() {
         ? prevFavoritePokemons.filter((prevId) => prevId !== id)
         : [...prevFavoritePokemons, id];
 
-      localStorage.setItem("favoritesId", JSON.stringify(updatedFavorites));
-
       setPokeData((prevPokeData) =>
         prevPokeData.filter((pokemon) => pokemon.id !== id)
       );
 
+      setFavoritesId((prevFavoritesId) =>
+        prevFavoritesId.filter((prevId) => prevId !== id)
+      );
+
+      localStorage.setItem("favoritesId", JSON.stringify(updatedFavorites));
       return updatedFavorites;
     });
   };
