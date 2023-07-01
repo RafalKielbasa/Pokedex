@@ -4,7 +4,7 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import RankingPokemonCard from "../Components/PokemonCards";
+import PokemonCard from "../Components/PokemonCards";
 import styled, { css } from "styled-components";
 import { useEffect, useState, useContext } from "react";
 import { useSnackbar } from "notistack";
@@ -67,7 +67,7 @@ const RankingPage = () => {
   const [inputText, setInputText] = useState();
   const [afterBattle, setAfterBattle] = useState();
   const [afterBattleIds, setAfterBattleIds] = useState();
-  const [selectValue, setSelectValue] = useState("");
+  const [selectValue, setSelectValue] = useState("baseexp");
   const [expFullPokemonDataFormated, setExpFullPokemonDataFormated] = useState(
     []
   );
@@ -125,14 +125,37 @@ const RankingPage = () => {
     setInputText(textFieldText);
   };
 
-  if (selectValue === "height") {
-    expFullPokemonDataFormated.sort((a, b) => (a.height > b.height ? -1 : 1));
-  }
-  if (selectValue === "baseexp") {
-    expFullPokemonDataFormated.sort((a, b) => (a.baseexp > b.baseexp ? -1 : 1));
-  }
+  switch (selectValue) {
+    case "height":
+      expFullPokemonDataFormated.sort((a, b) => (a.height > b.height ? -1 : 1));
+      expFullPokemonDataFiltered.sort((a, b) => (a.height > b.height ? -1 : 1));
+      break;
+    case "baseexp":
+      expFullPokemonDataFormated.sort((a, b) =>
+        a.baseexp > b.baseexp ? -1 : 1
+      );
+      expFullPokemonDataFiltered.sort((a, b) =>
+        a.baseexp > b.baseexp ? -1 : 1
+      );
+      break;
+    case "weight":
+      expFullPokemonDataFormated.sort((a, b) => (a.weight > b.weight ? -1 : 1));
+      expFullPokemonDataFiltered.sort((a, b) => (a.weight > b.weight ? -1 : 1));
+      break;
 
-  console.log(`selectValue`, selectValue);
+    case "abilitie":
+      expFullPokemonDataFormated.sort((a, b) =>
+        a.abilitie > b.abilitie ? -1 : 1
+      );
+      expFullPokemonDataFiltered.sort((a, b) =>
+        a.abilitie > b.abilitie ? -1 : 1
+      );
+      break;
+    case "wins":
+      expFullPokemonDataFormated.sort((a, b) => (a.wins > b.wins ? -1 : 1));
+      expFullPokemonDataFiltered.sort((a, b) => (a.wins > b.wins ? -1 : 1));
+      break;
+  }
 
   useEffect(
     () =>
@@ -163,7 +186,8 @@ const RankingPage = () => {
       </ServerErrorWrapper>
     );
 
-  // console.log(`expFullPokemonDataFormated`, expFullPokemonDataFormated);
+  console.log(`offset`, offset);
+  console.log(`expFullPokemonDataFormated`, expFullPokemonDataFormated);
 
   return (
     <>
@@ -182,7 +206,7 @@ const RankingPage = () => {
                   color={isDark ? "secondary" : "primary"}
                 />
               </Box>
-              <Box sx={{ minWidth: 205 }}>
+              <Box sx={{ minWidth: 285 }}>
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Age</InputLabel>
                   <Select
@@ -225,8 +249,10 @@ const RankingPage = () => {
           {expFullPokemonDataFiltered.length > 0 ? (
             <PokemonWrapper>
               {expFullPokemonDataFiltered.map((item, index) => (
-                <RankingPokemonCard
+                <PokemonCard
                   key={index}
+                  index={index + offset + 1}
+                  selectValue={selectValue}
                   id={item.id}
                   pic={item.pic}
                   picDet={item.picDet}
@@ -278,7 +304,7 @@ const RankingPage = () => {
                   borderColor="white"
                 />
               </Box>
-              <Box sx={{ minWidth: 205 }}>
+              <Box sx={{ minWidth: 285 }}>
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">
                     Sortowanie
@@ -323,8 +349,10 @@ const RankingPage = () => {
           <PokemonWrapper>
             {partialPokemonData &&
               partialPokemonData?.map((item, index) => (
-                <RankingPokemonCard
+                <PokemonCard
                   key={index}
+                  index={index + offset + 1}
+                  selectValue={selectValue}
                   id={item.id}
                   pic={item.pic}
                   picDet={item.picDet}

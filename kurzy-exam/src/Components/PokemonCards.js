@@ -64,9 +64,22 @@ const BattleIcon = styled(GiCrossedSwords)`
   margin-right: 20px;
   font-size: 20px;
 `;
+const IndexWrapper = styled.div`
+  position: absolute;
+  left: 78%;
+  top: 15px;
+  font-size: 40px;
+`;
+const WinsWrapper = styled.div`
+  position: absolute;
+  left: 10%;
+  top: 20px;
+`;
 
 export default function PokemonCard({
   id,
+  index,
+  selectValue,
   pic,
   picDet,
   name,
@@ -172,6 +185,8 @@ export default function PokemonCard({
     }
   };
 
+  console.log(`selectValue`, selectValue);
+
   return (
     <CardWrapper>
       <Card
@@ -187,7 +202,32 @@ export default function PokemonCard({
           <CardMediaWrapper>
             <img src={pic} alt={"picture"} key={id} />
           </CardMediaWrapper>
-
+          <IndexWrapper>{index}</IndexWrapper>
+          {selectValue === "wins" ? (
+            <WinsWrapper>
+              <TypographyWrapper
+                style={{
+                  fontWeight: "bold",
+                }}
+                variant="body2"
+                color="text.secondary"
+              >
+                Wins
+              </TypographyWrapper>
+              <TypographyWrapper
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "24px",
+                }}
+                variant="body2"
+                color="text.secondary"
+              >
+                {wins}
+              </TypographyWrapper>
+            </WinsWrapper>
+          ) : (
+            []
+          )}
           <TypographyWrapper gutterBottom variant="h5" component="div">
             {name}
           </TypographyWrapper>
@@ -377,114 +417,6 @@ export function BlankPokemonCard() {
           <img sx={{ marginBottom: "10px" }} src={isDark ? null : bawpikachu} />
         </CardContent>
       </BlankPokemonCardWrapper>
-    </CardWrapper>
-  );
-}
-
-export function RankingPokemonCard({
-  id,
-  pic,
-  picDet,
-  name,
-  height,
-  baseexp,
-  weight,
-  abilitie,
-  wins,
-  expFullPokemonDataFormated,
-}) {
-  const [isFavorite, setIsFavorite] = useState(false);
-  return (
-    <CardWrapper>
-      <Card
-        style={{
-          backgroundColor: isDark ? "#bcaaa4" : "white",
-          width: 320,
-          "&:hover": {
-            transform: "scale(1.10)",
-          },
-        }}
-      >
-        <CardActionArea onClick={handleClick}>
-          <CardMediaWrapper>
-            <img src={pic} alt={"picture"} key={id} />
-          </CardMediaWrapper>
-
-          <TypographyWrapper gutterBottom variant="h5" component="div">
-            {name}
-          </TypographyWrapper>
-
-          <CardContentWrapper>
-            <CardValuesWrapper>
-              <TypographyWrapper variant="body2" color="text.secondary">
-                {height}
-              </TypographyWrapper>
-              <TypographyWrapper
-                style={{
-                  fontWeight: "bold",
-                  paddingBottom: "20px",
-                }}
-                variant="body2"
-                color="text.secondary"
-              >
-                Height
-              </TypographyWrapper>
-              <TypographyWrapper variant="body2" color="text.secondary">
-                {baseexp}
-              </TypographyWrapper>
-              <TypographyWrapper
-                style={{ fontWeight: "bold" }}
-                variant="body2"
-                color="text.secondary"
-              >
-                Base experience
-              </TypographyWrapper>
-            </CardValuesWrapper>
-
-            <CardValuesWrapper>
-              <TypographyWrapper variant="body2" color="text.secondary">
-                {weight}
-              </TypographyWrapper>
-              <TypographyWrapper
-                style={{ fontWeight: "bold", paddingBottom: "20px" }}
-                variant="body2"
-                color="text.secondary"
-              >
-                Weight
-              </TypographyWrapper>
-              <TypographyWrapper variant="body2" color="text.secondary">
-                {abilitie}
-              </TypographyWrapper>
-              <TypographyWrapper
-                style={{ fontWeight: "bold" }}
-                variant="body2"
-                color="text.secondary"
-              >
-                Abilitie
-              </TypographyWrapper>
-            </CardValuesWrapper>
-          </CardContentWrapper>
-        </CardActionArea>
-        <CardActionsWrapper>
-          <BattleIcon
-            onClick={() => {
-              handleBattle();
-              setIsBattle((prev) => !prev);
-            }}
-            // isBattle={isBattle}
-            style={{ color: isBattle ? "red" : "grey" }}
-          />
-          <FavIcon
-            onClick={() => {
-              handleFavorite();
-              setIsFavorite((prev) => !prev);
-            }}
-            style={{
-              color: isFavorite ? "red" : "grey",
-            }}
-          />
-        </CardActionsWrapper>
-      </Card>
     </CardWrapper>
   );
 }
