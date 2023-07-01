@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { vs } from "src/Images";
 import { AppContext } from "src/context/AppContext";
 import { useEffect, useState, useContext } from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 
 const PokemonWrapper = styled("div")(
   ({ theme }) =>
@@ -29,16 +29,6 @@ const ArenaCardsWrapper = styled.div`
   align-items: center;
   gap: 310px;
 `;
-const theme2 = createTheme({
-  palette: {
-    primary: {
-      main: "#333333",
-    },
-    secondary: {
-      main: "#ffffff",
-    },
-  },
-});
 
 const ArenaPage = () => {
   const [afterBattle, setAfterBattle] = useState([]);
@@ -49,7 +39,7 @@ const ArenaPage = () => {
   const [open2, setOpen2] = React.useState(false);
   const handleClose = () => setOpen(false);
 
-  const { theme, toggleTheme, isDark, toggleBattleChange, battle } =
+  const { theme, theme2, isDark, toggleBattleChange, battle } =
     useContext(AppContext);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();

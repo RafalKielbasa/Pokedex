@@ -11,21 +11,24 @@ import {
   Button,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { blankpicture } from "src/Images";
+import { blankpicturedark } from "src/Images";
 import styled, { css } from "styled-components";
 import { AppContext } from "src/context/AppContext";
 import { postData, postNewData } from "src/api/postData";
 import { editionSchema } from "src/schemas/editionSchema";
 import { Formik, Form, ErrorMessage, Field } from "formik";
+import { ThemeProvider } from "@mui/material/styles";
 
 const ContainerPageWrapper = styled("div")(
-  css`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: top;
-    margin-top: 50px;
-  `
+  ({ theme }) =>
+    css`
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: top;
+      padding-top: 50px;
+      background-color: ${theme.bgColor};
+    `
 );
 const CardWrapper = styled.div`
   margin-left: 40px;
@@ -58,7 +61,6 @@ const FormWrapper = styled(Form)(
 );
 const EditionWrapper = styled.div`
   display: flex;
-  //justify-content: center;
   align-items: center;
   flex-direction: column;
 `;
@@ -104,8 +106,13 @@ const EditionPage = () => {
     abilitie: "",
   });
   const [newValues, setNewValues] = useState(null);
+  const [editButton, setEditButton] = useState(false);
+  const [saveAsNewButton, setSaveAsNewButton] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+
   const {
     theme,
+    theme2,
     toggleTheme,
     toggleLoggedIn,
     isLoggedIn,
@@ -113,9 +120,6 @@ const EditionPage = () => {
     isSuccess,
     fullPokemonDataFormated,
   } = useContext(AppContext);
-  const [editButton, setEditButton] = useState(false);
-  const [saveAsNewButton, setSaveAsNewButton] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
 
   const getAfterTheBattleAndEdit = async () => {
     const response = await axios.get(
@@ -321,8 +325,10 @@ const EditionPage = () => {
     });
   }, [userData]);
 
+  // const picture = isDark ? blankpicturedark : blankpicture;
+
   return (
-    <ContainerPageWrapper>
+    <ContainerPageWrapper theme={theme}>
       <Formik
         enableReinitialize
         initialValues={initialValues}
@@ -355,6 +361,7 @@ const EditionPage = () => {
                     }}
                     style={{
                       height: "130px",
+                      color: isDark ? "white" : "black",
                     }}
                   >
                     {expFullPokemonDataFormated?.map((item) => (
@@ -385,7 +392,7 @@ const EditionPage = () => {
                             src={
                               initialValues.pic !== undefined
                                 ? initialValues.pic
-                                : blankpicture
+                                : blankpicturedark
                             }
                             alt={"picture"}
                             key={initialValues.id}
@@ -403,6 +410,8 @@ const EditionPage = () => {
                           fontSize: "22px",
                           marginTop: "10px",
                           width: "200px",
+                          borderColor: "black",
+                          backgroundColor: isDark ? "#bcaaa4" : "white",
                         }}
                       />
                       <ErrorMessage name="name" />
@@ -420,6 +429,8 @@ const EditionPage = () => {
                             textAlign: "center",
                             width: "110px",
                             marginRight: "10px",
+                            borderColor: "black",
+                            backgroundColor: isDark ? "#bcaaa4" : "white",
                           }}
                         />
                         <ErrorMessage name="height" />
@@ -428,6 +439,8 @@ const EditionPage = () => {
                             fontWeight: "bold",
                             paddingBottom: "30px",
                             marginRight: "10px",
+                            borderColor: "black",
+                            backgroundColor: isDark ? "#bcaaa4" : "white",
                           }}
                           variant="body2"
                           color="text.secondary"
@@ -445,6 +458,8 @@ const EditionPage = () => {
                             textAlign: "center",
                             width: "110px",
                             marginRight: "10px",
+                            borderColor: "black",
+                            backgroundColor: isDark ? "#bcaaa4" : "white",
                           }}
                         />
                         <ErrorMessage name="baseexp" />
@@ -467,6 +482,8 @@ const EditionPage = () => {
                           style={{
                             textAlign: "center",
                             width: "110px",
+                            borderColor: "black",
+                            backgroundColor: isDark ? "#bcaaa4" : "white",
                           }}
                         />
                         <ErrorMessage name="weight" />
@@ -486,6 +503,8 @@ const EditionPage = () => {
                           style={{
                             textAlign: "center",
                             width: "110px",
+                            borderColor: "black",
+                            backgroundColor: isDark ? "#bcaaa4" : "white",
                           }}
                         />
                         <ErrorMessage name="abilitie" />
@@ -499,9 +518,15 @@ const EditionPage = () => {
                       </CardValuesWrapper>
                     </CardContentWrapper>
                     <SubmitButtonWrapper>
-                      <MyButton variant="outlined" type="submit">
-                        Zapisz zmiany
-                      </MyButton>
+                      <ThemeProvider theme={theme2}>
+                        <MyButton
+                          variant="outlined"
+                          type="submit"
+                          color={isDark ? "secondary" : "primary"}
+                        >
+                          Zapisz zmiany
+                        </MyButton>
+                      </ThemeProvider>
                     </SubmitButtonWrapper>
                   </Card>
                 </CardWrapper>
@@ -511,24 +536,28 @@ const EditionPage = () => {
         }}
       </Formik>
       <ButtonWrapper>
-        <MyButton
-          variant="outlined"
-          type="submit"
-          onClick={edit}
-          disabled={editButton === false ? true : false}
-        >
-          Edytuj
-        </MyButton>
-        <MyButton
-          variant="outlined"
-          type="submit"
-          onClick={saveAsNew}
-          disabled={saveAsNewButton === false ? true : false}
-        >
-          Zapisz jako nowy
-        </MyButton>
+        <ThemeProvider theme={theme2}>
+          <MyButton
+            variant="outlined"
+            type="submit"
+            color={isDark ? "secondary" : "primary"}
+            onClick={edit}
+            disabled={editButton === false ? true : false}
+          >
+            Edytuj
+          </MyButton>
+          <MyButton
+            variant="outlined"
+            type="submit"
+            color={isDark ? "secondary" : "primary"}
+            onClick={saveAsNew}
+            disabled={saveAsNewButton === false ? true : false}
+          >
+            Zapisz jako nowy
+          </MyButton>
+        </ThemeProvider>
       </ButtonWrapper>
-      <EditionInfoWrapper>
+      <EditionInfoWrapper style={{ color: isDark ? "white" : "black" }}>
         Wskazówki:<br></br> - aby dokonać edycji należy zmienić co najmniej
         jeden z parametrów Pokemona,<br></br> - aby było możliwe stworzenie
         nowego Pokemona należy nadać mu unikatowe Imię,<br></br> - nowego

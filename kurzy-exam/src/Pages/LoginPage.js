@@ -10,12 +10,15 @@ import { Formik, Form, ErrorMessage } from "formik";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const SiteWrapper = styled("div")(
-  css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-  `
+  ({ theme }) =>
+    css`
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 50px;
+      height: 100vh;
+      background-color: ${theme.bgColor};
+    `
 );
 const FormWrapper = styled(Form)(
   css`
@@ -24,7 +27,7 @@ const FormWrapper = styled(Form)(
     align-items: center;
     flex-direction: column;
     gap: 15px;
-    border: 1px solid black;
+    border: 1px solid;
     border-radius: 10px;
     padding: 50px;
     width: 313px;
@@ -45,7 +48,7 @@ const theme2 = createTheme({
 const Login = () => {
   const [usersData, setUsersData] = useState([]);
 
-  const { theme, toggleTheme, toggleLoggedIn, isLoggedIn, isDark } =
+  const { theme, theme2, toggleTheme, toggleLoggedIn, isLoggedIn, isDark } =
     useContext(AppContext);
   const { enqueueSnackbar } = useSnackbar();
 
@@ -102,7 +105,7 @@ const Login = () => {
   isLoggedIn == "true" && navigate("/edition");
 
   return (
-    <SiteWrapper>
+    <SiteWrapper theme={theme}>
       <ThemeProvider theme={theme2}>
         <Formik
           initialValues={{ logEmail: "", logPass: "" }}
@@ -110,13 +113,19 @@ const Login = () => {
         >
           {({ values, handleChange, handleSubmit }) => {
             return (
-              <FormWrapper onSubmit={handleSubmit}>
-                <h2>Logowanie</h2>
+              <FormWrapper
+                style={{ color: `${isDark ? "white" : "black"}` }}
+                onSubmit={handleSubmit}
+              >
+                <h2 style={{ color: `${isDark ? "white" : "black"}` }}>
+                  Logowanie
+                </h2>
                 <Input
                   name="logEmail"
                   value={values.email}
                   placeholder="E-mail"
                   type="email"
+                  style={{ color: `${isDark ? "white" : "black"}` }}
                   onChange={handleChange}
                 />
                 <ErrorMessage name="logEmail" />
@@ -126,6 +135,7 @@ const Login = () => {
                   placeholder="Hasło"
                   type="password"
                   className="password"
+                  style={{ color: `${isDark ? "white" : "black"}` }}
                   onChange={handleChange}
                 />
                 <ErrorMessage name="logPass" />
@@ -134,6 +144,7 @@ const Login = () => {
                   style={{ marginTop: "25px" }}
                   variant="outlined"
                   type="submit"
+                  color={isDark ? "secondary" : "primary"}
                 >
                   Zaloguj się
                 </Button>
@@ -143,6 +154,7 @@ const Login = () => {
                     background: "none",
                     textDecoration: "underline",
                   }}
+                  color={isDark ? "secondary" : "primary"}
                   onClick={handleClick}
                 >
                   Nie masz konta ? Zarejestruj się tu

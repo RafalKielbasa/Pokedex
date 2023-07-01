@@ -8,16 +8,19 @@ import { AppContext } from "src/context/AppContext";
 import { Button, Input } from "@mui/material";
 import { useEffect, useState, useContext } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import { registrationSchema } from "src/schemas/registrationSchema";
 
 const SiteWrapper = styled("div")(
-  css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-  `
+  ({ theme }) =>
+    css`
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 50px;
+      height: 100vh;
+      background-color: ${theme.bgColor};
+    `
 );
 const FormWrapper = styled(Form)(
   css`
@@ -26,28 +29,17 @@ const FormWrapper = styled(Form)(
     align-items: center;
     flex-direction: column;
     gap: 15px;
-    border: 1px solid black;
+    border: 1px solid;
     border-radius: 10px;
     padding: 50px;
     width: 313px;
   `
 );
 
-const theme2 = createTheme({
-  palette: {
-    primary: {
-      main: "#333333",
-    },
-    secondary: {
-      main: "#ffffff",
-    },
-  },
-});
-
 const Registration = () => {
   const [usersEmails, setUsersEmails] = useState([]);
 
-  const { theme, toggleTheme, isDark } = useContext(AppContext);
+  const { theme, theme2, toggleTheme, isDark } = useContext(AppContext);
   const { enqueueSnackbar } = useSnackbar();
 
   const navigate = useNavigate();
@@ -102,7 +94,7 @@ const Registration = () => {
   };
 
   return (
-    <SiteWrapper>
+    <SiteWrapper theme={theme}>
       <ThemeProvider theme={theme2}>
         <Formik
           initialValues={{ name: "", email: "", pass: "", repPass: "" }}
@@ -111,12 +103,18 @@ const Registration = () => {
         >
           {({ values, handleChange, handleSubmit }) => {
             return (
-              <FormWrapper onSubmit={handleSubmit}>
-                <h2>Rejestracja</h2>
+              <FormWrapper
+                style={{ color: `${isDark ? "white" : "black"}` }}
+                onSubmit={handleSubmit}
+              >
+                <h2 style={{ color: `${isDark ? "white" : "black"}` }}>
+                  Rejestracja
+                </h2>
                 <Input
                   name="name"
                   placeholder="Imię"
                   value={values.name}
+                  style={{ color: `${isDark ? "white" : "black"}` }}
                   onChange={handleChange}
                 />
                 <ErrorMessage name="name" />
@@ -125,6 +123,7 @@ const Registration = () => {
                   value={values.email}
                   placeholder="E-mail"
                   type="email"
+                  style={{ color: `${isDark ? "white" : "black"}` }}
                   onChange={handleChange}
                 />
                 <ErrorMessage name="email" />
@@ -134,6 +133,7 @@ const Registration = () => {
                   placeholder="Hasło"
                   type="password"
                   className="password"
+                  style={{ color: `${isDark ? "white" : "black"}` }}
                   onChange={handleChange}
                 />
                 <ErrorMessage name="pass" />
@@ -143,6 +143,7 @@ const Registration = () => {
                   placeholder="Powtórz hasło"
                   type="password"
                   className="repPassword"
+                  style={{ color: `${isDark ? "white" : "black"}` }}
                   onChange={handleChange}
                 />
                 <ErrorMessage name="repPass" />
@@ -150,6 +151,7 @@ const Registration = () => {
                   style={{ marginTop: "25px" }}
                   variant="outlined"
                   type="submit"
+                  color={isDark ? "secondary" : "primary"}
                 >
                   Utwórz konto
                 </Button>
@@ -159,6 +161,7 @@ const Registration = () => {
                     background: "none",
                     textDecoration: "underline",
                   }}
+                  color={isDark ? "secondary" : "primary"}
                   onClick={handleClick}
                 >
                   Masz już konto ? Zaloguj się tu

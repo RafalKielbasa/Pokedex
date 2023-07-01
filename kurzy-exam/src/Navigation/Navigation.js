@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useState, useEffect, useContext } from "react";
-
 import {
   Stack,
   Button,
@@ -76,8 +75,14 @@ const Navigation = () => {
   const [user, setUser] = useState();
   const [switchIsDark, setswitchIsDark] = useState(false);
 
-  const { toggleTheme, toggleLoggedIn, isDark, isLoggedIn, loggedChange } =
-    useContext(AppContext);
+  const {
+    toggleTheme,
+    toggleLoggedIn,
+    isDark,
+    isLoggedIn,
+    loggedChange,
+    toggleSwitchChange,
+  } = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -88,18 +93,10 @@ const Navigation = () => {
     } else setUser("");
   }, [loggedChange]);
 
-  useEffect(() => {
-    const switchIsDarkfromLS = localStorage.getItem("switchIsDark");
-    if (switchIsDarkfromLS) {
-      setswitchIsDark(switchIsDarkfromLS);
-    }
-    return;
-  }, []);
-
   const toggleSwitch = () => {
     setswitchIsDark(!switchIsDark);
-    console.log(`switchIsDark`, !switchIsDark);
     localStorage.setItem("switchIsDark", JSON.stringify(!switchIsDark));
+    toggleSwitchChange();
   };
 
   return (
@@ -109,9 +106,7 @@ const Navigation = () => {
           control={
             <MaterialUISwitch
               sx={{ m: 1 }}
-              checked={
-                switchIsDark === true || switchIsDark === "true" ? true : false
-              }
+              checked={isDark === true || isDark === "true" ? true : false}
               onClick={toggleSwitch}
             />
           }

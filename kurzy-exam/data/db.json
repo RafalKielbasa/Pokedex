@@ -78,28 +78,6 @@
       "wins": 2
     },
     {
-      "id": 106,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/106.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/106.svg",
-      "name": "hitmonlee",
-      "height": 15,
-      "baseexp": 169,
-      "weight": 498,
-      "abilitie": "limber",
-      "wins": 1
-    },
-    {
-      "id": 3,
-      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
-      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
-      "name": "venusaur",
-      "height": 20,
-      "baseexp": 293,
-      "weight": 1000,
-      "abilitie": "overgrow",
-      "wins": 3
-    },
-    {
       "id": 60,
       "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/60.png",
       "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/60.svg",
@@ -108,6 +86,39 @@
       "baseexp": 70,
       "weight": 124,
       "abilitie": "water-absorb",
+      "wins": 1
+    },
+    {
+      "id": 3,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
+      "name": "venusaur",
+      "height": 20,
+      "baseexp": 313,
+      "weight": 1000,
+      "abilitie": "overgrow",
+      "wins": 5
+    },
+    {
+      "id": 12,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/12.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/12.svg",
+      "name": "butterfree",
+      "height": 11,
+      "baseexp": 208,
+      "weight": 320,
+      "abilitie": "compound-eyes",
+      "wins": 1
+    },
+    {
+      "id": 144,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/144.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/144.svg",
+      "name": "articuno",
+      "height": 17,
+      "baseexp": 300,
+      "weight": 554,
+      "abilitie": "pressure",
       "wins": 1
     }
   ]

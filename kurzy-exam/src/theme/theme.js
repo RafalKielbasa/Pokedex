@@ -4,6 +4,7 @@ export const lightTheme = {
   primaryColor: "#007bff",
   secondaryColor: "#6c757d",
   borderColor: "#e0e0e0",
+  bgCardColor: "white",
 };
 
 export const darkTheme = {
@@ -12,4 +13,5 @@ export const darkTheme = {
   primaryColor: "#1b6ec2",
   secondaryColor: "#444444",
   borderColor: "#606060",
+  bgCardColor: "#bcaaa4",
 };

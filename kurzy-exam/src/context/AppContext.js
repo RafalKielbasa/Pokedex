@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { lightTheme, darkTheme } from "src/theme/theme";
 import { useQuery } from "react-query";
 import { getFullResults } from "src/api/source";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 export const AppContext = createContext();
 
@@ -19,6 +20,9 @@ const AppContextProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
   const [favoritesIds, setFavoritesIds] = useState([]);
   const [favoritesChange, setFavoritesChange] = useState(false);
+  const [switchChange, setSwitchChange] = useState(false);
+
+  console.log(`isDark`, isDark);
 
   useEffect(() => {
     const isLoggedInfromLS = localStorage.getItem("isLoggedIn");
@@ -26,6 +30,16 @@ const AppContextProvider = ({ children }) => {
       setIsLoggedIn(isLoggedInfromLS);
     }
   }, [loggedChange]);
+
+  useEffect(() => {
+    const switchIsDarkfromLS = localStorage.getItem("switchIsDark");
+    console.log(`switchIsDarkfromLS`, switchIsDarkfromLS);
+    if (switchIsDarkfromLS) {
+      switchIsDarkfromLS === false || switchIsDarkfromLS === "false"
+        ? setIsDark(false)
+        : setIsDark(true);
+    }
+  }, [switchChange]);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/battle/`).then((response) => {
@@ -76,19 +90,26 @@ const AppContextProvider = ({ children }) => {
   const toggleLoggedIn = () => setLoggedChange((prev) => !prev);
   const toggleBattleChange = () => setBattleChange((prev) => !prev);
   const toggleFavoritesChange = () => setFavoritesChange((prev) => !prev);
+  const toggleSwitchChange = () => setSwitchChange((prev) => !prev);
 
-  const context = {
-    theme: isDark ? darkTheme : lightTheme,
-    toggleTheme,
-    isDark,
-  };
+  const theme2 = createTheme({
+    palette: {
+      primary: {
+        main: "#333333",
+      },
+      secondary: {
+        main: "#ffffff",
+      },
+    },
+  });
 
   return (
     <AppContext.Provider
       value={{
-        context,
-        // isDark,
+        theme: isDark ? darkTheme : lightTheme,
+        theme2,
         // toggleTheme,
+        isDark,
         isSuccess,
         fullPokemonDataFormated,
         toggleLoggedIn,
@@ -100,6 +121,7 @@ const AppContextProvider = ({ children }) => {
         toggleFavoritesChange,
         favorites,
         favoritesIds,
+        toggleSwitchChange,
       }}
     >
       {children}

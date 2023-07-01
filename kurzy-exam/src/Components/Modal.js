@@ -4,6 +4,9 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { AppContext } from "src/context/AppContext";
+import { ThemeProvider } from "@mui/material/styles";
+import { useContext } from "react";
 
 const style = {
   position: "absolute",
@@ -24,6 +27,8 @@ export default function BasicModal({
   winnerPic,
   finalResults,
 }) {
+  const { isDark, theme2 } = useContext(AppContext);
+
   return (
     <Modal
       open={open}
@@ -31,7 +36,12 @@ export default function BasicModal({
       aria-labelledby="modal-delete"
       aria-describedby="modal-delete"
     >
-      <Box sx={style}>
+      <Box
+        sx={style}
+        style={{
+          backgroundColor: isDark ? "#bcaaa4" : "white",
+        }}
+      >
         <div style={{ textAlign: "center", paddingTop: "10px" }}>
           <img src={winnerPic} alt={"picture"} />
         </div>
@@ -56,20 +66,23 @@ export default function BasicModal({
           <h4>Za wygraną otrzymuję dodatkowe 10 punktów doświadczenia</h4>
         </Typography>
         <Stack
-          sx={{
+          style={{
             display: "flex",
             flexDirection: "row",
             justifyContent: "center",
             marginTop: "30px",
           }}
         >
-          <Button
-            className="finalResults"
-            variant="outlined"
-            onClick={() => finalResults()}
-          >
-            Opuść arenę
-          </Button>
+          <ThemeProvider theme={theme2}>
+            <Button
+              className="finalResults"
+              variant="outlined"
+              color={isDark ? "secondary" : "primary"}
+              onClick={finalResults}
+            >
+              Opuść arenę
+            </Button>
+          </ThemeProvider>
         </Stack>
       </Box>
     </Modal>
@@ -77,6 +90,8 @@ export default function BasicModal({
 }
 
 export function DrawModal({ open2, handleClose, finalResults }) {
+  const { isDark, theme, theme2 } = useContext(AppContext);
+
   return (
     <Modal
       open={open2}
@@ -107,7 +122,8 @@ export function DrawModal({ open2, handleClose, finalResults }) {
           <Button
             className="finalResults"
             variant="outlined"
-            onClick={() => finalResults()}
+            color={isDark ? "secondary" : "primary"}
+            onClick={finalResults}
           >
             Opuść arenę
           </Button>

@@ -9,13 +9,11 @@ import styled, { css } from "styled-components";
 import { useEffect, useState, useContext } from "react";
 import { useSnackbar } from "notistack";
 import { AppContext } from "src/context/AppContext";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-
-const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const HomePageWrapper = styled("div")(
   ({ theme }) =>
@@ -50,17 +48,6 @@ const ServerErrorWrapper = styled.div`
   font-weight: bold;
 `;
 
-const theme2 = createTheme({
-  palette: {
-    primary: {
-      main: "#333333",
-    },
-    secondary: {
-      main: "#ffffff",
-    },
-  },
-});
-
 const RankingPage = () => {
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
@@ -75,7 +62,7 @@ const RankingPage = () => {
     []
   );
 
-  const { toggleTheme, isDark, theme, isSuccess, fullPokemonDataFormated } =
+  const { isDark, theme, theme2, isSuccess, fullPokemonDataFormated } =
     useContext(AppContext);
   const { enqueueSnackbar } = useSnackbar();
 
@@ -185,9 +172,6 @@ const RankingPage = () => {
         localhost:3001. Data base znajduję się w katalogu "data/db.json"
       </ServerErrorWrapper>
     );
-
-  console.log(`offset`, offset);
-  console.log(`expFullPokemonDataFormated`, expFullPokemonDataFormated);
 
   return (
     <>

@@ -9,9 +9,7 @@ import styled, { css } from "styled-components";
 import { useEffect, useState, useContext } from "react";
 import { useSnackbar } from "notistack";
 import { AppContext } from "src/context/AppContext";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+import { ThemeProvider } from "@mui/material/styles";
 
 const HomePageWrapper = styled("div")(
   ({ theme }) =>
@@ -45,17 +43,6 @@ const ServerErrorWrapper = styled.div`
   font-weight: bold;
 `;
 
-const theme2 = createTheme({
-  palette: {
-    primary: {
-      main: "#333333",
-    },
-    secondary: {
-      main: "#ffffff",
-    },
-  },
-});
-
 const HomePage = () => {
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
@@ -69,7 +56,7 @@ const HomePage = () => {
     []
   );
 
-  const { toggleTheme, isDark, theme, isSuccess, fullPokemonDataFormated } =
+  const { isDark, theme, theme2, isSuccess, fullPokemonDataFormated } =
     useContext(AppContext);
   const { enqueueSnackbar } = useSnackbar();
 
