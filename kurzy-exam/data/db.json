@@ -1,0 +1,70 @@
+{
+  "users": [
+    {
+      "name": "Piotr Kurzydym",
+      "email": "abc@gmail.com",
+      "pass": "123Infoinfo!",
+      "id": 1
+    }
+  ],
+  "favoriteData": [
+    {
+      "id": 99,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/99.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/99.svg",
+      "name": "kingler",
+      "height": 13,
+      "baseexp": 166,
+      "weight": 600,
+      "abilitie": "hyper-cutter",
+      "wins": 0
+    },
+    {
+      "id": 100,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/100.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/100.svg",
+      "name": "voltorb",
+      "height": 5,
+      "baseexp": 66,
+      "weight": 104,
+      "abilitie": "soundproof",
+      "wins": 0
+    }
+  ],
+  "battle": [],
+  "afterTheBattleAndEdit": [
+    {
+      "id": 47,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/47.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/47.svg",
+      "name": "parasect",
+      "height": 10,
+      "baseexp": 162,
+      "weight": 295,
+      "abilitie": "effect-spore",
+      "wins": 2
+    },
+    {
+      "id": 60,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/60.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/60.svg",
+      "name": "poliwag",
+      "height": 6,
+      "baseexp": 70,
+      "weight": 124,
+      "abilitie": "water-absorb",
+      "wins": 1
+    },
+    {
+      "id": 3,
+      "pic": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+      "picDet": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
+      "name": "venusaur",
+      "height": 20,
+      "baseexp": 313,
+      "weight": 1000,
+      "abilitie": "overgrow",
+      "wins": 5
+    }
+  ]
+}
