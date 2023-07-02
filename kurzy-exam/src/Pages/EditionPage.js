@@ -11,7 +11,7 @@ import {
   Button,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { blankpicturedark } from "src/Images";
+import { blankpicture, blankpicturedark } from "src/Images";
 import styled, { css } from "styled-components";
 import { AppContext } from "src/context/AppContext";
 import { postData, postNewData } from "src/api/postData";
@@ -324,6 +324,7 @@ const EditionPage = () => {
     });
   }, [userData]);
 
+  console.log(`initialValues.pic`, initialValues.pic);
   // const picture = isDark ? blankpicturedark : blankpicture;
 
   return (
@@ -391,7 +392,9 @@ const EditionPage = () => {
                             src={
                               initialValues.pic !== undefined
                                 ? initialValues.pic
-                                : blankpicturedark
+                                : isDark
+                                ? blankpicturedark
+                                : blankpicture
                             }
                             alt={"picture"}
                             key={initialValues.id}
