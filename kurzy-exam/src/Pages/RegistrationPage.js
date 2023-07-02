@@ -39,7 +39,7 @@ const FormWrapper = styled(Form)(
 const Registration = () => {
   const [usersEmails, setUsersEmails] = useState([]);
 
-  const { theme, theme2, toggleTheme, isDark } = useContext(AppContext);
+  const { theme, theme2, isDark } = useContext(AppContext);
   const { enqueueSnackbar } = useSnackbar();
 
   const navigate = useNavigate();

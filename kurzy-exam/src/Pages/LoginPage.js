@@ -7,7 +7,7 @@ import { AppContext } from "src/context/AppContext";
 import { Button, Input } from "@mui/material";
 import { useEffect, useState, useContext } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 
 const SiteWrapper = styled("div")(
   ({ theme }) =>
@@ -34,21 +34,10 @@ const FormWrapper = styled(Form)(
   `
 );
 
-const theme2 = createTheme({
-  palette: {
-    primary: {
-      main: "#333333",
-    },
-    secondary: {
-      main: "#ffffff",
-    },
-  },
-});
-
 const Login = () => {
   const [usersData, setUsersData] = useState([]);
 
-  const { theme, theme2, toggleTheme, toggleLoggedIn, isLoggedIn, isDark } =
+  const { theme, theme2, toggleLoggedIn, isLoggedIn, isDark } =
     useContext(AppContext);
   const { enqueueSnackbar } = useSnackbar();
 

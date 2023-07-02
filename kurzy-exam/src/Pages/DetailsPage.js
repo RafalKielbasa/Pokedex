@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/AppContext";
 import { useContext } from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 
 const DetailsPageWrapper = styled("div")(
   ({ theme }) =>
@@ -18,19 +18,8 @@ const DetailsPageWrapper = styled("div")(
     `
 );
 
-const theme2 = createTheme({
-  palette: {
-    primary: {
-      main: "#333333",
-    },
-    secondary: {
-      main: "#ffffff",
-    },
-  },
-});
-
 const DetailsPage = () => {
-  const { theme, toggleTheme, isDark } = useContext(AppContext);
+  const { theme, theme2, isDark } = useContext(AppContext);
   const location = useLocation();
   const id = location.state?.id;
 
@@ -44,9 +33,11 @@ const DetailsPage = () => {
   const favoritesFiltered =
     favorites === undefined ? [] : favorites?.filter((item) => item.id === id);
 
+  const selectValue = location.state?.selectValue;
+
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/");
+    selectValue === undefined ? navigate("/") : navigate("/ranking");
   };
   const handleClickFavorite = () => {
     navigate("/favorites");

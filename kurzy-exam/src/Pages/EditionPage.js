@@ -113,7 +113,6 @@ const EditionPage = () => {
   const {
     theme,
     theme2,
-    toggleTheme,
     toggleLoggedIn,
     isLoggedIn,
     isDark,

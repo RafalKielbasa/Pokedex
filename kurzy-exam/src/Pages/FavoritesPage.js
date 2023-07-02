@@ -5,7 +5,7 @@ import PokemonCard from "src/Components/PokemonCards";
 import styled, { css } from "styled-components";
 import { AppContext } from "src/context/AppContext";
 import { useState, useContext } from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 
 const FavoritePageWrapper = styled("div")(
   ({ theme }) =>
@@ -32,21 +32,11 @@ const InfoWrapper = styled.h1`
   justify-content: center;
   margin-top: 100px;
 `;
-const theme2 = createTheme({
-  palette: {
-    primary: {
-      main: "#333333",
-    },
-    secondary: {
-      main: "#ffffff",
-    },
-  },
-});
 
 const FavoritesPage = () => {
   const [page, setPage] = useState(1);
 
-  const { theme, toggleTheme, isDark, favorites } = useContext(AppContext);
+  const { theme, theme2, isDark, favorites } = useContext(AppContext);
 
   return (
     <FavoritePageWrapper theme={theme}>

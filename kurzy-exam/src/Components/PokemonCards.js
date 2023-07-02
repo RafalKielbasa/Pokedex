@@ -111,7 +111,13 @@ export default function PokemonCard({
   const handleClick = () => {
     const path = "/details";
     navigate(path, {
-      state: { id, expFullPokemonDataFormated, favorites, favoritesIds },
+      state: {
+        id,
+        expFullPokemonDataFormated,
+        favorites,
+        favoritesIds,
+        selectValue,
+      },
     });
   };
 
