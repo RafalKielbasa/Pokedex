@@ -53,7 +53,7 @@ const Ranking = ({ query, nextUrl, prevUrl, pokeData }) => {
         ? prevBookmarkedPokemons.filter((prevId) => prevId !== id)
         : [...prevBookmarkedPokemons, id];
 
-      const existingPokemon = pokeData.find((pokemon) => pokemon.id === id);
+      const existingPokemon = pokesData.find((pokemon) => pokemon.id === id);
       if (existingPokemon) {
         const newPokemon = {
           id: existingPokemon.id,
@@ -141,6 +141,12 @@ const Ranking = ({ query, nextUrl, prevUrl, pokeData }) => {
     } else if (sortBy === "experience-min") {
       if (a.base_experience < b.base_experience) return 1;
       if (a.base_experience > b.base_experience) return -1;
+    } else if (sortBy === "fights-max") {
+      if (a.wins > b.wins) return 1;
+      if (a.wins < b.wins) return -1;
+    } else if (sortBy === "fights-min") {
+      if (a.wins < b.wins) return 1;
+      if (a.wins > b.wins) return -1;
     }
     return 0;
   });
@@ -161,6 +167,8 @@ const Ranking = ({ query, nextUrl, prevUrl, pokeData }) => {
           <option value="weight-min">Waga malejąco</option>
           <option value="experience-max">Doświadczenie rosnąco</option>
           <option value="experience-min">Doświadczenie malejąco</option>
+          <option value="fights-max">Wygrane walki rosnąco</option>
+          <option value="fights-min">Wygrane walki malejąco</option>
         </select>
         <div className="container-ranking">
           {loading ? (
@@ -229,6 +237,16 @@ const Ranking = ({ query, nextUrl, prevUrl, pokeData }) => {
                             : item.ability}
                         </h4>
                         <h3 className="ability">Ability</h3>
+                      </div>
+                    </div>
+                    <div className="detailsSecondLine">
+                      <div className="weight">
+                        <h4 className="weightValue">{item.wins}</h4>
+                        <h3>Wins </h3>
+                      </div>
+                      <div className="loses">
+                        <h4 className="losesValue">{item.loses}</h4>
+                        <h3 className="loses">Loses </h3>
                       </div>
                     </div>
                   </div>

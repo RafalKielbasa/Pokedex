@@ -18,18 +18,19 @@ function Settings() {
     }
   }, [pokesData]);
 
-  const handleEditPokemon = (editedPokemon, isCreateNew) => {
-    const fetchData = async () => {
-      const pokemonData = await axios.get("http://localhost:4100/pokemonData");
-      setPokeData(pokemonData.data);
-    };
+  const handleEditPokemon = (editedPokemon) => {
+    // const fetchData = async () => {
+    //   const pokemonData = await axios.get("http://localhost:4100/pokemonData");
+    //   setPokeData(pokemonData.data);
+    // };
 
-    fetchData();
-    const existingPokemon = pokeData.filter(
+    // fetchData();
+    const existingPokemon = pokesData.filter(
       (pokemon) => pokemon.id == editedPokemon.id
     );
+    console.log(existingPokemon, "existingPokemon");
 
-    if (isCreateNew || existingPokemon.length == 0) {
+    if (existingPokemon.length !== 0) {
       const newPokemon = {
         name: editedPokemon.name,
         height: editedPokemon.height,

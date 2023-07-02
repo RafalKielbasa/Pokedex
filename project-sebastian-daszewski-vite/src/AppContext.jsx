@@ -38,11 +38,11 @@ export const AppProvider = ({ children }) => {
     return pokesData.map((poke) => {
       const matchingPoke = pokeData.find((p) => p.id === poke.id);
       if (poke.new === true) {
-        return poke;
+        return { ...poke, wins: 0, loses: 0 };
       } else if (matchingPoke) {
         return matchingPoke;
       } else {
-        return poke;
+        return { ...poke, wins: 0, loses: 0 };
       }
     });
   }
