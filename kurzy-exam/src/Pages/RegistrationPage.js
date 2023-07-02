@@ -39,12 +39,13 @@ const FormWrapper = styled(Form)(
 const Registration = () => {
   const [usersEmails, setUsersEmails] = useState([]);
 
-  const { theme, theme2, isDark } = useContext(AppContext);
+  const { theme, theme2, isDark, handleActiveButton } = useContext(AppContext);
   const { enqueueSnackbar } = useSnackbar();
 
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/login");
+    handleActiveButton("Logowanie");
   };
 
   const getUsers = async () => {
@@ -73,6 +74,7 @@ const Registration = () => {
         }
       );
       navigate("/login");
+      handleActiveButton("Logowanie");
     }
     if ((values.pass === values.repPass) & usersEmails.includes(values.email)) {
       enqueueSnackbar(

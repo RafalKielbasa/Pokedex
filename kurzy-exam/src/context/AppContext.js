@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { lightTheme, darkTheme } from "src/theme/theme";
 import { useQuery } from "react-query";
 import { getFullResults } from "src/api/source";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 
 export const AppContext = createContext();
 
@@ -21,8 +21,7 @@ const AppContextProvider = ({ children }) => {
   const [favoritesIds, setFavoritesIds] = useState([]);
   const [favoritesChange, setFavoritesChange] = useState(false);
   const [switchChange, setSwitchChange] = useState(false);
-
-  console.log(`isDark`, isDark);
+  const [activeButton, setActiveButton] = useState("Home");
 
   useEffect(() => {
     const isLoggedInfromLS = localStorage.getItem("isLoggedIn");
@@ -33,7 +32,6 @@ const AppContextProvider = ({ children }) => {
 
   useEffect(() => {
     const switchIsDarkfromLS = localStorage.getItem("switchIsDark");
-    console.log(`switchIsDarkfromLS`, switchIsDarkfromLS);
     if (switchIsDarkfromLS) {
       switchIsDarkfromLS === false || switchIsDarkfromLS === "false"
         ? setIsDark(false)
@@ -86,11 +84,11 @@ const AppContextProvider = ({ children }) => {
     });
   }, [isSuccess]);
 
-  const toggleTheme = () => setIsDark((prev) => !prev);
   const toggleLoggedIn = () => setLoggedChange((prev) => !prev);
   const toggleBattleChange = () => setBattleChange((prev) => !prev);
   const toggleFavoritesChange = () => setFavoritesChange((prev) => !prev);
   const toggleSwitchChange = () => setSwitchChange((prev) => !prev);
+  const handleActiveButton = (value) => setActiveButton(value);
 
   const theme2 = createTheme({
     palette: {
@@ -108,7 +106,6 @@ const AppContextProvider = ({ children }) => {
       value={{
         theme: isDark ? darkTheme : lightTheme,
         theme2,
-        // toggleTheme,
         isDark,
         isSuccess,
         fullPokemonDataFormated,
@@ -122,6 +119,8 @@ const AppContextProvider = ({ children }) => {
         favorites,
         favoritesIds,
         toggleSwitchChange,
+        handleActiveButton,
+        activeButton,
       }}
     >
       {children}

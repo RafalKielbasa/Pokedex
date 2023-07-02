@@ -24,9 +24,10 @@ const ContainerPageWrapper = styled("div")(
     css`
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: top;
       padding-top: 50px;
+      height: 100vh;
       background-color: ${theme.bgColor};
     `
 );
@@ -110,15 +111,8 @@ const EditionPage = () => {
   const [saveAsNewButton, setSaveAsNewButton] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
-  const {
-    theme,
-    theme2,
-    toggleLoggedIn,
-    isLoggedIn,
-    isDark,
-    isSuccess,
-    fullPokemonDataFormated,
-  } = useContext(AppContext);
+  const { theme, theme2, isDark, isSuccess, fullPokemonDataFormated } =
+    useContext(AppContext);
 
   const getAfterTheBattleAndEdit = async () => {
     const response = await axios.get(
@@ -148,9 +142,6 @@ const EditionPage = () => {
     }
     setPersonName(value);
   };
-  // console.log(`expFullPokemonDataFormated`, expFullPokemonDataFormated);
-  // console.log(`userData`, userData);
-  // console.log(`newValues`, newValues);
 
   const handleOnSubmit = (values) => {
     setNewValues(values);
@@ -323,9 +314,6 @@ const EditionPage = () => {
       abilitie: userData?.abilitie,
     });
   }, [userData]);
-
-  console.log(`initialValues.pic`, initialValues.pic);
-  // const picture = isDark ? blankpicturedark : blankpicture;
 
   return (
     <ContainerPageWrapper theme={theme}>

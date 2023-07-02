@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -22,25 +21,4 @@ export const getFullResults = async () => {
 export const getFavorites = async () => {
   const response = await axios.get(`http://localhost:3001/favoriteData/`);
   return response;
-};
-
-// export const getBattleResults = async () => {
-//   const response = await axios.get(`http://localhost:3001/battle/`);
-//   return response;
-// };
-
-export const getBattleResults = (path) => {
-  const [items, setItems] = useState(null) || [];
-
-  useEffect(() => {
-    axios.get(`http://localhost:3001/${path}`).then((response) => {
-      setItems(response?.data);
-    });
-  }, [path]);
-
-  console.log(`items`, items);
-
-  return {
-    items,
-  };
 };

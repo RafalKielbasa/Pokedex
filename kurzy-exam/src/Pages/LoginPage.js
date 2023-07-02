@@ -37,13 +37,20 @@ const FormWrapper = styled(Form)(
 const Login = () => {
   const [usersData, setUsersData] = useState([]);
 
-  const { theme, theme2, toggleLoggedIn, isLoggedIn, isDark } =
-    useContext(AppContext);
+  const {
+    theme,
+    theme2,
+    toggleLoggedIn,
+    isLoggedIn,
+    isDark,
+    handleActiveButton,
+  } = useContext(AppContext);
   const { enqueueSnackbar } = useSnackbar();
 
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/registration");
+    handleActiveButton("Rejestracja");
   };
 
   const getUsers = async () => {
@@ -91,7 +98,7 @@ const Login = () => {
     }
   };
 
-  isLoggedIn == "true" && navigate("/edition");
+  isLoggedIn == "true" && (navigate("/edition"), handleActiveButton("Edycja"));
 
   return (
     <SiteWrapper theme={theme}>

@@ -39,8 +39,14 @@ const ArenaPage = () => {
   const [open2, setOpen2] = React.useState(false);
   const handleClose = () => setOpen(false);
 
-  const { theme, theme2, isDark, toggleBattleChange, battle } =
-    useContext(AppContext);
+  const {
+    theme,
+    theme2,
+    isDark,
+    toggleBattleChange,
+    battle,
+    handleActiveButton,
+  } = useContext(AppContext);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
@@ -114,6 +120,7 @@ const ArenaPage = () => {
       toggleBattleChange();
       setOpen(false);
       navigate("/");
+      handleActiveButton("Home");
     } else if (
       fighter1Stat > fighter2Stat &&
       afterBattleIds.includes(battle[0].id)
@@ -138,6 +145,7 @@ const ArenaPage = () => {
       toggleBattleChange();
       setOpen(false);
       navigate("/");
+      handleActiveButton("Home");
     } else if (
       fighter1Stat < fighter2Stat &&
       !afterBattleIds.includes(battle[1].id)
@@ -159,6 +167,7 @@ const ArenaPage = () => {
       toggleBattleChange();
       setOpen(false);
       navigate("/");
+      handleActiveButton("Home");
     } else if (
       fighter1Stat < fighter2Stat &&
       afterBattleIds.includes(battle[1].id)
@@ -183,12 +192,14 @@ const ArenaPage = () => {
       toggleBattleChange();
       setOpen(false);
       navigate("/");
+      handleActiveButton("Home");
     } else if (fighter1Stat === fighter2Stat) {
       axios.delete(`http://localhost:3001/battle/${battle[0].id}`);
       axios.delete(`http://localhost:3001/battle/${battle[1].id}`);
       toggleBattleChange();
       setOpen2(false);
       navigate("/");
+      handleActiveButton("Home");
     }
   };
 

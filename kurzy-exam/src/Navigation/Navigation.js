@@ -20,6 +20,8 @@ const Navigation = () => {
     isLoggedIn,
     loggedChange,
     toggleSwitchChange,
+    handleActiveButton,
+    activeButton,
   } = useContext(AppContext);
 
   const navigate = useNavigate();
@@ -72,32 +74,104 @@ const Navigation = () => {
           <Stack direction="row" spacing={2} style={{ marginRight: "120px" }}>
             <Link to="/">
               <Button
-                color={isDark ? "secondary" : "primary"}
+                color={
+                  isDark
+                    ? "secondary"
+                    : activeButton === "Home"
+                    ? "secondary"
+                    : "primary"
+                }
+                style={{
+                  backgroundColor: `${
+                    activeButton === "Home"
+                      ? "#d30000"
+                      : isDark
+                      ? "#616161"
+                      : "white"
+                  }`,
+                }}
                 variant="outlined"
+                activeButton={activeButton}
+                value={"Home"}
+                onClick={(e) => handleActiveButton(e.target.value)}
               >
                 HOME
               </Button>
             </Link>
             <Link to="favorites">
               <Button
-                color={isDark ? "secondary" : "primary"}
+                color={
+                  isDark
+                    ? "secondary"
+                    : activeButton === "Ulubione"
+                    ? "secondary"
+                    : "primary"
+                }
+                style={{
+                  backgroundColor: `${
+                    activeButton === "Ulubione"
+                      ? "#d30000"
+                      : isDark
+                      ? "#616161"
+                      : "white"
+                  }`,
+                }}
                 variant="outlined"
+                activeButton={activeButton}
+                value={"Ulubione"}
+                onClick={(e) => handleActiveButton(e.target.value)}
               >
                 ULUBIONE
               </Button>
             </Link>
             <Link to="arena">
               <Button
-                color={isDark ? "secondary" : "primary"}
+                color={
+                  isDark
+                    ? "secondary"
+                    : activeButton === "Arena"
+                    ? "secondary"
+                    : "primary"
+                }
+                style={{
+                  backgroundColor: `${
+                    activeButton === "Arena"
+                      ? "#d30000"
+                      : isDark
+                      ? "#616161"
+                      : "white"
+                  }`,
+                }}
                 variant="outlined"
+                activeButton={activeButton}
+                value={"Arena"}
+                onClick={(e) => handleActiveButton(e.target.value)}
               >
                 ARENA
               </Button>
             </Link>
             <Link to="ranking">
               <Button
-                color={isDark ? "secondary" : "primary"}
+                color={
+                  isDark
+                    ? "secondary"
+                    : activeButton === "Ranking"
+                    ? "secondary"
+                    : "primary"
+                }
+                style={{
+                  backgroundColor: `${
+                    activeButton === "Ranking"
+                      ? "#d30000"
+                      : isDark
+                      ? "#616161"
+                      : "white"
+                  }`,
+                }}
                 variant="outlined"
+                activeButton={activeButton}
+                value={"Ranking"}
+                onClick={(e) => handleActiveButton(e.target.value)}
               >
                 RANKING
               </Button>
@@ -105,8 +179,26 @@ const Navigation = () => {
             {isLoggedIn == "false" && (
               <Link to="login">
                 <Button
-                  color={isDark ? "secondary" : "primary"}
+                  color={
+                    isDark
+                      ? "secondary"
+                      : activeButton === "Logowanie"
+                      ? "secondary"
+                      : "primary"
+                  }
+                  style={{
+                    backgroundColor: `${
+                      activeButton === "Logowanie"
+                        ? "#d30000"
+                        : isDark
+                        ? "#616161"
+                        : "white"
+                    }`,
+                  }}
                   variant="outlined"
+                  activeButton={activeButton}
+                  value={"Logowanie"}
+                  onClick={(e) => handleActiveButton(e.target.value)}
                 >
                   LOGOWANIE
                 </Button>
@@ -115,8 +207,26 @@ const Navigation = () => {
             {isLoggedIn == "false" && (
               <Link to="registration">
                 <Button
-                  color={isDark ? "secondary" : "primary"}
+                  color={
+                    isDark
+                      ? "secondary"
+                      : activeButton === "Rejestracja"
+                      ? "secondary"
+                      : "primary"
+                  }
+                  style={{
+                    backgroundColor: `${
+                      activeButton === "Rejestracja"
+                        ? "#d30000"
+                        : isDark
+                        ? "#616161"
+                        : "white"
+                    }`,
+                  }}
                   variant="outlined"
+                  activeButton={activeButton}
+                  value={"Rejestracja"}
+                  onClick={(e) => handleActiveButton(e.target.value)}
                 >
                   REJESTRACJA
                 </Button>
@@ -125,8 +235,26 @@ const Navigation = () => {
             {isLoggedIn == "true" && (
               <Link to="edition">
                 <Button
-                  color={isDark ? "secondary" : "primary"}
+                  color={
+                    isDark
+                      ? "secondary"
+                      : activeButton === "Edycja"
+                      ? "secondary"
+                      : "primary"
+                  }
+                  style={{
+                    backgroundColor: `${
+                      activeButton === "Edycja"
+                        ? "#d30000"
+                        : isDark
+                        ? "#616161"
+                        : "white"
+                    }`,
+                  }}
                   variant="outlined"
+                  activeButton={activeButton}
+                  value={"Edycja"}
+                  onClick={(e) => handleActiveButton(e.target.value)}
                 >
                   EDYCJA
                 </Button>
@@ -134,13 +262,32 @@ const Navigation = () => {
             )}
             {isLoggedIn == "true" && (
               <Button
-                color={isDark ? "secondary" : "primary"}
+                color={
+                  isDark
+                    ? "secondary"
+                    : activeButton === "Wyloguj"
+                    ? "secondary"
+                    : "primary"
+                }
+                style={{
+                  backgroundColor: `${
+                    activeButton === "Wyloguj"
+                      ? "#d30000"
+                      : isDark
+                      ? "#616161"
+                      : "white"
+                  }`,
+                }}
                 variant="outlined"
-                onClick={() => {
+                activeButton={activeButton}
+                value={"Wyloguj"}
+                onClick={(e) => {
                   localStorage.setItem("isLoggedIn", JSON.stringify(false));
                   localStorage.removeItem("user");
+                  handleActiveButton(e.target.value);
                   toggleLoggedIn();
                   navigate("/");
+                  handleActiveButton("Home");
                 }}
               >
                 WYLOGUJ
