@@ -5,7 +5,7 @@ export const ProjectUrl = Object.freeze({
   SignIn: '/signIn',
   Favorite: '/favorite',
   PvP: '/pvp',
-  EditAndLogout: '/editAndLogOut',
+  ChoosePokemonToEdit: '/choosePokemonToEdit',
   Edit: '/edit',
   Ranking: 'ranking',
 });

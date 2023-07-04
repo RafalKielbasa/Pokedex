@@ -1,4 +1,3 @@
-import { TextField } from '@mui/material';
 import { PokemonCard } from '../../PokemonCard/PokemonCard';
 import {
   Header,
@@ -18,7 +17,7 @@ export const HomePageWrapper = ({ pokemonData }) => {
   const debouncedSearch = useDebounce(value);
   const [posts, setPosts] = useState([pokemonData || []]);
   const [currentPage, setCurrentPage] = useState(1);
-  const { currentTheme, changeTheme } = useContext(ThemeContext);
+  const { currentTheme } = useContext(ThemeContext);
 
   return (
     <PageWrapper>

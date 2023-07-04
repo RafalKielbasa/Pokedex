@@ -10,16 +10,16 @@ export const NavigationButtonsLogout = [
     href: ProjectUrl.PvP,
   },
   {
+    label: 'Ranking',
+    href: ProjectUrl.Ranking,
+  },
+  {
     label: 'Sign in',
     href: ProjectUrl.SignIn,
   },
   {
     label: 'Sign up',
     href: ProjectUrl.SingUp,
-  },
-  {
-    label: 'Ranking',
-    href: ProjectUrl.Ranking,
   },
 ];
 
@@ -34,14 +34,14 @@ export const NavigationButtonsLogin = [
   },
   {
     label: 'Edit',
-    href: ProjectUrl.EditAndLogout,
-  },
-  {
-    label: 'Log out',
-    href: ProjectUrl.Home,
+    href: ProjectUrl.ChoosePokemonToEdit,
   },
   {
     label: 'Ranking',
     href: ProjectUrl.Ranking,
+  },
+  {
+    label: 'Log out',
+    href: ProjectUrl.Home,
   },
 ];

@@ -6,7 +6,7 @@ import { ThemeContext } from '../../context/ThemeContext';
 
 export const PokemonCardEdit = ({ props }) => {
   const { image, name } = props;
-  const { currentTheme, changeTheme } = useContext(ThemeContext);
+  const { currentTheme } = useContext(ThemeContext);
 
   return (
     <Card theme={currentTheme}>

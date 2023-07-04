@@ -17,7 +17,7 @@ import { ThemeContext } from '../../../context/ThemeContext';
 export const Navigation = () => {
   const user = useContext(UserContext);
   const navigate = useNavigate();
-  const { currentTheme, changeTheme } = useContext(ThemeContext);
+  const { currentTheme } = useContext(ThemeContext);
 
   const logout = (button) => {
     if (button === 'LOG OUT') {

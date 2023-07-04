@@ -1,4 +1,3 @@
-import { Pagination } from '@mui/material';
 import { useContext } from 'react';
 import { useEffect } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
@@ -13,7 +12,7 @@ export const PagePagination = ({
   setCurrentPage,
 }) => {
   const pageNumber = Math.ceil(allPokemon?.length / PAGE_LIMIT);
-  const { currentTheme, changeTheme } = useContext(ThemeContext);
+  const { currentTheme } = useContext(ThemeContext);
 
   useEffect(() => {
     const indexOfLastPost = currentPage * PAGE_LIMIT;

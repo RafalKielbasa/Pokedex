@@ -16,7 +16,7 @@ export const useSignInMutation = () => {
       enqueueSnackbar('Successful logged', { variant: 'success' });
 
       setTimeout(() => {
-        navigate(ProjectUrl.EditAndLogout);
+        navigate(ProjectUrl.ChoosePokemonToEdit);
         window.location.reload(false);
       }, 2000);
     },

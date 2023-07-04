@@ -17,8 +17,6 @@ export const ThemeContextProvider = ({ children }) => {
   const currentTheme = isDarkMode ? theme.dark : theme.light;
   const changeTheme = () => setDarkMode((prev) => !prev);
 
-  console.log(isDarkMode);
-
   return (
     <ThemeContext.Provider value={{ currentTheme, changeTheme, isDarkMode }}>
       {children}

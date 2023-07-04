@@ -35,11 +35,6 @@ export const Pvp = () => {
   const renderCards = () => {
     if (fighters?.length === 2) {
       return fighters?.map((pokemon) => {
-        console.log(pokemon?.name + pokemon?.name?.length);
-        console.log(result + result?.length);
-        console.log('if', result != pokemon?.name ? true : false);
-
-        console.log('aaa', result !== pokemon?.name ? true : false);
         return (
           <PokemonCard
             props={pokemon}
@@ -87,7 +82,7 @@ export const Pvp = () => {
         setIsFight(false);
         setNewStats(fighters);
         setAfterFight(true);
-      }, 1000);
+      }, 15000);
     }
   };
 

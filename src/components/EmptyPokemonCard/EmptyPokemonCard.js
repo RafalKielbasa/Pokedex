@@ -3,7 +3,7 @@ import { Container, H1 } from './EmptyPokemonCard.style';
 import { ThemeContext } from '../../context/ThemeContext';
 
 export const EmptyPokemonCard = () => {
-  const { currentTheme, changeTheme } = useContext(ThemeContext);
+  const { currentTheme } = useContext(ThemeContext);
 
   return (
     <Container theme={currentTheme}>

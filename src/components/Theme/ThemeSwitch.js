@@ -5,8 +5,6 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useContext } from 'react';
 import { ThemeContext } from '../../context/ThemeContext';
-import { useState } from 'react';
-import { useEffect } from 'react';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -56,7 +54,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 export const ThemeSwitch = () => {
-  const { currentTheme, changeTheme, isDarkMode } = useContext(ThemeContext);
+  const { changeTheme, isDarkMode } = useContext(ThemeContext);
 
   return (
     <FormGroup>

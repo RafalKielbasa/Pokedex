@@ -9,7 +9,7 @@ import { ThemeContext } from '../../../context/ThemeContext';
 
 export const Favorite = () => {
   const { data: favoritesPokemonData } = useAllFavoritesPokemonDataQuery();
-  const { currentTheme, changeTheme } = useContext(ThemeContext);
+  const { currentTheme } = useContext(ThemeContext);
 
   if (favoritesPokemonData?.length === 0) {
     return <H1 theme={currentTheme}>There's nothing here yet</H1>;

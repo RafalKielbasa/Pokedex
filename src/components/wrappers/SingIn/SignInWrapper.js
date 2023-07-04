@@ -1,13 +1,13 @@
 import { useFormik } from 'formik';
 import { Form, Wrapper } from '../SingUp/SignUpWrapper.styles';
-import { Button, TextField } from '@mui/material';
+import { Button } from '@mui/material';
 import { useSignInMutation } from '../../../hooks/useSignIn';
 import { useContext } from 'react';
 import { ThemeContext } from '../../../context/ThemeContext';
 import { StyledTextField } from '../HomePageWrapper/HomePageWrapper.styles';
 
 export const SignInWrapper = () => {
-  const { currentTheme, changeTheme } = useContext(ThemeContext);
+  const { currentTheme } = useContext(ThemeContext);
 
   const { mutate } = useSignInMutation();
   const formik = useFormik({

@@ -4,7 +4,7 @@ import { AllPage, MainWrapper } from './DefaultLayout.style';
 import { ThemeContext } from '../../../context/ThemeContext';
 
 export const DefaultLayout = ({ children }) => {
-  const { currentTheme, changeTheme } = useContext(ThemeContext);
+  const { currentTheme } = useContext(ThemeContext);
 
   return (
     <AllPage theme={currentTheme}>

@@ -6,7 +6,7 @@ import { SingUpPage } from '../pages/SingUpPage';
 import { SignInPage } from '../pages/SignInPage';
 import { FavoritePage } from '../pages/FavoritePage';
 import { PvpPage } from '../pages/PvpPage';
-import { EditAndLogoutPage } from '../pages/EditAndLogoutPage';
+import { ChoosePokemonToEditPage } from '../pages/ChoosePokemonToEditPage';
 import { EditPage } from '../pages/EditPage';
 import { Ranking } from '../pages/Ranking';
 
@@ -36,8 +36,8 @@ export const router = createBrowserRouter([
     element: <PvpPage />,
   },
   {
-    path: ProjectUrl.EditAndLogout,
-    element: <EditAndLogoutPage />,
+    path: ProjectUrl.ChoosePokemonToEdit,
+    element: <ChoosePokemonToEditPage />,
   },
   {
     path: ProjectUrl.Edit,

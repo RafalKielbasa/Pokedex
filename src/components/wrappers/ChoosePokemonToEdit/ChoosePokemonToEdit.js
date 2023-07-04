@@ -1,10 +1,10 @@
-import { Wrapper } from './EditAndLogoutWrapper.style';
+import { Wrapper } from './ChoosePokemonToEdit.style';
 import { PageWrapper } from '../HomePageWrapper/HomePageWrapper.styles';
 import { PokemonCardEdit } from '../../PokemonCardList/PokemonCardEdit';
 import { useAllPokemonQuery } from '../../../hooks/useAllPokemon';
 import { v4 } from 'uuid';
 
-export const EditAndLogoutWrapper = () => {
+export const ChoosePokemonToEdit = () => {
   const { data: allPokemons } = useAllPokemonQuery();
 
   return (

@@ -23,7 +23,7 @@ export const PokemonCard = ({
   isInArena,
   loser,
 }) => {
-  const { currentTheme, changeTheme } = useContext(ThemeContext);
+  const { currentTheme } = useContext(ThemeContext);
 
   const { name, height, baseExperience, weight, abilities, image, id } = props;
   const [fighter, setFighter] = useLocalStorage('fighter');

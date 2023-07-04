@@ -8,22 +8,7 @@
       "id": 1
     }
   ],
-  "favorites": [
-    {
-      "name": "venusaur",
-      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
-      "weight": 1000,
-      "height": 20,
-      "abilities": [
-        "overgrow",
-        "chlorophyll"
-      ],
-      "baseExperience": 263,
-      "id": 3,
-      "win": 0,
-      "loss": 0
-    }
-  ],
+  "favorites": [],
   "edited": [],
   "savedAsNew": []
 }
