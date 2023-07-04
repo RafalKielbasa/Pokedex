@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "name": "Admin",
+      "email": "admin@email.com",
+      "password": "Pokemon1!",
+      "repeatPassword": "Pokemon1!",
+      "id": 1
+    }
+  ],
+  "favorites": [],
+  "edited": [],
+  "savedAsNew": []
+}
