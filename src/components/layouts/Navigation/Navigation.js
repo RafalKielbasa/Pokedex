@@ -12,11 +12,12 @@ import { useNavigate } from 'react-router-dom';
 import { ProjectUrl } from '../../../const/ProjectUrl';
 import { UserContext } from '../../../context/UserContext';
 import { ThemeSwitch } from '../../Theme/ThemeSwitch';
-import { CssBaseline } from '@mui/material';
+import { ThemeContext } from '../../../context/ThemeContext';
 
 export const Navigation = () => {
   const user = useContext(UserContext);
   const navigate = useNavigate();
+  const { currentTheme, changeTheme } = useContext(ThemeContext);
 
   const logout = (button) => {
     if (button === 'LOG OUT') {
@@ -26,7 +27,7 @@ export const Navigation = () => {
   };
 
   return (
-    <Container>
+    <Container theme={currentTheme}>
       <a href={ProjectUrl.Home}>
         <img src={pokedexLogo} alt="pokedex logo" style={{ width: 200 }} />
       </a>

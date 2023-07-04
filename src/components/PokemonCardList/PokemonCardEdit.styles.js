@@ -1,12 +1,12 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Card = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border: 1.5px solid black;
+  border: 1.5px solid ${({ theme }) => theme.borderColor};
   border-radius: 10px;
-  background-color: #f5f5f5;
+  background-color: ${({ theme }) => theme.editCardBgColor};
   transition: 0.2s all ease-in;
 
   &:hover {

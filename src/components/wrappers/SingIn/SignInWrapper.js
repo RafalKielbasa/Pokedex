@@ -1,14 +1,19 @@
-import { useFormik } from "formik";
-import { Form, Wrapper } from "../SingUp/SignUpWrapper.styles";
-import { Button, TextField } from "@mui/material";
-import { useSignInMutation } from "../../../hooks/useSignIn";
+import { useFormik } from 'formik';
+import { Form, Wrapper } from '../SingUp/SignUpWrapper.styles';
+import { Button, TextField } from '@mui/material';
+import { useSignInMutation } from '../../../hooks/useSignIn';
+import { useContext } from 'react';
+import { ThemeContext } from '../../../context/ThemeContext';
+import { StyledTextField } from '../HomePageWrapper/HomePageWrapper.styles';
 
 export const SignInWrapper = () => {
+  const { currentTheme, changeTheme } = useContext(ThemeContext);
+
   const { mutate } = useSignInMutation();
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
     onSubmit: (values) => {
       mutate(values);
@@ -16,9 +21,10 @@ export const SignInWrapper = () => {
   });
 
   return (
-    <Wrapper>
+    <Wrapper theme={currentTheme}>
       <Form onSubmit={formik.handleSubmit}>
-        <TextField
+        <StyledTextField
+          theme={currentTheme}
           variant="outlined"
           name="email"
           type="email"
@@ -28,7 +34,8 @@ export const SignInWrapper = () => {
           onBlur={formik.handleBlur}
         />
 
-        <TextField
+        <StyledTextField
+          theme={currentTheme}
           variant="outlined"
           name="password"
           type="password"

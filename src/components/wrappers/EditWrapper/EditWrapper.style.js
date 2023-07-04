@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
 export const Input = styled.input`
-  border: green solid 1px;
+  border: ${({ theme }) => theme.borderColor} solid 1px;
+  color: ${({ theme }) => theme.fontColor};
+  background-color: ${({ theme }) => theme.backgroundColor};
   border-radius: 20px;
   text-align: center;
   font-size: 24px;
@@ -12,6 +14,7 @@ export const Label = styled.label`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  color: ${({ theme }) => theme.fontColor};
 `;
 
 export const InputWrapper = styled.div`

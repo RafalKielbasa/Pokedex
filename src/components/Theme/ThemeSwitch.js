@@ -3,10 +3,10 @@ import Switch from '@mui/material/Switch';
 import * as React from 'react';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
+import { useContext } from 'react';
+import { ThemeContext } from '../../context/ThemeContext';
 import { useState } from 'react';
-import { theme } from './Theme';
+import { useEffect } from 'react';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -56,15 +56,15 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 export const ThemeSwitch = () => {
-  const [isDarkMode, setIsDarkMode] = useState();
+  const { currentTheme, changeTheme, isDarkMode } = useContext(ThemeContext);
 
   return (
     <FormGroup>
       <FormControlLabel
         defaultChecked
         control={<MaterialUISwitch sx={{ m: 1 }} />}
-        checked={isDarkMode}
-        onChange={() => setIsDarkMode(!isDarkMode)}
+        onChange={changeTheme}
+        checked={isDarkMode ? true : false}
       />
     </FormGroup>
   );

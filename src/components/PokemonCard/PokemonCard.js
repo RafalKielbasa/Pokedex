@@ -13,7 +13,8 @@ import {
 import { ProjectUrl } from '../../const/ProjectUrl';
 import CloseIcon from '@mui/icons-material/Close';
 import useLocalStorage from 'use-local-storage';
-import { useEffect } from 'react';
+import { useContext } from 'react';
+import { ThemeContext } from '../../context/ThemeContext';
 
 export const PokemonCard = ({
   props,
@@ -22,8 +23,9 @@ export const PokemonCard = ({
   isInArena,
   loser,
 }) => {
-  const { name, height, baseExperience, weight, abilities, image, id } = props;
+  const { currentTheme, changeTheme } = useContext(ThemeContext);
 
+  const { name, height, baseExperience, weight, abilities, image, id } = props;
   const [fighter, setFighter] = useLocalStorage('fighter');
 
   const handleDeleteButton = () => {
@@ -41,7 +43,7 @@ export const PokemonCard = ({
   };
 
   return (
-    <WrapperDiv loser={loser}>
+    <WrapperDiv loser={loser} theme={currentTheme}>
       <PokemonPlace>
         {isInArena ? (
           <DeleteButton
@@ -67,19 +69,21 @@ export const PokemonCard = ({
         <Container>
           <PropsDiv>
             <PokemonPropName>Height</PokemonPropName>
-            <PokemonPropValue>{height}</PokemonPropValue>
+            <PokemonPropValue theme={currentTheme}>{height}</PokemonPropValue>
           </PropsDiv>
           <PropsDiv>
             <PokemonPropName>Base Experience</PokemonPropName>
-            <PokemonPropValue>{baseExperience}</PokemonPropValue>
+            <PokemonPropValue theme={currentTheme}>
+              {baseExperience}
+            </PokemonPropValue>
           </PropsDiv>
           <PropsDiv>
             <PokemonPropName>Weight</PokemonPropName>
-            <PokemonPropValue>{weight}</PokemonPropValue>
+            <PokemonPropValue theme={currentTheme}>{weight}</PokemonPropValue>
           </PropsDiv>
           <PropsDiv>
             <PokemonPropName>Ability</PokemonPropName>
-            <PokemonPropValue>
+            <PokemonPropValue theme={currentTheme}>
               {Array.isArray(abilities) ? abilities[0] : abilities}
             </PokemonPropValue>
           </PropsDiv>

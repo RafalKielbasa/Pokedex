@@ -21,6 +21,8 @@ import { useAddToFavMutation } from '../../../hooks/useAddToFav';
 import { useDeleteFromFavMutation } from '../../../hooks/useDeleteFromFav';
 import { useAllFavoritesPokemonDataQuery } from '../../../hooks/useAllFavoritesPokemonData';
 import useLocalStorage from 'use-local-storage';
+import { useContext } from 'react';
+import { ThemeContext } from '../../../context/ThemeContext';
 
 export const PokemonDetailsWrapper = ({ pokemonData }) => {
   const { name, height, baseExperience, weight, image, id } = pokemonData || {};
@@ -29,10 +31,14 @@ export const PokemonDetailsWrapper = ({ pokemonData }) => {
   const { mutate: addToFav } = useAddToFavMutation();
   const [fighter, setFighter] = useLocalStorage('fighter');
   const pokemonInLocalStorage = {};
+  const { currentTheme, changeTheme } = useContext(ThemeContext);
 
   const pokemonIndexInFav = favoritesPokemonData?.findIndex(
     (pokemon) => pokemon.name === name
   );
+
+  console.log(pokemonIndexInFav);
+  console.log('111', favoritesPokemonData);
 
   if (Array.isArray(fighter)) {
     fighter.forEach((id) => {
@@ -72,36 +78,40 @@ export const PokemonDetailsWrapper = ({ pokemonData }) => {
         <DetailsSign>Pokemon Details</DetailsSign>
         <IconsDiv>
           <FavIcon
-            color={pokemonIndexInFav < 0 ? 'black' : 'red'}
+            isactive={pokemonIndexInFav < 0 ? 'false' : 'true'}
+            theme={currentTheme}
             onClick={() => handleFavClick()}
           />
           <FightIcon
-            color={pokemonInLocalStorage[id] ? 'gold' : 'black'}
+            isactive={pokemonInLocalStorage[id] ? 'true' : 'false'}
+            theme={currentTheme}
             onClick={() => handleFightClick()}
           />
         </IconsDiv>
       </Header>
-      <PokedexSign>POKEDEX</PokedexSign>
+      <PokedexSign theme={currentTheme}>POKEDEX</PokedexSign>
       <PokemonDetailsWrap>
         <PokemonImg src={image} alt={`pokemon ${name}`}></PokemonImg>
         <PokemonInfo>
-          <PokemonName>{name}</PokemonName>
+          <PokemonName theme={currentTheme}>{name}</PokemonName>
           <Container>
             <PropsDiv>
-              <PropsName>Height</PropsName>
-              <PropsValue>{height}</PropsValue>
+              <PropsName theme={currentTheme}>Height</PropsName>
+              <PropsValue theme={currentTheme}>{height}</PropsValue>
             </PropsDiv>
             <PropsDiv>
-              <PropsName>Base Experience</PropsName>
-              <PropsValue>{baseExperience}</PropsValue>
+              <PropsName theme={currentTheme}>Base Experience</PropsName>
+              <PropsValue theme={currentTheme}>{baseExperience}</PropsValue>
             </PropsDiv>
             <PropsDiv>
-              <PropsName>Weight</PropsName>
-              <PropsValue>{weight}</PropsValue>
+              <PropsName theme={currentTheme}>Weight</PropsName>
+              <PropsValue theme={currentTheme}>{weight}</PropsValue>
             </PropsDiv>
             <PropsDiv>
-              <PropsName>Ability</PropsName>
-              <PropsValue>{pokemonData?.abilities[0]}</PropsValue>
+              <PropsName theme={currentTheme}>Ability</PropsName>
+              <PropsValue theme={currentTheme}>
+                {pokemonData?.abilities[0]}
+              </PropsValue>
             </PropsDiv>
           </Container>
         </PokemonInfo>

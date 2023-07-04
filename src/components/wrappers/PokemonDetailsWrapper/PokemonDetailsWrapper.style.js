@@ -21,12 +21,14 @@ export const PokedexSign = styled.h1`
   font-weight: 600;
   display: flex;
   justify-content: center;
+  color: ${({ theme }) => theme.fontColor};
 `;
 
 export const PokemonName = styled.h1`
   display: flex;
   justify-content: center;
   text-transform: capitalize;
+  color: ${({ theme }) => theme.fontColor};
 `;
 
 export const PokemonDetailsWrap = styled.div`
@@ -58,12 +60,13 @@ export const Container = styled.div`
 
 export const PropsName = styled.span`
   font-size: 32px;
+  color: ${({ theme }) => theme.fontColor};
 `;
 
 export const PropsValue = styled.span`
   font-size: 24px;
   font-weight: 500;
-  color: #615858;
+  color: ${({ theme }) => theme.scFontColor};
 `;
 
 export const PokemonImg = styled.img`
@@ -80,7 +83,8 @@ export const IconsDiv = styled.div`
 `;
 
 export const FavIcon = styled(FavoriteIcon)`
-  color: ${(props) => props.color};
+  color: ${({ isactive, theme }) =>
+    isactive === 'true' ? 'red' : theme.iconColor};
   transition: 0.1s all ease-in;
 
   &:hover {
@@ -89,7 +93,8 @@ export const FavIcon = styled(FavoriteIcon)`
 `;
 
 export const FightIcon = styled(SportsMmaIcon)`
-  color: ${(props) => props.color};
+  color: ${({ isactive, theme }) =>
+    isactive === 'true' ? 'gold' : theme.iconColor};
   &:hover {
     transform: scale(1.3);
   }

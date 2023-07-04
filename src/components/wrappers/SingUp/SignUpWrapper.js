@@ -1,35 +1,39 @@
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { ErrorMessage, Form, Input, Wrapper } from "./SignUpWrapper.styles";
-import { Button } from "@mui/material";
-import { useSignUpMutation } from "../../../hooks/useSignUp";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { ErrorMessage, Form, Input, Wrapper } from './SignUpWrapper.styles';
+import { Button } from '@mui/material';
+import { useSignUpMutation } from '../../../hooks/useSignUp';
+import { useContext } from 'react';
+import { ThemeContext } from '../../../context/ThemeContext';
+import { StyledTextField } from '../HomePageWrapper/HomePageWrapper.styles';
 
 const passwordRegexp =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 const signUpSchema = Yup.object().shape({
-  name: Yup.string().required("Required"),
-  email: Yup.string().email("Invalid email").required("Required"),
+  name: Yup.string().required('Required'),
+  email: Yup.string().email('Invalid email').required('Required'),
   password: Yup.string()
     .matches(
       passwordRegexp,
-      "Password must contain one capital letter, one number, one special sign and has at least 8 characters"
+      'Password must contain one capital letter, one number, one special sign and has at least 8 characters'
     )
-    .required("Required"),
+    .required('Required'),
   repeatPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "Password must match")
-    .required("Required"),
+    .oneOf([Yup.ref('password'), null], 'Password must match')
+    .required('Required'),
 });
 
 export const SignUpWrapper = () => {
   const { mutate } = useSignUpMutation();
+  const { currentTheme, changeTheme } = useContext(ThemeContext);
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      email: "",
-      password: "",
-      repeatPassword: "",
+      name: '',
+      email: '',
+      password: '',
+      repeatPassword: '',
     },
     validationSchema: signUpSchema,
     onSubmit: (values) => {
@@ -38,9 +42,10 @@ export const SignUpWrapper = () => {
   });
 
   return (
-    <Wrapper>
+    <Wrapper theme={currentTheme}>
       <Form onSubmit={formik.handleSubmit}>
-        <Input
+        <StyledTextField
+          theme={currentTheme}
           label="Enter your first name"
           variant="outlined"
           name="name"
@@ -54,7 +59,8 @@ export const SignUpWrapper = () => {
           <ErrorMessage>{formik.errors.name}</ErrorMessage>
         ) : null}
 
-        <Input
+        <StyledTextField
+          theme={currentTheme}
           label="Enter your email"
           variant="outlined"
           name="email"
@@ -68,7 +74,8 @@ export const SignUpWrapper = () => {
           <ErrorMessage>{formik.errors.email}</ErrorMessage>
         ) : null}
 
-        <Input
+        <StyledTextField
+          theme={currentTheme}
           label="Enter your password"
           variant="outlined"
           name="password"
@@ -82,7 +89,8 @@ export const SignUpWrapper = () => {
           <ErrorMessage>{formik.errors.password}</ErrorMessage>
         ) : null}
 
-        <Input
+        <StyledTextField
+          theme={currentTheme}
           label="Repeat your password"
           variant="outlined"
           name="repeatPassword"

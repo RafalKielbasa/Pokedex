@@ -8,10 +8,9 @@ export const useAddToFavMutation = () => {
     mutationFn: (pokemon) => {
       addToFavorites(pokemon);
     },
+    onSucces: queryClient.invalidateQueries({
+      queryKey: ['use-all-favorites-pokemon-data'],
+    }),
     onError: (err) => enqueueSnackbar(`${err}`, { variant: 'error' }),
-    onSuccess: () =>
-      queryClient.invalidateQueries({
-        queryKey: ['use-all-favorites-pokemon-data'],
-      }),
   });
 };

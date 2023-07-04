@@ -2,13 +2,13 @@ import styled from 'styled-components';
 
 export const WrapperDiv = styled.div`
   display: flex;
-  border: 1.5px solid black;
+  border: ${({ theme }) => `solid 1.5px ${theme.borderColor}`};
   flex-direction: column;
   border-radius: 5%;
   box-shadow: 0px 0px 20px -5px rgba(66, 68, 90, 1);
-  background-color: #f5f5f5;
+  background-color: ${({ theme }) => theme.cardBgColor};
   transition: 0.2s all ease-in;
-  color: ${(props) => props.color};
+  color: ${({ theme }) => theme.fontColor};
   min-height: 414px;
   opacity: ${(props) => (props.loser ? 0.6 : 1)};
 
@@ -55,7 +55,7 @@ export const PokemonPropName = styled.span`
 export const PokemonPropValue = styled.span`
   font-size: 16px;
   font-weight: 500;
-  color: #615858;
+  color: ${({ theme }) => theme.scFontColor};
 `;
 
 export const PokemonPlace = styled.h1`

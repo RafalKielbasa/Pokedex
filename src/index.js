@@ -5,24 +5,23 @@ import { router } from './router';
 import { RouterProvider } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import { UserContextProvider } from './context/UserContext';
-import { ThemeProvider } from 'styled-components';
-import { theme } from './components/Theme/Theme';
 import { GlobalStyle } from './index.styles';
+import { ThemeContextProvider } from './context/ThemeContext';
 
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <GlobalStyle />
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
+    <ThemeContextProvider>
+      <GlobalStyle />
+      <QueryClientProvider client={queryClient}>
         <UserContextProvider>
           <SnackbarProvider>
             <RouterProvider router={router} />
           </SnackbarProvider>
         </UserContextProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </ThemeContextProvider>
   </React.StrictMode>
 );

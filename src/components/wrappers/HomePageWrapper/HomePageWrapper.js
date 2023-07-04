@@ -5,22 +5,26 @@ import {
   PageWrapper,
   PaginationWrapper,
   PokemonWrapper,
+  StyledTextField,
 } from './HomePageWrapper.styles';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useDebounce } from '../../../hooks/useDebounce';
 import { PagePagination } from '../../PagePagination';
 import { v4 } from 'uuid';
+import { ThemeContext } from '../../../context/ThemeContext';
 
 export const HomePageWrapper = ({ pokemonData }) => {
   const [value, setValue] = useState('');
   const debouncedSearch = useDebounce(value);
   const [posts, setPosts] = useState([pokemonData || []]);
   const [currentPage, setCurrentPage] = useState(1);
+  const { currentTheme, changeTheme } = useContext(ThemeContext);
 
   return (
     <PageWrapper>
       <Header>
-        <TextField
+        <StyledTextField
+          theme={currentTheme}
           placeholder="Search"
           variant="outlined"
           onChange={(e) => setValue(e.target.value)}

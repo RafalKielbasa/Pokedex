@@ -1,5 +1,5 @@
-import { TextField } from "@mui/material";
-import styled from "styled-components";
+import { TextField } from '@mui/material';
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -10,9 +10,9 @@ export const Wrapper = styled.div`
   margin-top: 120px;
   padding-top: 40px;
   padding-bottom: 120px;
-  border: 1px solid black;
+  border: 1px solid ${({ theme }) => theme.borderColor};
   border-radius: 20px;
-  background-color: #f0f0f0;
+  background-color: ${({ theme }) => theme.formBgColor};
   box-shadow: 0px 0px 40px -16px rgba(66, 68, 90, 1);
 `;
 
