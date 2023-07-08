@@ -32,7 +32,7 @@ export const AppProvider = ({ children }) => {
     };
 
     fetchData();
-  }, [pokesData]);
+  }, []);
 
   function mergeData(pokeData, pokesData) {
     return pokesData.map((poke) => {

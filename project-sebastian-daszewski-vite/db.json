@@ -1,14 +1,10 @@
 {
   "users": [
-    {
-      "username": "Mordziaty3",
-      "email": "Sebek665@o2.pl",
-      "password": "Mordziasty12#",
-      "passwordConfirm": "Mordziasty12#",
-      "id": 1
-    }
+  
   ],
-  "login": [],
+  "login": [
+
+  ],
   "pokemonDataToFight": [],
   "pokemonData": [
    

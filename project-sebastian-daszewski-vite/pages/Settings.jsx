@@ -19,78 +19,115 @@ function Settings() {
   }, [pokesData]);
 
   const handleEditPokemon = (editedPokemon) => {
-    // const fetchData = async () => {
-    //   const pokemonData = await axios.get("http://localhost:4100/pokemonData");
-    //   setPokeData(pokemonData.data);
-    // };
+    axios.get(`http://localhost:4100/pokemonData`).then((response) => {
+      const existingPokemon = response.data;
+      const pokemonInDb = existingPokemon.some((e) => e.id == editedPokemon.id);
 
-    // fetchData();
-    const existingPokemon = pokesData.filter(
-      (pokemon) => pokemon.id == editedPokemon.id
-    );
-    console.log(existingPokemon, "existingPokemon");
+      if (pokemonInDb !== true) {
+        const newPokemon = {
+          name: editedPokemon.name,
+          height: editedPokemon.height,
+          weight: editedPokemon.weight,
+          base_experience: editedPokemon.base_experience,
+          ability: editedPokemon.ability,
+          new: true,
+          wins: 0,
+          loses: 0,
+          id: editedPokemon.id,
+        };
 
-    if (existingPokemon.length !== 0) {
-      const newPokemon = {
-        name: editedPokemon.name,
-        height: editedPokemon.height,
-        weight: editedPokemon.weight,
-        base_experience: editedPokemon.base_experience,
-        ability: editedPokemon.ability,
-        new: true,
-        wins: 0,
-        loses: 0,
-      };
+        axios
+          .post("http://localhost:4100/pokemonData", newPokemon)
+          .then((response) => {
+            console.log("Nowy pokemon zostały zapisany:", response.data);
+            enqueueSnackbar("Dane zostały zapisane");
 
-      axios
-        .post("http://localhost:4100/pokemonData", newPokemon)
-        .then((response) => {
-          console.log("Nowy pokemon zostały zapisany:", response.data);
-          enqueueSnackbar("Dane zostały zapisane");
+            setPokemonData((prevPokemonData) => [
+              ...prevPokemonData,
+              response.data,
+            ]);
+            setTimeout(() => {
+              window.location.reload();
+            }, 750);
+          })
+          .catch((error) => {
+            enqueueSnackbar("Wystąpił błąd podczas zapisywania");
 
-          setPokemonData((prevPokemonData) => [
-            ...prevPokemonData,
-            response.data,
-          ]);
-        })
-        .catch((error) => {
-          enqueueSnackbar("Wystąpił błąd podczas zapisywania");
+            console.error(
+              "Wystąpił błąd podczas zapisywania nowego pokemona:",
+              error
+            );
+          });
+      } else if (pokemonInDb == true) {
+        const updatedPokemon = {
+          id: editedPokemon.id,
+          name: editedPokemon.name,
+          height: editedPokemon.height,
+          weight: editedPokemon.weight,
+          base_experience: editedPokemon.base_experience,
+          wins: 0,
+          loses: 0,
+          ability:
+            editedPokemon.abilities && editedPokemon.abilities.length > 0
+              ? editedPokemon.abilities[0].ability.name
+              : editedPokemon.ability,
+        };
 
-          console.error(
-            "Wystąpił błąd podczas zapisywania nowego pokemona:",
-            error
-          );
-        });
-    } else {
-      const updatedPokemon = {
-        id: editedPokemon.id,
-        name: editedPokemon.name,
-        height: editedPokemon.height,
-        weight: editedPokemon.weight,
-        base_experience: editedPokemon.base_experience,
-        ability: editedPokemon.ability,
-      };
+        axios
+          .put(
+            `http://localhost:4100/pokemonData/${editedPokemon.id}`,
+            updatedPokemon
+          )
+          .then((response) => {
+            enqueueSnackbar("Dane zostały zaktualizowane");
 
-      axios
-        .put(
-          `http://localhost:4100/pokemonData/${editedPokemon.id}`,
-          updatedPokemon
-        )
-        .then((response) => {
-          enqueueSnackbar("Dane zostały zaktualizowane");
+            console.log("Dane zostały zaktualizowane:", response.data);
+            const updatedData = pokemonData.map((pokemon) =>
+              pokemon.id === editedPokemon.id ? updatedPokemon : pokemon
+            );
+            setPokemonData(updatedData);
+          })
+          .catch((error) => {
+            enqueueSnackbar("Wystąpił błąd podczas aktualizacji danych");
 
-          console.log("Dane zostały zaktualizowane:", response.data);
-          const updatedData = pokemonData.map((pokemon) =>
-            pokemon.id === editedPokemon.id ? updatedPokemon : pokemon
-          );
-          setPokemonData(updatedData);
-        })
-        .catch((error) => {
-          enqueueSnackbar("Wystąpił błąd podczas aktualizacji danych");
+            console.error("Wystąpił błąd podczas aktualizacji danych:", error);
+          });
+      }
+    });
+  };
 
-          console.error("Wystąpił błąd podczas aktualizacji danych:", error);
-        });
-    }
+  const handleSavePokemon = (editedPokemon) => {
+    const newPokemon = {
+      name: editedPokemon.name,
+      height: editedPokemon.height,
+      weight: editedPokemon.weight,
+      base_experience: editedPokemon.base_experience,
+      ability: editedPokemon.ability,
+      new: true,
+      wins: 0,
+      loses: 0,
+      id: editedPokemon.id + 151,
+    };
+
+    axios
+      .post("http://localhost:4100/pokemonData", newPokemon)
+      .then((response) => {
+        console.log("Nowy pokemon zostały zapisany:", response.data);
+        enqueueSnackbar("Dane zostały zapisane");
+
+        setPokemonData((prevPokemonData) => [
+          ...prevPokemonData,
+          response.data,
+        ]);
+      })
+      .catch((error) => {
+        enqueueSnackbar("Wystąpił błąd podczas zapisywania");
+
+        console.error(
+          "Wystąpił błąd podczas zapisywania nowego pokemona:",
+          error
+        );
+      });
   };
 
   return (
@@ -117,7 +154,6 @@ function Settings() {
                         : pokemon.ability,
                   }}
                   onSubmit={(values, { setSubmitting }) => {
-                    handleEditPokemon(values, false);
                     setSubmitting(false);
                   }}
                 >
@@ -182,13 +218,17 @@ function Settings() {
                         <ErrorMessage name="ability" component="div" />
                       </div>
 
-                      <button className="poke-edit-button" type="submit">
+                      <button
+                        onClick={() => handleEditPokemon(values, true)}
+                        className="poke-edit-button"
+                        type="submit"
+                      >
                         Edytuj
                       </button>
                       <button
+                        onClick={() => handleSavePokemon(values, true)}
                         className="poke-edit-button"
                         type="button"
-                        onClick={() => handleEditPokemon(values, true)}
                       >
                         Zapisz jako nowy
                       </button>

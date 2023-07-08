@@ -23,7 +23,6 @@ body {
 `;
 function Pokedex() {
   const { pokesData } = useContext(AppContext);
-  const [pokeData, setPokeData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [nextUrl, setNextUrl] = useState();
   const [prevUrl, setPrevUrl] = useState();

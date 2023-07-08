@@ -11,8 +11,6 @@ import { SnackbarProvider, enqueueSnackbar } from "notistack";
 
 const API_BASE_URL = "http://localhost:4100";
 
-//json-server --watch db.json --port 4100
-
 function Registration() {
   const navigateTo = useNavigate();
   const [theme, setTheme] = useState(getInitialTheme);

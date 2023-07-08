@@ -9,6 +9,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../src/AppContext";
 import MainLayout from "../layout/MainLayout";
+import BasicSelect from "../Components/BasicSelect";
 
 const Ranking = ({ query, nextUrl, prevUrl, pokeData }) => {
   const [favoritePokemons, setFavoritePokemons] = useState([]);
@@ -117,10 +118,10 @@ const Ranking = ({ query, nextUrl, prevUrl, pokeData }) => {
     }
   };
 
-  useEffect(() => {
-    setCurrentPage(1);
-    navigateTo(`/ranking/${currentPage}`);
-  }, [query]);
+  // useEffect(() => {
+  //   setCurrentPage(1);
+  //   navigateTo(`/ranking`);
+  // }, [query]);
 
   const sortedPokeData = pokesData.sort(function (a, b) {
     if (sortBy === "height-max") {
@@ -155,21 +156,7 @@ const Ranking = ({ query, nextUrl, prevUrl, pokeData }) => {
     <>
       <MainLayout>
         <h1 className="pokeEditingH1">Ranking</h1>
-        <label for="sort">Sortuj według:</label>
-        <select
-          name="sort"
-          id="sort"
-          onChange={(e) => setSortBy(e.target.value)}
-        >
-          <option value="height-max">Wzrost rosnąco</option>
-          <option value="height-min">Wzrost malejąco</option>
-          <option value="weight-max">Waga rosnąco</option>
-          <option value="weight-min">Waga malejąco</option>
-          <option value="experience-max">Doświadczenie rosnąco</option>
-          <option value="experience-min">Doświadczenie malejąco</option>
-          <option value="fights-max">Wygrane walki rosnąco</option>
-          <option value="fights-min">Wygrane walki malejąco</option>
-        </select>
+        <BasicSelect setSortBy={setSortBy} />
         <div className="container-ranking">
           {loading ? (
             <h1>Loading...</h1>

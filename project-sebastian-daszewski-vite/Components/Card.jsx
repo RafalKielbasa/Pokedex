@@ -22,7 +22,7 @@ const Card = ({ query, nextUrl, prevUrl, pokeData }) => {
     if (number) {
       setCurrentPage(parseInt(number));
     }
-  }, [number]);
+  }, []);
 
   useEffect(() => {
     const favoritesId = JSON.parse(localStorage.getItem("favoritesId"));
@@ -69,15 +69,9 @@ const Card = ({ query, nextUrl, prevUrl, pokeData }) => {
         };
 
         if (!updatedBookmarked.includes(id)) {
-          // Jeśli pokemona odznaczono (nie jest już zakładkowany),
-          // usuń go z pokemonDataToFight
           axios
             .delete(`http://localhost:4100/pokemonDataToFight/${id}`)
             .then((response) => {
-              console.log(
-                "Pokemon został usunięty z pokemonDataToFight:",
-                response.data
-              );
               setPokemonData((prevPokemonData) =>
                 prevPokemonData.filter((pokemon) => pokemon.id !== id)
               );
@@ -89,13 +83,9 @@ const Card = ({ query, nextUrl, prevUrl, pokeData }) => {
               );
             });
         } else {
-          // Jeśli pokemona zaznaczono (jest zakładkowany),
-          // dodaj go do pokemonDataToFight
           axios
             .post("http://localhost:4100/pokemonDataToFight", newPokemon)
             .then((response) => {
-              axios.post("http://localhost:4100/pokemonData", newPokemon);
-              console.log("Nowy pokemon został zapisany:", response.data);
               setPokemonData((prevPokemonData) => [
                 ...prevPokemonData,
                 response.data,

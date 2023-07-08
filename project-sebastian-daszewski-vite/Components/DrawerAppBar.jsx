@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import NightsStayIcon from "@mui/icons-material/NightsStay";
+import axios from "axios";
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -29,6 +30,8 @@ button {
     color: ${(props) => (props.theme.mode === "dark" ? "#111" : "#EEE")};
 
 }
+
+
 
 .btn-prev-page {
   border: ${(props) =>
@@ -107,6 +110,15 @@ button {
     props.theme.mode === "dark" ? "2px solid white" : "2px solid black"};
   border-radius: 7px;
 }
+
+.select {
+  background-color: ${(props) =>
+    props.theme.mode === "dark" ? "#DDD" : "#DDD"};
+  color: ${(props) => (props.theme.mode === "dark" ? "#111" : "#111")};
+  border: ${(props) =>
+    props.theme.mode === "dark" ? "2px solid white" : "2px solid black"};
+  border-radius: 7px;
+}
 `;
 
 function DrawerAppBar(props) {
@@ -141,11 +153,13 @@ function DrawerAppBar(props) {
   }, []);
 
   const logout = () => {
+    axios.delete("http://localhost:4100/login/1");
     window.location.reload();
     localStorage.setItem("bookmarkedId", JSON.stringify([]));
     localStorage.setItem("favoritesId", JSON.stringify([]));
     localStorage.setItem("isLoggedIn", false);
   };
+
   return (
     <ThemeProvider theme={theme}>
       <Box>
@@ -182,7 +196,7 @@ function DrawerAppBar(props) {
               className="navButtons"
             >
               <Button>
-                <Link to="/ranking/1">Ranking</Link>
+                <Link to="/ranking">Ranking</Link>
               </Button>
               <Button>
                 <Link to="/ulubione">Ulubione</Link>

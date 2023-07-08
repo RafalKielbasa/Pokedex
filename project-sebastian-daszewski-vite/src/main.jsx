@@ -16,7 +16,7 @@ import Arena from "../pages/Arena.jsx";
 import Login from "../pages/Login.jsx";
 import Registration from "../pages/Registration.jsx";
 import Settings from "../pages/Settings.jsx";
-import { AppProvider } from "../src/AppContext"; // Dodane
+import { AppProvider } from "../src/AppContext";
 
 const PrivateRoute = ({ element: Element, path }) => {
   const isLoggedIn = window.localStorage.getItem("isLoggedIn");
@@ -37,10 +37,6 @@ const PrivateRoute = ({ element: Element, path }) => {
     (path === "/rejestracja" || path === "/logowanie")
   ) {
     return <Navigate to="/pokedex/1" replace />;
-  }
-  if (path.startsWith("/pokedex/")) {
-    const number = path.split("/")[2];
-    return <Navigate to={`/pokemon/${number}`} replace />;
   }
 
   return <Element />;
@@ -68,7 +64,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/ranking/:number",
+    path: "/ranking",
     element: (
       <AppProvider>
         <Ranking />

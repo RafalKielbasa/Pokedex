@@ -371,7 +371,7 @@ h5 {
   background-color: rgb(238, 238, 238);
 }
 .arenaSpots {
-  background-color: rgb(238, 238, 238);
+  background-color: eee;
   position: absolute;
   top: 100px;
   left: 30%;
@@ -1145,7 +1145,7 @@ h5 {
   }
 }
 
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 890px) {
   .pokedex a {
     right: 100px;
     font-weight: 900;
@@ -1231,7 +1231,7 @@ h5 {
   .fight {
     position: absolute;
     top: 50px;
-    left: 270px;
+    left: 150px;
   }
 
   .cardBookmarked1 {
@@ -1247,7 +1247,7 @@ h5 {
     margin-right: 100px;
     position: absolute;
     top: 100px;
-    left: 30%;
+    left: 10%;
   }
 
   .cardBookmarked1-opacity {
@@ -1263,7 +1263,7 @@ h5 {
     margin-right: 100px;
     position: absolute;
     top: 100px;
-    left: 30%;
+    left: 10%;
     opacity: 0.3;
   }
 
@@ -1465,7 +1465,11 @@ h5 {
   }
 }
 
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 500px) {
+  .light {
+    width: 100vh;
+    height: 300vh;
+  }
   .pokedex a {
     right: 100px;
     font-weight: 900;

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
+import axios from "axios";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -15,6 +16,10 @@ const Login = () => {
   const ProceedLogin = (e) => {
     e.preventDefault();
     if (validate()) {
+      axios.post("http://localhost:4100/login", {
+        username,
+        password,
+      });
       fetch("http://localhost:4100/users/")
         .then((res) => res.json())
         .then((resp) => {
@@ -24,7 +29,6 @@ const Login = () => {
             const user = resp.find((user) => user.username === username);
             if (user && user.password === password) {
               enqueueSnackbar("Zalogowano pomyślnie!");
-              console.log("Success");
               window.localStorage.setItem("isLoggedIn", true);
               localStorage.setItem("favoritesId", JSON.stringify([]));
               localStorage.setItem("bookmarkedId", JSON.stringify([]));
@@ -34,8 +38,6 @@ const Login = () => {
               }, 750);
             } else {
               enqueueSnackbar("Błąd podczas logowania");
-
-              console.log("Please Enter valid credentials");
             }
           }
         })

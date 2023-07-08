@@ -22,7 +22,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite",
-    "start": "node server.js"
+    "start": "node server.js",
+    "json-server": "json-server --watch db.json --port 4100"
   },
   "keywords": [],
   "author": "",

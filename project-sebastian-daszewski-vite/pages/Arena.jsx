@@ -76,24 +76,59 @@ function Arena() {
         ? prevBookmarkedPokemons.filter((prevId) => prevId !== id)
         : [...prevBookmarkedPokemons, id];
 
+      const existingPokemon = pokeData.find((pokemon) => pokemon.id === id);
+      if (existingPokemon) {
+        const newPokemon = {
+          id: existingPokemon.id,
+          name: existingPokemon.name,
+          height: existingPokemon.height,
+          weight: existingPokemon.weight,
+          base_experience: existingPokemon.base_experience,
+          ability: existingPokemon.ability,
+          wins: existingPokemon.wins || 0,
+          loses: existingPokemon.loses || 0,
+        };
+
+        if (!updatedBookmarked.includes(id)) {
+          axios
+            .delete(`http://localhost:4100/pokemonDataToFight/${id}`)
+            .then((response) => {
+              console.log(
+                "Pokemon został usunięty z pokemonDataToFight:",
+                response.data
+              );
+              setPokemonData((prevPokemonData) =>
+                prevPokemonData.filter((pokemon) => pokemon.id !== id)
+              );
+            })
+            .catch((error) => {
+              console.error(
+                "Wystąpił błąd podczas usuwania pokemona z pokemonDataToFight:",
+                error
+              );
+            });
+        } else {
+          axios
+            .post("http://localhost:4100/pokemonDataToFight", newPokemon)
+            .then((response) => {
+              axios.post("http://localhost:4100/pokemonData", newPokemon);
+              console.log("Nowy pokemon został zapisany:", response.data);
+              setPokemonData((prevPokemonData) => [
+                ...prevPokemonData,
+                response.data,
+              ]);
+            })
+            .catch((error) => {
+              console.error(
+                "Wystąpił błąd podczas zapisywania nowego pokemona:",
+                error
+              );
+            });
+        }
+      }
+
       localStorage.setItem("bookmarkedId", JSON.stringify(updatedBookmarked));
       return updatedBookmarked;
-    });
-
-    if (bookmarkedPokemons.includes(id)) {
-      setPokeData((prevPokeData) => {
-        const updatedData = prevPokeData.filter((pokemon) => pokemon.id !== id);
-        return updatedData;
-      });
-    }
-
-    setBookmarkedId((prevBookmarkedId) => {
-      const updatedBookmarkedId = prevBookmarkedId.includes(id)
-        ? prevBookmarkedId.filter((prevId) => prevId !== id)
-        : [...prevBookmarkedId, id];
-
-      localStorage.setItem("bookmarkedId", JSON.stringify(updatedBookmarkedId));
-      return updatedBookmarkedId;
     });
   };
 
@@ -275,6 +310,24 @@ function Arena() {
 
     localStorage.setItem("bookmarkedId", JSON.stringify(updatedPokemons));
   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (pokesData && pokesData.length > 0) {
+          const filteredData = pokesData.filter((item) =>
+            bookmarkedId.includes(item.id)
+          );
+          setPokeData(filteredData);
+          setBookmarkedPokemons(bookmarkedId);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Wystąpił błąd podczas pobierania danych:", error);
+      }
+    };
+
+    fetchData();
+  }, [pokesData, bookmarkedId]);
 
   return (
     <MainLayout>
